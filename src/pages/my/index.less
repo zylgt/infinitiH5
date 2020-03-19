@@ -1,0 +1,103 @@
+.my{
+  height:100%;
+  width: 100%;
+  background:rgba(242,243,245,1);
+  .my_info{
+    width: 100%;
+    height:2rem;
+    background:rgba(255,255,255,1);
+    font-size:.36rem;
+    font-family:PingFangSC-Medium,PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    line-height:.44rem;
+    display: flex;
+    align-items: center;
+    img{
+      height:1.2rem;
+      width:1.2rem;
+      margin:0 .2rem 0 .24rem;
+    }
+  }
+  .my_item{
+    width: 100%;
+    height:1.10rem;
+    background:rgba(255,255,255,1);
+    font-size:.32rem;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(51,51,51,1);
+    line-height:.44rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    span{
+      text-indent: .24rem;
+    }
+    img{
+      height:.32rem;
+      width:.32rem;
+      margin-right:.16rem;
+    }
+    .my_item_border{
+      position: absolute;
+      top:0;
+      right:0;
+      height:1px;
+      width:7.26rem;
+      background: #EAEAEA;
+    }
+  }
+  .my_item_margin{
+    margin:.24rem 0;
+  }
+}
+:global(.my_model){
+  :global(.am-modal-close){
+    right: 8px;
+    top: 8px;
+    :global(.am-modal-close-x){
+      height:12px;
+      width:12px;
+    }
+  }
+  :global(.model_title){
+    width:100%;
+    text-align: center;
+    height:.5rem;
+    line-height:.5rem;
+    font-size:.36rem;
+    font-family:PingFangSC-Medium,PingFang SC;
+    font-weight:500;
+    color:rgba(51,51,51,1);
+    margin-top:.38rem;
+  }
+  :global(.model_phone){
+    margin-top:.1rem;
+  }
+  :global(.model_btn){
+    width:3.34rem;
+    margin:.24rem auto .38rem auto;
+    height:.72rem;
+    background:linear-gradient(90deg,rgba(49,154,243,1) 0%,rgba(7,112,219,1) 100%);
+    border-radius:.36rem;
+    display: flex;
+    border: none;
+    a{
+      display: inline-block;
+      border: none;
+      height:100%;
+      width:100%;
+      line-height: .72rem;
+      color: #fff;
+      font-size: .32rem;
+    }
+  }
+  :global(.am-button){
+    &::before{
+      border: none!important;
+    }
+  }
+}
+

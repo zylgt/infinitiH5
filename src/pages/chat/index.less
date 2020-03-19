@@ -1,0 +1,125 @@
+.chat {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  .chat_title {
+    height: 0.8rem;
+    line-height: 0.8rem;
+    color: #333;
+    background: #efefef;
+    border-bottom: 1px solid #ccc;
+    text-indent: 0.4rem;
+  }
+  .chat_list {
+    background: #eee;
+    flex: 1;
+    overflow: auto;
+    :global(.am-list-body::after){
+      display: none;
+    }
+
+    .list_item_left {
+      width:100%;
+      padding:0.3rem;
+      font-size: 0.3rem;
+      color: #000;
+      background: #eee;
+      .item_img{
+        height: 0.8rem;
+        width:0.8rem;
+        background: #fff;
+        border-radius: 0.1rem;
+        margin-right:0.3rem;
+        display: inline-block;
+        vertical-align: top;
+      }
+      .item_content{
+        position: relative;
+        background: #fff;
+        display: inline-block;
+        padding:0.2rem;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        max-width: 4.6rem;
+        .item_icon{
+          top:12px;
+          left: -20px;
+          position: absolute;
+          height: 0;
+          width: 0;
+          border:8px solid red;
+          border-width: 8px 12px 8px 12px;
+          border-color:transparent #fff transparent transparent ;/*透明 透明 透明 灰*/
+        }
+      }
+    }
+    .list_item_right {
+      width:100%;
+      padding:0.3rem;
+      font-size: 0.3rem;
+      color: #000;
+      background: #eee;
+      display: flex;
+      justify-content: flex-end;
+      .item_img{
+        height: 0.8rem;
+        width:0.8rem;
+        background: #fff;
+        border-radius: 0.1rem;
+        margin-left:0.3rem;
+        display: inline-block;
+        vertical-align: top;
+      }
+      .item_content{
+        color: #fff;
+        position: relative;
+        background: #26B6AC;
+        display: inline-block;
+        padding:0.2rem;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        max-width: 4.6rem;
+        .item_icon{
+          top:12px;
+          right: -20px;
+          position: absolute;
+          height: 0;
+          width: 0;
+          border:8px solid red;
+          border-width: 8px 12px 8px 12px;
+          border-color:transparent transparent transparent #26B6AC ;/*透明 透明 透明 灰*/
+        }
+      }
+    }
+    ul{
+      padding:0;
+      margin:0;
+    }
+  }
+  .chat_input {
+    width: 100%;
+    background: #efefef;
+    border-top: 1px solid #ccc;
+    //height: 0.9rem;
+    display: flex;
+    align-items: flex-end;
+    .input {
+      flex: 1;
+      height: 100%;
+      max-height: 1.9rem;
+      font-size: 0.36rem;
+      overflow: scroll;
+    }
+    .input_btn {
+      width: 1.3rem;
+      border-radius: 0;
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,186 @@
+.chat {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  .chat_list {
+    background: #F2F3F5;
+    flex: 1;
+    overflow: auto;
+    :global(.am-list-body::after){
+      display: none;
+    }
+    .list_item_left {
+      width:100%;
+      padding:0.18rem 0.24rem;
+      font-size: 0.32rem;
+      color: #000;
+      .item_img{
+        height: 0.9rem;
+        width:0.9rem;
+        background: #fff;
+        border-radius: 100%;
+        margin-right:0.24rem;
+        display: inline-block;
+        vertical-align: top;
+      }
+      .item_content{
+        position: relative;
+        background: #fff;
+        display: inline-block;
+        padding:.2rem .24rem;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        max-width: 4.96rem;
+        font-size:.32rem;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:#333;
+        line-height:.44rem;
+        .item_icon{
+          top:12px;
+          left: -20px;
+          position: absolute;
+          height: 0;
+          width: 0;
+          border:8px solid red;
+          border-width: 8px 12px 8px 12px;
+          border-color:transparent #fff transparent transparent ;/*透明 透明 透明 灰*/
+        }
+      }
+    }
+    .list_item_right {
+      width:100%;
+      padding:0.18rem 0.24rem;
+      font-size: 0.32rem;
+      color: #000;
+      display: flex;
+      justify-content: flex-end;
+      .item_img{
+        height: 0.9rem;
+        width:0.9rem;
+        background: #fff;
+        border-radius: 100%;
+        margin-left:0.24rem;
+        display: inline-block;
+        vertical-align: top;
+      }
+      .item_content{
+        color: #fff;
+        position: relative;
+        background: #319AF3;
+        display: inline-block;
+        padding:.2rem .24rem;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        max-width: 4.96rem;
+        font-size:.32rem;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:rgba(255,255,255,1);
+        line-height:.44rem;
+        .item_icon{
+          top:12px;
+          right: -20px;
+          position: absolute;
+          height: 0;
+          width: 0;
+          border:8px solid red;
+          border-width: 8px 12px 8px 12px;
+          border-color:transparent transparent transparent #319AF3 ;/*透明 透明 透明 灰*/
+        }
+        .item_user{
+          margin-bottom: .1rem;
+        }
+        .item_bottom{
+          margin-top:.1rem;
+        }
+      }
+      .item_content_img{
+        background: #F2F3F5;
+        padding:0;
+        margin-top:.18rem;
+        img{
+          max-height: 3.9rem;
+          max-width: 3.9rem;
+          border-radius:.08rem;
+        }
+      }
+    }
+    .list_time{
+      width:100%;
+      text-align: center;
+      line-height:.36rem;
+      padding: .18rem 0;
+    }
+    .list_hint{
+      width:6.54rem;
+      height:.4rem;
+      line-height:.4rem;
+      font-family:PingFangSC-Regular,PingFang SC;
+      font-weight:400;
+      color:rgba(102,102,102,1);
+      position: relative;
+      text-align: center;
+      margin:0.18rem auto;
+      .hint_words{
+        position: relative;
+        z-index:2;
+        font-size:.28rem;
+        text-align: center;
+        background: #F2F3F5 ;
+        padding:0 .1rem;
+      }
+      .hint_line{
+        width:100%;
+        height:1px;
+        background: #B4B4B4;
+        position: absolute;
+        top:.2rem;
+        left:0;
+      }
+    }
+    .list_start{
+      width:6.54rem;
+      margin:0 auto;
+      padding:.18rem 0;
+      span{
+        display: inline-block;
+        width:6.54rem;
+        padding:.1rem .18rem;
+        line-height:.4rem;
+        background:rgba(0,0,0,0.15);
+        border-radius: .16rem;
+        font-size:.28rem;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:rgba(255,255,255,1);
+      }
+    }
+  }
+  .chat_input {
+    width: 100%;
+    background: #efefef;
+    border-top: 1px solid #ccc;
+    //height: 0.9rem;
+    display: flex;
+    align-items: flex-end;
+    .input {
+      flex: 1;
+      height: 100%;
+      max-height: 1.9rem;
+      font-size: 0.36rem;
+      overflow: scroll;
+    }
+    .input_btn {
+      width: 1.3rem;
+      border-radius: 0;
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+
+}
