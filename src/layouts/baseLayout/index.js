@@ -2,7 +2,7 @@ import React from 'react';
 import { TabBar } from 'antd-mobile';
 import router from 'umi/router';
 import 'antd-mobile/dist/antd-mobile.css';
-import styles from './baseLayout.less';
+import styles from './index.less';
 
 const TabBarData = [
     {

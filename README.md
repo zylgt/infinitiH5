@@ -1,5 +1,5 @@
 ### 推荐安装yarn
-1. 确保 node 版本是 8.10 或以上
+1. 确保 node 版本是10.13 或以上
 2. npm i yarn -g
 
 ### 快速开始
@@ -19,7 +19,7 @@ $ yarn start
 编译.
 
 ```bash
-$ umi build
+$ yarn build
 ```
 
 ### 目录结构

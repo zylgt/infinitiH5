@@ -8,11 +8,13 @@ import CryptoJS from '../../utils/md5'
 import { createForm ,formShape } from 'rc-form';
 import Socket from '../../components/webSocket';
 
-class ClassPage extends React.Component {
+class AskChat extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            isShowSend:false,
+            isShowButtom:false,
+            word:''
         }
     }
     componentWillUnmount(){
@@ -21,9 +23,34 @@ class ClassPage extends React.Component {
     componentDidUpdate(){
 
     }
+    //点击加号
+    autoWordFocus(){
+        this.setState({
+            isShowButtom: true,
+        });
+    }
+    //输入框内容变化
+    changeWord(val){
+        this.setState({
+            word: val,
+            isShowSend: true
+        });
+        if(val == ''){
+            this.setState({
+                isShowSend: false,
+            });
+        }
+    }
+    //输入框聚焦
+    textareaFocus(){
+        this.setState({
+            isShowButtom: false,
+        });
+    }
 
     render() {
         const { getFieldProps } = this.props.form;
+        const { isShowSend,word,isShowButtom } = this.state;
 
         return (
             <div className={Styles.chat}>
@@ -107,14 +134,36 @@ class ClassPage extends React.Component {
 
                 <div className={Styles.chat_input}>
                     <TextareaItem
-                        {...getFieldProps('word')}
+                        {...getFieldProps('word',{
+                            initialValue:word
+                        })}
                         autoHeight
                         placeholder="请输入咨询内容"
                         className={Styles.input}
+                        ref={el => this.wordFocus = el}
+                        onChange = {(val)=>{this.changeWord(val)}}
+                        onFocus={()=>{this.textareaFocus()}}
                     />
-                    <Button type="primary" className={Styles.input_btn} onClick={()=>this.submit()}>发送</Button>
-                </div>
+                    {
+                        isShowSend ? <Button type="primary" className={Styles.input_btn}>发送</Button>
+                            :
+                        <img onClick={()=>{this.autoWordFocus()}} className={Styles.input_img} src={require('../../assets/ask_add.png')} alt=""/>
 
+                    }
+                </div>
+                {
+                    isShowButtom ? <div className={Styles.chat_buttom}>
+                        <div className={Styles.buttom_item}>
+                            <img src={require('../../assets/chat_camera.png')} alt=""/>
+                            <p>拍摄</p>
+                        </div>
+                        <div className={Styles.buttom_item}>
+                            <img src={require('../../assets/chat_picture.png')} alt=""/>
+                            <p>拍摄</p>
+                        </div>
+
+                    </div> : ''
+                }
 
             </div>
         )
@@ -122,4 +171,4 @@ class ClassPage extends React.Component {
 }
 
 
-export default createForm()(ClassPage);
+export default createForm()(AskChat);

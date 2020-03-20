@@ -162,23 +162,84 @@
   }
   .chat_input {
     width: 100%;
-    background: #efefef;
-    border-top: 1px solid #ccc;
-    //height: 0.9rem;
+    background: #fff;
+    //height: 0.98rem;
     display: flex;
     align-items: flex-end;
     .input {
       flex: 1;
-      height: 100%;
-      max-height: 1.9rem;
-      font-size: 0.36rem;
-      overflow: scroll;
+      width:6.24rem;
+      line-height: .44rem;
+      //height:.66rem;
+      background:rgba(245,246,248,1);
+      border-radius:.16rem;
+      border:1px solid rgba(220,220,220,1);
+      margin:.16rem .2rem .16rem .24rem;
     }
     .input_btn {
-      width: 1.3rem;
-      border-radius: 0;
-      &:hover {
-        color: #fff;
+      width: 1.12rem;
+      height:.66rem;
+      line-height: .66rem;
+      background: #2089EB;
+      border-radius:.16rem;
+      font-size:.32rem;
+      font-family:PingFangSC-Regular,PingFang SC;
+      font-weight:400;
+      color:rgba(255,255,255,1);
+      margin: 0 .24rem .16rem 0 ;
+    }
+    .input_img{
+      height: .54rem;
+      width:.54rem;
+      margin:0 .24rem .22rem 0;
+    }
+    :global(.am-list-item){
+      min-height:.66rem;
+      padding:0;
+    }
+    :global(.am-textarea-control){
+      padding:0;
+      height:100%;
+      width:100%;
+      textarea{
+        line-height: .44rem;
+        padding:.11rem .16rem;
+        max-height: 2.2rem;
+      }
+    }
+    textarea::-webkit-input-placeholder {
+      font-size:.32rem;
+      font-family:PingFangSC-Regular,PingFang SC;
+      font-weight:400;
+      color:rgba(153,153,153,1);
+      line-height:.44rem;
+    }
+  }
+  .chat_buttom{
+    height:4.68rem;
+    width:100%;
+    background: #F2F3F5;
+    display: flex;
+    flex-wrap: wrap;
+    .buttom_item{
+      width:1.2rem;
+      height:1.66rem;
+      margin:.48rem .14rem 0 .46rem;
+      img{
+        height:1.2rem;
+        width:1.2rem;
+        display: block;
+      }
+      p{
+        width:100%;
+        text-align: center;
+        height:.4rem;
+        line-height:.4rem;
+        font-size:.28rem;
+        font-family:PingFangSC-Regular,PingFang SC;
+        font-weight:400;
+        color:rgba(102,102,102,1);
+        margin-top:.06rem;
       }
     }
   }
