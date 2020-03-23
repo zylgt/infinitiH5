@@ -1,6 +1,12 @@
-import proxyRequest from 'utils/request';
-import { baseUrl } from '@/utils/baseServer';
+import request from '../utils/request';
+import qs from 'qs';
+import { getOptions, postOptions } from '../utils/tools';
 
-export async function reg(params) {
-  return proxyRequest.get('/api/home', params);
+
+//获取banne轮播图
+export async function getBanneImg (params) {
+    const url = `/m/common/banner?${qs.stringify(params)}`;
+    return request(url,getOptions())
 }
+
+

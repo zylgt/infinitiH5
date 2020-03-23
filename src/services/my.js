@@ -1,9 +1,7 @@
-import proxyRequest from 'utils/request';
-import { baseUrl } from '@/utils/baseServer';
-
-export async function reg(params) {
-  return proxyRequest.get(`${baseUrl}recycleapi/order/user/orderCount`, params);
-}
-export async function orderCount(params) {
-  return proxyRequest.get(`${baseUrl}recycleapi/order/user/orderCount`, params);
+import request from '../utils/request';
+import qs from 'qs';
+//获取图片验证码
+export async function getDoctorValue (params) {
+    const url = `/m/common/captcha_id?${qs.stringify(params)}`;
+    return request(url)
 }

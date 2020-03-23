@@ -1,11 +1,18 @@
-export function getToken(str) {
-  const tokenString =
-    typeof str === 'undefined' ? localStorage.getItem('recovery-buss-web-token'): str;
-    return tokenString;
-}
+/**
+ * Copyright(c) 2016 iHealth, All Rights Reserved.
+ * Author: xuzw
+ */
 
-export function setToken(token) {
-  if(token){
-    return localStorage.setItem('recovery-buss-web-token', token);
-  }
+import { cookieUtils } from './tools';
+
+export default {
+    getToken() {
+        let token;
+        const user = cookieUtils.get('userData');
+        const user_obj = JSON.parse(user);
+        if(user_obj && user_obj.token) {
+            token = user_obj.token;
+        }
+        return token;
+    }
 }

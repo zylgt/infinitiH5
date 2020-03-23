@@ -1,6 +1,7 @@
 .login{
   height:100%;
   width:100%;
+  overflow: scroll;
   .login_title{
     width:5.2rem;
     text-align: center;
@@ -28,6 +29,16 @@
     height: .76rem;
     min-height: .76rem;
   }
+  .login_error{
+    width: 6.22rem;
+    margin:0 auto;
+    height:.4rem;
+    line-height:.4rem;
+    font-size:.28rem;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(246,96,116,1);
+  }
   .input{
     font-size:.32rem;
     font-family:PingFangSC-Medium,PingFang SC;
@@ -37,11 +48,12 @@
   .login_phone{
     border-bottom:1px solid #DCDCDC;
     width: 6.22rem;
-    margin:0 auto 0.46rem auto;
+    margin:0 auto 0.1rem auto;
   }
   .login_code{
     width: 6.22rem;
-    margin:0 auto 0.6rem auto;
+    height:1rem;
+    margin:0.28rem auto 0.1rem auto;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -65,10 +77,22 @@
       font-weight:400;
       color:rgba(21,110,201,1);
     }
+    .get_code_wait{
+      width:2.20rem;
+      height:.8rem;
+      line-height: .8rem;
+      border-radius:.44rem;
+      border:1px solid rgba(220,220,220,1);
+      font-size:.3rem;
+      font-family:PingFangSC-Regular,PingFang SC;
+      font-weight:400;
+      color:#999999;
+      background: #fff;
+    }
   }
   .login_agreement{
     width: 6.22rem;
-    margin:0 auto ;
+    margin:0.4rem auto 0 auto;
     height:.34rem;
     font-family:PingFangSC-Regular,PingFang SC;
     font-weight:400;
@@ -91,6 +115,7 @@
           width:.28rem;
           height:.28rem;
           top:.04rem;
+          border-radius: 100%;
           &::after{
             top: .02rem;
             right: .08rem;
@@ -110,8 +135,22 @@
     color: #fff;
     font-size:.36rem;
   }
+  :global(.am-button){
+    &::before{
+      border: none!important;
+    }
+  }
   .login_btn:active{
     background:linear-gradient(90deg,rgba(64,161,244,1) 0%,rgba(8,121,238,1) 100%);
+  }
+  .login_btn_disabled{
+    width:6.22rem;
+    height:.88rem;
+    border-radius:.44rem;
+    margin:.88rem auto 0 auto;
+    color: #fff;
+    font-size:.36rem;
+    background:rgba(220,220,220,1);
   }
 
 

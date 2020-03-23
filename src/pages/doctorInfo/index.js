@@ -74,8 +74,7 @@ class DoctorInfo extends Component {
                         </div>
                     </div>
                     <div className={Styles.line_right}>
-                        去问诊
-                        <img src={require('../../assets/line_right.png')} alt=""/>
+                        去问诊<img src={require('../../assets/line_right.png')} alt=""/>
                     </div>
                 </div>
 

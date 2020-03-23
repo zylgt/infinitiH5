@@ -1,5 +1,4 @@
-export const baseUrl = window.location.origin + '/';
-
+export const baseUrl = 'https://api.nethospital.yutanglabs.com' ;
 
 export const setFormData = (obj) => {
     const formData = new FormData();
