@@ -1,7 +1,10 @@
 import request from '../utils/request';
 import qs from 'qs';
-//获取图片验证码
-export async function getDoctorValue (params) {
-    const url = `/m/common/captcha_id?${qs.stringify(params)}`;
-    return request(url)
+import { getOptions, postOptions } from '../utils/tools';
+
+//获取用户登录信息
+export async function getUserInfo (params) {
+    const url = `/m/user?${qs.stringify(params)}`;
+    return request(url,getOptions())
 }
+

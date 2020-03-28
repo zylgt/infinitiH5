@@ -6,6 +6,13 @@
     height:.76rem;
     min-height:.76rem;
     padding:0;
+    :global(.am-input-control ){
+      input{
+        &:disabled{
+          color: #333;
+        }
+      }
+    }
     :global(.am-list-line){
       padding:0;
       min-height:.76rem;
@@ -53,6 +60,15 @@
   }
   .management_btn:active{
     background:linear-gradient(90deg,rgba(64,161,244,1) 0%,rgba(8,121,238,1) 100%);
+  }
+  .management_btn_disabled{
+    width:6.22rem;
+    height:.88rem;
+    background:#DCDCDC;
+    border-radius:.44rem;
+    margin:.88rem auto 0 auto;
+    color: #fff;
+    font-size:.36rem;
   }
   .error{
     width:100%;

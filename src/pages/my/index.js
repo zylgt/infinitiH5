@@ -32,14 +32,20 @@ class MyIndex extends Component {
 
     render() {
         const { isCall } = this.state;
-        console.log('isCall',isCall)
+        const { userInfo } = this.props.my;
+        console.log('userInfo',userInfo)
+        let reg = /^(\d{3})\d{7}(\d{1})$/;
+        let phone;
+        if(userInfo && userInfo.phone){
+            phone = userInfo && userInfo.phone.replace(reg, "$1 **** ***$2");
+        }
         return (
             <div className={Styles.my}>
                 <div className={Styles.my_info} >
                     <img src={require('../../assets/my_head.png')} alt=""/>
-                    <span>{'131 **** ***3'}</span>
+                    <span>{ phone }</span>
                 </div>
-                <div className={ `${Styles.my_item} ${Styles.my_item_margin}`} onClick={()=>{router.push('./management')}}>
+                <div className={ `${Styles.my_item} ${Styles.my_item_margin}`} onClick={()=>{router.push('./management?type=add&source=my')}}>
                     <span>就诊人管理</span>
                     <img src={require('../../assets/my_right.png')} alt=""/>
                 </div>

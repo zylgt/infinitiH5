@@ -14,7 +14,6 @@ class Apply extends Component {
     componentDidMount() {
 
     }
-
     render() {
 
         return (
@@ -29,7 +28,7 @@ class Apply extends Component {
                 <p className={Styles.apply_fill}></p>
                 <div className={Styles.apply_bottom}>
                     <p className={Styles.apply_word}>开始问诊即代表您已阅读并同意<span onClick={()=>{router.push('./informed')}}>《知情同意书》</span></p>
-                    <Button className={Styles.apply_btn} >开始问诊</Button>
+                    <Button className={Styles.apply_btn} onClick={()=>{router.push('./applyList?step=1')}} >开始问诊</Button>
                 </div>
             </div>
         )

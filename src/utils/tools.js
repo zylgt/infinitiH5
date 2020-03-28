@@ -62,43 +62,14 @@ export const cookieUtils = {
     }
 };
 
-/**
- * 获取剃度颜色方法
- * @param  {[type]} num        [范围在 0～100 的颜色剃度数]
- * @param  {String} startColor [默认开始颜色]
- * @param  {String} endColor   [默认结束颜色]
- * @return {[type]}            [rbg颜色值]
- */
-export function getGradientColor (num, startColor='rgb(94, 195, 149)', endColor='rgb(24, 99, 147)') {
-    let startNum = 0;
-    let endNum = 100;
-    let s = startColor.replace(/rgb\((.*)\)/, '$1').split(',');
-    let ss = [].concat(s);
-    let e = endColor.replace(/rgb\((.*)\)/, '$1').split(',');
-    let b = [1, 1, 1];
-
-    for(let i=0; i<3; i++) {
-        e[i] = parseInt(e[i].trim(),0)
-        s[i] = parseInt(s[i].trim(),0)
-        ss[i] = parseInt(ss[i].trim(),0)
-        if(e[i] < s[i]) {
-            b[i] = -1;
-            let temp = e[i];
-            e[i] = s[i];
-            s[i] = temp;
-        }
-    }
-    let step = endNum - startNum;
-    let rr = (ss[0] + b[0] * (e[0] - s[0]) / step * num).toFixed(0);
-    let gg = (ss[1] + b[1] * (e[1] - s[1]) / step * num).toFixed(0);
-    let bb = (ss[2] + b[2] * (e[2] - s[2]) / step * num).toFixed(0);
-    return 'rgb('+rr+', '+gg+', '+bb+')';
+//获取url参数
+export const getQueryString = (name) => {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
 }
 
-// 将数字用逗号分隔，返回一个字符串。注：对小数支持不好
-export function getSplitNum (num) {
-    return (num || 0).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,');
-};
 
 export const getOptions = () => {
     return {

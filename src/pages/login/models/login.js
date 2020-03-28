@@ -1,13 +1,18 @@
-import { getImgCode, getPhoneCode,verifyImgCode } from '../../../services/login';
+import { getImgCode, getPhoneCode,verifyImgCode,sublit } from '../../../services/login';
 import router from 'umi/router';
 import { Toast } from 'antd-mobile';
-
+import 'babel-polyfill'
 
 export default {
     namespace: 'login',
     state: {
         imgCodeId:'',
-        imgCodeError:false
+        imgCode:'',
+        imgCodeError:false,
+        phoneCodeError:false, // 短信验证码是否错误
+        uid:'1242032963428814848',
+        phone:'',
+
     },
     subscriptions: {
         setup({ dispatch, history }) {
@@ -22,12 +27,17 @@ export default {
         //获取图片验证码
         *getImgCode({ payload, callback }, { call, put }) {
             const response = yield call(getImgCode, payload);
-
-            if(response && response.code == 200 ){
+            if(response && response.data.code == 200 ){
                 yield put({
                     type: 'setData',
                     payload: {
-                        imgCodeId:response.data
+                        imgCodeId:response.data.data
+                    }
+                });
+                yield put({
+                    type: 'setData',
+                    payload: {
+                        imgCode:''
                     }
                 });
             }
@@ -35,8 +45,7 @@ export default {
         //校验图片验证码
         *verifyImgCode({payload, callback},{call, put }) {
             const response = yield call(verifyImgCode, payload);
-
-            if(response && response.code == 200 ){
+            if(response && response.data.code == 200 ){
                 yield put({
                     type: 'setData',
                     payload: {
@@ -50,16 +59,16 @@ export default {
                         imgCodeError:true
                     }
                 });
+                yield put({
+                    type: 'getImgCode',
+                    payload: {}
+                });
             }
         },
         //获取手机验证码
         *getPhoneCode({ payload, callback }, { call, put }) {
-            // const response = yield call(getPhoneCode, payload);
-            console.log('callback',callback)
-            let response = {
-                code:200
-            }
-            if(response && response.code == 200 ){
+            const response = yield call(getPhoneCode, payload);
+            if(response && response.data.code == 200 ){
                 yield put({
                     type: 'setData',
                     payload: {
@@ -68,8 +77,39 @@ export default {
                 });
                 Toast.success('验证码发送成功', 1.5);
             }
-
-
+        },
+        //登录
+        *sublit({ payload, callback }, { call, put }) {
+            console.log('payload',payload)
+            const response = yield call(sublit, payload);
+            if(response && response.data.code == 200 ){
+                yield put({
+                    type: 'setData',
+                    payload: {
+                        uid:response.data.data.uid,
+                        phone:response.data.data.phone,
+                    }
+                });
+                yield put({
+                    type: 'setData',
+                    payload: {
+                        uid:response.data.data.uid,
+                        phone:response.data.data.phone,
+                    }
+                });
+                router.push('./home')
+            }else{
+                yield put({
+                    type: 'setData',
+                    payload: {
+                        phoneCodeError:true
+                    }
+                });
+                yield put({
+                    type: 'getImgCode',
+                    payload: {}
+                });
+            }
         },
     },
     reducers: {

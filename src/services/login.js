@@ -15,8 +15,14 @@ export async function verifyImgCode (params) {
 
 //获取手机验证码
 export async function getPhoneCode (params) {
-    const url = `/m/common/verification?${qs.stringify(params)}`;
+    console.log('params',params)
+    const url = `/m/common/verification/${params.phone}`;
     return request(url,getOptions())
 }
 
+//登录
+export async function sublit (params) {
+    const url = `/m/user`;
+    return request(url,postOptions(params))
+}
 

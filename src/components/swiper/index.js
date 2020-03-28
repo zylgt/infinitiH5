@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Carousel, WingBlank  } from 'antd-mobile';
 import Styles from './index.less';
 import router from 'umi/router';
+import { staticURL } from '../../utils/baseURL'
+
 
 class Swiper extends Component {
     constructor(props) {
@@ -12,7 +14,7 @@ class Swiper extends Component {
     }
     render() {
         const props = this.props;
-        console.log('props',props)
+        // console.log('props',props)
         let itemHeight,itemWidth;
         itemWidth = props.itemStyle && props.itemStyle.width ? props.itemStyle.width : '100%';
         itemHeight = props.itemStyle && props.itemStyle.height ? props.itemStyle.height : '100%';
@@ -28,23 +30,22 @@ class Swiper extends Component {
                         autoplayInterval={props.autoplayInterval}
                     >
                         {props.itemData.map((item,index) => (
-                            <div
-                                key={item.id}
-                                href="http://www.alipay.com"
+                            <a
+                                key={ item.uid }
+                                href={ item.link }
                                 style={{ width: itemWidth , height: itemHeight }}
-                                onClick={() => router.push(item.router)}
                             >
                                 <img
-                                    src={item.imgUrl}
-                                    alt=""
-                                    style={{ width: '100%', verticalAlign: 'top' }}
+                                    src={ staticURL + item.image}
+                                    alt={item.title}
+                                    style={{ width: '100%', verticalAlign: 'top',borderRadius:'.16rem' }}
                                     onLoad={() => {
                                         // fire window resize event to change height
                                         window.dispatchEvent(new Event('resize'));
                                         // this.setState({ imgHeight: 'auto' });
                                     }}
                                 />
-                            </div>
+                            </a>
                         ))}
                     </Carousel>
                 </WingBlank>
