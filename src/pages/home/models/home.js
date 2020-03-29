@@ -7,7 +7,8 @@ export default {
         officeData:[],
         illnessData:[],
         doctorData:[],
-        offset:1
+        offset:1,
+
     },
     subscriptions: {
         setup({ dispatch, history }) {
@@ -17,9 +18,6 @@ export default {
                     dispatch({
                         type: 'setData',
                         payload:{
-                            swipeData:[],
-                            officeData:[],
-                            illnessData:[],
                             doctorData:[],
                             offset:1
                         }

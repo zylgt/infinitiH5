@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'dva';
 import Styles from './index.less';
 import { getQueryString } from '../../utils/tools'
+import wx from 'weixin-js-sdk';
+import router from 'umi/router';
 
 @connect(({ empty }) => ({ empty }))
 class Empty extends Component {
@@ -21,6 +23,8 @@ class Empty extends Component {
                 code: code
             }
         });
+
+
     }
 
 

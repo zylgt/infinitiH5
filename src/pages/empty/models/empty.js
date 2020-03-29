@@ -50,8 +50,6 @@ export default {
                     });
                     router.replace('./login')
                 }
-
-
             }
         },
 

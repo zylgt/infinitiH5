@@ -111,5 +111,11 @@ export const deleteOptions = (params) => {
     }
 };
 
+export const isIOS = () => {
+    let isIphone = navigator.userAgent.includes('iPhone')
+    let isIpad = navigator.userAgent.includes('iPad')
+    return isIphone || isIpad
+}
+
 
 

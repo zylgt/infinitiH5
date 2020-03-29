@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'dva';
-import { SearchBar, Modal, Flex,Carousel, WingBlank  } from 'antd-mobile';
-import Link from 'umi/link';
+import React, {Component} from 'react';
+import {connect} from 'dva';
 import router from 'umi/router';
 import Styles from './index.less';
 import Swiper from '../../components/swiper'
-import { staticURL,pageURL } from '../../utils/baseURL'
+import {staticURL} from '../../utils/baseURL'
 import wx from 'weixin-js-sdk';
-import { nonceStr } from '../../utils/tools'
+import {nonceStr} from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
-
+import { pageURL } from '../../utils/baseURL'
 
 @connect(({ home }) => ({ home }))
 class Home extends Component {
@@ -30,15 +28,16 @@ class Home extends Component {
             timestamp:timestamp,
         })
         //获取appid和签名
-        // dispatch({
-        //     type:'patientDescribe/getAppid',
-        //     payload:{
-        //         noncestr: nonceStr,
-        //         timestamp: timestamp,
-        //         url: pageURL + '/home'
-        //     },
-        //     callback: this.getAppidCallback.bind(this)
-        // })
+        dispatch({
+            type:'patientDescribe/getAppid',
+            payload:{
+                noncestr: nonceStr,
+                timestamp: timestamp,
+                url: pageURL + '/home'
+            },
+            callback: this.getAppidCallback.bind(this)
+        })
+
     }
     //获取appidcallback
     getAppidCallback(response){
