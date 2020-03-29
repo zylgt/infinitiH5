@@ -5,6 +5,8 @@ import router from 'umi/router';
 import Styles from './index.less';
 import { createForm } from 'rc-form';
 import wx from 'weixin-js-sdk';
+import { nonceStr } from '../../utils/tools'
+import DocumentTitle from 'react-document-title'
 
 @connect(({ patientDescribe,doctorInfo,chooseTime,applyList }) => ({ patientDescribe,doctorInfo,chooseTime,applyList }))
 class PatientDescribe extends Component {
@@ -14,13 +16,11 @@ class PatientDescribe extends Component {
             localIds:[],
             wkwebview:false,
             modal:false,
-            timestamp:'',
-            nonceStr:'wx_hlwyy'
+            timestamp:''
         }
     }
     componentDidMount() {
         const { dispatch } = this.props;
-        const { nonceStr } = this.state;
         //生成签名时间戳
         let timestamp = (Date.parse(new Date()) / 1000).toString();
         this.setState({
@@ -63,16 +63,7 @@ class PatientDescribe extends Component {
     }
     //获取appidcallback
     getAppidCallback(response){
-
-        const { nonceStr,timestamp } = this.state;
-        console.log({
-            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            appId: response.data.data.app_id, // 必填，公众号的唯一标识
-            timestamp: timestamp , // 必填，生成签名的时间戳
-            nonceStr: nonceStr, // 必填，生成签名的随机串
-            signature: response.data.data.signature,// 必填，签名
-            jsApiList: ['chooseImage','uploadImage','hideAllNonBaseMenuItem'] // 必填，需要使用的JS接口列表
-        })
+        const { timestamp } = this.state;
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: response.data.data.app_id, // 必填，公众号的唯一标识
@@ -81,11 +72,8 @@ class PatientDescribe extends Component {
             signature: response.data.data.signature,// 必填，签名
             jsApiList: ['chooseImage','uploadImage','hideAllNonBaseMenuItem'] // 必填，需要使用的JS接口列表
         });
-
         wx.ready(function(){
-            console.log(111)
             wx.hideAllNonBaseMenuItem();
-            // wx.closeWindow();
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
         });
     }
@@ -294,58 +282,60 @@ class PatientDescribe extends Component {
 
 
         return (
-            <div className={Styles.patient}>
-                <p className={Styles.patient_title}>请描述您的病情<span>*</span></p>
-                <TextareaItem
-                    rows={5}
-                    count={600}
-                    value={val}
-                    placeholder="请详细描述您的病情症状、曾做过的检查、用药情况、目前病情是加重还是环节，想获得医生什么帮助…"
-                    className={Styles.patient_textarea}
-                    onChange={(val)=>{this.textareaChange(val)}}
-                />
-                <p className={`${Styles.patient_title} ${Styles.patient_title1}`}>上传检查报告或患处照片</p>
-                <p className={Styles.patient_second_title}>照片仅自己和医生可见，最多可上传8张</p>
-                <div className={Styles.patient_img}>
-                    {
-                        patientImg && patientImg.length > 0 ?
-                            patientImg.map((item,index)=>{
-                                return(
-                                    <div className={Styles.patient_camera} key={index}>
-                                        <img className={Styles.camera_img} src={item.localUrl} alt=""/>
-                                        <img data-index={index} onClick={(e)=>{this.deleteImg(e)}} className={Styles.camera_delete} src={require('../../assets/patient_delete.png')} alt=""/>
-                                    </div>
-                                )
-                            })
-                            :''
-                    }
-                    {
-                        patientImg && patientImg.length < 8 ?
-                            <div className={Styles.patient_camera} onClick={()=>{this.addPatient()}}>
-                            <img src={require('../../assets/patient_camera.png')} alt=""/>
-                            <p className={Styles.camera_title}>添加照片</p>
-                        </div>:''
-                    }
+            <DocumentTitle title='问诊申请'>
+                <div className={Styles.patient}>
+                    <p className={Styles.patient_title}>请描述您的病情<span>*</span></p>
+                    <TextareaItem
+                        rows={5}
+                        count={600}
+                        value={val}
+                        placeholder="请详细描述您的病情症状、曾做过的检查、用药情况、目前病情是加重还是环节，想获得医生什么帮助…"
+                        className={Styles.patient_textarea}
+                        onChange={(val)=>{this.textareaChange(val)}}
+                    />
+                    <p className={`${Styles.patient_title} ${Styles.patient_title1}`}>上传检查报告或患处照片</p>
+                    <p className={Styles.patient_second_title}>照片仅自己和医生可见，最多可上传8张</p>
+                    <div className={Styles.patient_img}>
+                        {
+                            patientImg && patientImg.length > 0 ?
+                                patientImg.map((item,index)=>{
+                                    return(
+                                        <div className={Styles.patient_camera} key={index}>
+                                            <img className={Styles.camera_img} src={item.localUrl} alt=""/>
+                                            <img data-index={index} onClick={(e)=>{this.deleteImg(e)}} className={Styles.camera_delete} src={require('../../assets/patient_delete.png')} alt=""/>
+                                        </div>
+                                    )
+                                })
+                                :''
+                        }
+                        {
+                            patientImg && patientImg.length < 8 ?
+                                <div className={Styles.patient_camera} onClick={()=>{this.addPatient()}}>
+                                    <img src={require('../../assets/patient_camera.png')} alt=""/>
+                                    <p className={Styles.camera_title}>添加照片</p>
+                                </div>:''
+                        }
 
-                </div>
-
-                <div className={Styles.apply_btn}>
-                    <Button className={Styles.btn} onClick={()=>{this.next()}} >下一步</Button>
-                </div>
-
-                <Modal
-                    visible={this.state.modal}
-                    transparent
-                    maskClosable={true}
-                    onClose={()=>{this.onClose()}}
-                    // title="Title"
-                    footer={[{ text: '知道了', onPress: () => { this.clickKnow()} }]}
-                >
-                    <div style={{color:'#333'}}>
-                        您超过30分钟未完成问诊申请，号源已被他人预约啦，请重新选择预约时段
                     </div>
-                </Modal>
-            </div>
+
+                    <div className={Styles.apply_btn}>
+                        <Button className={Styles.btn} onClick={()=>{this.next()}} >下一步</Button>
+                    </div>
+
+                    <Modal
+                        visible={this.state.modal}
+                        transparent
+                        maskClosable={true}
+                        onClose={()=>{this.onClose()}}
+                        // title="Title"
+                        footer={[{ text: '知道了', onPress: () => { this.clickKnow()} }]}
+                    >
+                        <div style={{color:'#333'}}>
+                            您超过30分钟未完成问诊申请，号源已被他人预约啦，请重新选择预约时段
+                        </div>
+                    </Modal>
+                </div>
+            </DocumentTitle>
         )
     }
 }

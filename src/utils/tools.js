@@ -1,5 +1,7 @@
 'use strict';
 
+//微信获取签名随机串
+export const nonceStr = 'wx_hlwyy';
 // cookie 工具
 export const cookieUtils = {
     get(name) {
@@ -70,7 +72,6 @@ export const getQueryString = (name) => {
     return null;
 }
 
-
 export const getOptions = () => {
     return {
         method: 'GET',
@@ -89,6 +90,7 @@ export const postOptions = (params) => {
         }
     }
 };
+
 export const putOptions = (params) => {
     return {
         method: 'PUT',
@@ -98,6 +100,7 @@ export const putOptions = (params) => {
         }
     }
 };
+
 export const deleteOptions = (params) => {
     return {
         method: 'DELETE',

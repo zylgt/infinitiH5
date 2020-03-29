@@ -12,7 +12,7 @@ export default {
     subscriptions: {
         setup({ dispatch, history }) {
             return history.listen(({ pathname, search }) => {
-                if ( pathname == '/home' ) {
+                if ( pathname == '/' || pathname == '/home' ) {
 
                     dispatch({
                         type: 'setData',

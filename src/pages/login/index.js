@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'dva';
-import { Modal,InputItem,Button,Checkbox,Toast } from 'antd-mobile';
+import { InputItem,Button,Checkbox } from 'antd-mobile';
 import router from 'umi/router';
 import { createForm } from 'rc-form';
 import Styles from './index.less';
 import DocumentTitle from 'react-document-title'
 import 'babel-polyfill'
-import { baseURL } from '../../utils/baseURL'
+import { baseURL, pageURL } from '../../utils/baseURL'
+import wx from 'weixin-js-sdk';
+import { nonceStr } from '../../utils/tools'
 
 const AgreeItem = Checkbox.AgreeItem;
 
@@ -20,8 +22,8 @@ class Login extends Component {
             phoneCode: '', // 短信验证码
             codeText: '获取验证码',
             isWait: false, // 是否在倒计时
-
-            checkedItem:true
+            checkedItem:true,
+            timestamp:''
         }
     }
     componentWillMount() {
@@ -30,7 +32,38 @@ class Login extends Component {
 
     }
     componentDidMount() {
-
+        const { dispatch } = this.props;
+        //生成签名时间戳
+        let timestamp = (Date.parse(new Date()) / 1000).toString();
+        this.setState({
+            timestamp:timestamp,
+        })
+        //获取appid和签名
+        dispatch({
+            type:'patientDescribe/getAppid',
+            payload:{
+                noncestr: nonceStr,
+                timestamp: timestamp,
+                url: pageURL + '/login'
+            },
+            callback: this.getAppidCallback.bind(this)
+        })
+    }
+    //获取appidcallback
+    getAppidCallback(response){
+        const { timestamp } = this.state;
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: response.data.data.app_id, // 必填，公众号的唯一标识
+            timestamp: timestamp , // 必填，生成签名的时间戳
+            nonceStr: nonceStr, // 必填，生成签名的随机串
+            signature: response.data.data.signature,// 必填，签名
+            jsApiList: ['chooseImage','uploadImage','hideAllNonBaseMenuItem'] // 必填，需要使用的JS接口列表
+        });
+        wx.ready(function(){
+            wx.hideAllNonBaseMenuItem();
+            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        });
     }
     //获取图形验证码
     refreshCodeImage(){

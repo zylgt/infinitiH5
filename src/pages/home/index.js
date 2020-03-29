@@ -5,8 +5,9 @@ import Link from 'umi/link';
 import router from 'umi/router';
 import Styles from './index.less';
 import Swiper from '../../components/swiper'
-import { staticURL } from '../../utils/baseURL'
+import { staticURL,pageURL } from '../../utils/baseURL'
 import wx from 'weixin-js-sdk';
+import { nonceStr } from '../../utils/tools'
 
 
 @connect(({ home }) => ({ home }))
@@ -14,30 +15,47 @@ class Home extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            timestamp:'',
             isScroll:true
         }
         this._onScrollEvent = this._onScrollEvent.bind(this);  //保证被组件调用时，对象的唯一性
 
     }
     componentDidMount() {
+        const { dispatch } = this.props;
+        //生成签名时间戳
+        let timestamp = (Date.parse(new Date()) / 1000).toString();
+        this.setState({
+            timestamp:timestamp,
+        })
+        //获取appid和签名
+        dispatch({
+            type:'patientDescribe/getAppid',
+            payload:{
+                noncestr: nonceStr,
+                timestamp: timestamp,
+                url: pageURL + '/home'
+            },
+            callback: this.getAppidCallback.bind(this)
+        })
+    }
+    //获取appidcallback
+    getAppidCallback(response){
+        const { timestamp } = this.state;
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            appId: 'wxc6c277ae69cd3a77', // 必填，公众号的唯一标识
-            timestamp:'1585276766' , // 必填，生成签名的时间戳
-            nonceStr: 'wangshenzhen', // 必填，生成签名的随机串
-            signature: '6b76c25a60fe6628f7711011141dac888ac82fcd',// 必填，签名
-            jsApiList: ['uploadImage','chooseImage','hideAllNonBaseMenuItem'] // 必填，需要使用的JS接口列表
+            appId: response.data.data.app_id, // 必填，公众号的唯一标识
+            timestamp: timestamp , // 必填，生成签名的时间戳
+            nonceStr: nonceStr, // 必填，生成签名的随机串
+            signature: response.data.data.signature,// 必填，签名
+            jsApiList: ['chooseImage','uploadImage','hideAllNonBaseMenuItem'] // 必填，需要使用的JS接口列表
         });
         wx.ready(function(){
-            console.log(111)
             wx.hideAllNonBaseMenuItem();
-            // wx.closeWindow();
-
-
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
         });
-
     }
+
     //滚动事件
     _onScrollEvent() {
         const { dispatch } = this.props;
@@ -107,7 +125,10 @@ class Home extends Component {
                         swipeData.length > 0 ? <Swiper {...swiperProps} ></Swiper> : ''
                     }
                 </div>
-                <div className={Styles.title}>选择科室</div>
+                {
+                    officeData.length > 0 ? <div className={Styles.title}>选择科室</div>:''
+                }
+
                 <div className={Styles.office} >
                     {
                         officeData.length > 0 ? officeData.map((item,index)=>{
@@ -120,19 +141,24 @@ class Home extends Component {
                         }) : ''
                     }
                 </div>
-                <div className={Styles.title}>常见疾病</div>
+                {
+                    illnessData.length > 0 ?<div className={Styles.title}>常见疾病</div>:''
+                }
                 <div className={Styles.illness} >
                     {
                         illnessData.length > 0 ? illnessData.map((item,index)=>{
                             return(
                                 <div className={Styles.illness_title} key={item.uid} data-id={item.uid} data-type="2" onClick={(e) => {this.clickOffice(e)}}>
-                                    {item.name}
+                                    <span>{item.name}</span>
                                 </div>
                             )
                         }) : ''
                     }
                 </div>
-                <div className={Styles.title}>今日出诊医生</div>
+                {
+                    doctorData.length > 0 ? <div className={Styles.title}>今日出诊医生</div>:''
+                }
+
                 <div className={Styles.doctor} >
                     {
                         doctorData.length > 0 ? doctorData.map((item,index)=>{

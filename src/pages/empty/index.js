@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'dva';
-import { Modal,Button } from 'antd-mobile';
-import router from 'umi/router';
 import Styles from './index.less';
 import { getQueryString } from '../../utils/tools'
 

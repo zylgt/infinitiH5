@@ -4,7 +4,11 @@ import { Modal,InputItem,Button,Toast } from 'antd-mobile';
 import router from 'umi/router';
 import Styles from './index.less';
 import { createForm } from 'rc-form';
-import { getQueryString } from '../../utils/tools'
+import { getQueryString,nonceStr } from '../../utils/tools'
+import DocumentTitle from 'react-document-title'
+import wx from 'weixin-js-sdk';
+import { pageURL } from '../../utils/baseURL'
+
 import moment from "moment";
 moment.locale('zh-cn');
 
@@ -13,6 +17,7 @@ class Management extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            timestamp:'',
             nameError:false,
             idNumError:false,
             type:'',
@@ -40,6 +45,38 @@ class Management extends Component {
                 doctor_id:id
             })
         }
+
+        //生成签名时间戳
+        let timestamp = (Date.parse(new Date()) / 1000).toString();
+        this.setState({
+            timestamp:timestamp,
+        })
+        //获取appid和签名
+        dispatch({
+            type:'patientDescribe/getAppid',
+            payload:{
+                noncestr: nonceStr,
+                timestamp: timestamp,
+                url: pageURL + '/management'
+            },
+            callback: this.getAppidCallback.bind(this)
+        })
+    }
+    //获取appidcallback
+    getAppidCallback(response){
+        const { timestamp } = this.state;
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: response.data.data.app_id, // 必填，公众号的唯一标识
+            timestamp: timestamp , // 必填，生成签名的时间戳
+            nonceStr: nonceStr, // 必填，生成签名的随机串
+            signature: response.data.data.signature,// 必填，签名
+            jsApiList: ['chooseImage','uploadImage','hideAllNonBaseMenuItem'] // 必填，需要使用的JS接口列表
+        });
+        wx.ready(function(){
+            wx.hideAllNonBaseMenuItem();
+            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        });
     }
     //focus事件
     inputFocus(type){
@@ -144,46 +181,47 @@ class Management extends Component {
         const { nameError, idNumError,submitButton,disabled } = this.state;
         const { name,card_id } = this.props.management;
         return (
-            <div className={Styles.management}>
-                <div className={Styles.management_name}>
-                    <InputItem
-                        clear
-                        placeholder="请输入真实姓名"
-                        ref={el => this.autoFocusInst = el}
-                        value={name}
-                        onChange={(val)=>{this.inputName(val)}}
-                        onFocus={()=>{this.inputFocus('name')}}
-                        disabled={disabled}
-                    >姓名</InputItem>
-                </div>
-                {
-                    nameError ? <div className={Styles.error}>请输入身份证信息上的真实姓名</div> : ''
-                }
-                <div className={Styles.management_card}>
-                    <InputItem
-                        clear
-                        placeholder="请输入准确的身份证号码"
-                        ref={el => this.autoFocusInst = el}
-                        value={card_id}
-                        maxLength={18}
-                        onChange={(val)=>{this.inputIdNum(val)}}
-                        onFocus={()=>{this.inputFocus('card_id')}}
-                        disabled={disabled}
-                    >身份证号</InputItem>
-                </div>
-                {
-                    idNumError ? <div className={Styles.error}>身份证号码有误，请核对后重新输入</div> : ''
-                }
-                {
-                    name != '' && card_id != ''
-                        ?
-                        <Button className={Styles.management_btn}  onClick={ ()=>{this.submit()} } >{submitButton}</Button>
-                        :
-                        <Button className={Styles.management_btn_disabled} >{submitButton}</Button>
-                }
+            <DocumentTitle title='就诊人管理'>
+                <div className={Styles.management}>
+                    <div className={Styles.management_name}>
+                        <InputItem
+                            clear
+                            placeholder="请输入真实姓名"
+                            ref={el => this.autoFocusInst = el}
+                            value={name}
+                            onChange={(val)=>{this.inputName(val)}}
+                            onFocus={()=>{this.inputFocus('name')}}
+                            disabled={disabled}
+                        >姓名</InputItem>
+                    </div>
+                    {
+                        nameError ? <div className={Styles.error}>请输入身份证信息上的真实姓名</div> : ''
+                    }
+                    <div className={Styles.management_card}>
+                        <InputItem
+                            clear
+                            placeholder="请输入准确的身份证号码"
+                            ref={el => this.autoFocusInst = el}
+                            value={card_id}
+                            maxLength={18}
+                            onChange={(val)=>{this.inputIdNum(val)}}
+                            onFocus={()=>{this.inputFocus('card_id')}}
+                            disabled={disabled}
+                        >身份证号</InputItem>
+                    </div>
+                    {
+                        idNumError ? <div className={Styles.error}>身份证号码有误，请核对后重新输入</div> : ''
+                    }
+                    {
+                        name != '' && card_id != ''
+                            ?
+                            <Button className={Styles.management_btn}  onClick={ ()=>{this.submit()} } >{submitButton}</Button>
+                            :
+                            <Button className={Styles.management_btn_disabled} >{submitButton}</Button>
+                    }
 
-            </div>
-
+                </div>
+            </DocumentTitle>
         )
     }
 }
