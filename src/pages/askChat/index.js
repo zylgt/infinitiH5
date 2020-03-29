@@ -31,15 +31,15 @@ class AskChat extends React.Component {
             timestamp:timestamp,
         })
         //获取appid和签名
-        dispatch({
-            type:'patientDescribe/getAppid',
-            payload:{
-                noncestr: nonceStr,
-                timestamp: timestamp,
-                url: pageURL + '/askChat'
-            },
-            callback: this.getAppidCallback.bind(this)
-        })
+        // dispatch({
+        //     type:'patientDescribe/getAppid',
+        //     payload:{
+        //         noncestr: nonceStr,
+        //         timestamp: timestamp,
+        //         url: pageURL + '/askChat'
+        //     },
+        //     callback: this.getAppidCallback.bind(this)
+        // })
     }
     //获取appidcallback
     getAppidCallback(response){

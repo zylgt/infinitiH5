@@ -74,15 +74,15 @@ class Ask extends React.Component {
             timestamp:timestamp,
         })
         //获取appid和签名
-        dispatch({
-            type:'patientDescribe/getAppid',
-            payload:{
-                noncestr: nonceStr,
-                timestamp: timestamp,
-                url: pageURL + '/ask'
-            },
-            callback: this.getAppidCallback.bind(this)
-        })
+        // dispatch({
+        //     type:'patientDescribe/getAppid',
+        //     payload:{
+        //         noncestr: nonceStr,
+        //         timestamp: timestamp,
+        //         url: pageURL + '/ask'
+        //     },
+        //     callback: this.getAppidCallback.bind(this)
+        // })
     }
     //获取appidcallback
     getAppidCallback(response){
