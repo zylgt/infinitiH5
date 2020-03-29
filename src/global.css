@@ -528,3 +528,7 @@ body {-webkit-overflow-scrolling: touch;}
 .am-button::before{
     border: none!important;
 }
+
+* {
+    -webkit-overflow-scrolling: touch;
+}
