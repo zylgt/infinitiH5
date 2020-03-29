@@ -7,6 +7,7 @@ import { createForm } from 'rc-form';
 import wx from 'weixin-js-sdk';
 import { nonceStr } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
+import { pageURL } from '../../utils/baseURL'
 
 @connect(({ patientDescribe,doctorInfo,chooseTime,applyList }) => ({ patientDescribe,doctorInfo,chooseTime,applyList }))
 class PatientDescribe extends Component {
@@ -32,7 +33,7 @@ class PatientDescribe extends Component {
             payload:{
                 noncestr: nonceStr,
                 timestamp: timestamp,
-                url: 'http://r3er48.natappfree.cc/patientDescribe'
+                url: pageURL + '/patientDescribe'
             },
             callback: this.getAppidCallback.bind(this)
         })
