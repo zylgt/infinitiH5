@@ -5,7 +5,7 @@ import Styles from './index.less';
 import Swiper from '../../components/swiper'
 import {staticURL} from '../../utils/baseURL'
 import wx from 'weixin-js-sdk';
-import {nonceStr} from '../../utils/tools'
+import { nonceStr, isIOS } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
 import { pageURL } from '../../utils/baseURL'
 
@@ -28,15 +28,15 @@ class Home extends Component {
             timestamp:timestamp,
         })
         //获取appid和签名
-        dispatch({
-            type:'patientDescribe/getAppid',
-            payload:{
-                noncestr: nonceStr,
-                timestamp: timestamp,
-                url: pageURL + '/home'
-            },
-            callback: this.getAppidCallback.bind(this)
-        })
+        // dispatch({
+        //     type:'patientDescribe/getAppid',
+        //     payload:{
+        //         noncestr: nonceStr,
+        //         timestamp: timestamp,
+        //         url: pageURL + '/home'
+        //     },
+        //     callback: this.getAppidCallback.bind(this)
+        // })
 
     }
     //获取appidcallback
