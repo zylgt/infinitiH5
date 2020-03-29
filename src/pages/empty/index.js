@@ -27,10 +27,7 @@ class Empty extends Component {
     render() {
 
         return (
-            <div className={Styles.empty}>
-                空白页
-
-            </div>
+            <div className={Styles.empty}></div>
         )
     }
 }

@@ -17,7 +17,11 @@ export default {
                     dispatch({
                         type: 'setData',
                         payload:{
-                            doctorData:[]
+                            swipeData:[],
+                            officeData:[],
+                            illnessData:[],
+                            doctorData:[],
+                            offset:1
                         }
                     });
 

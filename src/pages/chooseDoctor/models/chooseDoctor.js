@@ -10,7 +10,13 @@ export default {
         setup({ dispatch, history }) {
             return history.listen(({ pathname, search }) => {
                 if ( pathname == '/chooseDoctor' ) {
-
+                    dispatch({
+                        type: 'setData',
+                        payload: {
+                            offset: 1,
+                            doctorData:[]
+                        }
+                    });
                 }
             });
         },
