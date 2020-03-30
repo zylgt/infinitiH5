@@ -15,7 +15,8 @@ class Empty extends Component {
         }
     }
     componentDidMount() {
-        let code = getQueryString('code')
+
+        let code = getQueryString('code') || ''
         console.log('code',code)
         const { dispatch } = this.props;
         dispatch({
@@ -37,7 +38,7 @@ class Empty extends Component {
                 payload:{
                     noncestr: nonceStr,
                     timestamp: timestamp,
-                    url: pageURL + '/'
+                    url: window.location.href.split('#')[0]
                 },
                 callback: this.getAppidCallback.bind(this)
             })

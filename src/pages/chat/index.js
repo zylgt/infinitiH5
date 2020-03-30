@@ -77,7 +77,6 @@ class ClassPage extends React.Component {
             // 捕获异常，防止js error
             // donothing
         }
-
         this.scrollToBottom();
     }
 

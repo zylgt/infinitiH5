@@ -10,6 +10,7 @@ import { nonceStr } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
 
+
 import moment from "moment";
 moment.locale('zh-cn');
 
@@ -176,6 +177,13 @@ class Ask extends React.Component {
         }
     }
 
+    //点击跳转聊天
+    jumpChat(e){
+        let orderId = e.currentTarget.getAttribute('data-uid') || '';
+        console.log('orderId',orderId);
+        router.push('./askChat.js?orderId=' + orderId)
+    }
+
     render() {
         const { askList } = this.props.ask;
 
@@ -186,7 +194,7 @@ class Ask extends React.Component {
                         askList && askList.length > 0 ?
                             askList.map((item,index)=>{
                                 return(
-                                    <div className={Styles.ask_item} key={index}>
+                                    <div className={Styles.ask_item} key={index} data-uid={item.uid} onClick={(e)=>{this.jumpChat(e)}}>
                                         <div className={Styles.item}>
                                             <img className={Styles.item_head} src={ staticURL + item.icon } alt=""/>
                                             <div className={Styles.item_info}>

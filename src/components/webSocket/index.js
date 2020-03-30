@@ -3,7 +3,8 @@
  * timeout：连接超时时间
  * @type {module.webSocket}
  */
-module.exports =  class webSocket {
+import SockJS from 'sockjs-client'
+export default class webSocket {
     constructor(param = {}) {
         this.param = param;
         this.reconnectCount = 0;
@@ -13,9 +14,18 @@ module.exports =  class webSocket {
     }
     connection = () => {
         let {socketUrl, timeout = 0} = this.param;
-
-        this.socket = new WebSocket(socketUrl);
-
+        // 检测当前浏览器是什么浏览器来决定用什么socket
+        if ('WebSocket' in window) {
+            console.log('WebSocket');
+            this.socket = new WebSocket(socketUrl);
+            console.log(this.socket)
+        } else if ('MozWebSocket' in window) {
+            console.log('MozWebSocket');
+            this.socket = new window.MozWebSocket(socketUrl);
+        } else {
+            console.log('SockJS');
+            this.socket = new SockJS(socketUrl);
+        }
         this.socket.onopen = this.onopen;
         this.socket.onmessage = this.onmessage;
         this.socket.onclose = this.onclose;
@@ -25,8 +35,8 @@ module.exports =  class webSocket {
         // 检测返回的状态码 如果socket.readyState不等于1则连接失败，关闭连接
         if(timeout) {
             let time = setTimeout(() => {
-                console.log('this.socket.readyState',this.socket.readyState)
-                if(this.socket && this.socket.readyState != 1) {
+                console.log(this.socket)
+                if(this.socket && this.socket.readyState !== 1) {
                     this.socket.close();
                 }
                 clearInterval(time);
@@ -36,6 +46,7 @@ module.exports =  class webSocket {
     // 连接成功触发
     onopen = () => {
         let {socketOpen} = this.param;
+        console.log('连接成功触发')
         this.isSucces=false  //连接成功将标识符改为false
         socketOpen && socketOpen();
     };
@@ -44,40 +55,40 @@ module.exports =  class webSocket {
         let {socketMessage} = this.param;
         socketMessage && socketMessage(msg);
         // 打印出后端推得数据
-        console.log(msg);
     };
     // 关闭连接触发
     onclose = (e) => {
-        console.log('onclose')
-        this.isSucces=true   //关闭将标识符改为true
+        console.log('onclose', e )
+        this.isSucces = true ;  //关闭将标识符改为true
         console.log('关闭socket收到的数据');
         let {socketClose} = this.param;
         socketClose && socketClose(e);
+
+        this.socket.close();
+
         // 根据后端返回的状态码做操作
         // 我的项目是当前页面打开两个或者以上，就把当前以打开的socket关闭
         // 否则就20秒重连一次，直到重连成功为止
-        console.log('e',e)
-        if(e.code=='1006'){
-            this.socket && this.socket.close();
-        }else{
-            this.taskRemindInterval = setInterval(()=>{
-                if(this.isSucces){
-                    this.connection();
-                }else{
-                    clearInterval(this.taskRemindInterval)
-                }
-            },20000)
-        }
+
+        // if(e.code=='4500'){
+        //   this.socket.close();
+        // }else{
+        // this.taskRemindInterval = setInterval(()=>{
+        //   if(this.isSucces){
+        //     this.connection();
+        //   }else{
+        //     clearInterval(this.taskRemindInterval)
+        //   }
+        // },100000)
+        // }
     };
     onerror = (e) => {
-        console.log('onerror')
         // socket连接报错触发
         let {socketError} = this.param;
         this.socket = null;
         socketError && socketError(e);
     };
     sendMessage = (value) => {
-        console.log('sendMessage',value)
         // 向后端发送数据
         if(this.socket) {
             this.socket.send(JSON.stringify(value));

@@ -6,6 +6,8 @@ let defaultBaseURL = 'http://api.nethospital.yutanglabs.com';
 let defaultStaticURL = 'http://static.nethospital.yutanglabs.com';
 //页面访问
 let defaultPageURL = 'http://nethospital.yutanglabs.com';
+//页面访问
+let defaultHostURL = 'api.nethospital.yutanglabs.com';
 
 
 // console.log('API_ENV',process.env.API_ENV)
@@ -25,6 +27,8 @@ export const baseURL = defaultBaseURL;
 export const staticURL = defaultStaticURL;
 
 export const pageURL = defaultPageURL;
+
+export const hostURL = defaultHostURL;
 
 
 
