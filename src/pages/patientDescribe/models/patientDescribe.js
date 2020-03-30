@@ -25,15 +25,14 @@ export default {
             const response = yield call(uploadImg, payload.payload.imgInfo);
             console.log('uploadImg-response',response)
             if(response && response.data.code == 200 ){
-                console.log('response',response)
                 let orderInfo = payload.payload.orderInfo;
                 orderInfo.images = response.data.data;
 
-                const response = yield call(askVisit, orderInfo );
-                console.log('askVisit-response',response)
+                const askVisitResponse = yield call(askVisit, orderInfo );
+                console.log('askVisit-response',askVisitResponse)
 
-                callback && callback(response)
-                if(response && response.data.code == 200 ){
+                callback && callback(askVisitResponse)
+                if(askVisitResponse && askVisitResponse.data.code == 200 ){
                     router.push('./applySubmit')
                 }
             }
