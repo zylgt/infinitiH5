@@ -27,18 +27,18 @@ class Home extends Component {
         this.setState({
             timestamp:timestamp,
         })
-        if(isIOS()){
-            //获取appid和签名
-            dispatch({
-                type:'patientDescribe/getAppid',
-                payload:{
-                    noncestr: nonceStr,
-                    timestamp: timestamp,
-                    url: pageURL + '/home'
-                },
-                callback: this.getAppidCallback.bind(this)
-            })
-        }
+        // if(isIOS()){
+        //     //获取appid和签名
+        //     dispatch({
+        //         type:'patientDescribe/getAppid',
+        //         payload:{
+        //             noncestr: nonceStr,
+        //             timestamp: timestamp,
+        //             url: pageURL + '/home'
+        //         },
+        //         callback: this.getAppidCallback.bind(this)
+        //     })
+        // }
 
     }
     //获取appidcallback
