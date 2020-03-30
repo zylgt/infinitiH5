@@ -40,7 +40,9 @@ export default {
                             unionid:data.unionid
                         }
                     });
-                    router.replace('./home')
+                    setTimeout(function(){
+                        router.replace('./home')
+                    },60)
                 }else{
                     yield put({
                         type: 'setData',
@@ -48,7 +50,9 @@ export default {
                             unionid:data.unionid
                         }
                     });
-                    router.replace('./login')
+                    setTimeout(function(){
+                        router.replace('./login')
+                    },60)
                 }
             }
         },
