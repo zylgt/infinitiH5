@@ -22,13 +22,19 @@ export default {
         *askVisit({ payload, callback }, { call,select, put }){
             console.log('payload',payload)
 
+
+
             const response = yield call(uploadImg, payload.payload.imgInfo);
             console.log('uploadImg-response',response)
+            alert(1)
+            alert(JSON.stringify(response))
             if(response && response.data.code == 200 ){
                 let orderInfo = payload.payload.orderInfo;
                 orderInfo.images = response.data.data;
 
                 const askVisitResponse = yield call(askVisit, orderInfo );
+                alert(2)
+                alert(JSON.stringify(askVisitResponse))
                 console.log('askVisit-response',askVisitResponse)
 
                 callback && callback(askVisitResponse)
