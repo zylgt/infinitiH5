@@ -10,7 +10,7 @@ export default {
         imgCode:'',
         imgCodeError:false,
         phoneCodeError:false, // 短信验证码是否错误
-        uid:'1242032963428814848',
+        uid:'',
         phone:'',
 
     },

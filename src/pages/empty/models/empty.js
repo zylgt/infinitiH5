@@ -6,8 +6,8 @@ import { cookieUtils } from '../../../utils/tools'
 export default {
     namespace: 'empty',
     state: {
-        unionid:'oIguq1ftOPg2ycOClXgtQmDOL2jg',
-        uid:'1242032963428814848',
+        unionid:'',
+        uid:'',
         token:''
     },
     subscriptions: {
@@ -40,9 +40,7 @@ export default {
                             unionid:data.unionid
                         }
                     });
-                    setTimeout(function(){
-                        router.replace('./home')
-                    },60)
+                    router.replace('./home')
                 }else{
                     yield put({
                         type: 'setData',
@@ -50,9 +48,7 @@ export default {
                             unionid:data.unionid
                         }
                     });
-                    setTimeout(function(){
-                        router.replace('./login')
-                    },60)
+                    router.replace('./login')
                 }
             }
         },
