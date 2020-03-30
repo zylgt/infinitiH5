@@ -2,18 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="175d2814-6ce3-4d6e-8268-5c4da88a3d07" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pages/askChat/models/askChat.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/services/askChat.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/webSocket/index.js" afterPath="$PROJECT_DIR$/src/components/webSocket/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/ask/index.js" afterPath="$PROJECT_DIR$/src/pages/ask/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askChat/index.js" afterPath="$PROJECT_DIR$/src/pages/askChat/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askChat/index.less" afterPath="$PROJECT_DIR$/src/pages/askChat/index.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/chat/index.js" afterPath="$PROJECT_DIR$/src/pages/chat/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/empty/index.js" afterPath="$PROJECT_DIR$/src/pages/empty/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/index.js" afterPath="$PROJECT_DIR$/src/pages/home/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" afterPath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/baseURL.js" afterPath="$PROJECT_DIR$/src/utils/baseURL.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/request.js" afterPath="$PROJECT_DIR$/src/utils/request.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -28,7 +16,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/empty/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="697">
@@ -36,6 +24,16 @@
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="request.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/utils/request.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="497">
+              <caret line="51" column="5" lean-forward="true" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -128,7 +126,6 @@
         <option value="$PROJECT_DIR$/src/pages/login/models/login.js" />
         <option value="$PROJECT_DIR$/src/pages/patientDescribe/models/patientDescribe.js" />
         <option value="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
-        <option value="$PROJECT_DIR$/src/utils/request.js" />
         <option value="$PROJECT_DIR$/src/utils/baseURL.js" />
         <option value="$PROJECT_DIR$/src/components/webSocket/index.js" />
         <option value="$PROJECT_DIR$/src/pages/chat/index.js" />
@@ -140,6 +137,7 @@
         <option value="$PROJECT_DIR$/src/pages/empty/models/empty.js" />
         <option value="$PROJECT_DIR$/src/pages/home/index.js" />
         <option value="$PROJECT_DIR$/src/pages/empty/index.js" />
+        <option value="$PROJECT_DIR$/src/utils/request.js" />
       </list>
     </option>
   </component>
@@ -353,12 +351,12 @@
       <workItem from="1585099660596" duration="65313000" />
       <workItem from="1585357421010" duration="22486000" />
       <workItem from="1585403249279" duration="24284000" />
-      <workItem from="1585531833206" duration="25917000" />
+      <workItem from="1585531833206" duration="25977000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="327828000" />
+    <option name="totallyTimeSpent" value="327888000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1080" y="-352" width="1080" height="1183" extended-state="0" />
@@ -368,7 +366,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.017463235" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.017463235" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -725,16 +723,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/request.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="514">
-          <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#25#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/baseURL.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -882,6 +870,14 @@
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/request.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="51" column="5" lean-forward="true" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
