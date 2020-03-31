@@ -130,7 +130,8 @@ class DoctorInfo extends Component {
         let isOpen = true;
         if(moment().format('d') != doctorInfo.week){
             let weeks = new Array("日", "一", "二", "三", "四", "五", "六");
-            date = '周' + weeks[ doctorInfo.week ] + '出诊';
+            let num = weeks[ doctorInfo.week ] || '';
+            date = '周' + num + '出诊';
             isOpen = false;
         }
 

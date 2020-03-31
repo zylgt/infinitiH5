@@ -8,6 +8,12 @@ export async function sendMsg (params) {
     return request(url,postOptions(params.msg))
 }
 
+//上传图片
+export async function uploadImg (params) {
+    const url = `/m/common/download_wx_file`;
+    return request(url,postOptions(params))
+}
+
 
 
 

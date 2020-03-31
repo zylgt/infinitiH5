@@ -55,7 +55,7 @@ class PatientDescribe extends Component {
                 payload:{
                     noncestr: nonceStr,
                     timestamp: timestamp,
-                    url: pageURL + '/patientDescribe'
+                    url: window.location.href.split('#')[0]
                 },
                 callback: this.getAppidCallback.bind(this)
             })

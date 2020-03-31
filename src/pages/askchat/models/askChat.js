@@ -1,15 +1,15 @@
-import { sendMsg } from '../../../services/askChat';
+import { sendMsg, uploadImg } from '../../../services/askChat';
 
 export default {
-    namespace: 'askChat',
+    namespace: 'askchat',
     state: {
         sendMsg:[],
-        historyMsg:[]
+        patientImg:[]
     },
     subscriptions: {
         setup({ dispatch, history }) {
             return history.listen(({ pathname, search }) => {
-                if ( pathname == '/askChat' ) {
+                if ( pathname == '/askchat' ) {
 
                 }
             });
@@ -32,7 +32,15 @@ export default {
                 // });
             }
         },
+        *uploadImg({ payload, callback }, { call,select, put }){
 
+            const response = yield call(uploadImg, payload);
+            console.log('response',response)
+
+            if(response && response.data.code == 200 ){
+                callback && callback(response)
+            }
+        },
     },
     reducers: {
         setData(state, { payload }) {

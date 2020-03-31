@@ -84,6 +84,19 @@ class Ask extends React.Component {
         //     },
         //     callback: this.getAppidCallback.bind(this)
         // })
+        //测试
+        // wx.config({
+        //     debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        //     appId: 'wxc6c277ae69cd3a77', // 必填，公众号的唯一标识
+        //     timestamp: '1585644752' , // 必填，生成签名的时间戳
+        //     nonceStr: 'wangshenzhen', // 必填，生成签名的随机串
+        //     signature: '7ac2889593724f0dace281fb4eff0fbd2cd18b1b',// 必填，签名
+        //     jsApiList: ['chooseImage','uploadImage','hideAllNonBaseMenuItem'] // 必填，需要使用的JS接口列表
+        // });
+        // wx.ready(function(){
+        //     wx.hideAllNonBaseMenuItem();
+        //     // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        // });
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -100,52 +113,6 @@ class Ask extends React.Component {
             wx.hideAllNonBaseMenuItem();
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
         });
-    }
-    //判断消息右上角时间
-    rigthTime(item){
-
-        let time = ''
-        if(item.last_time){
-            let weeks = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
-            let currentTime = Date.parse(new Date());
-            let d_day = Date.parse(new Date(item.last_time));
-            let day = Math.abs(parseInt((d_day - currentTime)/1000/3600/24));//计算日期
-            if(day >= 8){
-                let date = moment(item.last_time).format('YYYY/MM/DD')
-                time = date;
-            }else if(day <8 && day >= 2){
-                let index = new Date(item.last_time).getDay()
-                time = weeks[index]
-            }else if(day > 0 && day < 2){
-                time = '昨天'
-            }else{
-                let hours = new Date(item.last_time).getHours();
-                let date = moment(item.last_time).format('LT');
-                if(hours <= 12){
-                    time = '上午' + date
-                }else{
-                    time = '下午' + date
-                }
-            }
-        }
-
-        if(item.status == 'inquiring'){
-            return (
-                <span className={Styles.info_right}>time</span>
-            )
-        }else if(item.status == 'finished'){
-            return (
-                <span className={Styles.info_right}>time</span>
-            )
-        }else if(item.status == 'expired'){
-            return (
-                <span className={Styles.info_right}>time</span>
-            )
-        }else {
-            return (
-                <img className={Styles.info_right} src={require('../../assets/ask_order.png')} alt=""/>
-            )
-        }
     }
     //判断消息内容显示
     infoContent(item){
@@ -181,7 +148,53 @@ class Ask extends React.Component {
     jumpChat(e){
         let orderId = e.currentTarget.getAttribute('data-uid') || '';
         console.log('orderId',orderId);
-        router.push('./askChat?orderId=' + orderId)
+        router.push('./askchat?orderId=' + orderId)
+    }
+    //判断消息右上角时间
+    rigthTime(item){
+
+        let time = ''
+        if(item.last_time){
+            let weeks = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+            let currentTime = Date.parse(new Date());
+            let d_day = Date.parse(new Date(item.last_time));
+            let day = Math.abs(parseInt((d_day - currentTime)/1000/3600/24));//计算日期
+            if(day >= 8){
+                let date = moment(item.last_time).format('YYYY/MM/DD')
+                time = date;
+            }else if(day <8 && day >= 2){
+                let index = new Date(item.last_time).getDay()
+                time = weeks[index]
+            }else if(day > 0 && day < 2){
+                time = '昨天'
+            }else{
+                let hours = new Date(item.last_time).getHours();
+                let date = moment(item.last_time).format('LT');
+                if(hours <= 12){
+                    time = '上午' + date
+                }else{
+                    time = '下午' + date
+                }
+            }
+        }
+
+      if(item.status == 'inquiring'){
+            return (
+                <span className={Styles.info_right}>{time}</span>
+            )
+        }else if(item.status == 'finished'){
+            return (
+                <span className={Styles.info_right}>{time}</span>
+            )
+        }else if(item.status == 'expired'){
+            return (
+                <span className={Styles.info_right}>{time}</span>
+            )
+        }else {
+            return (
+                <img className={Styles.info_right} src={require('../../assets/ask_order.png')} alt=""/>
+            )
+        }
     }
 
     render() {
