@@ -181,7 +181,7 @@ class Ask extends React.Component {
     jumpChat(e){
         let orderId = e.currentTarget.getAttribute('data-uid') || '';
         console.log('orderId',orderId);
-        router.push('./askChat.js?orderId=' + orderId)
+        router.push('./askChat?orderId=' + orderId)
     }
 
     render() {

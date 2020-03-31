@@ -165,7 +165,7 @@ class ApplyList extends Component {
         const { illData, step } = this.props.applyList;
 
         //百分比
-        let percentage = ( step / illData.length * 100 ).toFixed(1);
+        let percentage = ( (step - 1) / illData.length  * 100 ).toFixed(1);
 
         return (
             <DocumentTitle title='问诊申请'>

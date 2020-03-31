@@ -84,8 +84,6 @@ class PatientDescribe extends Component {
     }
     addPatient() {
         let that = this;
-        const { dispatch } = this.props;
-        const { wkwebview } = this.state;
         const { patientImg } = this.props.patientDescribe;
         wx.chooseImage({
             count: 8 - patientImg.length, // 默认9
@@ -94,43 +92,58 @@ class PatientDescribe extends Component {
             success: function (res) {
                 console.log('res',res)
                 let localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-                for(let index in localIds) {
-                    let patientObj = {}
-                    patientObj.isUpload = false;
-                    patientObj.serverId = '';
-                    patientObj.localIds = localIds[index];
-                    if(wkwebview){
-                        patientObj.localUrl = localIds[index];
-                        patientImg.push(patientObj)
-                        dispatch({
-                            type:'patientDescribe/setData',
-                            payload:{
-                                patientImg:patientImg
-                            }
-                        })
-                        that.uploadImg(patientObj)
-                    }else{
-                        wx.getLocalImgData({
-                            localId: localIds[index], // 图片的localID
-                            success: function (res) {
-                                // var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-                                patientObj.localUrl = res.localData;
-                                patientImg.push(patientObj)
-                                dispatch({
-                                    type:'patientDescribe/setData',
-                                    payload:{
-                                        patientImg:patientImg
-                                    }
-                                })
-                                that.uploadImg(patientObj)
-                            }
-                        });
-                    }
-                };
-
+                that.getPhoneImg(localIds,0,that)
             }
         });
     }
+    //根据机型获取可展示图片
+    getPhoneImg(localIds,val,that){
+        const { dispatch } = this.props;
+        const { wkwebview } = this.state;
+        const { patientImg } = this.props.patientDescribe;
+        let index = val;
+
+        let patientObj = {}
+        patientObj.isUpload = false;
+        patientObj.serverId = '';
+        patientObj.localIds = localIds[index];
+        if( wkwebview ){
+            patientObj.localUrl = localIds[index];
+            patientImg.push(patientObj)
+            dispatch({
+                type:'patientDescribe/setData',
+                payload:{
+                    patientImg:patientImg
+                }
+            })
+            this.uploadImg(patientObj)
+            if(index + 1 < localIds.length){
+                index ++;
+                that.getPhoneImg(localIds, index, that)
+            }
+        }else{
+            wx.getLocalImgData({
+                localId: localIds[index], // 图片的localID
+                success: function (res) {
+                    // var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+                    patientObj.localUrl = res.localData;
+                    patientImg.push(patientObj)
+                    dispatch({
+                        type:'patientDescribe/setData',
+                        payload:{
+                            patientImg:patientImg
+                        }
+                    })
+                    that.uploadImg(patientObj)
+                    if(index + 1 < localIds.length){
+                        index ++;
+                        that.getPhoneImg(localIds, index, that)
+                    }
+                }
+            });
+        }
+    }
+
     //上传图片
     uploadImg(patientObj){
         const { dispatch } = this.props;

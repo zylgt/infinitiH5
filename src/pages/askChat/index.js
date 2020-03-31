@@ -107,8 +107,16 @@ class AskChat extends React.Component {
                         }
                     })
                 } else if (type === 'message') {
+
                     let { sendMsg } = this.state;
                     console.log('sendMsg',sendMsg)
+                    if(data.sender_type == "doctor"){
+                        sendMsg.push(data)
+                        that.setState({
+                            sendMsg: sendMsg
+                        })
+                        return false;
+                    }
                     sendMsg.reverse();
                     for( let i = 0;i < sendMsg.length ; i++){
                         if(sendMsg[i].content == data.content){
@@ -117,7 +125,6 @@ class AskChat extends React.Component {
                         }
                     }
                     sendMsg.reverse();
-
                     that.setState({
                         sendMsg: sendMsg
                     })
@@ -212,8 +219,17 @@ class AskChat extends React.Component {
                 }
             }
         })
-
-        this.setState({
+        // dispatch({
+        //     type:"askChat/sendMsg",
+        //     payload:{
+        //         order_id: orderId,
+        //         msg:{
+        //             type: 'photo',
+        //             content: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1585632209806&di=d87707f8979ce2a9df1e10fed92ec42f&imgtype=0&src=http%3A%2F%2Fa0.att.hudong.com%2F78%2F52%2F01200000123847134434529793168.jpg'
+        //         }
+        //     }
+        // })
+       this.setState({
             word:''
         })
     }
@@ -224,7 +240,7 @@ class AskChat extends React.Component {
         const { historyMsg } = this.props.askChat;
         let doctorName = 'xx医生';
 
-        console.log('historyMsg',historyMsg)
+        // console.log('historyMsg',historyMsg)
 
         return (
             <DocumentTitle title={doctorName}>
