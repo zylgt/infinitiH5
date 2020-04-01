@@ -115,10 +115,6 @@ class PatientDescribe extends Component {
             setTimeout(function () {
                 that.uploadImg(patientObj,localIds,index,that)
             },50)
-            // if(index + 1 < localIds.length){
-            //     index ++;
-            //     that.getPhoneImg(localIds, index, that)
-            // }
         }else{
             wx.getLocalImgData({
                 localId: localIds[index], // 图片的localID
@@ -135,10 +131,6 @@ class PatientDescribe extends Component {
                     setTimeout(function () {
                         that.uploadImg(patientObj,localIds,index,that)
                     },50)
-                    // if(index + 1 < localIds.length){
-                    //     index ++;
-                    //     that.getPhoneImg(localIds, index, that)
-                    // }
                 }
             });
         }
@@ -149,8 +141,6 @@ class PatientDescribe extends Component {
         const { dispatch } = this.props;
         const { patientImg } = this.props.patientDescribe;
         console.log('patientImg0------',patientImg)
-        alert(1)
-        alert(JSON.stringify(patientObj))
         let index = val
         //上传图片
         wx.uploadImage({
@@ -159,16 +149,10 @@ class PatientDescribe extends Component {
             success: function (res) {
                 let serverId = res.serverId; // 返回图片的服务器端ID
                 console.log('serverId',serverId)
-                console.log('patientImg',patientImg)
-                alert(2)
-                alert(JSON.stringify(serverId))
-
-
                 if(index + 1 < localIds.length){
                     index ++;
                     that.getPhoneImg(localIds, index, that)
                 }
-
                 for( let i in patientImg ){
                     if(patientObj.localIds == patientImg[i].localIds){
                         patientObj.isUpload = true;
