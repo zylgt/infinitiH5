@@ -9,9 +9,7 @@ export default {
         setup({ dispatch, history }) {
             return history.listen(({ pathname, search }) => {
                 if ( pathname == '/ask' ) {
-                    dispatch({
-                        type:'getAskList'
-                    })
+
                 }
             });
         },

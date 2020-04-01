@@ -50,12 +50,14 @@ class AskChat extends React.Component {
 
 
         let token = cookieUtils.get('token') || getQueryString('token') || '';
-// const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODUxODg4MjEsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI0MjAzMjk2MzQyODgxNDg0OCJ9.dGE0W5jzBUluDhx05zuy-IuUFIo1uLJ_4t9PyKtRiyk';
-        this.setState({
-            token: token
-        })
+        if(token){
+            cookieUtils.set('token',token)
+            this.setState({
+                token: token
+            })
+        }
 
-       let orderId = getQueryString('orderId') || '';
+        let orderId = getQueryString('order_id') || '';
         console.log('orderId',orderId)
         this.setState({
             orderId:orderId
