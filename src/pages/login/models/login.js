@@ -2,6 +2,7 @@ import { getImgCode, getPhoneCode,verifyImgCode,sublit } from '../../../services
 import router from 'umi/router';
 import { Toast } from 'antd-mobile';
 import 'babel-polyfill'
+import { cookieUtils } from '../../../utils/tools'
 
 export default {
     namespace: 'login',
@@ -83,6 +84,8 @@ export default {
             console.log('payload',payload)
             const response = yield call(sublit, payload);
             if(response && response.data.code == 200 ){
+                const token = response.headers['x-access-token'] || '' ;
+                cookieUtils.set('token',token)
                 yield put({
                     type: 'setData',
                     payload: {
@@ -97,7 +100,7 @@ export default {
                         phone:response.data.data.phone,
                     }
                 });
-                router.push('./home')
+                router.replace('./home')
             }else{
                 yield put({
                     type: 'setData',

@@ -112,11 +112,11 @@ class PatientDescribe extends Component {
                     patientImg:patientImg
                 }
             })
-            this.uploadImg(patientObj)
-            if(index + 1 < localIds.length){
-                index ++;
-                that.getPhoneImg(localIds, index, that)
-            }
+            that.uploadImg(patientObj,localIds,index,that)
+            // if(index + 1 < localIds.length){
+            //     index ++;
+            //     that.getPhoneImg(localIds, index, that)
+            // }
         }else{
             wx.getLocalImgData({
                 localId: localIds[index], // 图片的localID
@@ -130,23 +130,24 @@ class PatientDescribe extends Component {
                             patientImg:patientImg
                         }
                     })
-                    that.uploadImg(patientObj)
-                    if(index + 1 < localIds.length){
-                        index ++;
-                        that.getPhoneImg(localIds, index, that)
-                    }
+                    that.uploadImg(patientObj,localIds,index,that)
+                    // if(index + 1 < localIds.length){
+                    //     index ++;
+                    //     that.getPhoneImg(localIds, index, that)
+                    // }
                 }
             });
         }
     }
 
     //上传图片
-    uploadImg(patientObj){
+    uploadImg(patientObj,localIds,val,that){
         const { dispatch } = this.props;
         const { patientImg } = this.props.patientDescribe;
         console.log('patientImg0------',patientImg)
         alert(1)
         alert(JSON.stringify(patientObj))
+        let index = val
         //上传图片
         wx.uploadImage({
             localId: patientObj.localIds, // 需要上传的图片的本地ID，由chooseImage接口获得
@@ -157,8 +158,15 @@ class PatientDescribe extends Component {
                 console.log('patientImg',patientImg)
                 alert(2)
                 alert(JSON.stringify(serverId))
-                for( let index in patientImg ){
-                    if(patientObj.localIds == patientImg[index].localIds){
+
+
+                if(index + 1 < localIds.length){
+                    index ++;
+                    that.getPhoneImg(localIds, index, that)
+                }
+
+                for( let i in patientImg ){
+                    if(patientObj.localIds == patientImg[i].localIds){
                         patientObj.isUpload = true;
                         patientObj.serverId = serverId;
                         dispatch({
@@ -169,6 +177,7 @@ class PatientDescribe extends Component {
                         })
                     }
                 }
+
             },
             fail:function(res){
                 Toast.info('上传失败，请重试',1.5)
