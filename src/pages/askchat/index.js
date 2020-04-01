@@ -147,7 +147,7 @@ class AskChat extends React.Component {
         let { orderId } = this.state;
         this.linkSocket(orderId)
         if(data.status == 'inquiring'){
-            this.linkSocket(orderId)
+            // this.linkSocket(orderId)
         }else if(data.status == 'finished'){
             this.setState({
                 isFinished:true
