@@ -120,7 +120,9 @@ class Ask extends React.Component {
             return (
                 <div className={Styles.info_content}>
                     <p className={Styles.content_word}> {item.last_msg} </p>
-                    <p className={Styles.content_number}>{ item.un_read }</p>
+                    {
+                        item.un_read > 0 ? <p className={Styles.content_number}>{ item.un_read }</p> : ''
+                    }
                 </div>
             )
         }else if(item.status == 'finished'){

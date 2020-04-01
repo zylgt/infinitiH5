@@ -264,7 +264,8 @@ class AskChat extends React.Component {
             }
         })
         this.setState({
-            word:''
+            word:'',
+            isShowSend: false
         })
     }
     //判断消息右上角时间

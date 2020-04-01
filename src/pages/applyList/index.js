@@ -168,7 +168,7 @@ class ApplyList extends Component {
         let percentage = ( (step - 1) / illData.length  * 100 ).toFixed(1);
 
         return (
-            <DocumentTitle title='问诊申请'>
+            <DocumentTitle title='完善信息'>
                 <div className={Styles.apply_list}>
                     {
                         illData && illData.length > 0 ? <div>

@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="175d2814-6ce3-4d6e-8268-5c4da88a3d07" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/applyList/index.js" afterPath="$PROJECT_DIR$/src/pages/applyList/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/ask/index.js" afterPath="$PROJECT_DIR$/src/pages/ask/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/index.js" afterPath="$PROJECT_DIR$/src/pages/askchat/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" afterPath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -17,28 +20,13 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
+        <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="25" column="24" lean-forward="true" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+            <state relative-caret-position="578">
+              <caret line="158" column="47" lean-forward="true" selection-start-line="158" selection-start-column="47" selection-end-line="158" selection-end-column="47" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
-                <element signature="n#!!block;n#autoWordFocus#0;n#AskChat#0" expanded="false" />
-                <element signature="n#!!block;n#changeWord#0;n#AskChat#0" expanded="false" />
-                <element signature="n#!!block;n#textareaFocus#0;n#AskChat#0" expanded="false" />
-                <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
-                <element signature="n#!!block;n#getPhoneImg#0;n#AskChat#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="request.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/utils/request.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="449">
-              <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -54,7 +42,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>onclose</find>
       <find>isSucces</find>
       <find>resetFields</find>
       <find>socketClose</find>
@@ -79,11 +66,12 @@
       <find>componentDidMount</find>
       <find>linkSocket</find>
       <find>wx</find>
-      <find>patientImg</find>
       <find>askchat</find>
       <find>askChat</find>
       <find>media</find>
       <find>agree</find>
+      <find>isShowSend</find>
+      <find>patientImg</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -129,20 +117,20 @@
         <option value="$PROJECT_DIR$/src/pages/chat/index.js" />
         <option value="$PROJECT_DIR$/src/pages/askChat/index.less" />
         <option value="$PROJECT_DIR$/src/pages/empty/models/empty.js" />
-        <option value="$PROJECT_DIR$/src/pages/applyList/index.js" />
         <option value="$PROJECT_DIR$/src/pages/empty/index.js" />
         <option value="$PROJECT_DIR$/src/pages/doctorInfo/index.js" />
         <option value="$PROJECT_DIR$/src/pages/askChat/models/askChat.js" />
         <option value="$PROJECT_DIR$/src/pages/askChat/index.js" />
         <option value="$PROJECT_DIR$/src/services/askChat.js" />
         <option value="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" />
-        <option value="$PROJECT_DIR$/src/pages/ask/index.js" />
         <option value="$PROJECT_DIR$/src/pages/informed/index.less" />
         <option value="$PROJECT_DIR$/src/pages/informed/index.js" />
-        <option value="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
         <option value="$PROJECT_DIR$/src/pages/home/index.js" />
         <option value="$PROJECT_DIR$/src/utils/request.js" />
         <option value="$PROJECT_DIR$/src/pages/askchat/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/applyList/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/ask/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
       </list>
     </option>
   </component>
@@ -260,6 +248,20 @@
               <item name="web-patient" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="applyList" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web-patient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="ask" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web-patient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="askchat" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -355,12 +357,12 @@
       <workItem from="1585099660596" duration="65313000" />
       <workItem from="1585357421010" duration="22486000" />
       <workItem from="1585403249279" duration="24284000" />
-      <workItem from="1585531833206" duration="48130000" />
+      <workItem from="1585531833206" duration="51466000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="350041000" />
+    <option name="totallyTimeSpent" value="353377000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1080" y="-352" width="1080" height="1183" extended-state="0" />
@@ -370,7 +372,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.017463235" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.017463235" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -473,6 +475,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="21" lean-forward="false" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -653,7 +656,7 @@
         <state relative-caret-position="1349">
           <caret line="80" column="14" lean-forward="true" selection-start-line="80" selection-start-column="14" selection-end-line="80" selection-end-column="14" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -690,14 +693,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/applyList/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="174" column="24" lean-forward="false" selection-start-line="174" selection-start-column="24" selection-end-line="174" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/doctorInfo/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1394">
@@ -719,7 +714,7 @@
         <state relative-caret-position="187">
           <caret line="11" column="22" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#39#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -737,18 +732,6 @@
         <state relative-caret-position="442">
           <caret line="26" column="22" lean-forward="false" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="22" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-199">
-          <caret line="178" column="9" lean-forward="true" selection-start-line="178" selection-start-column="9" selection-end-line="178" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-            <element signature="e#722#2763#0" expanded="false" />
-            <element signature="n#!!block;n#infoContent#0;n#Ask#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -834,38 +817,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/applyList/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="57" column="30" lean-forward="true" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
+        <state relative-caret-position="568">
+          <caret line="171" column="51" lean-forward="true" selection-start-line="171" selection-start-column="51" selection-end-line="171" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-413">
+          <caret line="126" column="13" lean-forward="true" selection-start-line="126" selection-start-column="13" selection-end-line="126" selection-end-column="13" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
-            <element signature="n#!!block;n#addPatient#0;n#PatientDescribe#0" expanded="false" />
-            <element signature="n#!!block;n#getPhoneImg#0;n#PatientDescribe#0" expanded="false" />
-            <element signature="n#!!block;n#uploadImg#0;n#PatientDescribe#0" expanded="false" />
+            <element signature="e#722#2763#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-431">
+          <caret line="521" column="36" lean-forward="false" selection-start-line="521" selection-start-column="36" selection-end-line="521" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+            <element signature="n#!!block;n#autoWordFocus#0;n#AskChat#0" expanded="false" />
+            <element signature="n#!!block;n#textareaFocus#0;n#AskChat#0" expanded="false" />
+            <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
+            <element signature="n#!!block;n#getPhoneImg#0;n#AskChat#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/request.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+        <state relative-caret-position="364">
+          <caret line="47" column="56" lean-forward="false" selection-start-line="47" selection-start-column="20" selection-end-line="47" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="24" lean-forward="true" selection-start-line="25" selection-start-column="24" selection-end-line="25" selection-end-column="24" />
+        <state relative-caret-position="578">
+          <caret line="158" column="47" lean-forward="true" selection-start-line="158" selection-start-column="47" selection-end-line="158" selection-end-column="47" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
-            <element signature="n#!!block;n#autoWordFocus#0;n#AskChat#0" expanded="false" />
-            <element signature="n#!!block;n#changeWord#0;n#AskChat#0" expanded="false" />
-            <element signature="n#!!block;n#textareaFocus#0;n#AskChat#0" expanded="false" />
-            <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
-            <element signature="n#!!block;n#getPhoneImg#0;n#AskChat#0" expanded="false" />
           </folding>
         </state>
       </provider>

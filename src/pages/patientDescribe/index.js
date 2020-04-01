@@ -65,10 +65,6 @@ class PatientDescribe extends Component {
     //获取appidcallback
     getAppidCallback(response){
         const { timestamp } = this.state;
-        const { dispatch } = this.props;
-        let that = this;
-        let { retryNum } = this.state;
-
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: response.data.data.app_id, // 必填，公众号的唯一标识
@@ -149,6 +145,8 @@ class PatientDescribe extends Component {
         const { dispatch } = this.props;
         const { patientImg } = this.props.patientDescribe;
         console.log('patientImg0------',patientImg)
+        alert(1)
+        alert(JSON.stringify(patientObj))
         //上传图片
         wx.uploadImage({
             localId: patientObj.localIds, // 需要上传的图片的本地ID，由chooseImage接口获得
@@ -156,6 +154,9 @@ class PatientDescribe extends Component {
             success: function (res) {
                 let serverId = res.serverId; // 返回图片的服务器端ID
                 console.log('serverId',serverId)
+                console.log('patientImg',patientImg)
+                alert(2)
+                alert(JSON.stringify(serverId))
                 for( let index in patientImg ){
                     if(patientObj.localIds == patientImg[index].localIds){
                         patientObj.isUpload = true;
