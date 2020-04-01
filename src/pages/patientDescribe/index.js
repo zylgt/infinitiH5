@@ -112,7 +112,9 @@ class PatientDescribe extends Component {
                     patientImg:patientImg
                 }
             })
-            that.uploadImg(patientObj,localIds,index,that)
+            setTimeout(function () {
+                that.uploadImg(patientObj,localIds,index,that)
+            },50)
             // if(index + 1 < localIds.length){
             //     index ++;
             //     that.getPhoneImg(localIds, index, that)
@@ -130,7 +132,9 @@ class PatientDescribe extends Component {
                             patientImg:patientImg
                         }
                     })
-                    that.uploadImg(patientObj,localIds,index,that)
+                    setTimeout(function () {
+                        that.uploadImg(patientObj,localIds,index,that)
+                    },50)
                     // if(index + 1 < localIds.length){
                     //     index ++;
                     //     that.getPhoneImg(localIds, index, that)
