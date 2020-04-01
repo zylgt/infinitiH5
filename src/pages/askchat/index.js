@@ -37,9 +37,11 @@ class AskChat extends React.Component {
         this.taskRemindInterval = null;
     }
     componentWillUnmount(){
-        this.socket.onclose({
-            msg:'关闭页面'
-        })
+        if(this.socket){
+            this.socket.onclose({
+                msg:'关闭页面'
+            })
+        }
     }
     componentDidUpdate(){
         this.scrollToBottom();
@@ -50,6 +52,7 @@ class AskChat extends React.Component {
 
 
         let token = cookieUtils.get('token') || getQueryString('token') || '';
+        console.log('token',token)
         if(token){
             cookieUtils.set('token',token)
             this.setState({
@@ -138,9 +141,11 @@ class AskChat extends React.Component {
     }
     //订单详情callback
     orderDetailCallback(response){
+        console.log('response1----------',response)
+        console.log('this',this)
         let data = response.data.data;
         let { orderId } = this.state;
-
+        this.linkSocket(orderId)
         if(data.status == 'inquiring'){
             this.linkSocket(orderId)
         }else if(data.status == 'finished'){
@@ -157,7 +162,8 @@ class AskChat extends React.Component {
     }
 
     //链接socket
-    linkSocket(orderId){
+    linkSocket = (orderId) => {
+        console.log('orderId',orderId)
         let that = this;
         let socketUrl = 'ws://'+ hostURL + '/m/order/' + orderId + '/chat/conn';
         //    判断专家是否登录
