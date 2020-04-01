@@ -149,9 +149,9 @@ class Ask extends React.Component {
     jumpChat(e){
         let orderId = e.currentTarget.getAttribute('data-uid') || '';
         let status = e.currentTarget.getAttribute('data-status') || '';
-        if(status == "pending"){
-            return;
-        }
+        // if(status == "pending"){
+        //     return;
+        // }
         console.log('orderId',orderId);
         router.push('./askchat?order_id=' + orderId)
     }

@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="175d2814-6ce3-4d6e-8268-5c4da88a3d07" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/ask/index.js" afterPath="$PROJECT_DIR$/src/pages/ask/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/index.js" afterPath="$PROJECT_DIR$/src/pages/askchat/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,7 +16,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="445">
@@ -29,6 +27,19 @@
                 <element signature="n#!!block;n#textareaFocus#0;n#AskChat#0" expanded="false" />
                 <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
                 <element signature="n#!!block;n#getPhoneImg#0;n#AskChat#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="490">
+              <caret line="156" column="5" lean-forward="true" selection-start-line="156" selection-start-column="5" selection-end-line="156" selection-end-column="5" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+                <element signature="e#818#2859#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -132,8 +143,8 @@
         <option value="$PROJECT_DIR$/src/pages/home/index.js" />
         <option value="$PROJECT_DIR$/src/utils/request.js" />
         <option value="$PROJECT_DIR$/src/pages/ask/models/ask.js" />
-        <option value="$PROJECT_DIR$/src/pages/ask/index.js" />
         <option value="$PROJECT_DIR$/src/pages/askchat/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/ask/index.js" />
       </list>
     </option>
   </component>
@@ -406,12 +417,12 @@
       <workItem from="1585099660596" duration="65313000" />
       <workItem from="1585357421010" duration="22486000" />
       <workItem from="1585403249279" duration="24284000" />
-      <workItem from="1585531833206" duration="59654000" />
+      <workItem from="1585531833206" duration="60358000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="361565000" />
+    <option name="totallyTimeSpent" value="362269000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1080" y="-352" width="1080" height="1183" extended-state="0" />
@@ -421,7 +432,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.017463235" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.017463235" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -883,17 +894,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="152" column="19" lean-forward="true" selection-start-line="152" selection-start-column="19" selection-end-line="152" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-            <element signature="e#818#2859#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/ask/models/ask.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -912,6 +912,17 @@
             <element signature="n#!!block;n#textareaFocus#0;n#AskChat#0" expanded="false" />
             <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
             <element signature="n#!!block;n#getPhoneImg#0;n#AskChat#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="156" column="5" lean-forward="true" selection-start-line="156" selection-start-column="5" selection-end-line="156" selection-end-column="5" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+            <element signature="e#818#2859#0" expanded="false" />
           </folding>
         </state>
       </provider>
