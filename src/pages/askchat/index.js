@@ -32,7 +32,8 @@ class AskChat extends React.Component {
             historyMsg:[],
             isFinished : false,
             isExpired: false,
-            token:''
+            token:'',
+            detailInfo:''
         }
         this.taskRemindInterval = null;
     }
@@ -142,7 +143,9 @@ class AskChat extends React.Component {
     //订单详情callback
     orderDetailCallback(response){
         console.log('response1----------',response)
-        console.log('this',this)
+        this.setState({
+            detailInfo:response.data.data
+        })
         let data = response.data.data;
         let { orderId } = this.state;
         this.linkSocket(orderId)
@@ -478,10 +481,11 @@ class AskChat extends React.Component {
             sendMsg,
             historyMsg,
             isFinished,
-            isExpired
+            isExpired,
+            detailInfo
         } = this.state;
 
-        let doctorName = 'xx医生';
+        let doctorName = detailInfo.doctor_name ? detailInfo.doctor_name + '医生' : '医生';
 
         return (
             <DocumentTitle title={doctorName}>
@@ -533,7 +537,7 @@ class AskChat extends React.Component {
                                         {
                                             item.sender_type === "doctor" && item.type === 'text' ?
                                                 <div className={Styles.list_item_left}>
-                                                    <img className={Styles.item_img} src={require('../../assets/head.png')} />
+                                                    <img className={Styles.item_img} src={staticURL + detailInfo.icon } />
                                                     <div className={Styles.item_content}>
                                                         <span className={Styles.item_icon}></span>
                                                         <span>{ item.content }</span>
@@ -552,7 +556,7 @@ class AskChat extends React.Component {
                                                                 <span>{ item.content }</span>
                                                             </div>
                                                     }
-                                                    <img className={Styles.item_img} src={require('../../assets/head.png')} />
+                                                    <img className={Styles.item_img} src={require('../../assets/my_head.png')} />
                                                 </div>
                                         }
                                     </div>
@@ -566,7 +570,7 @@ class AskChat extends React.Component {
                                         {
                                             item.sender_type === "doctor" && item.type === 'text' ?
                                                 <div className={Styles.list_item_left}>
-                                                    <img className={Styles.item_img} src={require('../../assets/head.png')} />
+                                                    <img className={Styles.item_img} src={staticURL + detailInfo.icon } />
                                                     <div className={Styles.item_content}>
                                                         <span className={Styles.item_icon}></span>
                                                         <span>{ item.content }</span>
@@ -588,7 +592,7 @@ class AskChat extends React.Component {
                                                                 <span>{ item.content }</span>
                                                             </div>
                                                     }
-                                                    <img className={Styles.item_img} src={require('../../assets/head.png')} />
+                                                    <img className={Styles.item_img} src={require('../../assets/my_head.png')} />
                                                 </div>
                                         }
                                     </div>

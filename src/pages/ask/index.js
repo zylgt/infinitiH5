@@ -149,7 +149,7 @@ class Ask extends React.Component {
     jumpChat(e){
         let orderId = e.currentTarget.getAttribute('data-uid') || '';
         let status = e.currentTarget.getAttribute('data-status') || '';
-        if(status == 'panding'){
+        if(status == "pending"){
             return;
         }
         console.log('orderId',orderId);
