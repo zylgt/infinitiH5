@@ -1,10 +1,8 @@
 import axios from 'axios'
 import {cookieUtils} from './tools'
-import { notification, Button } from 'antd'
-import { Toast } from 'antd-mobile';
 import { baseURL } from './baseURL'
 import 'babel-polyfill'
-
+import router from 'umi/router';
 
 axios.defaults.timeout = 2000000;
 axios.defaults.baseURL = baseURL;
@@ -30,7 +28,11 @@ const codeMessage = {
 }
 //验证状态
 function checkStatus(response) {
-    // console.log('response',response)
+    // console.log('response---------',response)
+    if (response.data.code === 407) {
+        router.replace('./login')
+        return;
+    }
     // if (response.data.code >= 200 && response.data.code < 300) {
         return response;
     // }

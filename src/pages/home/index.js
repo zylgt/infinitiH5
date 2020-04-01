@@ -9,6 +9,9 @@ import { nonceStr, isIOS } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
 import { pageURL } from '../../utils/baseURL'
 
+import { getQueryString } from '../../utils/tools'
+import {cookieUtils} from '../../utils/tools'
+
 @connect(({ home }) => ({ home }))
 class Home extends Component {
     constructor(props) {
@@ -22,6 +25,7 @@ class Home extends Component {
     }
     componentDidMount() {
         const { dispatch } = this.props;
+
         //生成签名时间戳
         let timestamp = (Date.parse(new Date()) / 1000).toString();
         this.setState({

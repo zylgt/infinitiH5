@@ -14,6 +14,13 @@ export async function uploadImg (params) {
     return request(url,postOptions(params))
 }
 
+//订单详情
+export async function orderDetail (params) {
+    const url = `/m/user/order/${params.orderId}`;
+    return request(url,getOptions())
+}
+
+
 
 
 

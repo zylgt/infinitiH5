@@ -149,6 +149,10 @@ class Ask extends React.Component {
     //点击跳转聊天
     jumpChat(e){
         let orderId = e.currentTarget.getAttribute('data-uid') || '';
+        let status = e.currentTarget.getAttribute('data-status') || '';
+        if(status == 'panding'){
+            return;
+        }
         console.log('orderId',orderId);
         router.push('./askchat?orderId=' + orderId)
     }
@@ -209,7 +213,7 @@ class Ask extends React.Component {
                         askList && askList.length > 0 ?
                             askList.map((item,index)=>{
                                 return(
-                                    <div className={Styles.ask_item} key={index} data-uid={item.uid} onClick={(e)=>{this.jumpChat(e)}}>
+                                    <div className={Styles.ask_item} key={index} data-uid={item.uid} data-status={item.status} onClick={(e)=>{this.jumpChat(e)}}>
                                         <div className={Styles.item}>
                                             <img className={Styles.item_head} src={ staticURL + item.icon } alt=""/>
                                             <div className={Styles.item_info}>

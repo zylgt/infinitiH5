@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="175d2814-6ce3-4d6e-8268-5c4da88a3d07" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" afterPath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/ask/index.js" afterPath="$PROJECT_DIR$/src/pages/ask/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/index.js" afterPath="$PROJECT_DIR$/src/pages/askchat/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" afterPath="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/index.js" afterPath="$PROJECT_DIR$/src/pages/home/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/askChat.js" afterPath="$PROJECT_DIR$/src/services/askChat.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/request.js" afterPath="$PROJECT_DIR$/src/utils/request.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -17,13 +23,40 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.js">
+        <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="689">
-              <caret line="154" column="17" lean-forward="false" selection-start-line="154" selection-start-column="17" selection-end-line="154" selection-end-column="17" />
+            <state relative-caret-position="663">
+              <caret line="222" column="58" lean-forward="false" selection-start-line="222" selection-start-column="58" selection-end-line="222" selection-end-column="58" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
+                <element signature="e#3492#3538#0" expanded="false" />
+                <element signature="n#!!block;n#autoWordFocus#0;n#AskChat#0" expanded="false" />
+                <element signature="n#!!block;n#textareaFocus#0;n#AskChat#0" expanded="false" />
+                <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
+                <element signature="n#!!block;n#getPhoneImg#0;n#AskChat#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="request.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/request.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="646">
+              <caret line="38" column="36" lean-forward="false" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="36" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="askChat.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/askchat/models/askChat.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -39,13 +72,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>resetFields</find>
-      <find>socketClose</find>
       <find>scrollToBottom</find>
       <find>list_item_right</find>
       <find>head_img</find>
       <find>sendMsg</find>
-      <find>jumpChat</find>
       <find>item_content</find>
       <find>doctorData</find>
       <find>percentage</find>
@@ -59,7 +89,6 @@
       <find>=</find>
       <find>isShowButtom</find>
       <find>componentDidMount</find>
-      <find>linkSocket</find>
       <find>wx</find>
       <find>askchat</find>
       <find>askChat</find>
@@ -69,6 +98,10 @@
       <find>patientImg</find>
       <find>uploadImg</find>
       <find>localIds</find>
+      <find>jumpChat</find>
+      <find>linkSocket</find>
+      <find>codeMessage</find>
+      <find>token</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -117,17 +150,17 @@
         <option value="$PROJECT_DIR$/src/pages/doctorInfo/index.js" />
         <option value="$PROJECT_DIR$/src/pages/askChat/models/askChat.js" />
         <option value="$PROJECT_DIR$/src/pages/askChat/index.js" />
-        <option value="$PROJECT_DIR$/src/services/askChat.js" />
-        <option value="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" />
         <option value="$PROJECT_DIR$/src/pages/informed/index.less" />
         <option value="$PROJECT_DIR$/src/pages/informed/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/applyList/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/login/models/login.js" />
+        <option value="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/ask/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" />
+        <option value="$PROJECT_DIR$/src/services/askChat.js" />
         <option value="$PROJECT_DIR$/src/pages/home/index.js" />
         <option value="$PROJECT_DIR$/src/utils/request.js" />
         <option value="$PROJECT_DIR$/src/pages/askchat/index.js" />
-        <option value="$PROJECT_DIR$/src/pages/applyList/index.js" />
-        <option value="$PROJECT_DIR$/src/pages/ask/index.js" />
-        <option value="$PROJECT_DIR$/src/pages/login/models/login.js" />
-        <option value="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
       </list>
     </option>
   </component>
@@ -266,6 +299,14 @@
               <item name="web-patient" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="askchat" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web-patient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="empty" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -377,12 +418,12 @@
       <workItem from="1585099660596" duration="65313000" />
       <workItem from="1585357421010" duration="22486000" />
       <workItem from="1585403249279" duration="24284000" />
-      <workItem from="1585531833206" duration="53575000" />
+      <workItem from="1585531833206" duration="56745000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="355486000" />
+    <option name="totallyTimeSpent" value="358656000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1080" y="-352" width="1080" height="1183" extended-state="0" />
@@ -634,16 +675,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/ask.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/chat/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -701,24 +732,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="314">
           <caret line="45" column="23" lean-forward="false" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/askChat.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="22" lean-forward="false" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/askchat/models/askChat.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="536">
-          <caret line="33" column="10" lean-forward="true" selection-start-line="33" selection-start-column="10" selection-end-line="33" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -795,53 +808,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/home/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="607">
-          <caret line="55" column="9" lean-forward="true" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/applyList/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="568">
           <caret line="171" column="51" lean-forward="true" selection-start-line="171" selection-start-column="51" selection-end-line="171" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-413">
-          <caret line="126" column="13" lean-forward="true" selection-start-line="126" selection-start-column="13" selection-end-line="126" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-            <element signature="e#722#2763#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-431">
-          <caret line="521" column="36" lean-forward="false" selection-start-line="521" selection-start-column="36" selection-end-line="521" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-            <element signature="n#!!block;n#autoWordFocus#0;n#AskChat#0" expanded="false" />
-            <element signature="n#!!block;n#textareaFocus#0;n#AskChat#0" expanded="false" />
-            <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
-            <element signature="n#!!block;n#getPhoneImg#0;n#AskChat#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/request.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="47" column="56" lean-forward="false" selection-start-line="47" selection-start-column="20" selection-end-line="47" selection-end-column="56" />
           <folding />
         </state>
       </provider>
@@ -882,10 +852,80 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="689">
-          <caret line="154" column="17" lean-forward="false" selection-start-line="154" selection-start-column="17" selection-end-line="154" selection-end-column="17" />
+        <state relative-caret-position="2329">
+          <caret line="137" column="0" lean-forward="true" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/ask.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/home/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="27" column="8" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/request.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="38" column="36" lean-forward="false" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/askChat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="20" lean-forward="true" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1915">
+          <caret line="156" column="36" lean-forward="true" selection-start-line="156" selection-start-column="36" selection-end-line="156" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+            <element signature="e#722#2763#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/askchat/models/askChat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="222" column="58" lean-forward="false" selection-start-line="222" selection-start-column="58" selection-end-line="222" selection-end-column="58" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+            <element signature="e#3492#3538#0" expanded="false" />
+            <element signature="n#!!block;n#autoWordFocus#0;n#AskChat#0" expanded="false" />
+            <element signature="n#!!block;n#textareaFocus#0;n#AskChat#0" expanded="false" />
+            <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
+            <element signature="n#!!block;n#getPhoneImg#0;n#AskChat#0" expanded="false" />
           </folding>
         </state>
       </provider>
