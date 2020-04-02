@@ -105,11 +105,10 @@ class Login extends Component {
             phone: phone
         })
     }
-    //短信验证码录入
-    inputPhoneCode(val){
-        this.setState({
-            phoneCode: val
-        })
+    //触发校验手机号码
+    phoneBlur(){
+        const { phone } = this.state;
+        this.verifyPhone(phone)
     }
     //校验手机号码
     verifyPhone(val){
@@ -126,37 +125,73 @@ class Login extends Component {
             return false
         }
     }
-    // 图片验证码校验
-    verifyImgCode(val){
-        const { dispatch, login } = this.props;
 
-        if( val != '' && val.length == 6 ){
-            dispatch({
-                type: 'login/setData',
-                payload: {
-                    imgCode:val
-                }
+    // 图片验证码输入
+    changeImgCode(val){
+        const { dispatch } = this.props;
+        dispatch({
+            type: 'login/setData',
+            payload: {
+                imgCode:val
+            }
+        });
+    }
+    //发送短信验证码
+    verifyImgCode(){
+        const { dispatch } = this.props;
+        const { imgCode, imgCodeId } = this.props.login;
+        const { phone, phoneError } = this.state;
+
+        if (this.state.isWait) {
+            return false
+        }
+        if( phone.toString().length < 11 || this.verifyPhone(phone) ){
+            // Toast.fail('手机号码格式错误', 1.5);
+            this.setState({
+                phoneError:true
             });
-            dispatch({
-                type: 'login/verifyImgCode',
-                payload: {
-                    captcha_id: login.imgCodeId,
-                    graph_code: val
-                }
-            });
-        }else if( val != '' && val.length < 6 ){
-            dispatch({
-                type: 'login/setData',
-                payload: {
-                    imgCode:val
-                }
-            });
+            return false
+        }
+
+        if( imgCode == '' || imgCode.length < 6 ){
             dispatch({
                 type: 'login/setData',
                 payload: {
                     imgCodeError:true
                 }
             });
+            return false
+        }
+        dispatch({
+            type: 'login/verifyImgCode',
+            payload: {
+                captcha_id: imgCodeId,
+                graph_code: imgCode
+            },
+            callback:this.verifyImgCodeCallback.bind(this)
+        });
+    }
+    //图形验证码检验callback
+    verifyImgCodeCallback(response){
+        const { dispatch } = this.props;
+        console.log('verifyImgCodeCallback',response)
+
+        if(response && response.data.code == 200 ){
+            dispatch({
+                type: 'login/setData',
+                payload: {
+                    imgCodeError:false
+                }
+            });
+            this.getCode()
+        }else{
+            dispatch({
+                type: 'login/setData',
+                payload: {
+                    imgCodeError:true
+                }
+            });
+            this.refreshCodeImage();
         }
     }
     //获取短信验证码
@@ -167,7 +202,6 @@ class Login extends Component {
         if (this.state.isWait) {
             return false
         }
-        console.log(this.verifyPhone(phone))
         if( phone.toString().length < 11 || this.verifyPhone(phone) ){
             // Toast.fail('手机号码格式错误', 1.5);
             this.setState({
@@ -175,7 +209,6 @@ class Login extends Component {
             });
             return false
         }
-
         if( imgCode.toString().length < 6 || login.imgCodeError){
             // Toast.fail('图形验证码错误', 1.5);
             dispatch({
@@ -194,6 +227,12 @@ class Login extends Component {
         });
         this.setTime()
     }
+    //短信验证码录入
+    inputPhoneCode(val){
+        this.setState({
+            phoneCode: val
+        })
+    }
     //倒计时
     setTime() {
         this.setState({ isWait: true });
@@ -206,6 +245,7 @@ class Login extends Component {
                     isWait: false
                 });
                 clearInterval(this.timer);
+                this.refreshCodeImage();
             } else {
                 countdown--;
                 this.setState({ codeText: '重新获取'+ countdown + 's' });
@@ -264,6 +304,7 @@ class Login extends Component {
                             onVirtualKeyboardConfirm={v => console.log('onVirtualKeyboardConfirm:', v)}
                             clear
                             onFocus={()=>{this.inputFocus('phone')}}
+                            onBlur={()=>{this.phoneBlur()}}
                             onChange={(val)=>{this.inputPhone(val)}}
                         />
                     </div>
@@ -281,7 +322,7 @@ class Login extends Component {
                                 onVirtualKeyboardConfirm={v => console.log('onVirtualKeyboardConfirm:', v)}
                                 clear
                                 onFocus={()=>{this.inputFocus('imgCode')}}
-                                onChange={(val)=>{this.verifyImgCode(val)}}
+                                onChange={(val)=>{this.changeImgCode(val)}}
                             />
                         </div>
                         {
@@ -312,7 +353,7 @@ class Login extends Component {
                             isWait ?
                                 <Button className={Styles.get_code_wait}>{codeText}</Button>
                                 :
-                                <Button className={Styles.get_code} onClick={()=>{this.getCode()}} >{codeText}</Button>
+                                <Button className={Styles.get_code} onClick={()=>{this.verifyImgCode()}} >{codeText}</Button>
                         }
                     </div>
                     {

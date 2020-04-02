@@ -98,8 +98,8 @@ class DoctorInfo extends Component {
         if(response.data.code == 421){
             router.push('./management?type=add' )
         }else if(response.data.code == 420){
-            // Toast.info('今日无出诊', 1.5)
-            router.push('./management?type=set&id='+this.state.doctor_id )
+            Toast.info('今日无出诊', 1.5)
+            // router.push('./management?type=set&id='+this.state.doctor_id )
         }else if(response.data.code == 422){
             this.setState({
                 modal:true,

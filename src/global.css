@@ -231,6 +231,7 @@ input {
 }
 
 div.am-tab-bar-bar {
+    width:100%;
     height: 0.96rem;
     border-top: solid 1px rgb(240,240,240);
 }

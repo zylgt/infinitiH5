@@ -20,6 +20,12 @@ export default {
             return history.listen(({ pathname, search }) => {
                 if (pathname == '/login') {
                     console.log('models-login')
+                    dispatch({
+                        type: 'setData',
+                        payload: {
+                            imgCode:''
+                        }
+                    });
                 }
             });
         },
@@ -35,36 +41,37 @@ export default {
                         imgCodeId:response.data.data
                     }
                 });
-                yield put({
-                    type: 'setData',
-                    payload: {
-                        imgCode:''
-                    }
-                });
+                // yield put({
+                //     type: 'setData',
+                //     payload: {
+                //         imgCode:''
+                //     }
+                // });
             }
         },
         //校验图片验证码
         *verifyImgCode({payload, callback},{call, put }) {
             const response = yield call(verifyImgCode, payload);
-            if(response && response.data.code == 200 ){
-                yield put({
-                    type: 'setData',
-                    payload: {
-                        imgCodeError:false
-                    }
-                });
-            }else{
-                yield put({
-                    type: 'setData',
-                    payload: {
-                        imgCodeError:true
-                    }
-                });
-                yield put({
-                    type: 'getImgCode',
-                    payload: {}
-                });
-            }
+            callback && callback(response)
+            // if(response && response.data.code == 200 ){
+            //     yield put({
+            //         type: 'setData',
+            //         payload: {
+            //             imgCodeError:false
+            //         }
+            //     });
+            // }else{
+            //     yield put({
+            //         type: 'setData',
+            //         payload: {
+            //             imgCodeError:true
+            //         }
+            //     });
+            //     yield put({
+            //         type: 'getImgCode',
+            //         payload: {}
+            //     });
+            // }
         },
         //获取手机验证码
         *getPhoneCode({ payload, callback }, { call, put }) {
@@ -86,13 +93,6 @@ export default {
             if(response && response.data.code == 200 ){
                 const token = response.headers['x-access-token'] || '' ;
                 cookieUtils.set('token',token)
-                yield put({
-                    type: 'setData',
-                    payload: {
-                        uid:response.data.data.uid,
-                        phone:response.data.data.phone,
-                    }
-                });
                 yield put({
                     type: 'setData',
                     payload: {

@@ -511,7 +511,7 @@ class AskChat extends React.Component {
                                         {/*<p>病情描述：去年去年八月确诊二型糖尿病，现在对血糖的监测以及胰岛素用药频率和剂量有一些疑问</p>*/}
                                         {/*<p className={Styles.item_bottom}>(含图片信息，医生可见)</p>*/}
                                     </div>
-                                    <img className={Styles.item_img} src={require('../../assets/head.png')} />
+                                    <img className={Styles.item_img} src={require('../../assets/my_head.png')} />
                                 </div>
 
                                 <div className={Styles.list_hint}>
