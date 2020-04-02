@@ -46,8 +46,8 @@ function checkStatus(response) {
 }
 
 export default function request(url, options) {
-    // const token = cookieUtils.get('token') || '';
-    let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODU3MjI0ODEsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI0NTIzMzMzNTk3NDc2MDQ0OCJ9.8Q5kzSIaRiTOHZtk_iW2hRyYhYAsdgdXRH70dFAYJJk'
+    const token = cookieUtils.get('token') || '';
+    // let token = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb37d2ecec7c549e8&redirect_uri=http://nethospital.yutanglabs.com/empty&response_type=code&scope=snsapi_userinfo&state=STATE #wechat_redirect'
     // console.log('token',token)
     let obj = {
         baseURL: baseURL
