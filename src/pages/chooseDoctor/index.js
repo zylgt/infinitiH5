@@ -147,12 +147,7 @@ class ChooseDoctor extends Component {
                                         </div>
                                     </div>
                                 )
-                            })
-                            :
-                            <div className={Styles.choose_no}>
-                                <img src={require('../../assets/empty.png')} alt=""/>
-                                <p>暂无出诊医生</p>
-                            </div>
+                            }) :''
                     }
                 </div>
             </DocumentTitle>
