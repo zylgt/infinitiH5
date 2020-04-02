@@ -537,7 +537,7 @@ class AskChat extends React.Component {
                                         {
                                             item.sender_type === "doctor" && item.type === 'text' ?
                                                 <div className={Styles.list_item_left}>
-                                                    <img className={Styles.item_img} src={staticURL + detailInfo.icon } />
+                                                    <img className={Styles.item_img} src={staticURL + detailInfo.doctor_icon } />
                                                     <div className={Styles.item_content}>
                                                         <span className={Styles.item_icon}></span>
                                                         <span>{ item.content }</span>
@@ -570,7 +570,7 @@ class AskChat extends React.Component {
                                         {
                                             item.sender_type === "doctor" && item.type === 'text' ?
                                                 <div className={Styles.list_item_left}>
-                                                    <img className={Styles.item_img} src={staticURL + detailInfo.icon } />
+                                                    <img className={Styles.item_img} src={staticURL + detailInfo.doctor_icon } />
                                                     <div className={Styles.item_content}>
                                                         <span className={Styles.item_icon}></span>
                                                         <span>{ item.content }</span>
@@ -637,6 +637,7 @@ class AskChat extends React.Component {
                                     ref={el => this.wordFocus = el}
                                     onChange = {(val)=>{this.changeWord(val)}}
                                     onFocus={()=>{this.textareaFocus()}}
+                                    // onBlur={()=>{this.textareaFocus()}}
                                 />
                                 {
                                     isShowSend ? <Button type="primary" onClick={()=>{this.submit()}} className={Styles.input_btn}>发送</Button>

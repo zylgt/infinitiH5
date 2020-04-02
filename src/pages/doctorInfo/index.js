@@ -145,7 +145,7 @@ class DoctorInfo extends Component {
                         <div className={Styles.info_right}>
                             <p className={Styles.info_name}>
                                 <span>{doctorInfo.name}</span>
-                                <span className={Styles.date}>{date}</span>
+                                <span className={`${Styles.date} ${isOpen ? '':Styles.date_no}`}>{date}</span>
                             </p>
                             <p className={Styles.info_rank}>
                                 <span>{doctorInfo.title}</span>

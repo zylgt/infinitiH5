@@ -21,50 +21,7 @@ class Ask extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            dataArray:[
-                // {
-                //     "uid": "sdf", //ID
-                //     "no": "112313213", //订单号
-                //     "status":"", //panding:待问诊 inquiring:问诊中 finished:完成问诊 expired:过期
-                //     "doctor_name":"张三", //医生
-                //     "icon":"", //头像
-                //     "segment":"",//预约时间段
-                //     "dept":"", //科室
-                //     "disease":["",""], //疾病标签
-                //     "last_msg":"sdf", //最后一条消息
-                //     "last_time":"2012-10-10 12:00:00", //最后一条消息时间
-                // },
-                // {
-                //     "uid": "sdf", //ID
-                //     "no": "112313213", //订单号
-                //     "status":"inquiring", //panding:待问诊 inquiring:问诊中 finished:完成问诊 expired:过期
-                //     "doctor_name":"张三", //医生
-                //     "dept":"糖尿病科", //科室
-                //     "disease":["糖尿饼"], //疾病标签
-                //     "last_msg":"sdf", //最后一条消息
-                //     "last_time":"2012-10-10 12:00:00", //最后一条消息时间
-                // },
-                // {
-                //     "uid": "sdf", //ID
-                //     "no": "112313213", //订单号
-                //     "status":"finished", //panding:待问诊 inquiring:问诊中 finished:完成问诊 expired:过期
-                //     "doctor_name":"张三", //医生
-                //     "dept":"糖尿病科", //科室
-                //     "disease":["糖尿饼"], //疾病标签
-                //     "last_msg":"sdf", //最后一条消息
-                //     "last_time":"2012-10-10 12:00:00", //最后一条消息时间
-                // },
-                // {
-                //     "uid": "sdf", //ID
-                //     "no": "112313213", //订单号
-                //     "status":"expired", //panding:待问诊 inquiring:问诊中 finished:完成问诊 expired:过期
-                //     "doctor_name":"张三", //医生
-                //     "dept":"糖尿病科", //科室
-                //     "disease":["糖尿饼"], //疾病标签
-                //     "last_msg":"sdf", //最后一条消息
-                //     "last_time":"2012-10-10 12:00:00", //最后一条消息时间
-                // }
-            ],
+            dataArray:[],
             timestamp:''
         }
     }
@@ -149,9 +106,11 @@ class Ask extends React.Component {
     jumpChat(e){
         let orderId = e.currentTarget.getAttribute('data-uid') || '';
         let status = e.currentTarget.getAttribute('data-status') || '';
-        // if(status == "pending"){
-        //     return;
-        // }
+        let wait = e.currentTarget.getAttribute('data-wait') || '';
+        if(status == "pending" && !wait){
+            Toast.info('待医生接诊后可进入',1.5)
+            return;
+        }
         console.log('orderId',orderId);
         router.push('./askchat?order_id=' + orderId)
     }
@@ -212,7 +171,7 @@ class Ask extends React.Component {
                         askList && askList.length > 0 ?
                             askList.map((item,index)=>{
                                 return(
-                                    <div className={Styles.ask_item} key={index} data-uid={item.uid} data-status={item.status} onClick={(e)=>{this.jumpChat(e)}}>
+                                    <div className={Styles.ask_item} key={index} data-uid={item.uid} data-status={item.status} data-wait={item.waited_at} onClick={(e)=>{this.jumpChat(e)}}>
                                         <div className={Styles.item}>
                                             <img className={Styles.item_head} src={ staticURL + item.icon } alt=""/>
                                             <div className={Styles.item_info}>

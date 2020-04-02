@@ -47,7 +47,7 @@ function checkStatus(response) {
 
 export default function request(url, options) {
     const token = cookieUtils.get('token') || '';
-    // let token = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxb37d2ecec7c549e8&redirect_uri=http://nethospital.yutanglabs.com/empty&response_type=code&scope=snsapi_userinfo&state=STATE #wechat_redirect'
+    // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODU3OTU0MzQsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI0NTU0MjQ0Mzg4MTg2MTEyMCJ9.JphTS3B3W5y_r5Str6XAiiA5N-yzTRxE1J19S3KG54E'
     // console.log('token',token)
     let obj = {
         baseURL: baseURL
