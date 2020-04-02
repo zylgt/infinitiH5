@@ -55,15 +55,15 @@ class BaseLayout extends React.Component {
                                     key={t.id}
                                     className={styles.item}
                                     icon={<div style={{
-                                        width: '0.44rem',
-                                        height: '0.44rem',
-                                        background: `url(${t.icon}) center center /  20px 20px no-repeat` }}
+                                        width: '0.48rem',
+                                        height: '0.48rem',
+                                        background: `url(${t.icon}) center center /  22px 22px no-repeat` }}
                                     />
                                     }
                                     selectedIcon={<div style={{
-                                        width: '0.44rem',
-                                        height: '0.44rem',
-                                        background: `url(${t.selectedicon}) center center /  20px 20px no-repeat` }}
+                                        width: '0.48rem',
+                                        height: '0.48rem',
+                                        background: `url(${t.selectedicon}) center center /  22px 22px no-repeat` }}
                                     />
                                     }
                                     // badge={1}

@@ -309,6 +309,7 @@ div.am-tab-bar-bar.am-tab-bar-bar-hidden {
 
 .am-toast.am-toast-mask {
     z-index: 101000000 !important;
+    font-size: .32rem;
 }
 
 .card_style .tran {

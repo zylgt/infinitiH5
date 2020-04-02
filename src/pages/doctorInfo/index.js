@@ -96,10 +96,9 @@ class DoctorInfo extends Component {
         console.log('response-----',response)
 
         if(response.data.code == 421){
-            router.push('./management?type=add' )
+            router.push('./management?type=add&id='+this.state.doctor_id  )
         }else if(response.data.code == 420){
             Toast.info('今日无出诊', 1.5)
-            // router.push('./management?type=set&id='+this.state.doctor_id )
         }else if(response.data.code == 422){
             this.setState({
                 modal:true,
@@ -140,7 +139,9 @@ class DoctorInfo extends Component {
             <DocumentTitle title='医生详情'>
                 <div className={Styles.doctor_info}>
                     <div className={Styles.info}>
-                        <img className={Styles.info_img} src={ staticURL + doctorInfo.icon } alt=""/>
+                        {
+                            doctorInfo && doctorInfo.icon ? <img className={Styles.info_img} src={ staticURL + doctorInfo.icon } alt=""/> : ''
+                        }
                         <div className={Styles.info_right}>
                             <p className={Styles.info_name}>
                                 <span>{doctorInfo.name}</span>

@@ -23,29 +23,32 @@ class Management extends Component {
             type:'',
             submitButton:'',
             disabled:false,
-            doctor_id:''
+            doctor_id:'',
+            idSet:false
         }
     }
     componentDidMount() {
         const { dispatch } = this.props;
         let type = getQueryString('type') || '';
+        let id = getQueryString('id') || '';
         console.log('type',type)
         this.setState({
             type: type
         })
         if(type == 'add'){
             this.setState({
-                submitButton: '保存'
+                submitButton: '保存',
+                doctor_id:id,
             })
         }else{
-            let id = getQueryString('id') || '';
+
             this.setState({
                 submitButton: '下一步',
                 disabled:true,
-                doctor_id:id
+                doctor_id:id,
+                idSet:true
             })
         }
-
         //生成签名时间戳
         let timestamp = (Date.parse(new Date()) / 1000).toString();
         this.setState({
@@ -116,9 +119,22 @@ class Management extends Component {
         const { name,card_id } = this.props.management;
         const { dispatch } = this.props;
         const { type } = this.state;
-        const Reg = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
-        if(name == ''){
-             return false
+        const cardReg = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
+        //判断是否是大于2个的汉字
+        const wordReg = /^[\u4E00-\u9FA5]+$/;
+        if(!wordReg.test(name)){
+            Toast.info('请输入汉字名字',1.5)
+            this.setState({
+                nameError: true
+            })
+            return
+        }
+        if(name.length < 2){
+            Toast.info('名字不可少于2个字',1.5)
+            this.setState({
+                nameError: true
+            })
+            return
         }
         //判断是否大于18周岁
         let year = card_id.toString().substring(6,14);
@@ -130,13 +146,14 @@ class Management extends Component {
         }
 
         //判断身份证号
-        if(!Reg.test(card_id)){
+        if(!cardReg.test(card_id)){
             this.setState({
                 idNumError:true
             })
             return false;
         }
 
+        console.log(111)
         if(type == 'add'){
             dispatch({
                 type:'management/savePatient',
@@ -148,19 +165,20 @@ class Management extends Component {
             })
         }else{
             router.push('./chooseTime?id='+this.state.doctor_id)
+
         }
 
     }
     //submitCallback
-    submitCallback(response){
-        console.log('submitCallback',response)
+    submitCallback = (response) => {
+        let doctor_id = this.state.doctor_id
         if(response && response.data.code == 200){
             Toast.info('保存成功',1.5)
             let source = getQueryString('source') || '';
             if(!source){
                 setTimeout(function () {
-                    router.goBack()
-                },1000)
+                    router.push('./chooseTime?id=' + doctor_id)
+                },500)
             }
         }else if(response && response.data.code == 412){
             Toast.info('就诊人已存在',1.5)
@@ -178,10 +196,14 @@ class Management extends Component {
 
     render() {
         const { getFieldProps } = this.props.form;
-        const { nameError, idNumError,submitButton,disabled } = this.state;
+        const { nameError, idNumError,submitButton,disabled,idSet } = this.state;
         const { name,card_id } = this.props.management;
+        let title = '就诊人管理'
+        if(idSet){
+            title='确认就诊人'
+        }
         return (
-            <DocumentTitle title='就诊人管理'>
+            <DocumentTitle title={title}>
                 <div className={Styles.management}>
                     <div className={Styles.management_name}>
                         <InputItem
