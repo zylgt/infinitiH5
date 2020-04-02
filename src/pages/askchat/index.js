@@ -278,7 +278,9 @@ class AskChat extends React.Component {
     submit = () => {
         const { dispatch } = this.props;
         let { word, orderId, sendMsg } = this.state;
-
+        if(word == '' || word.length < 1 ){
+            return false
+        }
         sendMsg.push({
             type: 'text',
             content: word,
