@@ -526,6 +526,9 @@ div.am-tab-bar-bar.am-tab-bar-bar-hidden {
     height: .66rem !important;
     line-height: .66rem !important;
 }
+:global(.am-modal-mask){
+    background: rgba(0,0,0,0.65);
+}
 body {-webkit-overflow-scrolling: touch;}
 .am-button::before{
     border: none!important;

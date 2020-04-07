@@ -340,6 +340,7 @@ class PatientDescribe extends Component {
                         maskClosable={true}
                         onClose={()=>{this.onClose()}}
                         // title="Title"
+                        className='patient_model'
                         footer={[{ text: '知道了', onPress: () => { this.clickKnow()} }]}
                     >
                         <div style={{color:'#333'}}>

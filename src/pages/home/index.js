@@ -24,6 +24,7 @@ class Home extends Component {
 
     }
     componentDidMount() {
+
         const { dispatch } = this.props;
 
         //生成签名时间戳
@@ -112,8 +113,11 @@ class Home extends Component {
     clickOffice(e){
         let officeId = e.currentTarget.getAttribute('data-id');
         let type = e.currentTarget.getAttribute('data-type');
+        let name = e.currentTarget.getAttribute('data-name');
         // console.log('officeId',officeId)
-        router.push('./chooseDoctor?id=' + officeId + '&type=' + type )
+        let params = params = 'id=' + officeId + '&type=' + type + '&name=' + name ;
+
+        router.push('./chooseDoctor?' + encodeURIComponent(params) )
 
     }
     //点击进入出诊医生
@@ -155,7 +159,7 @@ class Home extends Component {
                         {
                             officeData.length > 0 ? officeData.map((item,index)=>{
                                 return(
-                                    <div className={Styles.office_item} key={item.uid} data-id={item.uid} data-type="1" onClick={(e) => { this.clickOffice(e) }}>
+                                    <div className={Styles.office_item} key={item.uid} data-id={item.uid} data-type="1" data-name={item.name} onClick={(e) => { this.clickOffice(e) }}>
                                         <img className={Styles.item_img} src={ staticURL + item.icon} alt=""/>
                                         <p className={Styles.item_title}>{item.name}</p>
                                     </div>
@@ -170,40 +174,48 @@ class Home extends Component {
                         {
                             illnessData.length > 0 ? illnessData.map((item,index)=>{
                                 return(
-                                    <div className={Styles.illness_title} key={item.uid} data-id={item.uid} data-type="2" onClick={(e) => {this.clickOffice(e)}}>
+                                    <div className={Styles.illness_title} key={item.uid} data-id={item.uid} data-type="2" data-name={item.name} onClick={(e) => {this.clickOffice(e)}}>
                                         <span>{item.name}</span>
                                     </div>
                                 )
                             }) : ''
                         }
                     </div>
+                    <div className={Styles.title}>今日出诊医生</div>
                     {
-                        doctorData.length > 0 ? <div className={Styles.title}>今日出诊医生</div>:''
+                        doctorData.length > 0 ?
+                            <div>
+                                <div className={Styles.doctor} >
+                                    {
+                                        doctorData.map((item,index) => {
+                                            return(
+                                                <div className={Styles.doctor_item} key={item.uid} data-id={item.uid} onClick={(e) => { this.clickDoctor(e) }}>
+                                                    <img className={Styles.doctor_img} src={ staticURL + item.icon } alt=""/>
+                                                    <div>
+                                                        <p className={Styles.doctor_info}>
+                                                            <span className={Styles.doctor_name}>{item.name}</span>
+                                                            <span className={Styles.doctor_rank}>{item.title}</span>
+                                                            <span>{item.dept}</span>
+                                                        </p>
+                                                        <div className={Styles.doctor_introducer}>
+                                                            擅长：{item.skill}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
+                            :
+                            <div>
+                                <div className={Styles.doctor_no}>
+                                    <img src={require('../../assets/no_doctor.png')} alt=""/>
+                                    暂无医生出诊
+                                </div>
+                            </div>
                     }
-
-                    <div className={Styles.doctor} >
-                        {
-                            doctorData.length > 0 ? doctorData.map((item,index)=>{
-
-                                return(
-                                    <div className={Styles.doctor_item} key={item.uid} data-id={item.uid} onClick={(e) => { this.clickDoctor(e) }}>
-                                        <img className={Styles.doctor_img} src={ staticURL + item.icon } alt=""/>
-                                        <div>
-                                            <p className={Styles.doctor_info}>
-                                                <span className={Styles.doctor_name}>{item.name}</span>
-                                                <span className={Styles.doctor_rank}>{item.title}</span>
-                                                <span>{item.dept}</span>
-                                            </p>
-                                            <div className={Styles.doctor_introducer}>
-                                                擅长：{item.skill}
-                                            </div>
-                                        </div>
-                                    </div>
-                                )
-                            }) : ''
-                        }
-                    </div>
-
                 </div>
             </DocumentTitle>
         )

@@ -57,13 +57,13 @@ class BaseLayout extends React.Component {
                                     icon={<div style={{
                                         width: '0.48rem',
                                         height: '0.48rem',
-                                        background: `url(${t.icon}) center center /  22px 22px no-repeat` }}
+                                        background: `url(${t.icon}) center center /  0.44rem 0.44rem no-repeat` }}
                                     />
                                     }
                                     selectedIcon={<div style={{
                                         width: '0.48rem',
                                         height: '0.48rem',
-                                        background: `url(${t.selectedicon}) center center /  22px 22px no-repeat` }}
+                                        background: `url(${t.selectedicon}) center center /  0.44rem 0.44rem no-repeat` }}
                                     />
                                     }
                                     // badge={1}

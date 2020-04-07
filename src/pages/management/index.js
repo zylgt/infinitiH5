@@ -214,6 +214,7 @@ class Management extends Component {
                             onChange={(val)=>{this.inputName(val)}}
                             onFocus={()=>{this.inputFocus('name')}}
                             disabled={disabled}
+                            className={ nameError ? `${Styles.name_error}` : ''}
                         >姓名</InputItem>
                     </div>
                     {
@@ -229,6 +230,7 @@ class Management extends Component {
                             onChange={(val)=>{this.inputIdNum(val)}}
                             onFocus={()=>{this.inputFocus('card_id')}}
                             disabled={disabled}
+                            className={ idNumError ? `${Styles.card_error}` : ''}
                         >身份证号</InputItem>
                     </div>
                     {
