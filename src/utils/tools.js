@@ -66,8 +66,9 @@ export const cookieUtils = {
 
 //获取url参数
 export const getQueryString = (name) => {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
+    let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    let search = decodeURIComponent(window.location.search);
+    let r = search.substr(1).match(reg);
     if (r != null) return unescape(r[2]);
     return null;
 }

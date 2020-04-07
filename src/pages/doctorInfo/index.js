@@ -136,7 +136,7 @@ class DoctorInfo extends Component {
 
 
         return (
-            <DocumentTitle title='医生详情'>
+            <DocumentTitle title={ doctorInfo.name + '医生详情'}>
                 <div className={Styles.doctor_info}>
                     <div className={Styles.info}>
                         {
@@ -187,6 +187,7 @@ class DoctorInfo extends Component {
                         maskClosable={true}
                         onClose={()=>{this.onClose()}}
                         // title="Title"
+                        className='doctor_info_model'
                         footer={[{ text: '知道了', onPress: () => { this.onClose()} }]}
                     >
                         <div style={{color:'#333'}}>

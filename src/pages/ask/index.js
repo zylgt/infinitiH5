@@ -173,7 +173,9 @@ class Ask extends React.Component {
                                 return(
                                     <div className={Styles.ask_item} key={index} data-uid={item.uid} data-status={item.status} data-wait={item.waited_at} onClick={(e)=>{this.jumpChat(e)}}>
                                         <div className={Styles.item}>
-                                            <img className={Styles.item_head} src={ staticURL + item.icon } alt=""/>
+                                            {
+                                                item.icon ? <img className={Styles.item_head} src={ staticURL + item.icon } alt=""/> : ''
+                                            }
                                             <div className={Styles.item_info}>
                                                 <div className={Styles.info}>
                                                     <span className={Styles.info_name}>{item.doctor_name}</span>
@@ -201,84 +203,6 @@ class Ask extends React.Component {
                                 <p>暂无问诊记录</p>
                             </div>
                     }
-                    {/*<div className={Styles.ask_item} onClick={()=>{router.push('./askChat')}}>*/}
-                    {/*<div className={Styles.item}>*/}
-                    {/*<img className={Styles.item_head} src={require('../../assets/head.png')} alt=""/>*/}
-                    {/*<div className={Styles.item_info}>*/}
-                    {/*<div className={Styles.info}>*/}
-                    {/*<span className={Styles.info_name}>李晶</span>*/}
-                    {/*<span>内分泌科</span>*/}
-                    {/*<img className={Styles.info_right} src={require('../../assets/ask_order.png')} alt=""/>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_content}>在线问诊10:00-10:30，请等待就诊通知。</div>*/}
-                    {/*<div className={Styles.info_ill}>*/}
-                    {/*<div className={Styles.ill}>糖尿病</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-
-                    {/*<div className={Styles.ask_item} onClick={()=>{router.push('./askChat')}}>*/}
-                    {/*<div className={Styles.item}>*/}
-                    {/*<img className={Styles.item_head} src={require('../../assets/head.png')} alt=""/>*/}
-                    {/*<div className={Styles.item_info}>*/}
-                    {/*<div className={Styles.info}>*/}
-                    {/*<span className={Styles.info_name}>李晶</span>*/}
-                    {/*<span>内分泌科</span>*/}
-                    {/*<span className={Styles.info_right}>上午 8:42</span>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_content}>*/}
-                    {/*<p className={Styles.content_word}>问一下现在怎么用药呢？血糖餐前问一下现在怎么用药呢？血糖餐前</p>*/}
-                    {/*<p className={Styles.content_number}>16</p>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_ill}>*/}
-                    {/*<div className={Styles.ill}>糖尿病</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-
-                    {/*<div className={Styles.ask_item} onClick={()=>{router.push('./askChat')}}>*/}
-                    {/*<div className={Styles.item}>*/}
-                    {/*<img className={Styles.item_head} src={require('../../assets/head.png')} alt=""/>*/}
-                    {/*<div className={Styles.item_info}>*/}
-                    {/*<div className={Styles.info}>*/}
-                    {/*<span className={Styles.info_name}>李晶</span>*/}
-                    {/*<span>内分泌科</span>*/}
-                    {/*<span className={Styles.info_right}>周三</span>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_content}>*/}
-                    {/*<p className={Styles.content_word}>[本次问诊已结束]</p>*/}
-                    {/*<img src={require('../../assets/ask_success.png')} alt=""/>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_ill}>*/}
-                    {/*<div className={Styles.ill}>颈椎病</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-
-                    {/*<div className={Styles.ask_item} onClick={()=>{router.push('./askChat')}}>*/}
-                    {/*<div className={Styles.item}>*/}
-                    {/*<img className={Styles.item_head} src={require('../../assets/head.png')} alt=""/>*/}
-                    {/*<div className={Styles.item_info}>*/}
-                    {/*<div className={Styles.info}>*/}
-                    {/*<span className={Styles.info_name}>李晶</span>*/}
-                    {/*<span>内分泌科</span>*/}
-                    {/*<span className={Styles.info_right}>周三</span>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_content}>*/}
-                    {/*<p className={Styles.content_word}>[本次问诊已失效]</p>*/}
-                    {/*<img src={require('../../assets/ask_lose.png')} alt=""/>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_ill}>*/}
-                    {/*<div className={Styles.ill}>心率不齐</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-
-
                 </div>
             </DocumentTitle>
 
