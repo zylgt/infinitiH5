@@ -5,7 +5,7 @@ export default {
     namespace: 'patientDescribe',
     state: {
         val:'',
-        patientImg:[],
+        patientImg:[]
     },
     subscriptions: {
         setup({ dispatch, history }) {
