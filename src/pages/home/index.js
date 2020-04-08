@@ -8,7 +8,6 @@ import wx from 'weixin-js-sdk';
 import { nonceStr, isIOS } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
 import { pageURL } from '../../utils/baseURL'
-
 import { getQueryString } from '../../utils/tools'
 import {cookieUtils} from '../../utils/tools'
 
