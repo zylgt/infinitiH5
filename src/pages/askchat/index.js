@@ -51,7 +51,7 @@ class AskChat extends React.Component {
         const { dispatch } = this.props;
         let that = this;
 
-
+        // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODYyNTAxMzEsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI0NTY0NDU3MjA2MzY5ODk0NCJ9.FlVg4sb1etaMjIRfz_E-wZ-l7PUdn9yd08usD8tntbQ'
         let token = cookieUtils.get('token') || getQueryString('token') || '';
         console.log('token',token)
         if(token){
@@ -163,7 +163,6 @@ class AskChat extends React.Component {
         }
 
     }
-
     //链接socket
     linkSocket = (orderId) => {
         console.log('orderId',orderId)
@@ -307,18 +306,19 @@ class AskChat extends React.Component {
     //判断消息右上角时间
     showTime(item){
         let time = ''
-        if(item.updated_at){
-            let weeks = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+        let created_time = item.created_at;
+        if(created_time){
+            let weeks = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
             let currentTime = Date.parse(new Date());
-            let d_day = Date.parse(new Date(item.updated_at));
+            let d_day = Date.parse(new Date(created_time));
             let day = Math.abs(parseInt((d_day - currentTime)/1000/3600/24));//计算日期
-            let dateFormat = moment(item.updated_at).format('L') // 日期
-            let index = new Date(item.updated_at).getDay() // 星期
-            let date = moment(item.updated_at).format('LT'); // 时分
-            let hours = new Date(item.updated_at).getHours(); //小时
+            let dateFormat = moment(created_time).format('L') // 日期
+            let index = new Date(created_time).getDay() // 星期
+            let date = moment(created_time).format('LT'); // 时分
+            let hours = new Date(created_time).getHours(); //小时
             //当前时间6分钟前
             let newTime = moment().subtract(6, 'minute');
-            if(moment(item.updated_at) < newTime){
+            if(moment(created_time) < newTime){
                 if(day >= 8){
                     time = dateFormat + date
                 }else if(day <8 && day >= 2){
@@ -327,16 +327,18 @@ class AskChat extends React.Component {
                     time = '昨天' + date
                 }else{
                     if(hours <= 12){
-                        time = '上午' + date
+                        time = date
                     }else{
-                        time = '下午' + date
+                        time = date
                     }
                 }
             }
         }
-        return (<div className={Styles.list_time}>
-            { time }
-        </div>);
+        return (
+            <div className={Styles.list_time}>
+                { time }
+            </div>
+        );
     }
     //发送图片
     addPatient(type) {
@@ -495,7 +497,7 @@ class AskChat extends React.Component {
 
                     <div className={ `${Styles.chat_list} ` }>
 
-                        <div className={Styles.list_time}>14:39</div>
+                        { historyMsg && historyMsg.length > 0 ? this.showTime( historyMsg[0] ) : '' }
 
                         {
                             historyMsg && historyMsg.length > 0 ? <div>

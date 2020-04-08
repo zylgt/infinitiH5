@@ -118,22 +118,23 @@ class Ask extends React.Component {
     rigthTime(item){
 
         let time = ''
-        if(item.last_time){
-            let weeks = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
+        let created_time = item.created_at;
+        if(created_time){
+            let weeks = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
             let currentTime = Date.parse(new Date());
-            let d_day = Date.parse(new Date(item.last_time));
+            let d_day = Date.parse(new Date(created_time));
             let day = Math.abs(parseInt((d_day - currentTime)/1000/3600/24));//计算日期
             if(day >= 8){
-                let date = moment(item.last_time).format('YYYY/MM/DD')
+                let date = moment(created_time).format('YYYY/MM/DD')
                 time = date;
             }else if(day <8 && day >= 2){
-                let index = new Date(item.last_time).getDay()
+                let index = new Date(created_time).getDay()
                 time = weeks[index]
             }else if(day > 0 && day < 2){
                 time = '昨天'
             }else{
-                let hours = new Date(item.last_time).getHours();
-                let date = moment(item.last_time).format('LT');
+                let hours = new Date(created_time).getHours();
+                let date = moment(created_time).format('LT');
                 if(hours <= 12){
                     time = '上午' + date
                 }else{
@@ -163,6 +164,8 @@ class Ask extends React.Component {
 
     render() {
         const { askList } = this.props.ask;
+
+        // console.log('askList',askList)
 
         return (
             <DocumentTitle title='问诊'>
