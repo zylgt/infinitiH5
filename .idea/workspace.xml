@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="175d2814-6ce3-4d6e-8268-5c4da88a3d07" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" afterPath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/patientDescribe/index.less" afterPath="$PROJECT_DIR$/src/pages/patientDescribe/index.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/patientDescribe/models/patientDescribe.js" afterPath="$PROJECT_DIR$/src/pages/patientDescribe/models/patientDescribe.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/chooseTime/index.js" afterPath="$PROJECT_DIR$/src/pages/chooseTime/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/management/index.js" afterPath="$PROJECT_DIR$/src/pages/management/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/management/models/management.js" afterPath="$PROJECT_DIR$/src/pages/management/models/management.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,7 +17,42 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/management/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="717">
+              <caret line="271" column="29" lean-forward="true" selection-start-line="271" selection-start-column="29" selection-end-line="271" selection-end-column="29" />
+              <folding>
+                <element signature="n#!!block;n#inputFocus#0;n#Management#0" expanded="false" />
+                <marker date="1586398331855" expanded="true" signature="8003:8568" ph="..." />
+                <marker date="1586398331855" expanded="true" signature="8039:8162" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="request.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/utils/request.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="782">
+              <caret line="50" column="27" lean-forward="false" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="management.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/management/models/management.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="156">
+              <caret line="32" column="35" lean-forward="true" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -29,12 +63,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>modelTitl</find>
-      <find>知道了</find>
-      <find>am-modal-mask</find>
-      <find>list_hint</find>
-      <find>management_name</find>
-      <find>management_card</find>
       <find>login_phone</find>
       <find>code_input</find>
       <find>my_model</find>
@@ -59,6 +87,12 @@
       <find>localIds</find>
       <find>getPhoneImg</find>
       <find>patientImg</find>
+      <find>disabled</find>
+      <find>type</find>
+      <find>inputName</find>
+      <find>submitButton</find>
+      <find>old_name</find>
+      <find>idSet</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -67,7 +101,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/pages/chooseTime/index.js" />
         <option value="$PROJECT_DIR$/src/pages/doctorDetail/index.js" />
         <option value="$PROJECT_DIR$/src/pages/chooseDoctor/models/chooseDoctor.js" />
         <option value="$PROJECT_DIR$/src/utils/baseURL.js" />
@@ -85,7 +118,6 @@
         <option value="$PROJECT_DIR$/src/services/askChat.js" />
         <option value="$PROJECT_DIR$/src/pages/login/models/login.js" />
         <option value="$PROJECT_DIR$/src/layouts/baseLayout/index.less" />
-        <option value="$PROJECT_DIR$/src/pages/management/models/management.js" />
         <option value="$PROJECT_DIR$/src/pages/chooseTime/index.less" />
         <option value="$PROJECT_DIR$/src/pages/applyList/index.less" />
         <option value="$PROJECT_DIR$/src/pages/chooseDoctor/index.less" />
@@ -98,7 +130,6 @@
         <option value="$PROJECT_DIR$/src/pages/document.ejs" />
         <option value="$PROJECT_DIR$/src/global.css" />
         <option value="$PROJECT_DIR$/src/pages/askchat/index.less" />
-        <option value="$PROJECT_DIR$/src/pages/management/index.js" />
         <option value="$PROJECT_DIR$/src/pages/management/index.less" />
         <option value="$PROJECT_DIR$/src/pages/login/index.js" />
         <option value="$PROJECT_DIR$/src/pages/login/index.less" />
@@ -116,8 +147,11 @@
         <option value="$PROJECT_DIR$/src/pages/ask/index.js" />
         <option value="$PROJECT_DIR$/src/pages/patientDescribe/index.less" />
         <option value="$PROJECT_DIR$/src/pages/patientDescribe/models/patientDescribe.js" />
-        <option value="$PROJECT_DIR$/src/utils/request.js" />
         <option value="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/chooseTime/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/management/models/management.js" />
+        <option value="$PROJECT_DIR$/src/pages/management/index.js" />
+        <option value="$PROJECT_DIR$/src/utils/request.js" />
       </list>
     </option>
   </component>
@@ -223,14 +257,21 @@
               <item name="web-patient" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="patientDescribe" type="462c0819:PsiDirectoryNode" />
+              <item name="chooseTime" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
               <item name="web-patient" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="patientDescribe" type="462c0819:PsiDirectoryNode" />
+              <item name="management" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web-patient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="management" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -299,15 +340,16 @@
       <workItem from="1585357421010" duration="22486000" />
       <workItem from="1585403249279" duration="24284000" />
       <workItem from="1585531833206" duration="86703000" />
-      <workItem from="1586224260107" duration="21580000" />
+      <workItem from="1586224260107" duration="26345000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="410194000" />
+    <option name="totallyTimeSpent" value="414959000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1080" y="-363" width="1080" height="1194" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939035" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20963173" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -357,7 +399,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="13" />
+      <option name="time" value="14" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -414,14 +456,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/management/models/management.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="22" column="15" lean-forward="true" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/applyList/index.less">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="297">
@@ -435,16 +469,6 @@
         <state relative-caret-position="552">
           <caret line="97" column="33" lean-forward="false" selection-start-line="97" selection-start-column="33" selection-end-line="97" selection-end-column="44" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/chooseTime/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="198" column="30" lean-forward="true" selection-start-line="198" selection-start-column="30" selection-end-line="198" selection-end-column="30" />
-          <folding>
-            <element signature="e#4587#4997#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -591,20 +615,6 @@
         <state relative-caret-position="233">
           <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="50" selection-end-column="5" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/management/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="216" column="28" lean-forward="false" selection-start-line="216" selection-start-column="28" selection-end-line="216" selection-end-column="80" />
-          <folding>
-            <element signature="n#!!block;n#inputFocus#0;n#Management#0" expanded="false" />
-            <element signature="n#!!block;n#inputName#0;n#Management#0" expanded="false" />
-            <element signature="n#!!block;n#inputIdNum#0;n#Management#0" expanded="false" />
-            <marker date="1586226400325" expanded="true" signature="7100:7713" ph="..." />
-            <marker date="1586226400325" expanded="true" signature="7136:7259" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -804,7 +814,7 @@
         <state relative-caret-position="119">
           <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
           <folding>
-            <element signature="e#0#82#0" expanded="true" />
+            <element signature="e#0#82#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -825,10 +835,38 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/chooseTime/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="509">
+          <caret line="150" column="30" lean-forward="true" selection-start-line="150" selection-start-column="30" selection-end-line="150" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/management/models/management.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="32" column="35" lean-forward="true" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/management/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="717">
+          <caret line="271" column="29" lean-forward="true" selection-start-line="271" selection-start-column="29" selection-end-line="271" selection-end-column="29" />
+          <folding>
+            <element signature="n#!!block;n#inputFocus#0;n#Management#0" expanded="false" />
+            <marker date="1586398331855" expanded="true" signature="8003:8568" ph="..." />
+            <marker date="1586398331855" expanded="true" signature="8039:8162" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/request.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
-          <caret line="50" column="33" lean-forward="true" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
+          <caret line="50" column="27" lean-forward="false" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
           <folding />
         </state>
       </provider>
