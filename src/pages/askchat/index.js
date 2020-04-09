@@ -310,12 +310,13 @@ class AskChat extends React.Component {
         if(created_time){
             let weeks = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
             let currentTime = Date.parse(new Date());
-            let d_day = Date.parse(new Date(created_time));
+            let d_day = Date.parse(new Date(moment(created_time).format('L')));
             let day = Math.abs(parseInt((d_day - currentTime)/1000/3600/24));//计算日期
             let dateFormat = moment(created_time).format('L') // 日期
             let index = new Date(created_time).getDay() // 星期
             let date = moment(created_time).format('LT'); // 时分
             let hours = new Date(created_time).getHours(); //小时
+
             //当前时间6分钟前
             let newTime = moment().subtract(6, 'minute');
             if(moment(created_time) < newTime){
@@ -327,9 +328,9 @@ class AskChat extends React.Component {
                     time = '昨天' + date
                 }else{
                     if(hours <= 12){
-                        time = date
+                        time = '上午' + date
                     }else{
-                        time = date
+                        time = '下午' + date
                     }
                 }
             }
@@ -475,6 +476,31 @@ class AskChat extends React.Component {
             }
         })
     }
+    //患者信息展示
+    patientInfo(params){
+        let temp = params.split(/[\n,]/g);
+        return(
+            temp && temp.length >0 ? temp.map((item,index)=>{
+                if(item == ''){
+                    return('')
+                }
+                    if(index == 0){
+                        return(
+                            <p className={Styles.item_user}> {item} </p>
+                        )
+                    }else if(index == temp.length && item.indexOf('含图片信息，医生可见') >= 0){
+                        return(
+                            <p className={Styles.item_bottom}> {item} </p>
+                        )
+                    }else{
+                        return(
+                            <p>{item}</p>
+                        )
+                    }
+
+            }):''
+        )
+    }
 
     render() {
         const { getFieldProps } = this.props.form;
@@ -504,9 +530,9 @@ class AskChat extends React.Component {
                                 <div className={Styles.list_item_right}>
                                     <div className={Styles.item_content}>
                                         <img className={Styles.item_icon} src={require('../../assets/chat_right.png')} alt=""/>
-                                        <p>
-                                            { historyMsg[0].content }
-                                        </p>
+
+                                        { this.patientInfo(historyMsg[0].content) }
+
                                         {/*<p className={Styles.item_user}>用户 男 27岁</p>*/}
                                         {/*<p>就诊情况：去医院就诊过</p>*/}
                                         {/*<p>确诊疾病：糖尿病</p>*/}
