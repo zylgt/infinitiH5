@@ -142,7 +142,9 @@ class ChooseTime extends Component {
                 <div className={Styles.time}>
                     <img className={Styles.time_bgc} src={require('../../assets/time_bgc.png')} alt=""/>
                     <div className={Styles.time_info} >
-                        <img className={Styles.info_img} src={ staticURL + doctorInfo.icon } alt=""/>
+                        {
+                            doctorInfo.icon ? <img className={Styles.info_img} src={ staticURL + doctorInfo.icon } alt=""/> : ''
+                        }
                         <div>
                             <p className={Styles.info_name}>{doctorInfo.name}</p>
                             <p className={Styles.info_office}>{doctorInfo.title}｜{doctorInfo.dept}</p>
