@@ -503,7 +503,7 @@ class AskChat extends React.Component {
                             historyMsg && historyMsg.length > 0 ? <div>
                                 <div className={Styles.list_item_right}>
                                     <div className={Styles.item_content}>
-                                        <span className={Styles.item_icon}></span>
+                                        <img className={Styles.item_icon} src={require('../../assets/chat_right.png')} alt=""/>
                                         <p>
                                             { historyMsg[0].content }
                                         </p>
@@ -543,7 +543,7 @@ class AskChat extends React.Component {
                                                 <div className={Styles.list_item_left}>
                                                     <img className={Styles.item_img} src={staticURL + detailInfo.doctor_icon } />
                                                     <div className={Styles.item_content}>
-                                                        <span className={Styles.item_icon}></span>
+                                                        <img className={Styles.item_icon} src={require('../../assets/chat_left.png')} alt=""/>
                                                         <span>{ item.content }</span>
                                                     </div>
                                                 </div>
@@ -556,7 +556,7 @@ class AskChat extends React.Component {
                                                             </div>
                                                             :
                                                             <div className={Styles.item_content}>
-                                                                <span className={Styles.item_icon}></span>
+                                                                <img className={Styles.item_icon} src={require('../../assets/chat_right.png')} alt=""/>
                                                                 <span>{ item.content }</span>
                                                             </div>
                                                     }
@@ -576,7 +576,7 @@ class AskChat extends React.Component {
                                                 <div className={Styles.list_item_left}>
                                                     <img className={Styles.item_img} src={staticURL + detailInfo.doctor_icon } />
                                                     <div className={Styles.item_content}>
-                                                        <span className={Styles.item_icon}></span>
+                                                        <img className={Styles.item_icon} src={require('../../assets/chat_left.png')} alt=""/>
                                                         <span>{ item.content }</span>
                                                     </div>
                                                 </div>
@@ -592,7 +592,7 @@ class AskChat extends React.Component {
                                                                 {
                                                                     item.isSend ? '' : <img className={Styles.item_loading} src={require('../../assets/loading.gif')} alt=""/>
                                                                 }
-                                                                <span className={Styles.item_icon}></span>
+                                                                <img className={Styles.item_icon} src={require('../../assets/chat_right.png')} alt=""/>
                                                                 <span>{ item.content }</span>
                                                             </div>
                                                     }

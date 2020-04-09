@@ -8,6 +8,7 @@ import wx from 'weixin-js-sdk';
 import { nonceStr, isIOS } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
 import { pageURL } from '../../utils/baseURL'
+
 import { getQueryString } from '../../utils/tools'
 import {cookieUtils} from '../../utils/tools'
 
@@ -134,8 +135,8 @@ class Home extends Component {
             autoplay:true,
             autoplayInterval:5000,
             infinite:true,
-            dotStyle:{width:'6px',height:'6px',background:'rgba(255,255,255,0.5)'},
-            dotActiveStyle:{height:'6px',background:'rgba(255,255,255,1)'},
+            dotStyle:{width:'.12rem',height:'.12rem',borderRadius:'.12rem',margin:'0 .06rem',background:'rgba(255,255,255,0.5)'},
+            dotActiveStyle:{height:'.12rem',width:'.12rem',borderRadius:'.12rem',margin:'0 .06rem',background:'rgba(255,255,255,1)'},
             itemStyle:{width:'100%',height:'2.7rem'},
             itemData:swipeData
         }
