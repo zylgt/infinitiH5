@@ -39,6 +39,10 @@ class BaseLayout extends React.Component {
         }
     }
     render() {
+        const { askList } = this.props.ask;
+
+        console.log('askList',askList)
+
         return (
             <div className={styles.baseLayout}>
                 <TabBar
@@ -50,10 +54,15 @@ class BaseLayout extends React.Component {
                     {
                         TabBarData.map(t => {
                             const isSelect = this.isTabBarSelect(t.url);
+                            let badge = false;
+                            if(t.url == '/ask' && askList.length > 0 && askList[0].un_read > 0){
+                                badge = askList[0].un_read
+                            }
                             return  (<TabBar.Item
                                     title={t.name}
                                     key={t.id}
                                     className={styles.item}
+                                    badge={ badge }
                                     icon={<div style={{
                                         width: '0.48rem',
                                         height: '0.48rem',
