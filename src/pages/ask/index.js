@@ -122,7 +122,7 @@ class Ask extends React.Component {
         if(created_time){
             let weeks = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
             let currentTime = Date.parse(new Date());
-            let d_day = Date.parse(new Date(created_time));
+            let d_day = Date.parse(new Date(moment(created_time).format('L')));
             let day = Math.abs(parseInt((d_day - currentTime)/1000/3600/24));//计算日期
             if(day >= 8){
                 let date = moment(created_time).format('YYYY/MM/DD')

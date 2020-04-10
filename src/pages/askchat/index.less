@@ -15,6 +15,7 @@
       padding:0.18rem 0.24rem;
       font-size: 0.32rem;
       color: #000;
+      display: flex;
       .item_img{
         height: 0.9rem;
         width:0.9rem;
@@ -27,30 +28,28 @@
       .item_content{
         position: relative;
         background: #fff;
-        display: inline-block;
         padding:.2rem .24rem;
         -webkit-border-radius: 6px;
         -moz-border-radius: 6px;
         border-radius: 6px;
         max-width: 4.96rem;
-        font-size:.32rem;
         font-family:PingFangSC-Regular,PingFang SC;
         font-weight:400;
         color:#333;
-        line-height:.44rem;
-        word-break: break-all;
-        word-wrap: break-word;
-        white-space: pre-wrap;
-
+        span{
+          display: inline-block;
+          line-height:.44rem;
+          font-size:.32rem;
+          word-break: break-all;
+          word-wrap: break-word;
+          white-space: pre-wrap;
+        }
         .item_icon{
-          top:12px;
-          left: -20px;
+          top:.18rem;
+          left: -.14rem;
           position: absolute;
-          height: 0;
-          width: 0;
-          border:8px solid red;
-          border-width: 8px 12px 8px 12px;
-          border-color:transparent #fff transparent transparent ;/*透明 透明 透明 灰*/
+          height:.5rem;
+          width:.3rem;
         }
       }
     }
@@ -61,6 +60,7 @@
       color: #000;
       display: flex;
       justify-content: flex-end;
+      align-items: flex-start;
       position: relative;
       .item_img{
         height: 0.9rem;
@@ -75,20 +75,21 @@
         color: #fff;
         position: relative;
         background: #319AF3;
-        display: inline-block;
-        padding:.2rem .24rem;
         -webkit-border-radius: 6px;
         -moz-border-radius: 6px;
         border-radius: 6px;
         max-width: 4.96rem;
-        font-size:.32rem;
         font-family:PingFangSC-Regular,PingFang SC;
         font-weight:400;
-        color:rgba(255,255,255,1);
-        line-height:.44rem;
-        word-break: break-all;
-        word-wrap: break-word;
-        white-space: pre-wrap;
+        padding:.2rem .24rem;
+        span{
+          display: inline-block;
+          line-height:.44rem;
+          font-size:.32rem;
+          word-break: break-all;
+          word-wrap: break-word;
+          white-space: pre-wrap;
+        }
 
         .item_loading{
           position: absolute;
@@ -98,14 +99,11 @@
           width:.4rem;
         }
         .item_icon{
-          top:12px;
-          right: -20px;
+          top:.18rem;
+          right: -.13rem;
           position: absolute;
-          height: 0;
-          width: 0;
-          border:8px solid red;
-          border-width: 8px 12px 8px 12px;
-          border-color:transparent transparent transparent #319AF3 ;/*透明 透明 透明 灰*/
+          height:.5rem;
+          width:.3rem;
         }
         .item_user{
           margin-bottom: .1rem;
@@ -130,6 +128,8 @@
       text-align: center;
       line-height:.36rem;
       padding: .18rem 0;
+      color: #666;
+      font-size: .26rem;
     }
     .list_hint{
       width:6.54rem;
