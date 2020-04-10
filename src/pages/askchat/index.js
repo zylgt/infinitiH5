@@ -253,6 +253,10 @@ class AskChat extends React.Component {
     }
     //输入框内容变化
     changeWord(val){
+        let str = val.replace(/[\r\n]/g,"")
+        if(str == ''){
+            return
+        }
         this.setState({
             word: val,
             isShowSend: true
@@ -333,13 +337,13 @@ class AskChat extends React.Component {
                         time = '下午' + date
                     }
                 }
+                return (
+                    <div className={Styles.list_time}>
+                        { time }
+                    </div>
+                );
             }
         }
-        return (
-            <div className={Styles.list_time}>
-                { time }
-            </div>
-        );
     }
     //发送图片
     addPatient(type) {
@@ -484,19 +488,19 @@ class AskChat extends React.Component {
                 if(item == ''){
                     return('')
                 }
-                    if(index == 0){
-                        return(
-                            <p className={Styles.item_user}> {item} </p>
-                        )
-                    }else if(index == temp.length && item.indexOf('含图片信息，医生可见') >= 0){
-                        return(
-                            <p className={Styles.item_bottom}> {item} </p>
-                        )
-                    }else{
-                        return(
-                            <p>{item}</p>
-                        )
-                    }
+                if(index == 0){
+                    return(
+                        <p className={Styles.item_user} key={index}> {item} </p>
+                    )
+                }else if(index == temp.length && item.indexOf('含图片信息，医生可见') >= 0){
+                    return(
+                        <p className={Styles.item_bottom} key={index}> {item} </p>
+                    )
+                }else{
+                    return(
+                        <p key={index}>{item}</p>
+                    )
+                }
 
             }):''
         )
@@ -530,16 +534,7 @@ class AskChat extends React.Component {
                                 <div className={Styles.list_item_right}>
                                     <div className={Styles.item_content}>
                                         <img className={Styles.item_icon} src={require('../../assets/chat_right.png')} alt=""/>
-
                                         { this.patientInfo(historyMsg[0].content) }
-
-                                        {/*<p className={Styles.item_user}>用户 男 27岁</p>*/}
-                                        {/*<p>就诊情况：去医院就诊过</p>*/}
-                                        {/*<p>确诊疾病：糖尿病</p>*/}
-                                        {/*<p>糖尿病史：1年</p>*/}
-                                        {/*<p>药物过敏史：无</p>*/}
-                                        {/*<p>病情描述：去年去年八月确诊二型糖尿病，现在对血糖的监测以及胰岛素用药频率和剂量有一些疑问</p>*/}
-                                        {/*<p className={Styles.item_bottom}>(含图片信息，医生可见)</p>*/}
                                     </div>
                                     <img className={Styles.item_img} src={require('../../assets/my_head.png')} />
                                 </div>

@@ -8,6 +8,9 @@ import { staticURL, pageURL } from '../../utils/baseURL'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
 
+import moment from "moment";
+moment.locale('zh-cn');
+
 @connect(({ chooseTime, management,doctorInfo }) => ({ chooseTime, management,doctorInfo }))
 class ChooseTime extends Component {
     constructor(props) {
@@ -132,11 +135,18 @@ class ChooseTime extends Component {
 
 
     }
+    //比较时分的大小
+    compareDate(t1,t2){
+        var date = new Date();
+        var a = t1.split(":");
+        var b = t2.split(":");
+        return date.setHours(a[0],a[1]) > date.setHours(b[0],b[1]);
+    }
 
     render() {
         const { timeData, selectTime } = this.props.chooseTime;
         const { doctorInfo } = this.props.doctorInfo;
-        console.log('doctorInfo',doctorInfo)
+
         return (
             <DocumentTitle title='选择问诊时段'>
                 <div className={Styles.time}>
@@ -151,6 +161,7 @@ class ChooseTime extends Component {
                         </div>
                     </div>
                     <div className={Styles.time_content}>
+                        <p className={Styles.choose_now}>今日</p>
                         {
                             timeData.forenoon && timeData.forenoon.length > 0 ?
                                 <div className={Styles.choose_time}>
@@ -158,6 +169,12 @@ class ChooseTime extends Component {
                                     <div className={Styles.choose_contetn}>
                                         {
                                             timeData.forenoon.map((item,index)=>{
+                                                let start_time = item.segment.substr(0,5);
+                                                if(this.compareDate( moment().format('LT'),start_time)){
+                                                    return(
+                                                        <div key={index} className={ `${Styles.choose_dot} ${Styles.choose_dot_full}` }>{item.segment}</div>
+                                                    )
+                                                }
                                                 if(item.number <= 0){
                                                     return(
                                                         <div key={index} className={ `${Styles.choose_dot} ${Styles.choose_dot_full}` }>{item.segment} 约满</div>
@@ -189,6 +206,12 @@ class ChooseTime extends Component {
                                     <div className={Styles.choose_contetn}>
                                         {
                                             timeData.afternoon.map((item,index)=>{
+                                                let start_time = item.segment.substr(0,5);
+                                                if(this.compareDate( moment().format('LT'),start_time)){
+                                                    return(
+                                                        <div key={index} className={ `${Styles.choose_dot} ${Styles.choose_dot_full}` }>{item.segment}</div>
+                                                    )
+                                                }
                                                 if(item.number <= 0){
                                                     return(
                                                         <div key={index} className={ `${Styles.choose_dot} ${Styles.choose_dot_full}` }>{item.segment} 约满</div>
