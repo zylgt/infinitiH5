@@ -30,7 +30,8 @@ export const illDate = {
             isInput:false, // 是否有输入框
             isShowInput:false, // 是否展示输入框
             title:'',  // 输入框的问题
-            inputValue:'' //输入内容
+            inputValue:'', //输入内容
+            inputMore:false //是否支持多选
         },
         {
             key:'two',
