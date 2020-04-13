@@ -51,7 +51,7 @@ class AskChat extends React.Component {
         const { dispatch } = this.props;
         let that = this;
 
-        // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODYyNTAxMzEsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI0NTY0NDU3MjA2MzY5ODk0NCJ9.FlVg4sb1etaMjIRfz_E-wZ-l7PUdn9yd08usD8tntbQ'
+        // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODY3NDM3NTksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI0NTY0NDU3MjA2MzY5ODk0NCJ9.7GM1X-2Ap9-8EbX-umfXjJgmIUGNrq_tm00E_LiScuA'
         let token = cookieUtils.get('token') || getQueryString('token') || '';
         console.log('token',token)
         if(token){
@@ -460,7 +460,7 @@ class AskChat extends React.Component {
     uploadCallback(response){
         const { dispatch } = this.props;
         let { sendMsg, orderId } = this.state;
-        let imgUrl = response.data.data;
+        let imgUrl = response.data.data[0];
         sendMsg.push({
             type: 'photo',
             content: imgUrl,
