@@ -460,7 +460,7 @@ class AskChat extends React.Component {
     uploadCallback(response){
         const { dispatch } = this.props;
         let { sendMsg, orderId } = this.state;
-        let imgUrl = staticURL + response.data.data;
+        let imgUrl = response.data.data;
         sendMsg.push({
             type: 'photo',
             content: imgUrl,
@@ -573,7 +573,7 @@ class AskChat extends React.Component {
                                                     {
                                                         item.type === 'photo' ?
                                                             <div className={ `${Styles.item_content} ${Styles.item_content_img}`}>
-                                                                <img className={Styles.content_img} src={ item.content } alt=""/>
+                                                                <img className={Styles.content_img} src={ staticURL + item.content } alt=""/>
                                                             </div>
                                                             :
                                                             <div className={Styles.item_content}>
@@ -606,7 +606,7 @@ class AskChat extends React.Component {
                                                     {
                                                         item.type === 'photo' ?
                                                             <div className={ `${Styles.item_content} ${Styles.item_content_img}`}>
-                                                                <img className={Styles.content_img} src={ item.content } alt=""/>
+                                                                <img className={Styles.content_img} src={ staticURL + item.content } alt=""/>
                                                             </div>
                                                             :
                                                             <div className={Styles.item_content}>

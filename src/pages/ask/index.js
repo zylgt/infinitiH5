@@ -34,7 +34,7 @@ class Ask extends React.Component {
         })
 
         let token = getQueryString('token') || '';
-// const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODUxODg4MjEsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI0MjAzMjk2MzQyODgxNDg0OCJ9.dGE0W5jzBUluDhx05zuy-IuUFIo1uLJ_4t9PyKtRiyk';
+
         if( token ){
             cookieUtils.set('token',token)
         }
@@ -143,7 +143,7 @@ class Ask extends React.Component {
             }
         }
 
-      if(item.status == 'inquiring'){
+        if(item.status == 'inquiring'){
             return (
                 <span className={Styles.info_right}>{time}</span>
             )
