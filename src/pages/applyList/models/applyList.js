@@ -1,4 +1,4 @@
-import { getDoctorInfo } from '../../../services/doctorinfo';
+import { setPatientInfo } from '../../../services/applyList';
 
 export default {
     namespace: 'applyList',
@@ -17,21 +17,21 @@ export default {
 
     },
     effects: {
-        //获取今日出诊医生
-        // *getDoctorInfo({ payload, callback }, { call,select, put }){
-        //
-        //     const response = yield call(getDoctorInfo, payload);
-        //     console.log('response',response)
-        //
-        //     if(response && response.data.code == 200 ){
-        //         yield put({
-        //             type: 'setData',
-        //             payload: {
-        //                 doctorInfo: response.data.data
-        //             }
-        //         });
-        //     }
-        // }
+        // 完善就诊人信息
+        *setPatientInfo({ payload, callback }, { call,select, put }){
+
+            const response = yield call(setPatientInfo, payload);
+            console.log('response',response)
+
+            if(response && response.data.code == 200 ){
+                yield put({
+                    type: 'setData',
+                    payload: {
+                        doctorInfo: response.data.data
+                    }
+                });
+            }
+        }
     },
     reducers: {
         setData(state, { payload }) {
