@@ -1,4 +1,6 @@
 import { setPatientInfo } from '../../../services/applyList';
+import router from 'umi/router';
+
 
 export default {
     namespace: 'applyList',
@@ -24,12 +26,7 @@ export default {
             console.log('response',response)
 
             if(response && response.data.code == 200 ){
-                yield put({
-                    type: 'setData',
-                    payload: {
-                        doctorInfo: response.data.data
-                    }
-                });
+                router.push('./patientDescribe')
             }
         }
     },

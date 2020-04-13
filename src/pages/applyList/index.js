@@ -176,7 +176,6 @@ class ApplyList extends Component {
         step++;
 
         if(step > illData.length ){
-            // router.push('./patientDescribe')
             let payload= {}
             payload.patient_id = uid;
             for(let i = 0; i < illData.length ; i++){
@@ -199,9 +198,7 @@ class ApplyList extends Component {
             console.log('payload',payload)
             dispatch({
                 type:'applyList/setPatientInfo',
-                payload:{
-                    payload: payload
-                }
+                payload:{ ...payload }
             })
 
             return
