@@ -9,7 +9,7 @@
     :global(.am-progress-fixed-outer){
       position: relative;
       :global(.am-progress-bar){
-        border-radius: 2px;
+        border-radius: .04rem;
       }
     }
     .apply_rate{
@@ -29,9 +29,10 @@
   .apply_choose{
     width:7.02rem;
     margin: 0 auto;
+    height:calc(100% - 2.8rem);
+    overflow: scroll;
     .choose_title{
       width:100%;
-      height:.44rem;
       line-height:.44rem;
       font-size:.32rem;
       font-family:PingFangSC-Regular,PingFang SC;
@@ -69,6 +70,9 @@
           width:.3rem;
         }
       }
+      .choose_dot_line{
+        width: 100%;
+      }
     }
   }
   textarea::-webkit-input-placeholder {
@@ -85,10 +89,12 @@
     font-weight:400;
     color:rgba(51,51,51,1);
     line-height:.42rem;
-    :global(.am-textarea-control){
+    width:100%;
+    :global(.am-input-control){
       padding: .24rem;
     }
   }
+
   .apply_btn{
     height:.98rem;
     background: #fff;

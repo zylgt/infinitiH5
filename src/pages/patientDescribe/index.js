@@ -289,9 +289,9 @@ class PatientDescribe extends Component {
 
         let orderInfo = {
             order_id: uid,
-            disease_length: disease_length,
-            is_visit: is_visit,
-            disease: disease,
+            // disease_length: disease_length,
+            // is_visit: is_visit,
+            // disease: disease,
             desc: val
         }
         let payload = {

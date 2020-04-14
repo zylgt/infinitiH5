@@ -8,7 +8,7 @@ import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
 import { pageURL } from '../../utils/baseURL'
 
-@connect(({ login }) => ({ login }))
+@connect(({ login,management }) => ({ login,management }))
 class Apply extends Component {
     constructor(props) {
         super(props);
@@ -50,6 +50,15 @@ class Apply extends Component {
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
         });
     }
+    //开始问诊
+    startApply(){
+        const { have_info } = this.props.management;
+        if(have_info){
+            router.push('./patientDescribe')
+        }else{
+            router.push('./applyList?step=1')
+        }
+    }
 
     render() {
 
@@ -66,7 +75,7 @@ class Apply extends Component {
                     <p className={Styles.apply_fill}></p>
                     <div className={Styles.apply_bottom}>
                         <p className={Styles.apply_word}>开始问诊即代表您已阅读并同意<span onClick={()=>{router.push('./informed')}}>《知情同意书》</span></p>
-                        <Button className={Styles.apply_btn} onClick={()=>{router.push('./applyList?step=1')}} >开始问诊</Button>
+                        <Button className={Styles.apply_btn} onClick={()=>{this.startApply()}} >开始问诊</Button>
                     </div>
                 </div>
             </DocumentTitle>

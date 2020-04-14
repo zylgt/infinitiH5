@@ -6,6 +6,7 @@ export default {
         uid: '', //就诊人ID
         name: '', //姓名
         card_id: '', //身份证号
+        have_info:'', //是否完善信息
         old_name:'', // 用来判断是否有变化
         old_card_id:''// 用来判断是否有变化
     },
@@ -36,7 +37,8 @@ export default {
                         name: response.data.data.name, //姓名
                         card_id: response.data.data.card_id, //身份证号
                         old_name:response.data.data.name,
-                        old_card_id:response.data.data.card_id
+                        old_card_id:response.data.data.card_id,
+                        have_info:response.data.data.have_info
                     }
                 })
             }
@@ -55,7 +57,8 @@ export default {
                         name: response.data.data.name, //姓名
                         card_id: response.data.data.card_id, //身份证号
                         old_name:response.data.data.name,
-                        old_card_id:response.data.data.card_id
+                        old_card_id:response.data.data.card_id,
+                        have_info:response.data.data.have_info
                     }
                 })
             }

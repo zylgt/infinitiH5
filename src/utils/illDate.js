@@ -2,58 +2,183 @@
 export const illDate = {
     ill1:[
         {
-            key:'one',
-            question:'本次患病多久了？',  // 问题
-            answer:[            //答案
+            key:'symptom',
+            content:[
                 {
-                    title:'一周内',    //答案名称
-                    showInput:false,   //是否展示答案下方输入框
-                    name:'week'
-                },
-                {
-                    title:'一个月内',
-                    showInput:false,
-                    name:'month'
-                },
-                {
-                    title:'半年内',
-                    showInput:false,
-                    name:'half_year'
-                },
-                {
-                    title:'一年内',
-                    showInput:false,
-                    name:'year'
+                    title:'您目前有无以下不适症状？',
+                    answer:[
+
+                        {
+                            title:'暂无',
+                            showNext:false,
+                            key:'暂无',
+                        },
+                        {
+                            title:'发热',
+                            showNext:false,
+                            key:'发热',
+                        },
+                        {
+                            title:'备孕期',
+                            showNext:false,
+                            key:'备孕期',
+                        },
+                        {
+                            title:'怀孕期',
+                            showNext:false,
+                            key:'怀孕期',
+                        },
+                        {
+                            title:'咳嗽',
+                            showNext:false,
+                            key:'咳嗽',
+                        },
+                        {
+                            title:'鼻塞',
+                            showNext:false,
+                            key:'鼻塞',
+                        },
+                        {
+                            title:'流涕',
+                            showNext:false,
+                            key:'流涕',
+                        },
+                        {
+                            title:'呼吸困难',
+                            showNext:false,
+                            key:'呼吸困难',
+                        },
+                        {
+                            title:'腹泻',
+                            showNext:false,
+                            key:'腹泻',
+                        },
+                        {
+                            title:'咽痛',
+                            showNext:false,
+                            key:'咽痛',
+                        }
+                    ],
+                    answerMore:true, // 答案是否支持多选
+                    chooseAnswer:[], //答案
+                    isShow:true, // 是否展示该问题
                 }
-            ],
-            choose:'',    //选择的答案
-            isInput:false, // 是否有输入框
-            isShowInput:false, // 是否展示输入框
-            title:'',  // 输入框的问题
-            inputValue:'', //输入内容
-            inputMore:false //是否支持多选
+            ]
         },
         {
-            key:'two',
-            question:'是否就该病情到医院就诊过？',
-            answer:[
+            key:'symptom_long',
+            content:[
                 {
-                    title:'没有',
-                    showInput:false,
-                    name:'no'
-                },
+                    title:'您的症状持续多久了？',
+                    answer:[
+                        {
+                            title:'1~3天',
+                            showNext:false,
+                            key:'one_three',
+                        },
+                        {
+                            title:'4~7天',
+                            showNext:false,
+                            key:'four_seven',
+                        },
+                        {
+                            title:'8~14天',
+                            showNext:false,
+                            key:'eight_fourteen',
+                        },
+                        {
+                            title:'多于14天',
+                            showNext:false,
+                            key:'more_fourteen',
+                        }
+                    ],
+                    answerMore:false, // 答案是否支持多选
+                    chooseAnswer:[], //答案
+                    isShow:true, // 是否展示该问题
+                }
+            ]
+        },
+        {
+            key:'temperature',
+            content:[
                 {
-                    title:'有',
-                    showInput:true,
-                    name:'yes'
-                },
-            ],
-            choose:'',
-            isInput:true,
-            isShowInput:false,
-            title:'请输入医院医生诊断的疾病名称',
-            inputValue:'',
-        }
+                    title:'您目前的体温是？',
+                    answer:[],
+                    answerMore:false, // 答案是否支持多选
+                    chooseAnswer:[], //答案
+                    isShow:true, // 是否展示该问题
+                }
+            ]
+        },
+        {
+            key:'travel_wuhan_abroad',
+            content:[
+                {
+                    title:'您是否有武汉或国际旅行居住史？',
+                    answer:[
+                        {
+                            title:'是',
+                            showNext:false,
+                            key:'true',
+                        },
+                        {
+                            title:'否',
+                            showNext:false,
+                            key:'false',
+                        }
+                    ],
+                    answerMore:false, // 答案是否支持多选
+                    chooseAnswer:[], //答案
+                    isShow:true, // 是否展示该问题
+                }
+            ]
+        },
+        {
+            key:'live_wuhan_abroad',
+            content:[
+                {
+                    title:'您最近14天内是否去过武汉或国外？',
+                    answer:[
+                        {
+                            title:'是',
+                            showNext:false,
+                            key:'true',
+                        },
+                        {
+                            title:'否',
+                            showNext:false,
+                            key:'false',
+                        }
+                    ],
+                    answerMore:false, // 答案是否支持多选
+                    chooseAnswer:[], //答案
+                    isShow:true, // 是否展示该问题
+                }
+            ]
+        },
+        {
+            key:'contact_wuhan_abroad',
+            content:[
+                {
+                    title:'您最近14天内是否接触过来自武汉或国外的人员？',
+                    answer:[
+                        {
+                            title:'是',
+                            showNext:false,
+                            key:'true',
+                        },
+                        {
+                            title:'否',
+                            showNext:false,
+                            key:'false',
+                        }
+                    ],
+                    answerMore:false, // 答案是否支持多选
+                    chooseAnswer:[], //答案
+                    isShow:true, // 是否展示该问题
+                }
+            ]
+        },
     ],
     ill2:[
         {
