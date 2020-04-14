@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'dva';
-import { Progress,Button,TextareaItem } from 'antd-mobile';
+import { Progress,Button,Toast } from 'antd-mobile';
 import router from 'umi/router';
 import { createForm } from 'rc-form';
 import Styles from './index.less';
@@ -13,7 +13,7 @@ import wx from 'weixin-js-sdk';
 import { pageURL } from '../../utils/baseURL'
 
 
-@connect(({ applyList }) => ({ applyList }))
+@connect(({ applyList,management }) => ({ applyList,management }))
 class ApplyList extends Component {
     constructor(props) {
         super(props);
@@ -36,10 +36,11 @@ class ApplyList extends Component {
         }
         console.log('step', step)
 
+        //获取疾病数据
         dispatch({
             type:'applyList/setData',
             payload:{
-                illData: illDate.ill1
+                illData: illDate.ill2
             }
         })
 
@@ -47,10 +48,6 @@ class ApplyList extends Component {
         this.props.history.listen((history) => {
             if( history.pathname == '/applyList' ){
                 let step =  parseInt( history.query.step ) ;
-                // this.setState({
-                //     step: step
-                // })
-
                 dispatch({
                     type:'applyList/setData',
                     payload:{
@@ -97,17 +94,35 @@ class ApplyList extends Component {
         const { illData, step } = this.props.applyList;
         const { dispatch } = this.props;
         // const { step } = this.state;
-        let answer = e.target.getAttribute('data-answer');
-        let showInput = e.target.getAttribute('data-showinput');
+        let answer = e.target.getAttribute('data-answer') || '';
+        let showNext = e.target.getAttribute('data-shownext') || '';
+        let index =  e.target.getAttribute('data-index') || '';
+        index = parseInt(index);
         console.log('answer',answer)
-        console.log('showInput',showInput)
+        console.log('showNext',showNext)
+        console.log('index',index )
 
-        illData[step-1].choose = answer;
 
-        if( showInput == 'true' ){
-            illData[step-1].isShowInput = true
+        if(illData[step-1].content[index].answerMore){
+            let i = illData[step-1].content[index].chooseAnswer.indexOf(answer)
+            if( i >= 0){
+                illData[step-1].content[index].chooseAnswer.splice(i,1)
+            }else{
+                illData[step-1].content[index].chooseAnswer.push(answer)
+            }
         }else{
-            illData[step-1].isShowInput = false
+            illData[step-1].content[index].chooseAnswer = [ answer ]
+        }
+
+
+        if(showNext == 'true'){
+            if(illData[step-1].content[index + 1]){
+                illData[step-1].content[index + 1].isShow = true
+            }
+        }else{
+            if(illData[step-1].content[index + 1]){
+                illData[step-1].content[index + 1].isShow = false
+            }
         }
 
         console.log('illData',illData)
@@ -134,21 +149,63 @@ class ApplyList extends Component {
         })
     }
     //下一步
-    step(){
+    nextStep(){
         let { illData, step } = this.props.applyList;
         const { dispatch } = this.props;
-        // let step = this.state.step;
+        const { uid } = this.props.management;
+
+        let item = illData[step-1].content;
+
+        for(let i = 0; i < item.length; i++){
+            if( item[i].isShow && item[i].chooseAnswer.length <= 0 ){
+                if(i == 0){
+                    Toast.info('请选择答案',1.5)
+                }else{
+                    if(illData[step-1].key == 'operation'){
+                        Toast.info('请选择手术部位',1.5)
+                    }else if(illData[step-1].key == 'allergy'){
+                        Toast.info('请选择过敏源',1.5)
+                    }else{
+                        Toast.info('请选择疾病',1.5)
+                    }
+                }
+                return
+            }
+        }
+
         step++;
 
         if(step > illData.length ){
-            router.push('./patientDescribe')
+            let payload= {}
+            payload.patient_id = uid;
+            for(let i = 0; i < illData.length ; i++){
+                let content = illData[i].content;
+                let key = illData[i].key;
+                if(content.length == 1){
+                    if(content[0].answerMore){
+                        payload[key] = content[0].chooseAnswer
+                    }else{
+                        payload[key] = content[0].chooseAnswer[0]
+                    }
+                }else{
+                    if(content[0].chooseAnswer[0] == '无'){
+                        payload[key] = []
+                    }else{
+                        payload[key] = content[1].chooseAnswer
+                    }
+                }
+            }
+            console.log('payload',payload)
+            dispatch({
+                type:'applyList/setPatientInfo',
+                payload:{ ...payload }
+            })
+
             return
         }
 
         router.push('./applyList?step=' + step )
-        // this.setState({
-        //     step:step
-        // })
+
         dispatch({
             type:'applyList/setData',
             payload:{
@@ -163,81 +220,88 @@ class ApplyList extends Component {
         // const { step } = this.state;
         const { getFieldProps } = this.props.form;
         const { illData, step } = this.props.applyList;
-
+        const that = this;
         //百分比
-        let percentage = ( (step - 1) / illData.length  * 100 ).toFixed(1);
+        let percentage = ( (step - 1) / illData.length  * 100 ).toFixed(0);
+        let btnTitle = '下一步';
+
+        if(step == illData.length){
+            btnTitle = '保存'
+        }
 
         return (
             <DocumentTitle title='完善信息'>
-                <div className={Styles.apply_list}>
-                    {
-                        illData && illData.length > 0 ? <div>
+                {
+                    illData && illData.length > 0 ?
+                        <div className={Styles.apply_list}>
                             <div className={Styles.apply_percent}>
                                 <p className={Styles.apply_rate}>已填写{ percentage }%</p>
                                 <Progress  className={Styles.percent} percent={ percentage } />
                             </div>
                             <div className={Styles.apply_choose}>
-                                <p className={Styles.choose_title}>{ illData[step-1].question }</p>
-                                <div className={Styles.choose_contetn}>
-                                    {
-                                        illData[step-1].answer.map((item,index)=>{
-                                            if(item.name == illData[step-1].choose){
-                                                return(
-                                                    <div key={index}
-                                                         className={`${Styles.choose_dot} ${Styles.choose_dot_select}`}
-                                                         data-answer={item.name}
-                                                         data-showinput={item.showInput}
-                                                         onClick={(e)=>{this.chooseAnswer(e)}}
-                                                    >
-                                                        {item.title}
-                                                        <img className={Styles.item_select} src={require('../../assets/time_select.png')} alt=""/>
-                                                    </div>
-                                                )
-                                            }else{
-                                                return(
-                                                    <div key={index}
-                                                         className={Styles.choose_dot}
-                                                         data-answer={item.name}
-                                                         data-showinput={item.showInput}
-                                                         onClick={(e)=>{this.chooseAnswer(e)}}
-                                                    >{item.title}</div>
-                                                )
-                                            }
-                                        })
-                                    }
-                                </div>
                                 {
-                                    illData[step-1].isInput && illData[step-1].isShowInput ? <div>
-                                        <p className={Styles.choose_title}>{ illData[step-1].title }</p>
-                                        <TextareaItem
-                                            {...getFieldProps(`${illData[step-1].key}`,{
-                                                initialValue: illData[step-1].inputValue
-                                            })}
-                                            autoHeight
-                                            placeholder={ illData[step-1].title }
-                                            className={Styles.choose_input}
-                                            onChange={(val)=>{this.onChangeInput(val)}}
-                                        />
-                                    </div>: ''
+                                    illData[step-1].content.map((item, index)=>{
+                                        if(!item.isShow){
+                                            return
+                                        }
+                                        return (
+                                            <div className={Styles.choose_contetn} key={index}>
+                                                <p className={Styles.choose_title}>{ item.title }</p>
+                                                {
+                                                    item.answer.map((answerItem, answerIndex)=>{
+                                                        let isChoose = false;
+                                                        return(
+                                                            item.chooseAnswer.length > 0 ? item.chooseAnswer.map((chooseItem, chooseIndex)=>{
+                                                                    if(answerItem.key == chooseItem){
+                                                                        isChoose = true
+                                                                        return(
+                                                                            <div key={answerIndex}
+                                                                                 className={`${Styles.choose_dot} ${Styles.choose_dot_select} ${answerItem.title.length > 10 ? Styles.choose_dot_line : ''}`}
+                                                                                 data-answer={answerItem.key}
+                                                                                 data-shownext={answerItem.showNext}
+                                                                                 data-index={ index }
+                                                                                 onClick={(e)=>{that.chooseAnswer(e)}}
+                                                                            >
+                                                                                {answerItem.title}
+                                                                                <img className={Styles.item_select} src={require('../../assets/time_select.png')} alt=""/>
+                                                                            </div>
+                                                                        )
+                                                                    }
+                                                                    if(item.chooseAnswer.length - 1 == chooseIndex && answerItem.title != chooseItem && !isChoose){
+                                                                        return(
+                                                                            <div key={answerIndex}
+                                                                                 className={`${Styles.choose_dot} ${answerItem.title.length > 10 ? Styles.choose_dot_line : ''}`}
+                                                                                 data-answer={answerItem.key}
+                                                                                 data-shownext={answerItem.showNext}
+                                                                                 data-index={ index }
+                                                                                 onClick={(e)=>{that.chooseAnswer(e)}}
+                                                                            >{answerItem.title}</div>
+                                                                        )
+                                                                    }
+                                                                })
+                                                                :
+                                                                <div key={answerIndex}
+                                                                     className={`${Styles.choose_dot} ${answerItem.title.length > 10 ? Styles.choose_dot_line : ''}`}
+                                                                     data-answer={answerItem.key}
+                                                                     data-shownext={answerItem.showNext}
+                                                                     data-index={ index }
+                                                                     onClick={(e)=>{that.chooseAnswer(e)}}
+                                                                >{answerItem.title}</div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        )
+                                    })
                                 }
-
                             </div>
                             <div className={Styles.apply_btn}>
-                                {
-                                    illData[step-1].choose && !illData[step-1].isInput
-                                    ||
-                                    illData[step-1].choose && illData[step-1].isInput && !illData[step-1].isShowInput
-                                    ||
-                                    illData[step-1].choose && illData[step-1].isInput && illData[step-1].isShowInput && illData[step-1].inputValue
-                                        ?
-                                        <Button className={Styles.btn} onClick={()=>{this.step()}} >下一步</Button>
-                                        :
-                                        <Button className={Styles.btn_disabled} >下一步</Button>
-                                }
+                                <Button className={Styles.btn} onClick={()=>{this.nextStep()}} >{ btnTitle }</Button>
                             </div>
-                        </div> : ''
-                    }
-                </div>
+                        </div>
+                        : ''
+                }
+
             </DocumentTitle>
 
         )

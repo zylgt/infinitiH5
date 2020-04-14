@@ -1,5 +1,6 @@
 import { uploadImg, getAppid, askVisit } from '../../../services/patientDescribe';
 import router from 'umi/router';
+import { Toast } from 'antd-mobile';
 
 export default {
     namespace: 'patientDescribe',
@@ -22,7 +23,9 @@ export default {
         *askVisit({ payload, callback }, { call,select, put }){
             console.log('payload',payload)
 
-
+            Toast.loading('Loading...', 30, () => {
+                console.log('Load complete !!!');
+            },true);
 
             const response = yield call(uploadImg, payload.payload.imgInfo);
             console.log('uploadImg-response',response)
@@ -35,6 +38,7 @@ export default {
 
                 callback && callback(askVisitResponse)
                 if(askVisitResponse && askVisitResponse.data.code == 200 ){
+                    Toast.hide()
                     router.push('./applySubmit')
                 }
             }

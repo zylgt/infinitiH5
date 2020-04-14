@@ -1,9 +1,9 @@
-import { setPatientInfo } from '../../../services/applyList';
+import { setPatientSurvey } from '../../../services/survey';
 import router from 'umi/router';
 import { Toast } from 'antd-mobile';
 
 export default {
-    namespace: 'applyList',
+    namespace: 'survey',
     state: {
         illData:[],
         step:1
@@ -20,16 +20,16 @@ export default {
     },
     effects: {
         // 完善就诊人信息
-        *setPatientInfo({ payload, callback }, { call,select, put }){
+        *setPatientSurvey({ payload, callback }, { call,select, put }){
             Toast.loading('Loading...', 30, () => {
                 console.log('Load complete !!!');
             },true);
-            const response = yield call(setPatientInfo, payload);
+            const response = yield call(setPatientSurvey, payload);
             console.log('response',response)
 
             if(response && response.data.code == 200 ){
                 Toast.hide()
-                router.push('./survey')
+                router.push('./patientDescribe')
             }
         }
     },
