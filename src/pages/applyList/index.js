@@ -98,9 +98,9 @@ class ApplyList extends Component {
         let showNext = e.target.getAttribute('data-shownext') || '';
         let index =  e.target.getAttribute('data-index') || '';
         index = parseInt(index);
-        console.log('answer',answer)
-        console.log('showNext',showNext)
-        console.log('index',index )
+        // console.log('answer',answer)
+        // console.log('showNext',showNext)
+        // console.log('index',index )
 
 
         if(illData[step-1].content[index].answerMore){
@@ -122,25 +122,11 @@ class ApplyList extends Component {
         }else{
             if(illData[step-1].content[index + 1]){
                 illData[step-1].content[index + 1].isShow = false
+                illData[step-1].content[index + 1].chooseAnswer = []
             }
         }
 
         console.log('illData',illData)
-        dispatch({
-            type:'applyList/setData',
-            payload:{
-                illData: illData
-            }
-        })
-    }
-    //输入框填写
-    onChangeInput(val){
-        console.log('val',val)
-        const { illData, step } = this.props.applyList;
-        const { dispatch } = this.props;
-
-        illData[step-1].inputValue = val;
-
         dispatch({
             type:'applyList/setData',
             payload:{
@@ -195,7 +181,7 @@ class ApplyList extends Component {
                     }
                 }
             }
-            console.log('payload',payload)
+            // console.log('payload',payload)
             dispatch({
                 type:'applyList/setPatientInfo',
                 payload:{ ...payload }

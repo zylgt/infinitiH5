@@ -21,8 +21,8 @@ export default {
     effects: {
         // 完善就诊人信息
         *setPatientInfo({ payload, callback }, { call,select, put }){
-            Toast.loading('Loading...', 30, () => {
-                console.log('Load complete !!!');
+            Toast.loading('正在保存...', 30, () => {
+                console.log('正在保存...');
             },true);
             const response = yield call(setPatientInfo, payload);
             console.log('response',response)

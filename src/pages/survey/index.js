@@ -173,12 +173,8 @@ class Survey extends Component {
                 }
                 return
             }else{
-                console.log( '------', item[i].chooseAnswer[0] )
                 let regFloat = /^([0-9]{1,2})$/;
                 let regFloat1 = /^([0-9]{1,2})\.([0-9]{1,2})$/;
-
-                console.log(regFloat.test(item[i].chooseAnswer[0]))
-                console.log(regFloat1.test(item[i].chooseAnswer[0]))
 
                 if( illData[step-1].key == 'temperature' ){
 
@@ -198,7 +194,11 @@ class Survey extends Component {
             }
         }
 
-        step++;
+        if(illData[step-1].content[0].chooseAnswer[0] == '暂无'){
+            step = step + 2;
+        }else{
+            step++;
+        }
 
         if(step > illData.length ){
             let payload= {}
@@ -213,7 +213,11 @@ class Survey extends Component {
                         if(key == 'temperature'){
                             payload[key] = parseFloat(content[0].chooseAnswer[0])
                         }else if(key == 'symptom_long'){
-                            payload[key] = content[0].chooseAnswer[0]
+                            if(content[0].chooseAnswer.length <= 0){
+                                payload[key] = ''
+                            }else{
+                                payload[key] = content[0].chooseAnswer[0]
+                            }
                         }else{
                             payload[key] = JSON.parse(content[0].chooseAnswer[0])
                         }
@@ -266,10 +270,16 @@ class Survey extends Component {
                 {
                     illData && illData.length > 0 ?
                         <div className={Styles.apply_list}>
-                            <div className={Styles.apply_percent}>
-                                <p className={Styles.apply_rate}>已填写{ percentage }%</p>
-                                <Progress  className={Styles.percent} percent={ percentage } />
-                            </div>
+                            {/*<div className={Styles.apply_percent}>*/}
+                                {/*<p className={Styles.apply_rate}>已填写{ percentage }%</p>*/}
+                                {/*<Progress  className={Styles.percent} percent={ percentage } />*/}
+                            {/*</div>*/}
+                            {
+                                step == 1 ?
+                                    <div className={Styles.apply_title}>新冠特殊时期，请您配合完成疫情期间流行病学调查</div>
+                                    :
+                                    <div className={Styles.apply_empty}></div>
+                            }
                             <div className={Styles.apply_choose}>
                                 {
                                     illData[step-1].content.map((item, index)=>{

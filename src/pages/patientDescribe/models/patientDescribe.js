@@ -23,8 +23,8 @@ export default {
         *askVisit({ payload, callback }, { call,select, put }){
             console.log('payload',payload)
 
-            Toast.loading('Loading...', 30, () => {
-                console.log('Load complete !!!');
+            Toast.loading('正在提交...', 30, () => {
+                console.log('正在提交...');
             },true);
 
             const response = yield call(uploadImg, payload.payload.imgInfo);
