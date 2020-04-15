@@ -3,6 +3,7 @@ import {cookieUtils} from './tools'
 import { baseURL } from './baseURL'
 import 'babel-polyfill'
 import router from 'umi/router';
+import { Toast } from 'antd-mobile';
 
 axios.defaults.timeout = 2000000;
 axios.defaults.baseURL = baseURL;
@@ -29,6 +30,7 @@ const codeMessage = {
 //验证状态
 function checkStatus(response) {
     // console.log('response---------',response)
+    Toast.hide()
     if (response.data.code === 407) {
         router.replace('./login')
         return;

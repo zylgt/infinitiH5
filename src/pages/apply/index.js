@@ -52,12 +52,18 @@ class Apply extends Component {
     }
     //开始问诊
     startApply(){
-        const { have_info } = this.props.management;
-        if(have_info){
-            router.push('./patientDescribe')
-        }else{
+        const { past, epidemic } = this.props.management;
+        if(!past){
             router.push('./applyList?step=1')
+            return;
         }
+        if(!epidemic){
+            router.push('./survey?step=1')
+            return
+        }
+
+        router.push('patientDescribe')
+
     }
 
     render() {

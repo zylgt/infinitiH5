@@ -28,6 +28,12 @@ export default {
             console.log('response',response)
 
             if(response && response.data.code == 200 ){
+                yield put({
+                    type:'management/setData',
+                    payload:{
+                        past:true,
+                    }
+                })
                 Toast.hide()
                 router.push('./survey')
             }
