@@ -144,7 +144,7 @@ class Home extends Component {
         // console.log('doctorData',doctorData)
         return (
             <DocumentTitle title='天医大朱宪彝纪念医院互联网医院'>
-                <div className={Styles.home} ref={e => this._container = e} onScrollCapture={() => this._onScrollEvent()} >
+                <div className={`${Styles.home} ${officeData.length == 1 ? Styles.home_one :''}`} ref={e => this._container = e} onScrollCapture={() => this._onScrollEvent()} >
 
                     <div className={Styles.swiper}>
                         {
@@ -157,7 +157,19 @@ class Home extends Component {
 
                     <div className={Styles.office} >
                         {
-                            officeData.length > 0 ? officeData.map((item,index)=>{
+                            officeData.length == 1 ? <div className={Styles.office_item_one} key={officeData[0].uid} data-id={officeData[0].uid} data-type="1" data-name={officeData[0].name} onClick={(e) => { this.clickOffice(e) }}>
+                                <div className={Styles.office_item_img}>
+                                    <img className={Styles.item_img} src={ staticURL + officeData[0].icon} alt=""/>
+                                </div>
+                                <div className={Styles.office_item_info}>
+                                    <p className={Styles.item_title}>{officeData[0].name}</p>
+                                    <p>图文轻问诊</p>
+                                </div>
+                                <img  className={Styles.office_item_right} src={require('../../assets/right.png')} alt=""/>
+                            </div> : ''
+                        }
+                        {
+                            officeData.length > 0 && officeData.length !== 1 ? officeData.map((item,index)=>{
                                 return(
                                     <div className={Styles.office_item} key={item.uid} data-id={item.uid} data-type="1" data-name={item.name} onClick={(e) => { this.clickOffice(e) }}>
                                         <img className={Styles.item_img} src={ staticURL + item.icon} alt=""/>
@@ -167,6 +179,7 @@ class Home extends Component {
                             }) : ''
                         }
                     </div>
+
                     {
                         illnessData.length > 0 ?<div className={Styles.title}>常见疾病</div>:''
                     }

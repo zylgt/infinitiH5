@@ -1,3 +1,6 @@
+.home_one{
+  background: #F2F3F5;
+}
 .home{
   width: 100%;
   height:100%;
@@ -24,7 +27,52 @@
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-
+    .office_item_one{
+      width:7rem;
+      height:2.16rem;
+      border-radius: .16rem;
+      background: #fff;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      .office_item_img{
+        width:1.28rem;
+        height:1.28rem;
+        background:rgba(32,137,235,0.1);
+        border-radius:.64rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin:0 .26rem 0 .44rem;
+        .item_img{
+          height:.8rem;
+          width: .8rem;
+        }
+      }
+      .office_item_info{
+        width: 4.26rem;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        font-size: .26rem;
+        color: #888;
+        line-height: .36rem;
+        .item_title{
+          height:.48rem;
+          font-size:.34rem;
+          font-family:PingFangSC-Medium,PingFang SC;
+          font-weight:500;
+          color:rgba(51,51,51,1);
+          line-height:.48rem;
+          margin-bottom:.08rem;
+        }
+      }
+      .office_item_right{
+        height: .34rem;
+        width: .34rem;
+      }
+    }
     .office_item{
       width:1.64rem;
       height:1.52rem;
@@ -43,7 +91,8 @@
         margin-bottom: .06rem;
       }
       .item_title{
-        width:100%;
+        width:90%;
+        margin:0 auto;
         text-align: center;
         height:.34rem;
         line-height:.34rem;
@@ -51,6 +100,9 @@
         font-family:PingFangSC-Regular,PingFang SC;
         font-weight:400;
         color:rgba(51,51,51,1);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
     }
   }
@@ -60,6 +112,7 @@
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+    align-items: center;
     .illness_title{
       width:1.64rem;
       height:.64rem;
@@ -72,11 +125,7 @@
       font-family:PingFangSC-Regular,PingFang SC;
       font-weight:400;
       color:rgba(51,51,51,1);
-      display:table;
 
-    }
-    .illness_title span{
-      diasplay:table-cell; vertical-align:middle;
     }
   }
   .doctor{
