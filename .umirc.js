@@ -34,6 +34,9 @@ export default {
     chainWebpack(config, { webpack }) {
         config.output.filename(`[name].${Date.now()}.js`).end();
     },
+    define: {
+        'process.env.apiType' : 'dev'
+    }
     // proxy: {
     //   "/api": {
     //     "target": 'http://192.168.2.120:8081',

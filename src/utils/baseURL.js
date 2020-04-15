@@ -10,16 +10,23 @@ let defaultPageURL = 'http://nethospital.yutanglabs.com';
 let defaultHostURL = 'api.nethospital.yutanglabs.com';
 
 
-// console.log('API_ENV',process.env.API_ENV)
-// if(process.env.API_ENV === 'dev'){
-//     baseURL = 'http://39.107.76.157';
-// }else if(process.env.API_ENV === 'online'){
-//     baseURL = 'https://glucose.yutanglabs.com';
-// }else if(process.env.API_ENV === 'gray'){
-//     baseURL = 'https://gray.glucose.yutanglabs.com'
-// }else{
-//     baseURL = 'http://39.107.76.157';
-// }
+console.log('apiType', process.env.apiType)
+
+
+//代谢线上
+if(process.env.apiType === 'prod'){
+
+//请求url
+    defaultBaseURL = 'https://api.nethospital.tjdxb.com';
+//静态资源
+    defaultStaticURL = 'https://static.nethospital.tjdxb.com';
+//页面访问
+    defaultPageURL = 'https://nethospital.tjdxb.com';
+//页面访问
+    defaultHostURL = 'wss://nethospital.tjdxb.com';
+
+
+}
 
 
 export const baseURL = defaultBaseURL;

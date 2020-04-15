@@ -19,16 +19,6 @@ export const illDate = {
                             key:'发热',
                         },
                         {
-                            title:'备孕期',
-                            showNext:false,
-                            key:'备孕期',
-                        },
-                        {
-                            title:'怀孕期',
-                            showNext:false,
-                            key:'怀孕期',
-                        },
-                        {
                             title:'咳嗽',
                             showNext:false,
                             key:'咳嗽',
