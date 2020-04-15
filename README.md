@@ -10,16 +10,32 @@
 yarn install
 ```
 
-启动服务.
+####启动服务.
+
+开始-测试环境
 
 ```bash
 $ yarn start
 ```
+开始-生产环境
 
-编译.
+```bash
+$ yarn start:prod 
+```
+
+
+####编译.
+
+编译-测试环境
 
 ```bash
 $ yarn build
+```
+
+编译-生产环境
+
+```bash
+$ yarn build:prod
 ```
 
 ### 目录结构
