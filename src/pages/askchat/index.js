@@ -3,8 +3,6 @@ import { connect } from 'dva';
 import { Popover, Modal, Menu, Toast, ListView, InputItem,Button,TextareaItem} from 'antd-mobile';
 import router from 'umi/router';
 import Styles from './index.less';
-import emojione from '../../utils/emojione.min'
-import CryptoJS from '../../utils/md5'
 import { createForm ,formShape } from 'rc-form';
 import Socket from '../../components/webSocket';
 import DocumentTitle from 'react-document-title'

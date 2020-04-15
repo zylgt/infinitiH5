@@ -3,8 +3,6 @@ import { connect } from 'dva';
 import { SearchBar, Modal, Menu, Toast, List, InputItem,Button,WhiteSpace} from 'antd-mobile';
 import router from 'umi/router';
 import Styles from './index.less';
-import emojione from '../../utils/emojione.min'
-import CryptoJS from '../../utils/md5'
 import { staticURL, pageURL } from '../../utils/baseURL'
 import { nonceStr } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'

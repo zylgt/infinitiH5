@@ -48,6 +48,11 @@ function checkStatus(response) {
 }
 
 export default function request(url, options) {
+
+    if(!navigator.onLine){
+        Toast.fail('请检查网络', 1.5);
+        return
+    }
     const token = cookieUtils.get('token') || '';
     // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODY3NDM3NTksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI0NTY0NDU3MjA2MzY5ODk0NCJ9.7GM1X-2Ap9-8EbX-umfXjJgmIUGNrq_tm00E_LiScuA'
     // console.log('token',token)
@@ -69,7 +74,10 @@ export default function request(url, options) {
         // console.log('response',response)
         return response
     }, (error) => {
-        return Promise.reject(error)
+        return Promise.reject(new Error(
+            error.response ? error.response.data : '网络错误'
+    ))
+        // return Promise.reject(error)
     })
 
     return httpProvider({

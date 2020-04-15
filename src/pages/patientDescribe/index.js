@@ -397,7 +397,7 @@ class PatientDescribe extends Component {
                         footer={[{ text: '知道了', onPress: () => { this.clickKnow()} }]}
                     >
                         <div style={{color:'#333'}}>
-                            您超过30分钟未完成问诊申请，号源已被他人预约啦，请重新选择预约时段
+                            您超过20分钟未完成问诊申请，号源已被他人预约啦，请重新选择预约时段
                         </div>
                     </Modal>
                 </div>

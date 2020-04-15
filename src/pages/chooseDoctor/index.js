@@ -123,7 +123,7 @@ class ChooseDoctor extends Component {
         const { name } = this.state;
 
         return (
-            <DocumentTitle title={ name + '医生'}>
+            <DocumentTitle title={ name }>
                 <div className={Styles.choose_doctor} ref={e => this._container = e} onScrollCapture={() => this._onScrollEvent()} >
 
                     {
