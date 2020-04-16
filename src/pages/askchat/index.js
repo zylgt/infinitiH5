@@ -209,14 +209,18 @@ class AskChat extends React.Component {
                     }
 
                     for( let i = 0;i < sendMsg.length ; i++){
+
                         if( !sendMsg[i].isSend && sendMsg[i].content == data.content){
                             sendMsg[i].isSend = true;
+                            sendMsg[i].created_at = data.created_at;
                             that.setState({
                                 sendMsg: sendMsg
                             })
                             break;
                         }
                     }
+
+                    console.log('sendMsg',sendMsg)
 
                 } else if (type === 'finished') {
                     that.setState({
@@ -507,7 +511,7 @@ class AskChat extends React.Component {
         let { sendMsg, orderId } = this.state;
         const { patientImg } = this.props.askchat;
         let imgUrl = response.data.data[0];
-        let serverId = response.media[0];
+        let serverId = response.data.media[0];
 
         console.log('uploadCallback-sendMsg',sendMsg)
 
@@ -517,7 +521,7 @@ class AskChat extends React.Component {
             }
             for(let k=0;k<sendMsg.length;k++){
                 if( sendMsg[k].localId && patientImg[i].localId == sendMsg[k].localId){
-                    sendMsg[k].imgUrl = response.data.data[0];
+                    sendMsg[k].content = response.data.data[0];
                     sendMsg[k].serverId = patientImg[i].serverId;
                 }
             }
