@@ -32,6 +32,7 @@ class AskChat extends React.Component {
             isExpired: false,
             token:'',
             detailInfo:'',
+            timeIndex:1
         }
         this.taskRemindInterval = null;
     }
@@ -197,7 +198,12 @@ class AskChat extends React.Component {
                     that.setState({
                         historyMsg: data
                     })
+
+                    that.isShowTime('history')
+
                 } else if (type === 'message') {
+
+                    that.isShowTime('message')
 
                     if(data.sender_type == "doctor"){
                         data.isSend = true;
@@ -320,9 +326,43 @@ class AskChat extends React.Component {
             isShowSend: false
         })
     }
+    //判断是否展示时间
+    isShowTime(type){
+        const { historyMsg, sendMsg } = this.state;
+
+        let created_time = historyMsg[0].created_at;
+        let newTime = Date.parse(created_time)/1000 ;
+
+        historyMsg[0].showTime = true;
+
+        // console.log('Date.parse',Date.parse(created_time)/1000)
+
+        let key = historyMsg;
+        if(type == 'message'){
+            key = sendMsg;
+        }
+
+        for(let i=1;i<key.length;i++){
+
+            if( Date.parse( key[i].created_at )/1000 - newTime > 3600 ){
+
+                newTime = Date.parse( key[i].created_at )/1000 ;
+                key[i].showTime = true
+
+            }else{
+                key[i].showTime = false
+            }
+
+        }
+        // console.log('key',key)
+        this.setState({
+            key:key
+        })
+    }
     //判断消息右上角时间
     showTime(item){
-        let time = ''
+
+        let time = '';
         let created_time = item.created_at;
         if(created_time){
             let weeks = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
@@ -334,10 +374,7 @@ class AskChat extends React.Component {
             let date = moment(created_time).format('LT'); // 时分
             let hours = new Date(created_time).getHours(); //小时
 
-            //当前时间6分钟前
-            let newTime = moment().subtract(6, 'minute');
-
-            if(moment(created_time) < newTime){
+            if(item.showTime){
                 if(day >= 8){
                     time = dateFormat +' '+ date
                 }else if(day <8 && day >= 2){
@@ -351,6 +388,7 @@ class AskChat extends React.Component {
                         time = '下午 ' + date
                     }
                 }
+
                 return (
                     <div className={Styles.list_time}>
                         { time }
@@ -674,6 +712,9 @@ class AskChat extends React.Component {
                                                     {
                                                         item.type === 'photo' ?
                                                             <div className={ `${Styles.item_content} ${Styles.item_content_img}`}>
+                                                                {
+                                                                    item.isSend ? '' : <img className={Styles.item_loading} src={require('../../assets/loading.gif')} alt=""/>
+                                                                }
                                                                 <img className={Styles.content_img} src={ item.localUrl } alt=""/>
                                                             </div>
                                                             :
