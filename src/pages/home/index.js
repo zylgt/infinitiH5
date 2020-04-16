@@ -180,20 +180,20 @@ class Home extends Component {
                         }
                     </div>
 
-                    {
-                        illnessData.length > 0 ?<div className={Styles.title}>常见疾病</div>:''
-                    }
-                    <div className={Styles.illness} >
-                        {
-                            illnessData.length > 0 ? illnessData.map((item,index)=>{
-                                return(
-                                    <div className={Styles.illness_title} key={item.uid} data-id={item.uid} data-type="2" data-name={item.name} onClick={(e) => {this.clickOffice(e)}}>
-                                        <span>{item.name}</span>
-                                    </div>
-                                )
-                            }) : ''
-                        }
-                    </div>
+                    {/*{*/}
+                        {/*illnessData.length > 0 ?<div className={Styles.title}>常见疾病</div>:''*/}
+                    {/*}*/}
+                    {/*<div className={Styles.illness} >*/}
+                        {/*{*/}
+                            {/*illnessData.length > 0 ? illnessData.map((item,index)=>{*/}
+                                {/*return(*/}
+                                    {/*<div className={Styles.illness_title} key={item.uid} data-id={item.uid} data-type="2" data-name={item.name} onClick={(e) => {this.clickOffice(e)}}>*/}
+                                        {/*<span>{item.name}</span>*/}
+                                    {/*</div>*/}
+                                {/*)*/}
+                            {/*}) : ''*/}
+                        {/*}*/}
+                    {/*</div>*/}
                     <div className={Styles.title}>今日出诊医生</div>
                     {
                         doctorData.length > 0 ?

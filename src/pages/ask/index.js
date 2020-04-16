@@ -116,7 +116,7 @@ class Ask extends React.Component {
     rigthTime(item){
 
         let time = ''
-        let created_time = item.created_at;
+        let created_time = item.last_time;
         if(created_time){
             let weeks = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
             let currentTime = Date.parse(new Date());
