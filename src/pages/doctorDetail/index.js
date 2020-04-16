@@ -66,11 +66,14 @@ class DoctorInfo extends Component {
         const { doctorInfo } = this.props.doctorInfo;
 
         let date = '今日出诊';
-
+        let isOpen = true;
         if(moment().format('d') != doctorInfo.week){
             let weeks = new Array("日", "一", "二", "三", "四", "五", "六");
-            date = '周' + weeks[ doctorInfo.week ] + '出诊';
+            let num = weeks[ doctorInfo.week ] || '';
+            date = '周' + num + '出诊';
+            isOpen = false;
         }
+
         let doctorName = doctorInfo.name + '医生简介'
         return (
             <DocumentTitle title={doctorName}>
@@ -80,7 +83,7 @@ class DoctorInfo extends Component {
                         <div className={Styles.info_right}>
                             <p className={Styles.info_name}>
                                 <span>{doctorInfo.name}</span>
-                                <span className={Styles.date}>{date}</span>
+                                <span className={`${Styles.date} ${isOpen ? '':Styles.date_no}`}>{date}</span>
                             </p>
                             <p className={Styles.info_rank}>
                                 <span>{doctorInfo.title}</span>
