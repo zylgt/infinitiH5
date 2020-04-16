@@ -37,7 +37,7 @@ export default {
             const response = yield call(uploadImg, payload);
             console.log('response',response)
             if(response && response.data.code == 200 ){
-                response.data.media = payload.media
+                response.data.media = payload.media;
                 callback && callback(response)
             }
         },
