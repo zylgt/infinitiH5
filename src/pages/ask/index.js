@@ -185,13 +185,9 @@ class Ask extends React.Component {
                                                 </div>
                                                 {this.infoContent(item)}
                                                 <div className={Styles.info_ill}>
-                                                    {
-                                                        item.disease.map((item,index)=>{
-                                                            return(
-                                                                <div className={Styles.ill} key={index}>{item}</div>
-                                                            )
-                                                        })
-                                                    }
+
+                                                    <div className={Styles.ill}>就诊人：{item.patient_name}</div>
+
                                                 </div>
                                             </div>
                                         </div>
