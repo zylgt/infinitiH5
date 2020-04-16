@@ -50,7 +50,7 @@ class AskChat extends React.Component {
         const { dispatch } = this.props;
         let that = this;
 
-        // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODY3NDM3NTksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI0NTY0NDU3MjA2MzY5ODk0NCJ9.7GM1X-2Ap9-8EbX-umfXjJgmIUGNrq_tm00E_LiScuA'
+        // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODcwMzM0MjksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI1MDczMjg1NTM1NzYwNzkzNiJ9.Ybxm3JTPkp2qSeJxgXwC7lAsmVMC8CAWwrlOPCi7ZOw'
         let token = cookieUtils.get('token') || getQueryString('token') || '';
         console.log('token',token)
         if(token){
@@ -274,6 +274,10 @@ class AskChat extends React.Component {
     changeWord(val){
         let str = val.replace(/[\r\n]/g,"")
         if(str == ''){
+            this.setState({
+                word: val,
+                isShowSend: false
+            });
             return
         }
         this.setState({
@@ -335,8 +339,6 @@ class AskChat extends React.Component {
 
         historyMsg[0].showTime = true;
 
-        // console.log('Date.parse',Date.parse(created_time)/1000)
-
         let key = historyMsg;
         if(type == 'message'){
             key = sendMsg;
@@ -344,7 +346,7 @@ class AskChat extends React.Component {
 
         for(let i=1;i<key.length;i++){
 
-            if( Date.parse( key[i].created_at )/1000 - newTime > 3600 ){
+            if( Date.parse( key[i].created_at )/1000 - newTime > 360 ){
 
                 newTime = Date.parse( key[i].created_at )/1000 ;
                 key[i].showTime = true

@@ -54,7 +54,7 @@ export default function request(url, options) {
         return
     }
     const token = cookieUtils.get('token') || '';
-    // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODY3NDM3NTksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI0NTY0NDU3MjA2MzY5ODk0NCJ9.7GM1X-2Ap9-8EbX-umfXjJgmIUGNrq_tm00E_LiScuA'
+    // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODcwMzM0MjksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI1MDczMjg1NTM1NzYwNzkzNiJ9.Ybxm3JTPkp2qSeJxgXwC7lAsmVMC8CAWwrlOPCi7ZOw'
     // console.log('token',token)
     let obj = {
         baseURL: baseURL
