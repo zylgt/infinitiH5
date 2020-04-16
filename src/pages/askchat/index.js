@@ -31,7 +31,7 @@ class AskChat extends React.Component {
             isFinished : false,
             isExpired: false,
             token:'',
-            detailInfo:''
+            detailInfo:'',
         }
         this.taskRemindInterval = null;
     }
@@ -141,6 +141,7 @@ class AskChat extends React.Component {
     //订单详情callback
     orderDetailCallback(response){
         console.log('response1----------',response)
+        let that = this;
         this.setState({
             detailInfo:response.data.data
         })
@@ -153,11 +154,26 @@ class AskChat extends React.Component {
             this.setState({
                 isFinished:true
             })
+            setTimeout(function () {
+                if(that.socket){
+                    that.socket.onclose({
+                        msg:'已完成'
+                    })
+                }
+            },5000)
+
         }else if(data.status == 'expired'){
             this.setState({
                 isFinished:true,
                 isExpired:true
             })
+            setTimeout(function () {
+                if(that.socket){
+                    that.socket.onclose({
+                        msg:'已逾期'
+                    })
+                }
+            },5000)
         }
 
     }
@@ -185,23 +201,19 @@ class AskChat extends React.Component {
                 } else if (type === 'message') {
 
                     if(data.sender_type == "doctor"){
-                        historyMsg.push(data)
+                        data.isSend = true;
+                        sendMsg.push(data)
                         that.setState({
-                            historyMsg: historyMsg
+                            sendMsg: sendMsg
                         })
                         return false;
                     }
 
                     for( let i = 0;i < sendMsg.length ; i++){
-                        if(sendMsg[i].content == data.content){
+                        if( !sendMsg[i].isSend && sendMsg[i].content == data.content){
                             sendMsg[i].isSend = true;
-                            sendMsg.splice( i ,1);
                             that.setState({
                                 sendMsg: sendMsg
-                            })
-                            historyMsg.push(data)
-                            that.setState({
-                                historyMsg: historyMsg
                             })
                             break;
                         }
@@ -321,18 +333,19 @@ class AskChat extends React.Component {
 
             //当前时间6分钟前
             let newTime = moment().subtract(6, 'minute');
+
             if(moment(created_time) < newTime){
                 if(day >= 8){
-                    time = dateFormat + date
+                    time = dateFormat +' '+ date
                 }else if(day <8 && day >= 2){
-                    time = weeks[index] + date
+                    time = weeks[index] +' '+ date
                 }else if(day > 0 && day < 2){
-                    time = '昨天' + date
+                    time = '昨天 ' + date
                 }else{
                     if(hours <= 12){
-                        time = '上午' + date
+                        time = '上午 ' + date
                     }else{
-                        time = '下午' + date
+                        time = '下午 ' + date
                     }
                 }
                 return (
@@ -364,109 +377,166 @@ class AskChat extends React.Component {
         });
     }
     //根据机型获取可展示图片
-    getPhoneImg(localIds,val,that){
-        const { dispatch } = this.props;
-        const { wkwebview } = this.state;
-        const { patientImg } = this.props.askchat;
-        let index = val;
+    getPhoneImg(localIds,index,that){
 
-        let patientObj = {}
-        patientObj.isUpload = false;
-        patientObj.serverId = '';
-        patientObj.localIds = localIds[index];
+        const { dispatch } = this.props;
+        const { wkwebview, sendMsg } = this.state;
+        const { patientImg } = this.props.askchat;
+        let patientObj = {};
+        patientObj.isUpload = false; // 是否开始上传
+        patientObj.serverId = ''; // 上传完成id
+        patientObj.localId = localIds[index]; // 图片本地id
+
         if( wkwebview ){
-            patientObj.localUrl = localIds[index];
+            patientObj.localUrl = localIds[index]; // 不同机型预览地址
             patientImg.push(patientObj)
+
+            sendMsg.type = 'photo';
+            sendMsg.isSend = false;
+            sendMsg.push(patientObj)
+            that.setState({
+                sendMsg:sendMsg
+            })
             dispatch({
                 type:'askchat/setData',
                 payload:{
                     patientImg:patientImg
                 }
             })
-            this.uploadImg(patientObj)
-            if(index + 1 < localIds.length){
-                index ++;
-                that.getPhoneImg(localIds, index, that)
+            if(index+1 < localIds.length){
+                index++ ;
+                that.getPhoneImg(localIds,index,that)
+
+            }else{
+                that.uploadImg(0,that)
             }
         }else{
             wx.getLocalImgData({
                 localId: localIds[index], // 图片的localID
                 success: function (res) {
                     // var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-                    patientObj.localUrl = res.localData;
+                    patientObj.localUrl = res.localData; // 不同机型预览地址
                     patientImg.push(patientObj)
+
+                    sendMsg.type = 'photo';
+                    sendMsg.isSend = false;
+                    sendMsg.push(patientObj)
+                    that.setState({
+                        sendMsg:sendMsg
+                    })
                     dispatch({
                         type:'askchat/setData',
                         payload:{
                             patientImg:patientImg
                         }
                     })
-                    that.uploadImg(patientObj)
-                    if(index + 1 < localIds.length){
-                        index ++;
-                        that.getPhoneImg(localIds, index, that)
+                    if(index+1 < localIds.length){
+                        index++ ;
+                        that.getPhoneImg(localIds,index,that)
+                    }else{
+                        that.uploadImg(0,that)
+                    }
+                },
+                fail:function(res){
+                    if(index+1 < localIds.length){
+                        index++ ;
+                        that.getPhoneImg(localIds,index,that)
+                    }else{
+                        that.uploadImg(0,that)
                     }
                 }
             });
         }
+
     }
     //上传图片
-    uploadImg(patientObj){
+    uploadImg(index,that){
         const { dispatch } = this.props;
         const { patientImg } = this.props.askchat;
-        let that = this;
-        console.log('patientImg0------',patientImg)
+
+        console.log('patientImg',patientImg)
+
         //上传图片
         wx.uploadImage({
-            localId: patientObj.localIds, // 需要上传的图片的本地ID，由chooseImage接口获得
+            localId: patientImg[index].localId, // 需要上传的图片的本地ID，由chooseImage接口获得
             isShowProgressTips: 0, // 默认为1，显示进度提示
             success: function (res) {
                 let serverId = res.serverId; // 返回图片的服务器端ID
                 console.log('serverId',serverId)
-                console.log('patientObj',patientObj)
-                console.log('patientImg',patientImg)
-                for( let index in patientImg ){
-                    if(patientObj.localIds == patientImg[index].localIds){
-                        patientObj.isUpload = true;
-                        patientObj.serverId = serverId;
-                        dispatch({
-                            type:'askchat/setData',
-                            payload:{
-                                patientImg: patientImg
-                            }
-                        })
 
-                        dispatch({
-                            type:'askchat/uploadImg',
-                            payload:{
-                                cat: 'patient_info',
-                                media:[ serverId ]
-                            },
-                            callback: that.uploadCallback.bind(that)
-                        })
+                patientImg[index].isUpload = true;
+                patientImg[index].serverId = serverId;
 
-
+                dispatch({
+                    type:'askchat/setData',
+                    payload:{
+                        patientImg: patientImg
                     }
+                })
+                dispatch({
+                    type:'askchat/uploadImg',
+                    payload:{
+                        cat: 'patient_info',
+                        media:[ serverId ]
+                    },
+                    callback: that.uploadCallback.bind(that)
+                })
+
+                if(index + 1 < patientImg.length){
+                    index++;
+                    that.uploadImg(index, that)
                 }
+
             },
             fail:function(res){
-                Toast.info('上传失败，请重试',1.5)
+                if(index + 1 < patientImg.length){
+                    index++;
+                    that.uploadImg(index, that)
+                }
             }
         });
+
     }
     //图片上传callback
     uploadCallback(response){
         const { dispatch } = this.props;
         let { sendMsg, orderId } = this.state;
+        const { patientImg } = this.props.askchat;
         let imgUrl = response.data.data[0];
-        sendMsg.push({
-            type: 'photo',
-            content: imgUrl,
-            isSend:false
+        let serverId = response.media[0];
+
+        console.log('uploadCallback-sendMsg',sendMsg)
+
+        for(let i=0;i < patientImg.length;i++){
+            if(patientImg[i].serverId == serverId){
+                patientImg[i].imgUrl = response.data.data[0];
+            }
+            for(let k=0;k<sendMsg.length;k++){
+                if( sendMsg[k].localId && patientImg[i].localId == sendMsg[k].localId){
+                    sendMsg[k].imgUrl = response.data.data[0];
+                    sendMsg[k].serverId = patientImg[i].serverId;
+                }
+            }
+
+        }
+        dispatch({
+            type:'askchat/setData',
+            payload:{
+                patientImg: patientImg
+            }
         })
         this.setState({
             sendMsg: sendMsg
         })
+
+        // sendMsg.push({
+        //     type: 'photo',
+        //     content: imgUrl,
+        //     isSend:false
+        // })
+        // this.setState({
+        //     sendMsg: sendMsg
+        // })
         dispatch({
             type:"askchat/sendMsg",
             payload:{

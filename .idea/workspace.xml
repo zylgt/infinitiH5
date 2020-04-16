@@ -2,23 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="175d2814-6ce3-4d6e-8268-5c4da88a3d07" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/pages/chat/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/pages/chat/index.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/pages/chat/models/chat.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/pages/class/index.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/pages/class/index.less" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/pages/class/models/class.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/utils/emojione.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/utils/emojione.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/utils/md5.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dva.js" afterPath="$PROJECT_DIR$/src/dva.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/ask/index.js" afterPath="$PROJECT_DIR$/src/pages/ask/index.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/index.js" afterPath="$PROJECT_DIR$/src/pages/askchat/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/chooseDoctor/index.js" afterPath="$PROJECT_DIR$/src/pages/chooseDoctor/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/chooseTime/index.js" afterPath="$PROJECT_DIR$/src/pages/chooseTime/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" afterPath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/request.js" afterPath="$PROJECT_DIR$/src/utils/request.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" afterPath="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/index.js" afterPath="$PROJECT_DIR$/src/pages/home/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,23 +21,13 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/home/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="381">
-              <caret line="157" column="27" lean-forward="false" selection-start-line="157" selection-start-column="27" selection-end-line="157" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="375" column="25" lean-forward="true" selection-start-line="375" selection-start-column="25" selection-end-line="375" selection-end-column="25" />
+            <state relative-caret-position="-142">
+              <caret line="100" column="32" lean-forward="false" selection-start-line="100" selection-start-column="21" selection-end-line="100" selection-end-column="32" />
               <folding>
+                <element signature="n#!!block;n#componentDidMount#0;n#PatientDescribe#0" expanded="false" />
                 <element signature="n#!!block;n#getAppidCallback#0;n#PatientDescribe#0" expanded="false" />
-                <element signature="n#!!block;n#uploadImg#0;n#PatientDescribe#0" expanded="false" />
                 <element signature="n#!!block;n#deleteImg#0;n#PatientDescribe#0" expanded="false" />
                 <element signature="n#!!block;n#textareaChange#0;n#PatientDescribe#0" expanded="false" />
                 <element signature="n#!!block;n#nextCallback#0;n#PatientDescribe#0" expanded="false" />
@@ -60,14 +38,40 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="request.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="826">
+              <caret line="55" column="42" lean-forward="true" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+                <element signature="n#!!block;n#getAppidCallback#0;n#AskChat#0" expanded="false" />
+                <element signature="n#!!block;n#orderDetailCallback#0;n#AskChat#0" expanded="false" />
+                <element signature="n#!!block;n#autoWordFocus#0;n#AskChat#0" expanded="false" />
+                <element signature="n#!!block;n#changeWord#0;n#AskChat#0" expanded="false" />
+                <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
+                <element signature="n#!!block;n#patientInfo#0;n#AskChat#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="request.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/utils/request.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="521">
-              <caret line="59" column="24" lean-forward="true" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="487">
+              <caret line="57" column="31" lean-forward="false" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="askChat.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/askchat/models/askChat.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="581">
+              <caret line="42" column="10" lean-forward="true" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -83,16 +87,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>uid</find>
-      <find>step</find>
-      <find>applyList</find>
-      <find>choose_input</find>
-      <find>disease_length</find>
-      <find>token</find>
-      <find>console.log</find>
-      <find>apply_percent</find>
-      <find>choose_title</find>
-      <find>apply_title</find>
       <find>symptom_long</find>
       <find>payload</find>
       <find>API_ENV</find>
@@ -113,6 +107,16 @@
       <find>Network Error</find>
       <find>emojione.min.js</find>
       <find>message.error</find>
+      <find>isFinished</find>
+      <find>historyMsg</find>
+      <find>setState</find>
+      <find>timeIndex</find>
+      <find>showTime</find>
+      <find>patientDescribe</find>
+      <find>getPhoneImg</find>
+      <find>uploadImg</find>
+      <find>sendMsg</find>
+      <find>patientImg</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -121,7 +125,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/pages/doctorInfo/index.less" />
         <option value="$PROJECT_DIR$/src/pages/document.ejs" />
         <option value="$PROJECT_DIR$/src/global.css" />
         <option value="$PROJECT_DIR$/src/pages/management/index.less" />
@@ -160,18 +163,19 @@
         <option value="$PROJECT_DIR$/src/pages/agreement/index.less" />
         <option value="$PROJECT_DIR$/src/pages/ask/index.less" />
         <option value="$PROJECT_DIR$/src/pages/home/index.less" />
-        <option value="$PROJECT_DIR$/src/pages/home/index.js" />
         <option value="$PROJECT_DIR$/src/pages/management/models/management.js" />
         <option value="$PROJECT_DIR$/src/pages/applyList/models/applyList.js" />
         <option value="$PROJECT_DIR$/src/pages/apply/index.js" />
         <option value="$PROJECT_DIR$/src/pages/chooseTime/index.js" />
         <option value="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
-        <option value="$PROJECT_DIR$/src/pages/ask/index.js" />
-        <option value="$PROJECT_DIR$/src/pages/askchat/index.js" />
         <option value="$PROJECT_DIR$/src/dva.js" />
         <option value="$PROJECT_DIR$/src/utils/tools.js" />
         <option value="$PROJECT_DIR$/src/pages/chooseDoctor/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/ask/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/home/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" />
         <option value="$PROJECT_DIR$/src/utils/request.js" />
+        <option value="$PROJECT_DIR$/src/pages/askchat/index.js" />
       </list>
     </option>
   </component>
@@ -277,7 +281,22 @@
               <item name="web-patient" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="chooseDoctor" type="462c0819:PsiDirectoryNode" />
+              <item name="askchat" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web-patient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="askchat" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web-patient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="home" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
@@ -355,18 +374,18 @@
       <workItem from="1585531833206" duration="86703000" />
       <workItem from="1586224260107" duration="33196000" />
       <workItem from="1586742229863" duration="4284000" />
-      <workItem from="1586915053588" duration="17282000" />
+      <workItem from="1586915053588" duration="28589000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="502547000" />
+    <option name="totallyTimeSpent" value="513854000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1081" y="-363" width="1080" height="1194" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20963173" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23418319" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32757053" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -414,19 +433,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="16" />
+      <option name="time" value="17" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="65" column="23" lean-forward="true" selection-start-line="65" selection-start-column="23" selection-end-line="65" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/layouts/baseLayout/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="319">
@@ -757,14 +768,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/home/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="381">
-          <caret line="157" column="27" lean-forward="false" selection-start-line="157" selection-start-column="27" selection-end-line="157" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/md5.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -785,30 +788,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="34" lean-forward="false" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/askchat/models/askChat.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="14" lean-forward="true" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="34" lean-forward="false" selection-start-line="4" selection-start-column="34" selection-end-line="4" selection-end-column="34" />
           <folding />
         </state>
       </provider>
@@ -858,23 +837,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="9" lean-forward="false" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/home/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="923">
+          <caret line="181" column="0" lean-forward="true" selection-start-line="181" selection-start-column="0" selection-end-line="181" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/chooseDoctor/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="125" column="40" lean-forward="false" selection-start-line="125" selection-start-column="40" selection-end-line="125" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="425">
+          <caret line="132" column="44" lean-forward="false" selection-start-line="132" selection-start-column="44" selection-end-line="132" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/chooseDoctor/models/chooseDoctor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="375" column="25" lean-forward="true" selection-start-line="375" selection-start-column="25" selection-end-line="375" selection-end-column="25" />
+        <state relative-caret-position="-142">
+          <caret line="100" column="32" lean-forward="false" selection-start-line="100" selection-start-column="21" selection-end-line="100" selection-end-column="32" />
           <folding>
+            <element signature="n#!!block;n#componentDidMount#0;n#PatientDescribe#0" expanded="false" />
             <element signature="n#!!block;n#getAppidCallback#0;n#PatientDescribe#0" expanded="false" />
-            <element signature="n#!!block;n#uploadImg#0;n#PatientDescribe#0" expanded="false" />
             <element signature="n#!!block;n#deleteImg#0;n#PatientDescribe#0" expanded="false" />
             <element signature="n#!!block;n#textareaChange#0;n#PatientDescribe#0" expanded="false" />
             <element signature="n#!!block;n#nextCallback#0;n#PatientDescribe#0" expanded="false" />
@@ -884,12 +887,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/askchat/models/askChat.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="42" column="10" lean-forward="true" selection-start-line="42" selection-start-column="10" selection-end-line="42" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/request.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="59" column="24" lean-forward="true" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
+        <state relative-caret-position="487">
+          <caret line="57" column="31" lean-forward="false" selection-start-line="57" selection-start-column="31" selection-end-line="57" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="826">
+          <caret line="55" column="42" lean-forward="true" selection-start-line="55" selection-start-column="42" selection-end-line="55" selection-end-column="42" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#0#40#0" expanded="true" />
+            <element signature="n#!!block;n#getAppidCallback#0;n#AskChat#0" expanded="false" />
+            <element signature="n#!!block;n#orderDetailCallback#0;n#AskChat#0" expanded="false" />
+            <element signature="n#!!block;n#autoWordFocus#0;n#AskChat#0" expanded="false" />
+            <element signature="n#!!block;n#changeWord#0;n#AskChat#0" expanded="false" />
+            <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
+            <element signature="n#!!block;n#patientInfo#0;n#AskChat#0" expanded="false" />
           </folding>
         </state>
       </provider>
