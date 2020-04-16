@@ -674,6 +674,9 @@ class AskChat extends React.Component {
                                                     {
                                                         item.type === 'photo' ?
                                                             <div className={ `${Styles.item_content} ${Styles.item_content_img}`}>
+                                                                {
+                                                                    item.isSend ? '' : <img className={Styles.item_loading} src={require('../../assets/loading.gif')} alt=""/>
+                                                                }
                                                                 <img className={Styles.content_img} src={ item.localUrl } alt=""/>
                                                             </div>
                                                             :
