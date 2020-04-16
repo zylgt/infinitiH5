@@ -332,34 +332,64 @@ class AskChat extends React.Component {
     }
     //判断是否展示时间
     isShowTime(type){
-        const { historyMsg, sendMsg } = this.state;
+
+       const { historyMsg, sendMsg } = this.state;
 
         let created_time = historyMsg[0].created_at;
         let newTime = Date.parse(created_time)/1000 ;
+        let showThree = Date.parse(created_time)/1000 ;
 
         historyMsg[0].showTime = true;
 
-        let key = historyMsg;
-        if(type == 'message'){
-            key = sendMsg;
-        }
+        for(let i = 1 ;i<historyMsg.length;i++){
 
-        for(let i=1;i<key.length;i++){
+            if( Date.parse( historyMsg[i].created_at )/1000 - showThree > 720 ){
+                showThree = Date.parse( historyMsg[i].created_at ) ;
+                historyMsg[i].showRemain = true
+                continue
+            }else{
+                historyMsg[i].showRemain = false
+            }
 
-            if( Date.parse( key[i].created_at )/1000 - newTime > 360 ){
+            if( Date.parse( historyMsg[i].created_at )/1000 - newTime > 360 ){
 
-                newTime = Date.parse( key[i].created_at )/1000 ;
-                key[i].showTime = true
+                newTime = Date.parse( historyMsg[i].created_at )/1000 ;
+                historyMsg[i].showTime = true
 
             }else{
-                key[i].showTime = false
+                historyMsg[i].showTime = false
             }
 
         }
-        // console.log('key',key)
         this.setState({
-            key:key
+            historyMsg:historyMsg
         })
+        if(type == 'message'){
+            for(let i = 0 ;i<sendMsg.length;i++){
+
+                if( Date.parse( sendMsg[i].created_at )/1000 - showThree > 720 ){
+                    showThree = Date.parse( sendMsg[i].created_at ) ;
+                    sendMsg[i].showRemain = true
+                    continue
+                }else{
+                    sendMsg[i].showRemain = false
+                }
+
+                if( Date.parse( sendMsg[i].created_at )/1000 - newTime > 360 ){
+
+                    newTime = Date.parse( sendMsg[i].created_at )/1000 ;
+                    sendMsg[i].showTime = true
+
+                }else{
+                    sendMsg[i].showTime = false
+                }
+
+            }
+            this.setState({
+                sendMsg:sendMsg
+            })
+        }
+
     }
     //判断消息右上角时间
     showTime(item){
@@ -376,6 +406,15 @@ class AskChat extends React.Component {
             let date = moment(created_time).format('LT'); // 时分
             let hours = new Date(created_time).getHours(); //小时
 
+
+            //判断剩余3分钟
+            if(item.showRemain){
+                return (
+                    <div className={Styles.list_start}>
+                        <span>剩余问诊时间：3分钟</span>
+                    </div>
+                );
+            }
             if(item.showTime){
                 if(day >= 8){
                     time = dateFormat +' '+ date
@@ -700,6 +739,7 @@ class AskChat extends React.Component {
                             sendMsg && sendMsg.length > 0 ?  sendMsg.map((item,index)=>{
                                 return(
                                     <div key={index}>
+                                        { this.showTime(item) }
                                         {
                                             item.sender_type === "doctor" && item.type === 'text' ?
                                                 <div className={Styles.list_item_left}>
