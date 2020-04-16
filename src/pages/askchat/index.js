@@ -86,7 +86,6 @@ class AskChat extends React.Component {
             //         //     wkwebview: true
             //         // })
             //     }
-
             wx.ready(function(){
                 wx.hideAllNonBaseMenuItem();
                 // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
@@ -358,6 +357,7 @@ class AskChat extends React.Component {
     }
     //发送图片
     addPatient(type) {
+        const { dispatch } = this.props;
         let that = this;
         let sourceType = [];
         if( type == 'album' ){
@@ -373,6 +373,12 @@ class AskChat extends React.Component {
                 console.log('res',res)
                 let localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
                 that.getPhoneImg(localIds,0,that)
+                dispatch({
+                    type:'askchat/setData',
+                    payload:{
+                        patientImg:[]
+                    }
+                })
             }
         });
     }
@@ -386,13 +392,13 @@ class AskChat extends React.Component {
         patientObj.isUpload = false; // 是否开始上传
         patientObj.serverId = ''; // 上传完成id
         patientObj.localId = localIds[index]; // 图片本地id
+        patientObj.type = 'photo';
+        patientObj.isSend = false;
 
         if( wkwebview ){
             patientObj.localUrl = localIds[index]; // 不同机型预览地址
-            patientImg.push(patientObj)
 
-            sendMsg.type = 'photo';
-            sendMsg.isSend = false;
+            patientImg.push(patientObj)
             sendMsg.push(patientObj)
             that.setState({
                 sendMsg:sendMsg
@@ -416,10 +422,8 @@ class AskChat extends React.Component {
                 success: function (res) {
                     // var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
                     patientObj.localUrl = res.localData; // 不同机型预览地址
-                    patientImg.push(patientObj)
 
-                    sendMsg.type = 'photo';
-                    sendMsg.isSend = false;
+                    patientImg.push(patientObj)
                     sendMsg.push(patientObj)
                     that.setState({
                         sendMsg:sendMsg
@@ -529,14 +533,6 @@ class AskChat extends React.Component {
             sendMsg: sendMsg
         })
 
-        // sendMsg.push({
-        //     type: 'photo',
-        //     content: imgUrl,
-        //     isSend:false
-        // })
-        // this.setState({
-        //     sendMsg: sendMsg
-        // })
         dispatch({
             type:"askchat/sendMsg",
             payload:{
@@ -674,7 +670,7 @@ class AskChat extends React.Component {
                                                     {
                                                         item.type === 'photo' ?
                                                             <div className={ `${Styles.item_content} ${Styles.item_content_img}`}>
-                                                                <img className={Styles.content_img} src={ staticURL + item.content } alt=""/>
+                                                                <img className={Styles.content_img} src={ item.localUrl } alt=""/>
                                                             </div>
                                                             :
                                                             <div className={Styles.item_content}>
