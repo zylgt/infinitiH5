@@ -104,18 +104,28 @@ class Survey extends Component {
             if( i >= 0){
                 illData[step-1].content[index].chooseAnswer.splice(i,1)
             }else{
-                illData[step-1].content[index].chooseAnswer.push(answer)
+                if(step == 1 && answer == '暂无'){
+                    let i = illData[step-1].content[index].chooseAnswer.indexOf('暂无')
+                    if( i >= 0){
+                        illData[step-1].content[index].chooseAnswer.splice(i,1)
+                    }else{
+                        illData[step-1].content[index].chooseAnswer = [ answer ]
+                    }
+                }else{
+                    illData[step-1].content[index].chooseAnswer.push(answer)
+                    let i = illData[step-1].content[index].chooseAnswer.indexOf('暂无')
+                    if( i >= 0){
+                        illData[step-1].content[index].chooseAnswer.splice(i,1)
+                    }
+                }
             }
-        }else{
-            illData[step-1].content[index].chooseAnswer = [ answer ]
-        }
 
-        if(step == 1 && answer == '暂无'){
-            illData[step-1].content[index].chooseAnswer = [ answer ]
         }else{
-            let i = illData[step-1].content[index].chooseAnswer.indexOf('暂无')
+            let i = illData[step-1].content[index].chooseAnswer.indexOf(answer)
             if( i >= 0){
                 illData[step-1].content[index].chooseAnswer.splice(i,1)
+            }else{
+                illData[step-1].content[index].chooseAnswer = [ answer ]
             }
         }
 
@@ -166,39 +176,41 @@ class Survey extends Component {
 
         let item = illData[step-1].content;
 
-        for(let i = 0; i < item.length; i++){
-            if( item[i].isShow && item[i].chooseAnswer.length <= 0 ){
-                if(step == 3){
-                    Toast.info('请录入您的体温',1.5)
-                    return
-                }
-                if(i == 0){
-                    Toast.info('请选择答案',1.5)
-                }else{
-                    if(illData[step-1].key == 'temperature'){
+        if(item[0].isMust){
+            for(let i = 0; i < item.length; i++){
+                if( item[i].isShow && item[i].chooseAnswer.length <= 0 ){
+                    if(step == 3){
                         Toast.info('请录入您的体温',1.5)
+                        return
                     }
-                }
-                return
-            }else{
-                let regFloat = /^([0-9]{1,2})$/;
-                let regFloat1 = /^([0-9]{1,2})\.([0-9]{1,2})$/;
-
-                if( illData[step-1].key == 'temperature' ){
-
-                    if(regFloat.test(item[i].chooseAnswer[0]) || regFloat1.test(item[i].chooseAnswer[0]) ){
-
+                    if(i == 0){
+                        Toast.info('请选择答案',1.5)
                     }else{
-                        Toast.info('您录入的格式有误',1.5)
-                        return
+                        if(illData[step-1].key == 'temperature'){
+                            Toast.info('请录入您的体温',1.5)
+                        }
+                    }
+                    return
+                }else{
+                    let regFloat = /^([0-9]{1,2})$/;
+                    let regFloat1 = /^([0-9]{1,2})\.([0-9]{1,2})$/;
+
+                    if( illData[step-1].key == 'temperature' ){
+
+                        if(regFloat.test(item[i].chooseAnswer[0]) || regFloat1.test(item[i].chooseAnswer[0]) ){
+
+                        }else{
+                            Toast.info('您录入的格式有误',1.5)
+                            return
+                        }
+
+                        if(item[i].chooseAnswer[0] > 45 || item[i].chooseAnswer[0] < 30){
+                            Toast.info('您录入的温度超出了常规范围',1.5)
+                            return
+                        }
                     }
 
-                    if(item[i].chooseAnswer[0] > 45 || item[i].chooseAnswer[0] < 30){
-                        Toast.info('您录入的温度超出了常规范围',1.5)
-                        return
-                    }
                 }
-
             }
         }
 
@@ -227,7 +239,12 @@ class Survey extends Component {
                                 payload[key] = content[0].chooseAnswer[0]
                             }
                         }else{
-                            payload[key] = JSON.parse(content[0].chooseAnswer[0])
+                            if(content[0].chooseAnswer.length > 0){
+                                payload[key] = content[0].chooseAnswer[0]
+                            }else{
+                                payload[key] = ''
+                            }
+
                         }
                     }
                 }else{
@@ -279,8 +296,8 @@ class Survey extends Component {
                     illData && illData.length > 0 ?
                         <div className={Styles.apply_list}>
                             {/*<div className={Styles.apply_percent}>*/}
-                                {/*<p className={Styles.apply_rate}>已填写{ percentage }%</p>*/}
-                                {/*<Progress  className={Styles.percent} percent={ percentage } />*/}
+                            {/*<p className={Styles.apply_rate}>已填写{ percentage }%</p>*/}
+                            {/*<Progress  className={Styles.percent} percent={ percentage } />*/}
                             {/*</div>*/}
                             {
                                 step == 1 ?
@@ -296,7 +313,13 @@ class Survey extends Component {
                                         }
                                         return (
                                             <div className={Styles.choose_contetn} key={index}>
-                                                <p className={Styles.choose_title}>{ item.title }</p>
+                                                <p className={Styles.choose_title}>
+                                                    { item.title }
+                                                    {
+                                                        item.isMust ?
+                                                            <span className={Styles.choose_title_must}>*</span>:''
+                                                    }
+                                                </p>
                                                 {
                                                     item.answer.length > 0 ? item.answer.map((answerItem, answerIndex)=>{
                                                             let isChoose = false;

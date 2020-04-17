@@ -151,33 +151,33 @@ class Home extends Component {
                             swipeData.length > 0 ? <Swiper {...swiperProps} ></Swiper> : ''
                         }
                     </div>
-                    {
-                        officeData.length > 0 ? <div className={Styles.title}>选择科室</div>:''
-                    }
+                    {/*{*/}
+                        {/*officeData.length > 0 ? <div className={Styles.title}>选择科室</div>:''*/}
+                    {/*}*/}
 
                     <div className={Styles.office} >
-                        {
-                            officeData.length == 1 ? <div className={Styles.office_item_one} key={officeData[0].uid} data-id={officeData[0].uid} data-type="1" data-name={officeData[0].name} onClick={(e) => { this.clickOffice(e) }}>
-                                <div className={Styles.office_item_img}>
-                                    <img className={Styles.item_img} src={ staticURL + officeData[0].icon} alt=""/>
-                                </div>
-                                <div className={Styles.office_item_info}>
-                                    <p className={Styles.item_title}>{officeData[0].name}</p>
-                                    <p>图文轻问诊</p>
-                                </div>
-                                <img  className={Styles.office_item_right} src={require('../../assets/right.png')} alt=""/>
-                            </div> : ''
-                        }
-                        {
-                            officeData.length > 0 && officeData.length !== 1 ? officeData.map((item,index)=>{
-                                return(
-                                    <div className={Styles.office_item} key={item.uid} data-id={item.uid} data-type="1" data-name={item.name} onClick={(e) => { this.clickOffice(e) }}>
-                                        <img className={Styles.item_img} src={ staticURL + item.icon} alt=""/>
-                                        <p className={Styles.item_title}>{item.name}</p>
-                                    </div>
-                                )
-                            }) : ''
-                        }
+
+                        <div className={Styles.office_item_one} data-id={0} data-type="" data-name='糖尿病特色咨询门诊' onClick={(e) => { this.clickOffice(e) }}>
+                            <div className={Styles.office_item_img}>
+                                <img className={Styles.item_img} src={ require('../../assets/office01.png')} alt=""/>
+                            </div>
+                            <div className={Styles.office_item_info}>
+                                <p className={Styles.item_title}>糖尿病特色咨询门诊</p>
+                                <p>图文轻问诊</p>
+                            </div>
+                            <img  className={Styles.office_item_right} src={require('../../assets/right.png')} alt=""/>
+                        </div>
+
+                        {/*{*/}
+                            {/*officeData.length > 0 ? officeData.map((item,index)=>{*/}
+                                {/*return(*/}
+                                    {/*<div className={Styles.office_item} key={item.uid} data-id={item.uid} data-type="1" data-name={item.name} onClick={(e) => { this.clickOffice(e) }}>*/}
+                                        {/*<img className={Styles.item_img} src={ staticURL + item.icon} alt=""/>*/}
+                                        {/*<p className={Styles.item_title}>{item.name}</p>*/}
+                                    {/*</div>*/}
+                                {/*)*/}
+                            {/*}) : ''*/}
+                        {/*}*/}
                     </div>
 
                     {/*{*/}
