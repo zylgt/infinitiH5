@@ -181,7 +181,7 @@ class AskChat extends React.Component {
     linkSocket = (orderId) => {
         console.log('orderId',orderId)
         let that = this;
-        let socketUrl = 'ws://'+ hostURL + '/m/order/' + orderId + '/chat/conn';
+        let socketUrl = hostURL + '/m/order/' + orderId + '/chat/conn';
         //    判断专家是否登录
         this.socket = new Socket({
             socketUrl: socketUrl,
@@ -424,9 +424,9 @@ class AskChat extends React.Component {
                     time = '昨天 ' + date
                 }else{
                     if(hours <= 12){
-                        time = '上午 ' + date
+                        time =  date
                     }else{
-                        time = '下午 ' + date
+                        time =  date
                     }
                 }
 
