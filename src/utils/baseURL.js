@@ -15,7 +15,6 @@ console.log('apiType', process.env.apiType)
 
 //代谢线上
 if(process.env.apiType === 'prod'){
-
 //请求url
     defaultBaseURL = 'https://api.nethospital.tjdxb.com';
 //静态资源
@@ -23,9 +22,7 @@ if(process.env.apiType === 'prod'){
 //页面访问
     defaultPageURL = 'https://nethospital.tjdxb.com';
 //页面访问
-    defaultHostURL = 'wss://nethospital.tjdxb.com';
-
-
+    defaultHostURL = 'wss://api.nethospital.tjdxb.com';
 }
 
 
