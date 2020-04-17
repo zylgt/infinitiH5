@@ -7,7 +7,7 @@ let defaultStaticURL = 'http://static.nethospital.yutanglabs.com';
 //页面访问
 let defaultPageURL = 'http://nethospital.yutanglabs.com';
 //页面访问
-let defaultHostURL = 'api.nethospital.yutanglabs.com';
+let defaultHostURL = 'ws://api.nethospital.yutanglabs.com';
 
 
 console.log('apiType', process.env.apiType)

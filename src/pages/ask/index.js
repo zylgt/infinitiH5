@@ -134,9 +134,9 @@ class Ask extends React.Component {
                 let hours = new Date(created_time).getHours();
                 let date = moment(created_time).format('LT');
                 if(hours <= 12){
-                    time = '上午' + date
+                    time =  date
                 }else{
-                    time = '下午' + date
+                    time =  date
                 }
             }
         }
@@ -196,7 +196,7 @@ class Ask extends React.Component {
                             })
                             :
                             <div className={Styles.ask_no}>
-                                <img src={require('../../assets/no_ask.png')} alt=""/>
+                                <img className={Styles.ask_no_img} src={require('../../assets/no_ask.png')} alt=""/>
                                 <p>暂无问诊记录</p>
                             </div>
                     }
