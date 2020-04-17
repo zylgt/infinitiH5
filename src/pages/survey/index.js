@@ -143,7 +143,11 @@ class Survey extends Component {
         const { illData, step } = this.props.survey;
         const { dispatch } = this.props;
 
-        illData[step - 1].content[0].chooseAnswer = [ val ];
+        if(val == ''){
+            illData[step - 1].content[0].chooseAnswer = [];
+        }else{
+            illData[step - 1].content[0].chooseAnswer = [ val ];
+        }
 
         dispatch({
             type:'survey/setData',
@@ -164,6 +168,10 @@ class Survey extends Component {
 
         for(let i = 0; i < item.length; i++){
             if( item[i].isShow && item[i].chooseAnswer.length <= 0 ){
+                if(step == 3){
+                    Toast.info('请录入您的体温',1.5)
+                    return
+                }
                 if(i == 0){
                     Toast.info('请选择答案',1.5)
                 }else{

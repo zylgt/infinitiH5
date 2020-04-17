@@ -121,6 +121,16 @@ class AskChat extends React.Component {
             })
 
         }
+
+        let i = 0;
+        let scrollBottom = setInterval(function () {
+            i++;
+            that.scrollToBottom();
+            console.log('i',i)
+            if(i==5){
+                clearInterval(scrollBottom)
+            }
+        },600)
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -216,17 +226,16 @@ class AskChat extends React.Component {
 
                     for( let i = 0;i < sendMsg.length ; i++){
 
-                        if( !sendMsg[i].isSend && sendMsg[i].content == data.content){
+                        if( sendMsg[i].content == data.content){
                             sendMsg[i].isSend = true;
                             sendMsg[i].created_at = data.created_at;
                             that.setState({
                                 sendMsg: sendMsg
                             })
-                            break;
                         }
+
                     }
 
-                    console.log('sendMsg',sendMsg)
 
                 } else if (type === 'finished') {
                     that.setState({
