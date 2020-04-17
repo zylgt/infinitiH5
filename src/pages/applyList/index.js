@@ -102,19 +102,6 @@ class ApplyList extends Component {
         // console.log('showNext',showNext)
         // console.log('index',index )
 
-
-        if(illData[step-1].content[index].answerMore){
-            let i = illData[step-1].content[index].chooseAnswer.indexOf(answer)
-            if( i >= 0){
-                illData[step-1].content[index].chooseAnswer.splice(i,1)
-            }else{
-                illData[step-1].content[index].chooseAnswer.push(answer)
-            }
-        }else{
-            illData[step-1].content[index].chooseAnswer = [ answer ]
-        }
-
-
         if(showNext == 'true'){
             if(illData[step-1].content[index + 1]){
                 illData[step-1].content[index + 1].isShow = true
@@ -125,6 +112,31 @@ class ApplyList extends Component {
                 illData[step-1].content[index + 1].chooseAnswer = []
             }
         }
+
+        if(illData[step-1].content[index].answerMore){
+            let i = illData[step-1].content[index].chooseAnswer.indexOf(answer)
+            if( i >= 0){
+                illData[step-1].content[index].chooseAnswer.splice(i,1)
+            }else{
+                illData[step-1].content[index].chooseAnswer.push(answer)
+            }
+        }else{
+            let i = illData[step-1].content[index].chooseAnswer.indexOf(answer)
+            if( i >= 0){
+                illData[step-1].content[index].chooseAnswer.splice(i,1)
+
+                if(illData[step-1].content[index + 1]){
+                    illData[step-1].content[index + 1].isShow = false
+                    illData[step-1].content[index + 1].chooseAnswer = []
+                }
+
+            }else{
+                illData[step-1].content[index].chooseAnswer=[ answer ]
+            }
+        }
+
+
+
 
         console.log('illData',illData)
         dispatch({
@@ -142,20 +154,22 @@ class ApplyList extends Component {
 
         let item = illData[step-1].content;
 
-        for(let i = 0; i < item.length; i++){
-            if( item[i].isShow && item[i].chooseAnswer.length <= 0 ){
-                if(i == 0){
-                    Toast.info('请选择答案',1.5)
-                }else{
-                    if(illData[step-1].key == 'operation'){
-                        Toast.info('请选择手术部位',1.5)
-                    }else if(illData[step-1].key == 'allergy'){
-                        Toast.info('请选择过敏源',1.5)
+        if(item[0].isMust){
+            for(let i = 0; i < item.length; i++){
+                if( item[i].isShow && item[i].chooseAnswer.length <= 0 ){
+                    if(i == 0){
+                        Toast.info('请选择答案',1.5)
                     }else{
-                        Toast.info('请选择疾病',1.5)
+                        if(illData[step-1].key == 'operation'){
+                            Toast.info('请选择手术部位',1.5)
+                        }else if(illData[step-1].key == 'allergy'){
+                            Toast.info('请选择过敏源',1.5)
+                        }else{
+                            Toast.info('请选择疾病',1.5)
+                        }
                     }
+                    return
                 }
-                return
             }
         }
 
@@ -172,6 +186,9 @@ class ApplyList extends Component {
                         payload[key] = content[0].chooseAnswer
                     }else{
                         payload[key] = content[0].chooseAnswer[0]
+                        if(content[0].chooseAnswer.length == 0){
+                            payload[key] = ''
+                        }
                     }
                 }else{
                     if(content[0].chooseAnswer[0] == '无'){
@@ -232,7 +249,13 @@ class ApplyList extends Component {
                                         }
                                         return (
                                             <div className={Styles.choose_contetn} key={index}>
-                                                <p className={Styles.choose_title}>{ item.title }</p>
+                                                <p className={Styles.choose_title}>
+                                                    { item.title }
+                                                    {
+                                                        item.isMust ?
+                                                        <span className={Styles.choose_title_must}>*</span>:''
+                                                    }
+                                                </p>
                                                 {
                                                     item.answer.map((answerItem, answerIndex)=>{
                                                         let isChoose = false;

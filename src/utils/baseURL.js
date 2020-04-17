@@ -6,7 +6,7 @@ let defaultBaseURL = 'http://api.nethospital.yutanglabs.com';
 let defaultStaticURL = 'http://static.nethospital.yutanglabs.com';
 //页面访问
 let defaultPageURL = 'http://nethospital.yutanglabs.com';
-//页面访问
+//socket
 let defaultHostURL = 'ws://api.nethospital.yutanglabs.com';
 
 
@@ -21,7 +21,7 @@ if(process.env.apiType === 'prod'){
     defaultStaticURL = 'https://static.nethospital.tjdxb.com';
 //页面访问
     defaultPageURL = 'https://nethospital.tjdxb.com';
-//页面访问
+//socket
     defaultHostURL = 'wss://api.nethospital.tjdxb.com';
 }
 

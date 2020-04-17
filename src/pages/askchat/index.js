@@ -127,7 +127,7 @@ class AskChat extends React.Component {
             i++;
             that.scrollToBottom();
             console.log('i',i)
-            if(i==5){
+            if(i==3){
                 clearInterval(scrollBottom)
             }
         },600)
@@ -661,7 +661,10 @@ class AskChat extends React.Component {
             }):''
         )
     }
-
+    //
+    wordFocus(){
+        this.wordFocus.blur()
+    }
     render() {
         const { getFieldProps } = this.props.form;
         const {
@@ -675,13 +678,15 @@ class AskChat extends React.Component {
             detailInfo
         } = this.state;
 
+        console.log('detailInfo',detailInfo)
+
         let doctorName = detailInfo.doctor_name ? detailInfo.doctor_name + '医生' : '医生';
 
         return (
             <DocumentTitle title={doctorName}>
                 <div className={Styles.chat}>
 
-                    <div className={ `${Styles.chat_list} ` }>
+                    <div className={ `${Styles.chat_list} ` } onClick={()=>{this.wordFocus()}}>
 
                         { historyMsg && historyMsg.length > 0 ? this.showTime( historyMsg[0] ) : '' }
 
@@ -719,9 +724,17 @@ class AskChat extends React.Component {
                                             item.sender_type === "doctor" && item.type === 'text' ?
                                                 <div className={Styles.list_item_left}>
                                                     <img className={Styles.item_img} src={staticURL + detailInfo.doctor_icon } />
-                                                    <div className={Styles.item_content}>
-                                                        <img className={Styles.item_icon} src={require('../../assets/chat_left.png')} alt=""/>
-                                                        <span>{ item.content }</span>
+                                                    <div>
+                                                        {
+                                                            detailInfo.doctor_name?
+                                                                <div className={Styles.item_name}>
+                                                                    {detailInfo.doctor_name}-{detailInfo.doctor_title}
+                                                                </div>:''
+                                                        }
+                                                        <div className={Styles.item_content}>
+                                                            <img className={Styles.item_icon} src={require('../../assets/chat_left.png')} alt=""/>
+                                                            <span>{ item.content }</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 :

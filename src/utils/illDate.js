@@ -52,6 +52,7 @@ export const illDate = {
                     answerMore:true, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:true // 是否必填
                 }
             ]
         },
@@ -85,6 +86,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:true // 是否必填
                 }
             ]
         },
@@ -92,11 +94,12 @@ export const illDate = {
             key:'temperature',
             content:[
                 {
-                    title:'您目前的体温是？',
+                    title:'您目前的体温是？（摄氏度）',
                     answer:[],
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:true // 是否必填
                 }
             ]
         },
@@ -120,6 +123,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:false // 是否必填
                 }
             ]
         },
@@ -143,6 +147,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:false // 是否必填
                 }
             ]
         },
@@ -166,6 +171,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:false // 是否必填
                 }
             ]
         },
@@ -191,6 +197,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:true // 是否必填
                 },
                 {
                     title:'请选择疾病名称（可多选）',
@@ -328,6 +335,7 @@ export const illDate = {
                     answerMore:true, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:false, // 是否展示该问题
+                    isMust:true // 是否必填
                 }
             ]
         },
@@ -351,6 +359,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:true // 是否必填
                 },
                 {
                     title:'请选择手术的部位（可多选）',
@@ -433,6 +442,7 @@ export const illDate = {
                     answerMore:true, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:false, // 是否展示该问题
+                    isMust:true // 是否必填
                 }
             ]
         },
@@ -456,6 +466,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:true // 是否必填
                 },
                 {
                     title:'请选择疾病名称（可多选）',
@@ -538,6 +549,7 @@ export const illDate = {
                     answerMore:true, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:false, // 是否展示该问题
+                    isMust:true // 是否必填
                 }
             ]
         },
@@ -561,6 +573,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:true // 是否必填
                 },
                 {
                     title:'请选择疾病名称（可多选）',
@@ -628,6 +641,7 @@ export const illDate = {
                     answerMore:true, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:false, // 是否展示该问题
+                    isMust:true // 是否必填
                 }
             ]
         },
@@ -661,6 +675,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:true // 是否必填
                 }
             ]
         },
@@ -694,6 +709,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:true // 是否必填
                 }
             ]
         },
@@ -722,6 +738,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:true // 是否必填
                 }
             ]
         },
@@ -761,6 +778,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:false // 是否必填
                 }
             ]
         },
@@ -789,6 +807,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:false // 是否必填
                 }
             ]
         },
@@ -822,6 +841,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:false // 是否必填
                 }
             ]
         },
@@ -865,6 +885,7 @@ export const illDate = {
                     answerMore:true, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:false // 是否必填
                 }
             ]
         },
@@ -913,6 +934,7 @@ export const illDate = {
                     answerMore:true, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:false // 是否必填
                 }
             ]
         },
@@ -948,6 +970,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:false // 是否必填
                 }
             ]
         },
@@ -977,6 +1000,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:false // 是否必填
                 }
             ]
         },
@@ -1011,6 +1035,7 @@ export const illDate = {
                     answerMore:false, // 答案是否支持多选
                     chooseAnswer:[], //答案
                     isShow:true, // 是否展示该问题
+                    isMust:false // 是否必填
                 }
             ]
         },
