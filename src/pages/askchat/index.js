@@ -899,41 +899,42 @@ class AskChat extends React.Component {
                         </div>
                     </div>
                     {
-                        !isFinished ? <div>
-                            <div className={ `${Styles.chat_input} ${ !isFocus && isIPhoneX() && isPush ? Styles.chat_input_bottom : '' }` }>
-                                <TextareaItem
-                                    {...getFieldProps('word',{
-                                        initialValue:word
-                                    })}
-                                    autoHeight
-                                    placeholder="请输入咨询内容"
-                                    className={Styles.input}
-                                    ref={el => this.wordFocus = el}
-                                    onChange = {(val)=>{this.changeWord(val)}}
-                                    onFocus={()=>{this.textareaFocus()}}
-                                    // onBlur={()=>{this.textareaBlur()}}
-                                />
+                        !isFinished ?
+                            <div>
+                                <div className={ `${Styles.chat_input}` }>
+                                    <TextareaItem
+                                        {...getFieldProps('word',{
+                                            initialValue:word
+                                        })}
+                                        autoHeight
+                                        placeholder="请输入咨询内容"
+                                        className={Styles.input}
+                                        ref={el => this.wordFocus = el}
+                                        onChange = {(val)=>{this.changeWord(val)}}
+                                        onFocus={()=>{this.textareaFocus()}}
+                                        // onBlur={()=>{this.textareaBlur()}}
+                                    />
+                                    {
+                                        isShowSend ? <Button type="primary" onClick={()=>{this.submit()}} className={Styles.input_btn}>发送</Button>
+                                            :
+                                            <img onClick={()=>{this.autoWordFocus()}} className={Styles.input_img} src={require('../../assets/ask_add.png')} alt=""/>
+
+                                    }
+                                </div>
                                 {
-                                    isShowSend ? <Button type="primary" onClick={()=>{this.submit()}} className={Styles.input_btn}>发送</Button>
-                                        :
-                                        <img onClick={()=>{this.autoWordFocus()}} className={Styles.input_img} src={require('../../assets/ask_add.png')} alt=""/>
+                                    isShowButtom ? <div className={Styles.chat_buttom}>
+                                        <div className={Styles.buttom_item} onClick={()=>{this.addPatient('camera')}}>
+                                            <img src={require('../../assets/chat_camera.png')} alt=""/>
+                                            <p>拍摄</p>
+                                        </div>
+                                        <div className={Styles.buttom_item} onClick={()=>{this.addPatient('album')}}>
+                                            <img src={require('../../assets/chat_picture.png')} alt=""/>
+                                            <p>图片</p>
+                                        </div>
 
+                                    </div> : ''
                                 }
-                            </div>
-                            {
-                                isShowButtom ? <div className={Styles.chat_buttom}>
-                                    <div className={Styles.buttom_item} onClick={()=>{this.addPatient('camera')}}>
-                                        <img src={require('../../assets/chat_camera.png')} alt=""/>
-                                        <p>拍摄</p>
-                                    </div>
-                                    <div className={Styles.buttom_item} onClick={()=>{this.addPatient('album')}}>
-                                        <img src={require('../../assets/chat_picture.png')} alt=""/>
-                                        <p>图片</p>
-                                    </div>
-
-                                </div> : ''
-                            }
-                        </div>:''
+                            </div>:''
                     }
 
                 </div>
