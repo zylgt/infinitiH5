@@ -34,7 +34,8 @@ class AskChat extends React.Component {
             detailInfo:'',
             timeIndex:1,
             isFocus:false,
-            clientHeight:''
+            clientHeight:'',
+            isPush:false
         }
         this.taskRemindInterval = null;
         this.saveRef = ref => {this.refDom = ref};
@@ -60,6 +61,12 @@ class AskChat extends React.Component {
             cookieUtils.set('token',token)
             this.setState({
                 token: token
+            })
+        }
+        //判断是否是从推送消息过来
+        if(getQueryString('token')){
+            this.setState({
+                isPush: true
             })
         }
 
@@ -323,6 +330,7 @@ class AskChat extends React.Component {
     autoWordFocus(){
         this.setState({
             isShowButtom: true,
+            isFocus:true,
         });
     }
     //输入框内容变化
@@ -352,12 +360,6 @@ class AskChat extends React.Component {
             isFocus:true,
         });
         this.scrollToBottom();
-    }
-    //是去焦点
-    textareaBlur(){
-        this.setState({
-            isFocus:false,
-        });
     }
     //滑动到聊天底部
     scrollToBottom = () => {
@@ -748,7 +750,8 @@ class AskChat extends React.Component {
             isFinished,
             isExpired,
             detailInfo,
-            isFocus
+            isFocus,
+            isPush
         } = this.state;
 
         console.log('detailInfo',detailInfo)
@@ -897,7 +900,7 @@ class AskChat extends React.Component {
                     </div>
                     {
                         !isFinished ? <div>
-                            <div className={ `${Styles.chat_input} ${ !isShowButtom && !isFocus && isIPhoneX ? Styles.chat_input_bottom : '' }` }>
+                            <div className={ `${Styles.chat_input} ${ !isFocus && isIPhoneX() && isPush ? Styles.chat_input_bottom : '' }` }>
                                 <TextareaItem
                                     {...getFieldProps('word',{
                                         initialValue:word
