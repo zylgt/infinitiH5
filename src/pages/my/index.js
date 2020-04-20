@@ -105,8 +105,8 @@ class MyIndex extends Component {
                     >
                         <img onClick={()=>{this.onClose()}} className='model_close' src={require('../../assets/my_close.png')} alt=""/>
                         <p className='model_title'>客服电话</p>
-                        <p className='model_title model_phone'>400-0000-000</p>
-                        <a className='model_btn' key='phone' href="tel:400-0000-000">拨打电话</a>
+                        <p className='model_title model_phone'>022-59560623</p>
+                        <a className='model_btn' key='phone' href="tel:022-59560623">拨打电话</a>
                     </Modal>
 
                 </div>

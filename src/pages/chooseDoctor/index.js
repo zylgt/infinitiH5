@@ -147,9 +147,16 @@ class ChooseDoctor extends Component {
                                             <span>{item.dept}</span>
                                             <span className={`${Styles.date} ${isOpen ? '':Styles.date_no}`}>{date}</span>
                                         </p>
-                                        <div className={Styles.doctor_introducer}>
-                                            擅长：{item.skill}
-                                        </div>
+                                        {
+                                            item.skill ?
+                                                <div className={Styles.doctor_introducer}>
+                                                    擅长：{item.skill}
+                                                </div>
+                                                :
+                                                <div className={Styles.doctor_introducer}>
+                                                    简介 ：{item.info}
+                                                </div>
+                                        }
                                     </div>
                                 </div>
                             )

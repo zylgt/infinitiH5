@@ -144,31 +144,44 @@ class DoctorInfo extends Component {
                 <div className={Styles.doctor_info}>
                     <div className={Styles.info}>
                         {
-                            doctorInfo && doctorInfo.icon ? <img className={Styles.info_img} src={ staticURL + doctorInfo.icon } alt=""/> : ''
+                            doctorInfo.icon ? <img className={Styles.info_img} src={ staticURL + doctorInfo.icon } alt=""/> : ''
                         }
-                        <div className={Styles.info_right}>
-                            <p className={Styles.info_name}>
-                                <span>{doctorInfo.name}</span>
-                                <span className={`${Styles.date} ${isOpen ? '':Styles.date_no}`}>{date}</span>
-                            </p>
-                            <p className={Styles.info_rank}>
-                                <span>{doctorInfo.title}</span>
-                                <span>{doctorInfo.dept}</span>
-                            </p>
-                        </div>
+                        {
+                            doctorInfo.name ? <div className={Styles.info_right}>
+                                <p className={Styles.info_name}>
+                                    <span>{doctorInfo.name}</span>
+                                    <span className={`${Styles.date} ${isOpen ? '':Styles.date_no}`}>{date}</span>
+                                </p>
+                                <p className={Styles.info_rank}>
+                                    <span>{doctorInfo.title}</span>
+                                    <span>{doctorInfo.dept}</span>
+                                </p>
+                            </div> : ''
+                        }
                     </div>
-                    <div className={Styles.introducer}>
-                        <img className={Styles.introducer_img} src={require('../../assets/strong.png')} alt=""/>
-                        <div className={Styles.introducer_word}>
-                            <span className={Styles.introducer_word_key}>擅长：</span>{doctorInfo.skill}
-                        </div>
-                    </div>
-                    <div className={Styles.introducer}>
-                        <img className={Styles.introducer_img} src={require('../../assets/introduce.png')} alt=""/>
-                        <div className={Styles.introducer_word}>
-                            <span className={Styles.introducer_word_key}>简介：</span>{doctorInfo.info}
-                        </div>
-                    </div>
+                    {
+                        doctorInfo.skill
+                            ?
+                            <div className={Styles.introducer}>
+                                <img className={Styles.introducer_img} src={require('../../assets/strong.png')} alt=""/>
+                                <div className={Styles.introducer_word}>
+                                    <span className={Styles.introducer_word_key}>擅长：</span>{doctorInfo.skill}
+                                </div>
+                            </div>
+                            : ''
+                    }
+                    {
+                        doctorInfo.info
+                            ?
+                            <div className={Styles.introducer}>
+                                <img className={Styles.introducer_img} src={require('../../assets/introduce.png')} alt=""/>
+                                <div className={Styles.introducer_word}>
+                                    <span className={Styles.introducer_word_key}>简介：</span>{doctorInfo.info}
+                                </div>
+                            </div>
+                            : ''
+                    }
+
                     <div className={Styles.doctor_info_right} onClick={()=>{this.clickDoctorDetail()}}>
                         医生信息
                         <img className={Styles.info_right_img} src={require('../../assets/right.png')} alt=""/>

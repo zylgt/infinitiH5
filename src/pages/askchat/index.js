@@ -11,7 +11,7 @@ import { getQueryString } from '../../utils/tools'
 import {cookieUtils} from '../../utils/tools'
 import moment from "moment";
 import { pageURL,staticURL } from '../../utils/baseURL'
-import { nonceStr,isIOS } from '../../utils/tools'
+import { nonceStr,isIOS,isIPhoneX } from '../../utils/tools'
 import wx from 'weixin-js-sdk';
 
 moment.locale('zh-cn');
@@ -32,9 +32,12 @@ class AskChat extends React.Component {
             isExpired: false,
             token:'',
             detailInfo:'',
-            timeIndex:1
+            timeIndex:1,
+            isFocus:false,
+            clientHeight:''
         }
         this.taskRemindInterval = null;
+        this.saveRef = ref => {this.refDom = ref};
     }
     componentWillUnmount(){
         if(this.socket){
@@ -132,7 +135,31 @@ class AskChat extends React.Component {
             }
         },600)
 
-        window.addEventListener('resize', this.scrollToBottom)
+
+        //判断键盘
+        const { clientHeight } = this.refDom;
+        this.setState({ clientHeight })
+        window.addEventListener('resize', that.resize.bind(this))
+
+        //ios软键盘
+        let isReset = true;
+        if(isIOS()) {
+            document.body.addEventListener('focusin', () => {
+                //软键盘弹出的事件处理
+                isReset = false;
+            });
+            document.body.addEventListener('focusout', () => {
+                //软键盘收起的事件处理
+                isReset = true;
+                setTimeout(() => {
+                    console.log(11)
+                    //当焦点在弹出层的输入框之间切换时先不归位
+                    if (isReset) {
+                        window.scroll(0, 0);//失焦后强制让页面归位
+                    }
+                }, 300);
+            });
+        }
 
     }
     //获取appidcallback
@@ -150,6 +177,22 @@ class AskChat extends React.Component {
             wx.hideAllNonBaseMenuItem();
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
         });
+    }
+    //键盘弹出或收起
+    resize(){
+        this.scrollToBottom()
+        const { clientHeight } = this.refDom;
+        if (this.state.clientHeight > clientHeight) { // 键盘弹出
+            // alert('键盘弹出')
+            this.setState({
+                isFocus:true,
+            });
+        } else { // 键盘收起
+            // alert('键盘收起')
+            this.setState({
+                isFocus:false,
+            });
+        }
     }
     //订单详情callback
     orderDetailCallback(response){
@@ -306,13 +349,20 @@ class AskChat extends React.Component {
     textareaFocus(){
         this.setState({
             isShowButtom: false,
+            isFocus:true,
         });
         this.scrollToBottom();
+    }
+    //是去焦点
+    textareaBlur(){
+        this.setState({
+            isFocus:false,
+        });
     }
     //滑动到聊天底部
     scrollToBottom = () => {
         // alert(1)
-            this.messagesEnd.scrollIntoView({ behavior: "auto" });
+        this.messagesEnd.scrollIntoView({ behavior: "auto" });
     }
     //点击提交聊天
     submit = () => {
@@ -343,6 +393,7 @@ class AskChat extends React.Component {
             word:'',
             isShowSend: false
         })
+        this.wordFocus.focus();
     }
     //判断是否展示时间
     isShowTime(type){
@@ -475,6 +526,12 @@ class AskChat extends React.Component {
         }else{
             sourceType.push('camera')
         }
+        dispatch({
+            type:'askchat/setData',
+            payload:{
+                patientImg: []
+            }
+        })
         wx.chooseImage({
             count: 9, // 默认9
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -690,7 +747,8 @@ class AskChat extends React.Component {
             historyMsg,
             isFinished,
             isExpired,
-            detailInfo
+            detailInfo,
+            isFocus
         } = this.state;
 
         console.log('detailInfo',detailInfo)
@@ -701,7 +759,7 @@ class AskChat extends React.Component {
             <DocumentTitle title={doctorName}>
                 <div className={Styles.chat}>
 
-                    <div className={ `${Styles.chat_list} ` } >
+                    <div className={ `${Styles.chat_list} ` } ref={this.saveRef}>
 
                         { historyMsg && historyMsg.length > 0 ? this.showTime( historyMsg[0] ) : '' }
 
@@ -839,7 +897,7 @@ class AskChat extends React.Component {
                     </div>
                     {
                         !isFinished ? <div>
-                            <div className={Styles.chat_input}>
+                            <div className={ `${Styles.chat_input} ${ !isShowButtom && !isFocus && isIPhoneX ? Styles.chat_input_bottom : '' }` }>
                                 <TextareaItem
                                     {...getFieldProps('word',{
                                         initialValue:word
@@ -850,7 +908,7 @@ class AskChat extends React.Component {
                                     ref={el => this.wordFocus = el}
                                     onChange = {(val)=>{this.changeWord(val)}}
                                     onFocus={()=>{this.textareaFocus()}}
-                                    // onBlur={()=>{this.textareaFocus()}}
+                                    // onBlur={()=>{this.textareaBlur()}}
                                 />
                                 {
                                     isShowSend ? <Button type="primary" onClick={()=>{this.submit()}} className={Styles.input_btn}>发送</Button>
