@@ -55,6 +55,11 @@
 }
 :global(.my_model){
   position:relative;
+  :global(.am-modal-content){
+    :global(.am-modal-body){
+      padding: 0 .42rem ;
+    }
+  }
   :global(.model_close){
     height:.8rem;
     width:.8rem;
@@ -65,21 +70,22 @@
   :global(.model_title){
     width:100%;
     text-align: center;
-    height:.5rem;
     line-height:.5rem;
     font-size:.36rem;
     font-family:PingFangSC-Medium,PingFang SC;
     font-weight:500;
     color:rgba(51,51,51,1);
-    margin-top:.38rem;
+    margin-top:.14rem;
   }
   :global(.model_phone){
-    margin-top:.1rem;
+    margin-top:.2rem;
+    font-size:.32rem;
+    font-weight:400;
   }
   :global(.model_btn){
     display: inline-block;
     width:3.34rem;
-    margin:.24rem auto .38rem auto;
+    margin:.34rem auto .48rem auto;
     height:.72rem;
     line-height: .72rem;
     background:linear-gradient(90deg,rgba(49,154,243,1) 0%,rgba(7,112,219,1) 100%);
