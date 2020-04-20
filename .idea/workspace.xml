@@ -3,17 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="175d2814-6ce3-4d6e-8268-5c4da88a3d07" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/ask/index.less" afterPath="$PROJECT_DIR$/src/pages/ask/index.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/index.js" afterPath="$PROJECT_DIR$/src/pages/askchat/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/index.less" afterPath="$PROJECT_DIR$/src/pages/askchat/index.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/chooseDoctor/index.js" afterPath="$PROJECT_DIR$/src/pages/chooseDoctor/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/doctorDetail/index.js" afterPath="$PROJECT_DIR$/src/pages/doctorDetail/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/doctorDetail/index.less" afterPath="$PROJECT_DIR$/src/pages/doctorDetail/index.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/doctorInfo/index.js" afterPath="$PROJECT_DIR$/src/pages/doctorInfo/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/doctorInfo/index.less" afterPath="$PROJECT_DIR$/src/pages/doctorInfo/index.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/home/index.js" afterPath="$PROJECT_DIR$/src/pages/home/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/document.ejs" afterPath="$PROJECT_DIR$/src/pages/document.ejs" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/index.js" afterPath="$PROJECT_DIR$/src/pages/my/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/tools.js" afterPath="$PROJECT_DIR$/src/utils/tools.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/index.less" afterPath="$PROJECT_DIR$/src/pages/my/index.less" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,82 +19,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="785">
-              <caret line="60" column="27" lean-forward="true" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-                <element signature="n#!!block;n#getAppidCallback#0;n#AskChat#0" expanded="false" />
-                <element signature="n#!!block;n#orderDetailCallback#0;n#AskChat#0" expanded="false" />
-                <element signature="e#7561#10427#0" expanded="false" />
-                <element signature="n#!!block;n#changeWord#0;n#AskChat#0" expanded="false" />
-                <element signature="e#11282#11372#0" expanded="false" />
-                <element signature="e#11405#12124#0" expanded="false" />
-                <element signature="n#!!block;n#isShowTime#0;n#AskChat#0" expanded="false" />
-                <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
-                <element signature="n#!!block;n#addPatient#0;n#AskChat#0" expanded="false" />
-                <element signature="n#!!block;n#getPhoneImg#0;n#AskChat#0" expanded="false" />
-                <element signature="n#!!block;n#uploadImg#0;n#AskChat#0" expanded="false" />
-                <element signature="n#!!block;n#uploadCallback#0;n#AskChat#0" expanded="false" />
-                <element signature="n#!!block;n#patientInfo#0;n#AskChat#0" expanded="false" />
-                <element signature="e#23651#24746#0" expanded="false" />
-                <element signature="e#23689#24211#0" expanded="false" />
-                <element signature="e#25133#28044#0" expanded="false" />
-                <element signature="e#28330#31217#0" expanded="false" />
-                <element signature="e#31380#32222#0" expanded="false" />
-                <element signature="e#31468#31641#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/doctorInfo/index.js">
+        <entry file="file://$PROJECT_DIR$/src/pages/my/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="746">
-              <caret line="206" column="46" lean-forward="false" selection-start-line="206" selection-start-column="35" selection-end-line="206" selection-end-column="46" />
+            <state relative-caret-position="1028">
+              <caret line="116" column="23" lean-forward="true" selection-start-line="116" selection-start-column="23" selection-end-line="116" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.less" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/doctorInfo/index.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.less" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/doctorDetail/index.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="request.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="request.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/utils/request.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="57" column="30" lean-forward="false" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
+            <state relative-caret-position="885">
+              <caret line="59" column="24" lean-forward="true" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="doctorinfo.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/doctorInfo/models/doctorinfo.js">
+      <file leaf-file-name="index.less" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/my/index.less">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="18" />
+            <state relative-caret-position="672">
+              <caret line="77" column="22" lean-forward="true" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="document.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/document.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="544">
+              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -119,7 +70,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>choose_title</find>
       <find>JSON</find>
       <find>compressed</find>
       <find>.slider-list</find>
@@ -149,6 +99,7 @@
       <find>scrollToBottom</find>
       <find>staticURL</find>
       <find>doctor_info</find>
+      <find>model_title</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -157,7 +108,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/pages/ask/models/ask.js" />
         <option value="$PROJECT_DIR$/src/pages/patientDescribe/index.less" />
         <option value="$PROJECT_DIR$/src/pages/management/index.js" />
         <option value="$PROJECT_DIR$/src/layouts/index.js" />
@@ -196,9 +146,7 @@
         <option value="$PROJECT_DIR$/src/pages/doctorInfo/models/doctorinfo.js" />
         <option value="$PROJECT_DIR$/src/components/swiper/index.less" />
         <option value="$PROJECT_DIR$/src/pages/ask/index.less" />
-        <option value="$PROJECT_DIR$/src/pages/document.ejs" />
         <option value="$PROJECT_DIR$/src/pages/askchat/index.less" />
-        <option value="$PROJECT_DIR$/src/pages/my/index.js" />
         <option value="$PROJECT_DIR$/src/utils/tools.js" />
         <option value="$PROJECT_DIR$/src/pages/home/index.js" />
         <option value="$PROJECT_DIR$/src/pages/chooseDoctor/index.js" />
@@ -206,8 +154,11 @@
         <option value="$PROJECT_DIR$/src/pages/doctorInfo/index.js" />
         <option value="$PROJECT_DIR$/src/pages/doctorInfo/index.less" />
         <option value="$PROJECT_DIR$/src/pages/doctorDetail/index.less" />
-        <option value="$PROJECT_DIR$/src/utils/request.js" />
         <option value="$PROJECT_DIR$/src/pages/askchat/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/document.ejs" />
+        <option value="$PROJECT_DIR$/src/pages/my/index.less" />
+        <option value="$PROJECT_DIR$/src/pages/my/index.js" />
+        <option value="$PROJECT_DIR$/src/utils/request.js" />
       </list>
     </option>
   </component>
@@ -368,6 +319,13 @@
               <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
               <item name="web-patient" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="my" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web-patient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="services" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -442,12 +400,12 @@
       <workItem from="1586915053588" duration="38122000" />
       <workItem from="1587055988782" duration="2481000" />
       <workItem from="1587346058962" duration="4630000" />
-      <workItem from="1587357039919" duration="10660000" />
+      <workItem from="1587357039919" duration="11770000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="561894000" />
+    <option name="totallyTimeSpent" value="563004000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1081" y="-478" width="1080" height="1309" extended-state="0" />
@@ -749,14 +707,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/document.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="49" column="9" lean-forward="false" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -779,22 +729,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/index.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/my/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1749">
-          <caret line="111" column="22" lean-forward="true" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -847,14 +781,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/doctorInfo/models/doctorinfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/doctorInfo/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="746">
@@ -875,14 +801,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/request.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="57" column="30" lean-forward="false" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -913,6 +831,46 @@
             <element signature="e#31380#32222#0" expanded="false" />
             <element signature="e#31468#31641#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/doctorInfo/models/doctorinfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="18" lean-forward="false" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/document.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/index.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="77" column="22" lean-forward="true" selection-start-line="77" selection-start-column="22" selection-end-line="77" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/my/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1028">
+          <caret line="116" column="23" lean-forward="true" selection-start-line="116" selection-start-column="23" selection-end-line="116" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/request.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="885">
+          <caret line="59" column="24" lean-forward="true" selection-start-line="59" selection-start-column="24" selection-end-line="59" selection-end-column="24" />
+          <folding />
         </state>
       </provider>
     </entry>
