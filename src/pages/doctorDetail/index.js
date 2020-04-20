@@ -94,18 +94,28 @@ class DoctorInfo extends Component {
                             </p>
                         </div>
                     </div>
-                    <div className={Styles.introducer}>
-                        <img className={Styles.introducer_img} src={require('../../assets/strong.png')} alt=""/>
-                        <div className={Styles.introducer_word}>
-                            <span className={Styles.introducer_word_key}>擅长：</span>{doctorInfo.skill}
-                        </div>
-                    </div>
-                    <div className={Styles.introducer}>
-                        <img className={Styles.introducer_img} src={require('../../assets/introduce.png')} alt=""/>
-                        <div className={Styles.introducer_word}>
-                            <span className={Styles.introducer_word_key}>简介：</span>{doctorInfo.info}
-                        </div>
-                    </div>
+                    {
+                        doctorInfo.skill
+                            ?
+                            <div className={Styles.introducer}>
+                                <img className={Styles.introducer_img} src={require('../../assets/strong.png')} alt=""/>
+                                <div className={Styles.introducer_word}>
+                                    <span className={Styles.introducer_word_key}>擅长：</span>{doctorInfo.skill}
+                                </div>
+                            </div>
+                            : ''
+                    }
+                    {
+                        doctorInfo.info
+                            ?
+                            <div className={Styles.introducer}>
+                                <img className={Styles.introducer_img} src={require('../../assets/introduce.png')} alt=""/>
+                                <div className={Styles.introducer_word}>
+                                    <span className={Styles.introducer_word_key}>简介：</span>{doctorInfo.info}
+                                </div>
+                            </div>
+                            : ''
+                    }
 
 
                 </div>

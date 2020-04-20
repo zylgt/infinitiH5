@@ -209,9 +209,17 @@ class Home extends Component {
                                                         <span className={Styles.doctor_rank}>{item.title}</span>
                                                         <span>{item.dept}</span>
                                                     </p>
-                                                    <div className={Styles.doctor_introducer}>
-                                                        擅长：{item.skill}
-                                                    </div>
+                                                    {
+                                                        item.skill ?
+                                                            <div className={Styles.doctor_introducer}>
+                                                                擅长：{item.skill}
+                                                            </div>
+                                                            :
+                                                            <div className={Styles.doctor_introducer}>
+                                                                简介 ：{item.info}
+                                                            </div>
+                                                    }
+
                                                 </div>
 
                                             </div>
