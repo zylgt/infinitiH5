@@ -131,6 +131,9 @@ class AskChat extends React.Component {
                 clearInterval(scrollBottom)
             }
         },600)
+
+        window.addEventListener('resize', this.scrollToBottom)
+
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -304,10 +307,12 @@ class AskChat extends React.Component {
         this.setState({
             isShowButtom: false,
         });
+        this.scrollToBottom();
     }
     //滑动到聊天底部
     scrollToBottom = () => {
-        this.messagesEnd.scrollIntoView({ behavior: "auto" });
+        // alert(1)
+            this.messagesEnd.scrollIntoView({ behavior: "auto" });
     }
     //点击提交聊天
     submit = () => {
@@ -342,7 +347,7 @@ class AskChat extends React.Component {
     //判断是否展示时间
     isShowTime(type){
 
-       const { historyMsg, sendMsg } = this.state;
+        const { historyMsg, sendMsg } = this.state;
 
         let created_time = historyMsg[0].created_at;
         let newTime = Date.parse(created_time)/1000 ;
@@ -400,21 +405,20 @@ class AskChat extends React.Component {
         }
 
     }
-    //判断消息右上角时间
+    //判断消息时间
     showTime(item){
 
         let time = '';
         let created_time = item.created_at;
         if(created_time){
-            let weeks = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
-            let currentTime = Date.parse(new Date());
+            let weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+            let currentTime = Date.parse(new Date(moment().format('L')));
             let d_day = Date.parse(new Date(moment(created_time).format('L')));
             let day = Math.abs(parseInt((d_day - currentTime)/1000/3600/24));//计算日期
-            let dateFormat = moment(created_time).format('L') // 日期
-            let index = new Date(created_time).getDay() // 星期
+            let dateFormat = moment(created_time).format('L'); // 日期
+            let index = moment(created_time).format('d'); // 星期
             let date = moment(created_time).format('LT'); // 时分
-            let hours = new Date(created_time).getHours(); //小时
-
+            let hours = moment(created_time).hours(); //小时
 
             //判断剩余3分钟
             if(item.showRemain){
@@ -425,6 +429,19 @@ class AskChat extends React.Component {
                 );
             }
             if(item.showTime){
+
+                // alert(weeks)
+                // alert(currentTime)
+                // alert(d_day)
+                // alert(day)
+                // alert(dateFormat)
+                //
+                // alert(created_time)
+                // alert(index)
+                // alert(weeks)
+                // alert(date)
+                // alert(hours)
+
                 if(day >= 8){
                     time = dateFormat +' '+ date
                 }else if(day <8 && day >= 2){
@@ -433,11 +450,12 @@ class AskChat extends React.Component {
                     time = '昨天 ' + date
                 }else{
                     if(hours <= 12){
-                        time =  date
+                        time =  '上午 '+date
                     }else{
-                        time =  date
+                        time =  '下午 '+date
                     }
                 }
+
 
                 return (
                     <div className={Styles.list_time}>
@@ -661,10 +679,7 @@ class AskChat extends React.Component {
             }):''
         )
     }
-    //
-    wordFocus(){
-        this.wordFocus.blur()
-    }
+
     render() {
         const { getFieldProps } = this.props.form;
         const {
@@ -686,7 +701,7 @@ class AskChat extends React.Component {
             <DocumentTitle title={doctorName}>
                 <div className={Styles.chat}>
 
-                    <div className={ `${Styles.chat_list} ` } onClick={()=>{this.wordFocus()}}>
+                    <div className={ `${Styles.chat_list} ` } >
 
                         { historyMsg && historyMsg.length > 0 ? this.showTime( historyMsg[0] ) : '' }
 

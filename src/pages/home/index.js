@@ -152,7 +152,7 @@ class Home extends Component {
                         }
                     </div>
                     {/*{*/}
-                        {/*officeData.length > 0 ? <div className={Styles.title}>选择科室</div>:''*/}
+                    {/*officeData.length > 0 ? <div className={Styles.title}>选择科室</div>:''*/}
                     {/*}*/}
 
                     <div className={Styles.office} >
@@ -169,57 +169,55 @@ class Home extends Component {
                         </div>
 
                         {/*{*/}
-                            {/*officeData.length > 0 ? officeData.map((item,index)=>{*/}
-                                {/*return(*/}
-                                    {/*<div className={Styles.office_item} key={item.uid} data-id={item.uid} data-type="1" data-name={item.name} onClick={(e) => { this.clickOffice(e) }}>*/}
-                                        {/*<img className={Styles.item_img} src={ staticURL + item.icon} alt=""/>*/}
-                                        {/*<p className={Styles.item_title}>{item.name}</p>*/}
-                                    {/*</div>*/}
-                                {/*)*/}
-                            {/*}) : ''*/}
+                        {/*officeData.length > 0 ? officeData.map((item,index)=>{*/}
+                        {/*return(*/}
+                        {/*<div className={Styles.office_item} key={item.uid} data-id={item.uid} data-type="1" data-name={item.name} onClick={(e) => { this.clickOffice(e) }}>*/}
+                        {/*<img className={Styles.item_img} src={ staticURL + item.icon} alt=""/>*/}
+                        {/*<p className={Styles.item_title}>{item.name}</p>*/}
+                        {/*</div>*/}
+                        {/*)*/}
+                        {/*}) : ''*/}
                         {/*}*/}
                     </div>
 
                     {/*{*/}
-                        {/*illnessData.length > 0 ?<div className={Styles.title}>常见疾病</div>:''*/}
+                    {/*illnessData.length > 0 ?<div className={Styles.title}>常见疾病</div>:''*/}
                     {/*}*/}
                     {/*<div className={Styles.illness} >*/}
-                        {/*{*/}
-                            {/*illnessData.length > 0 ? illnessData.map((item,index)=>{*/}
-                                {/*return(*/}
-                                    {/*<div className={Styles.illness_title} key={item.uid} data-id={item.uid} data-type="2" data-name={item.name} onClick={(e) => {this.clickOffice(e)}}>*/}
-                                        {/*<span>{item.name}</span>*/}
-                                    {/*</div>*/}
-                                {/*)*/}
-                            {/*}) : ''*/}
-                        {/*}*/}
+                    {/*{*/}
+                    {/*illnessData.length > 0 ? illnessData.map((item,index)=>{*/}
+                    {/*return(*/}
+                    {/*<div className={Styles.illness_title} key={item.uid} data-id={item.uid} data-type="2" data-name={item.name} onClick={(e) => {this.clickOffice(e)}}>*/}
+                    {/*<span>{item.name}</span>*/}
+                    {/*</div>*/}
+                    {/*)*/}
+                    {/*}) : ''*/}
+                    {/*}*/}
                     {/*</div>*/}
                     <div className={Styles.title}>今日出诊医生</div>
                     {
                         doctorData.length > 0 ?
-                            <div>
-                                <div className={Styles.doctor} >
-                                    {
-                                        doctorData.map((item,index) => {
-                                            return(
-                                                <div className={Styles.doctor_item} key={item.uid} data-id={item.uid} onClick={(e) => { this.clickDoctor(e) }}>
-                                                    <img className={Styles.doctor_img} src={ staticURL + item.icon } alt=""/>
-                                                    <div>
-                                                        <p className={Styles.doctor_info}>
-                                                            <span className={Styles.doctor_name}>{item.name}</span>
-                                                            <span className={Styles.doctor_rank}>{item.title}</span>
-                                                            <span>{item.dept}</span>
-                                                        </p>
-                                                        <div className={Styles.doctor_introducer}>
-                                                            擅长：{item.skill}
-                                                        </div>
+                            <div className={Styles.doctor} >
+                                {
+                                    doctorData.map((item,index) => {
+                                        return(
+                                            <div className={Styles.doctor_item} key={item.uid} data-id={item.uid} onClick={(e) => { this.clickDoctor(e) }}>
+                                                <img className={Styles.doctor_img} src={ staticURL + item.icon } alt=""/>
+                                                <div>
+                                                    <p className={Styles.doctor_info}>
+                                                        <span className={Styles.doctor_name}>{item.name}</span>
+                                                        <span className={Styles.doctor_rank}>{item.title}</span>
+                                                        <span>{item.dept}</span>
+                                                    </p>
+                                                    <div className={Styles.doctor_introducer}>
+                                                        擅长：{item.skill}
                                                     </div>
-
                                                 </div>
-                                            )
-                                        })
-                                    }
-                                </div>
+
+                                            </div>
+                                        )
+                                    })
+                                }
                             </div>
                             :
                             <div>

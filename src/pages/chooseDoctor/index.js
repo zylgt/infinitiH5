@@ -8,6 +8,7 @@ import { getQueryString, nonceStr } from '../../utils/tools'
 import { staticURL, pageURL } from '../../utils/baseURL'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
+import LazyLoad from 'react-lazyload';
 import moment from "moment";
 moment.locale('zh-cn');
 
