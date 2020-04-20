@@ -74,7 +74,10 @@ class DoctorInfo extends Component {
             isOpen = false;
         }
 
-        let doctorName = doctorInfo.name + '医生简介'
+        let doctorName = '医生简介'
+        if(doctorInfo.name){
+            doctorName = doctorInfo.name + '医生简介'
+        }
         return (
             <DocumentTitle title={doctorName}>
                 <div className={Styles.doctor_info}>

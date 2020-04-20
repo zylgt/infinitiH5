@@ -8,6 +8,7 @@ import { getQueryString,nonceStr } from '../../utils/tools'
 import { staticURL,pageURL } from '../../utils/baseURL'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
+import LazyLoad from 'react-lazyload';
 import moment from "moment";
 moment.locale('zh-cn');
 
@@ -133,10 +134,13 @@ class DoctorInfo extends Component {
             date = '周' + num + '出诊';
             isOpen = false;
         }
-
+        let title = '医生详情';
+        if(doctorInfo.name){
+            title = doctorInfo.name + '医生详情'
+        }
 
         return (
-            <DocumentTitle title={ doctorInfo.name + '医生详情'}>
+            <DocumentTitle title={ title }>
                 <div className={Styles.doctor_info}>
                     <div className={Styles.info}>
                         {

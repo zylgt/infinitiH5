@@ -118,25 +118,26 @@ class Ask extends React.Component {
         let time = ''
         let created_time = item.last_time;
         if(created_time){
-            let weeks = new Array("周日", "周一", "周二", "周三", "周四", "周五", "周六");
-            let currentTime = Date.parse(new Date());
+            let weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+            let currentTime = Date.parse(new Date(moment().format('L')));
             let d_day = Date.parse(new Date(moment(created_time).format('L')));
             let day = Math.abs(parseInt((d_day - currentTime)/1000/3600/24));//计算日期
+
             if(day >= 8){
                 let date = moment(created_time).format('YYYY/MM/DD')
                 time = date;
             }else if(day <8 && day >= 2){
-                let index = new Date(created_time).getDay()
+                let index = moment(created_time).format('d'); // 星期
                 time = weeks[index]
             }else if(day > 0 && day < 2){
                 time = '昨天'
             }else{
-                let hours = new Date(created_time).getHours();
-                let date = moment(created_time).format('LT');
+                let date = moment(created_time).format('LT'); // 时分
+                let hours = moment(created_time).hours(); //小时
                 if(hours <= 12){
-                    time =  date
+                    time =  '上午 ' + date
                 }else{
-                    time =  date
+                    time =  '下午 ' + date
                 }
             }
         }

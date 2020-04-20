@@ -9,7 +9,12 @@ export default {
         setup({ dispatch, history }) {
             return history.listen(({ pathname, search }) => {
                 if ( pathname == '/doctorInfo' ) {
-
+                    dispatch({
+                        type: 'setData',
+                        payload: {
+                            doctorInfo: {}
+                        }
+                    });
                 }
             });
         },
