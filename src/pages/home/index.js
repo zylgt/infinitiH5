@@ -144,7 +144,7 @@ class Home extends Component {
         // console.log('doctorData',doctorData)
         return (
             <DocumentTitle title='天医大朱宪彝纪念医院互联网医院'>
-                <div className={`${Styles.home} ${officeData.length == 1 ? Styles.home_one :''}`} ref={e => this._container = e} onScrollCapture={() => this._onScrollEvent()} >
+                <div className={`${Styles.home} ${Styles.home_one}`} ref={e => this._container = e} onScrollCapture={() => this._onScrollEvent()} >
 
                     <div className={Styles.swiper}>
                         {
