@@ -33,9 +33,8 @@ class AskChat extends React.Component {
             token:'',
             detailInfo:'',
             timeIndex:1,
-            isFocus:false,
-            isPush: false
-
+            isPush: false,
+            isFocus:false
         }
         this.taskRemindInterval = null
     }
@@ -146,21 +145,18 @@ class AskChat extends React.Component {
         window.addEventListener('resize', that.resize.bind(this))
 
         //ios软键盘
-        let isReset = true;
         if(isIOS()) {
             document.body.addEventListener('focusin', () => {
                 //软键盘弹出的事件处理
                 that.setState({
                     isFocus:true,
                 });
-
             })
             document.body.addEventListener('focusout', () => {
                 //软键盘收起的事件处理
                 that.setState({
                     isFocus:false,
                 });
-
             })
         }
 
@@ -312,10 +308,17 @@ class AskChat extends React.Component {
     }
     //点击加号
     autoWordFocus(){
-        this.setState({
-            isShowButtom: true,
-            isFocus:true,
-        });
+        if(this.state.isShowButtom){
+            this.wordFocus.focus();
+            this.setState({
+                isShowButtom: false,
+            });
+        }else{
+            this.setState({
+                isShowButtom: true,
+                isFocus:true,
+            });
+        }
     }
     //输入框内容变化
     changeWord(val){
@@ -339,21 +342,12 @@ class AskChat extends React.Component {
     }
     //输入框聚焦
     textareaFocus(){
-        console.log('textareaFocus---')
         this.setState({
             isShowButtom: false,
             isFocus:true,
         });
         this.scrollToBottom();
     }
-    // textareaBlur(){
-    //     if(1){
-    //
-    //     }
-    //     this.setState({
-    //         isFocus:false,
-    //     });
-    // }
     //滑动到聊天底部
     scrollToBottom = () => {
         // alert(1)
@@ -735,7 +729,15 @@ class AskChat extends React.Component {
             }):''
         )
     }
-
+    //点击聊天界面
+    clickChat(){
+        if(this.state.isShowButtom){
+            this.setState({
+                isShowButtom: false,
+                isFocus:false,
+            });
+        }
+    }
     render() {
         const { getFieldProps } = this.props.form;
         const {
@@ -759,7 +761,7 @@ class AskChat extends React.Component {
             <DocumentTitle title={doctorName}>
                 <div className={Styles.chat}>
 
-                    <div className={ `${Styles.chat_list} ` } >
+                    <div className={Styles.chat_list} onClick={()=>{this.clickChat()}}>
 
                         { historyMsg && historyMsg.length > 0 ? this.showTime( historyMsg[0] ) : '' }
 
@@ -919,9 +921,8 @@ class AskChat extends React.Component {
 
                                     }
                                     {
-                                        !isFocus && isIPhoneX() && isPush ? <div className={Styles.chat_input_bottom}></div> : ''
+                                        !isFocus && isIOS() && isIPhoneX() && isPush ? <div className={Styles.chat_input_bottom}></div> : ''
                                     }
-
 
                                 </div>
                                 {

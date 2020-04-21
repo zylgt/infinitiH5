@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="175d2814-6ce3-4d6e-8268-5c4da88a3d07" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/index.js" afterPath="$PROJECT_DIR$/src/pages/askchat/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/index.less" afterPath="$PROJECT_DIR$/src/pages/askchat/index.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/chooseTime/index.js" afterPath="$PROJECT_DIR$/src/pages/chooseTime/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/document.ejs" afterPath="$PROJECT_DIR$/src/pages/document.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/request.js" afterPath="$PROJECT_DIR$/src/utils/request.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/tools.js" afterPath="$PROJECT_DIR$/src/utils/tools.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,14 +20,16 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="895">
-              <caret line="58" column="18" lean-forward="true" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="18" />
+            <state relative-caret-position="765">
+              <caret line="743" column="23" lean-forward="true" selection-start-line="743" selection-start-column="23" selection-end-line="743" selection-end-column="23" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
                 <element signature="n#!!block;n#getAppidCallback#0;n#AskChat#0" expanded="false" />
                 <element signature="n#!!block;n#orderDetailCallback#0;n#AskChat#0" expanded="false" />
-                <element signature="e#7074#9940#0" expanded="false" />
+                <element signature="e#7043#9909#0" expanded="false" />
                 <element signature="n#!!block;n#changeWord#0;n#AskChat#0" expanded="false" />
+                <element signature="e#10885#11052#0" expanded="false" />
+                <element signature="e#11085#11840#0" expanded="false" />
                 <element signature="n#!!block;n#isShowTime#0;n#AskChat#0" expanded="false" />
                 <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
                 <element signature="n#!!block;n#addPatient#0;n#AskChat#0" expanded="false" />
@@ -39,14 +37,24 @@
                 <element signature="n#!!block;n#uploadImg#0;n#AskChat#0" expanded="false" />
                 <element signature="n#!!block;n#uploadCallback#0;n#AskChat#0" expanded="false" />
                 <element signature="n#!!block;n#patientInfo#0;n#AskChat#0" expanded="false" />
-                <element signature="e#23387#24482#0" expanded="false" />
-                <element signature="e#23425#23947#0" expanded="false" />
-                <element signature="e#24869#27780#0" expanded="false" />
-                <element signature="e#28066#30953#0" expanded="false" />
-                <element signature="e#31116#31958#0" expanded="false" />
-                <element signature="e#31204#31377#0" expanded="false" />
-                <marker date="1587462717504" expanded="true" signature="10720:10861" ph="..." />
+                <element signature="n#!!block;n#clickChat#0;n#AskChat#0" expanded="false" />
+                <element signature="e#23587#24682#0" expanded="false" />
+                <element signature="e#23625#24147#0" expanded="false" />
+                <element signature="e#25069#27980#0" expanded="false" />
+                <element signature="e#28266#31153#0" expanded="false" />
+                <element signature="e#31316#32158#0" expanded="false" />
+                <element signature="e#31404#31577#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tools.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/tools.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1045">
+              <caret line="132" column="0" lean-forward="true" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -82,10 +90,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>patientInfo</find>
-      <find>white-space</find>
-      <find>item_content</find>
-      <find>list_hint</find>
       <find>info_img</find>
       <find>scrollIntoView</find>
       <find>content_number</find>
@@ -102,16 +106,20 @@
       <find>isShowButtom</find>
       <find>之后的时段</find>
       <find>只可</find>
-      <find>chat_input</find>
-      <find>isFocus</find>
       <find>textareaBlur</find>
-      <find>isPush</find>
       <find>clientHeight</find>
       <find>saveRef</find>
       <find>refDom</find>
-      <find>taskRemindInterval</find>
       <find>textareaFocus</find>
       <find>isIphone</find>
+      <find>isIPhoneX</find>
+      <find>chat_input</find>
+      <find>isIOS</find>
+      <find>isPush</find>
+      <find>taskRemindInterval</find>
+      <find>isReset</find>
+      <find>wordFocus</find>
+      <find>isFocus</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -157,7 +165,6 @@
         <option value="$PROJECT_DIR$/src/pages/doctorInfo/models/doctorinfo.js" />
         <option value="$PROJECT_DIR$/src/components/swiper/index.less" />
         <option value="$PROJECT_DIR$/src/pages/ask/index.less" />
-        <option value="$PROJECT_DIR$/src/utils/tools.js" />
         <option value="$PROJECT_DIR$/src/pages/chooseDoctor/index.js" />
         <option value="$PROJECT_DIR$/src/pages/doctorDetail/index.js" />
         <option value="$PROJECT_DIR$/src/pages/doctorInfo/index.js" />
@@ -170,6 +177,7 @@
         <option value="$PROJECT_DIR$/src/pages/chooseTime/index.js" />
         <option value="$PROJECT_DIR$/src/pages/askchat/index.less" />
         <option value="$PROJECT_DIR$/src/utils/request.js" />
+        <option value="$PROJECT_DIR$/src/utils/tools.js" />
         <option value="$PROJECT_DIR$/src/pages/askchat/index.js" />
       </list>
     </option>
@@ -376,12 +384,12 @@
       <workItem from="1586915053588" duration="38122000" />
       <workItem from="1587055988782" duration="2481000" />
       <workItem from="1587346058962" duration="4630000" />
-      <workItem from="1587357039919" duration="20978000" />
+      <workItem from="1587357039919" duration="23458000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="572212000" />
+    <option name="totallyTimeSpent" value="574692000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1081" y="-478" width="1080" height="1309" extended-state="0" />
@@ -435,7 +443,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="33" />
+      <option name="time" value="34" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -677,14 +685,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/tools.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="691">
-          <caret line="114" column="28" lean-forward="false" selection-start-line="114" selection-start-column="28" selection-end-line="114" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/webstorm.jar!/resources/html5-schema/html5/phrase.rnc">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="389">
@@ -821,16 +821,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/tools.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1045">
+          <caret line="132" column="0" lean-forward="true" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="895">
-          <caret line="58" column="18" lean-forward="true" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="18" />
+        <state relative-caret-position="765">
+          <caret line="743" column="23" lean-forward="true" selection-start-line="743" selection-start-column="23" selection-end-line="743" selection-end-column="23" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
             <element signature="n#!!block;n#getAppidCallback#0;n#AskChat#0" expanded="false" />
             <element signature="n#!!block;n#orderDetailCallback#0;n#AskChat#0" expanded="false" />
-            <element signature="e#7074#9940#0" expanded="false" />
+            <element signature="e#7043#9909#0" expanded="false" />
             <element signature="n#!!block;n#changeWord#0;n#AskChat#0" expanded="false" />
+            <element signature="e#10885#11052#0" expanded="false" />
+            <element signature="e#11085#11840#0" expanded="false" />
             <element signature="n#!!block;n#isShowTime#0;n#AskChat#0" expanded="false" />
             <element signature="n#!!block;n#showTime#0;n#AskChat#0" expanded="false" />
             <element signature="n#!!block;n#addPatient#0;n#AskChat#0" expanded="false" />
@@ -838,13 +848,13 @@
             <element signature="n#!!block;n#uploadImg#0;n#AskChat#0" expanded="false" />
             <element signature="n#!!block;n#uploadCallback#0;n#AskChat#0" expanded="false" />
             <element signature="n#!!block;n#patientInfo#0;n#AskChat#0" expanded="false" />
-            <element signature="e#23387#24482#0" expanded="false" />
-            <element signature="e#23425#23947#0" expanded="false" />
-            <element signature="e#24869#27780#0" expanded="false" />
-            <element signature="e#28066#30953#0" expanded="false" />
-            <element signature="e#31116#31958#0" expanded="false" />
-            <element signature="e#31204#31377#0" expanded="false" />
-            <marker date="1587462717504" expanded="true" signature="10720:10861" ph="..." />
+            <element signature="n#!!block;n#clickChat#0;n#AskChat#0" expanded="false" />
+            <element signature="e#23587#24682#0" expanded="false" />
+            <element signature="e#23625#24147#0" expanded="false" />
+            <element signature="e#25069#27980#0" expanded="false" />
+            <element signature="e#28266#31153#0" expanded="false" />
+            <element signature="e#31316#32158#0" expanded="false" />
+            <element signature="e#31404#31577#0" expanded="false" />
           </folding>
         </state>
       </provider>
