@@ -3,8 +3,6 @@ import { connect } from 'dva';
 import { SearchBar, Modal, Menu, Toast, List, InputItem,Button,WhiteSpace} from 'antd-mobile';
 import router from 'umi/router';
 import Styles from './index.less';
-import emojione from '../../utils/emojione.min'
-import CryptoJS from '../../utils/md5'
 import { staticURL, pageURL } from '../../utils/baseURL'
 import { nonceStr } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
@@ -34,7 +32,7 @@ class Ask extends React.Component {
         })
 
         let token = getQueryString('token') || '';
-// const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODUxODg4MjEsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI0MjAzMjk2MzQyODgxNDg0OCJ9.dGE0W5jzBUluDhx05zuy-IuUFIo1uLJ_4t9PyKtRiyk';
+
         if( token ){
             cookieUtils.set('token',token)
         }
@@ -118,31 +116,33 @@ class Ask extends React.Component {
     rigthTime(item){
 
         let time = ''
-        if(item.last_time){
-            let weeks = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
-            let currentTime = Date.parse(new Date());
-            let d_day = Date.parse(new Date(item.last_time));
+        let created_time = item.last_time;
+        if(created_time){
+            let weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+            let currentTime = Date.parse(new Date(moment().format('L')));
+            let d_day = Date.parse(new Date(moment(created_time).format('L')));
             let day = Math.abs(parseInt((d_day - currentTime)/1000/3600/24));//计算日期
+
             if(day >= 8){
-                let date = moment(item.last_time).format('YYYY/MM/DD')
+                let date = moment(created_time).format('YYYY/MM/DD')
                 time = date;
             }else if(day <8 && day >= 2){
-                let index = new Date(item.last_time).getDay()
+                let index = moment(created_time).format('d'); // 星期
                 time = weeks[index]
             }else if(day > 0 && day < 2){
                 time = '昨天'
             }else{
-                let hours = new Date(item.last_time).getHours();
-                let date = moment(item.last_time).format('LT');
+                let date = moment(created_time).format('LT'); // 时分
+                let hours = moment(created_time).hours(); //小时
                 if(hours <= 12){
-                    time = '上午' + date
+                    time =  '上午 ' + date
                 }else{
-                    time = '下午' + date
+                    time =  '下午 ' + date
                 }
             }
         }
 
-      if(item.status == 'inquiring'){
+        if(item.status == 'inquiring'){
             return (
                 <span className={Styles.info_right}>{time}</span>
             )
@@ -164,6 +164,8 @@ class Ask extends React.Component {
     render() {
         const { askList } = this.props.ask;
 
+        // console.log('askList',askList)
+
         return (
             <DocumentTitle title='问诊'>
                 <div className={Styles.ask}>
@@ -173,7 +175,9 @@ class Ask extends React.Component {
                                 return(
                                     <div className={Styles.ask_item} key={index} data-uid={item.uid} data-status={item.status} data-wait={item.waited_at} onClick={(e)=>{this.jumpChat(e)}}>
                                         <div className={Styles.item}>
-                                            <img className={Styles.item_head} src={ staticURL + item.icon } alt=""/>
+                                            {
+                                                item.icon ? <img className={Styles.item_head} src={ staticURL + item.icon } alt=""/> : ''
+                                            }
                                             <div className={Styles.item_info}>
                                                 <div className={Styles.info}>
                                                     <span className={Styles.info_name}>{item.doctor_name}</span>
@@ -182,13 +186,9 @@ class Ask extends React.Component {
                                                 </div>
                                                 {this.infoContent(item)}
                                                 <div className={Styles.info_ill}>
-                                                    {
-                                                        item.disease.map((item,index)=>{
-                                                            return(
-                                                                <div className={Styles.ill} key={index}>{item}</div>
-                                                            )
-                                                        })
-                                                    }
+
+                                                    <div className={Styles.ill}>就诊人：{item.patient_name}</div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -197,88 +197,10 @@ class Ask extends React.Component {
                             })
                             :
                             <div className={Styles.ask_no}>
-                                <img src={require('../../assets/no_ask.png')} alt=""/>
+                                <img className={Styles.ask_no_img} src={require('../../assets/no_ask.png')} alt=""/>
                                 <p>暂无问诊记录</p>
                             </div>
                     }
-                    {/*<div className={Styles.ask_item} onClick={()=>{router.push('./askChat')}}>*/}
-                    {/*<div className={Styles.item}>*/}
-                    {/*<img className={Styles.item_head} src={require('../../assets/head.png')} alt=""/>*/}
-                    {/*<div className={Styles.item_info}>*/}
-                    {/*<div className={Styles.info}>*/}
-                    {/*<span className={Styles.info_name}>李晶</span>*/}
-                    {/*<span>内分泌科</span>*/}
-                    {/*<img className={Styles.info_right} src={require('../../assets/ask_order.png')} alt=""/>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_content}>在线问诊10:00-10:30，请等待就诊通知。</div>*/}
-                    {/*<div className={Styles.info_ill}>*/}
-                    {/*<div className={Styles.ill}>糖尿病</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-
-                    {/*<div className={Styles.ask_item} onClick={()=>{router.push('./askChat')}}>*/}
-                    {/*<div className={Styles.item}>*/}
-                    {/*<img className={Styles.item_head} src={require('../../assets/head.png')} alt=""/>*/}
-                    {/*<div className={Styles.item_info}>*/}
-                    {/*<div className={Styles.info}>*/}
-                    {/*<span className={Styles.info_name}>李晶</span>*/}
-                    {/*<span>内分泌科</span>*/}
-                    {/*<span className={Styles.info_right}>上午 8:42</span>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_content}>*/}
-                    {/*<p className={Styles.content_word}>问一下现在怎么用药呢？血糖餐前问一下现在怎么用药呢？血糖餐前</p>*/}
-                    {/*<p className={Styles.content_number}>16</p>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_ill}>*/}
-                    {/*<div className={Styles.ill}>糖尿病</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-
-                    {/*<div className={Styles.ask_item} onClick={()=>{router.push('./askChat')}}>*/}
-                    {/*<div className={Styles.item}>*/}
-                    {/*<img className={Styles.item_head} src={require('../../assets/head.png')} alt=""/>*/}
-                    {/*<div className={Styles.item_info}>*/}
-                    {/*<div className={Styles.info}>*/}
-                    {/*<span className={Styles.info_name}>李晶</span>*/}
-                    {/*<span>内分泌科</span>*/}
-                    {/*<span className={Styles.info_right}>周三</span>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_content}>*/}
-                    {/*<p className={Styles.content_word}>[本次问诊已结束]</p>*/}
-                    {/*<img src={require('../../assets/ask_success.png')} alt=""/>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_ill}>*/}
-                    {/*<div className={Styles.ill}>颈椎病</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-
-                    {/*<div className={Styles.ask_item} onClick={()=>{router.push('./askChat')}}>*/}
-                    {/*<div className={Styles.item}>*/}
-                    {/*<img className={Styles.item_head} src={require('../../assets/head.png')} alt=""/>*/}
-                    {/*<div className={Styles.item_info}>*/}
-                    {/*<div className={Styles.info}>*/}
-                    {/*<span className={Styles.info_name}>李晶</span>*/}
-                    {/*<span>内分泌科</span>*/}
-                    {/*<span className={Styles.info_right}>周三</span>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_content}>*/}
-                    {/*<p className={Styles.content_word}>[本次问诊已失效]</p>*/}
-                    {/*<img src={require('../../assets/ask_lose.png')} alt=""/>*/}
-                    {/*</div>*/}
-                    {/*<div className={Styles.info_ill}>*/}
-                    {/*<div className={Styles.ill}>心率不齐</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-                    {/*</div>*/}
-
-
                 </div>
             </DocumentTitle>
 

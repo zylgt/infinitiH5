@@ -24,6 +24,7 @@ class Home extends Component {
 
     }
     componentDidMount() {
+
         const { dispatch } = this.props;
 
         //生成签名时间戳
@@ -112,8 +113,11 @@ class Home extends Component {
     clickOffice(e){
         let officeId = e.currentTarget.getAttribute('data-id');
         let type = e.currentTarget.getAttribute('data-type');
+        let name = e.currentTarget.getAttribute('data-name');
         // console.log('officeId',officeId)
-        router.push('./chooseDoctor?id=' + officeId + '&type=' + type )
+        let params = params = 'id=' + officeId + '&type=' + type + '&name=' + name ;
+
+        router.push('./chooseDoctor?' + encodeURIComponent(params) )
 
     }
     //点击进入出诊医生
@@ -131,8 +135,8 @@ class Home extends Component {
             autoplay:true,
             autoplayInterval:5000,
             infinite:true,
-            dotStyle:{width:'6px',height:'6px',background:'rgba(255,255,255,0.5)'},
-            dotActiveStyle:{height:'6px',background:'rgba(255,255,255,1)'},
+            dotStyle:{width:'.12rem',height:'.12rem',borderRadius:'.12rem',margin:'0 .06rem',background:'rgba(255,255,255,0.5)'},
+            dotActiveStyle:{height:'.12rem',width:'.12rem',borderRadius:'.12rem',margin:'0 .06rem',background:'rgba(255,255,255,1)'},
             itemStyle:{width:'100%',height:'2.7rem'},
             itemData:swipeData
         }
@@ -140,70 +144,97 @@ class Home extends Component {
         // console.log('doctorData',doctorData)
         return (
             <DocumentTitle title='天医大朱宪彝纪念医院互联网医院'>
-                <div className={Styles.home} ref={e => this._container = e} onScrollCapture={() => this._onScrollEvent()} >
+                <div className={`${Styles.home} ${Styles.home_one}`} ref={e => this._container = e} onScrollCapture={() => this._onScrollEvent()} >
 
                     <div className={Styles.swiper}>
                         {
                             swipeData.length > 0 ? <Swiper {...swiperProps} ></Swiper> : ''
                         }
                     </div>
-                    {
-                        officeData.length > 0 ? <div className={Styles.title}>选择科室</div>:''
-                    }
+                    {/*{*/}
+                    {/*officeData.length > 0 ? <div className={Styles.title}>选择科室</div>:''*/}
+                    {/*}*/}
 
                     <div className={Styles.office} >
-                        {
-                            officeData.length > 0 ? officeData.map((item,index)=>{
-                                return(
-                                    <div className={Styles.office_item} key={item.uid} data-id={item.uid} data-type="1" onClick={(e) => { this.clickOffice(e) }}>
-                                        <img className={Styles.item_img} src={ staticURL + item.icon} alt=""/>
-                                        <p className={Styles.item_title}>{item.name}</p>
-                                    </div>
-                                )
-                            }) : ''
-                        }
-                    </div>
-                    {
-                        illnessData.length > 0 ?<div className={Styles.title}>常见疾病</div>:''
-                    }
-                    <div className={Styles.illness} >
-                        {
-                            illnessData.length > 0 ? illnessData.map((item,index)=>{
-                                return(
-                                    <div className={Styles.illness_title} key={item.uid} data-id={item.uid} data-type="2" onClick={(e) => {this.clickOffice(e)}}>
-                                        <span>{item.name}</span>
-                                    </div>
-                                )
-                            }) : ''
-                        }
-                    </div>
-                    {
-                        doctorData.length > 0 ? <div className={Styles.title}>今日出诊医生</div>:''
-                    }
 
-                    <div className={Styles.doctor} >
-                        {
-                            doctorData.length > 0 ? doctorData.map((item,index)=>{
+                        <div className={Styles.office_item_one} data-id={0} data-type="" data-name='糖尿病特色咨询门诊' onClick={(e) => { this.clickOffice(e) }}>
+                            <div className={Styles.office_item_img}>
+                                <img className={Styles.item_img} src={ require('../../assets/office01.png')} alt=""/>
+                            </div>
+                            <div className={Styles.office_item_info}>
+                                <p className={Styles.item_title}>糖尿病特色咨询门诊</p>
+                                <p>图文轻问诊</p>
+                            </div>
+                            <img  className={Styles.office_item_right} src={require('../../assets/right.png')} alt=""/>
+                        </div>
 
-                                return(
-                                    <div className={Styles.doctor_item} key={item.uid} data-id={item.uid} onClick={(e) => { this.clickDoctor(e) }}>
-                                        <img className={Styles.doctor_img} src={ staticURL + item.icon } alt=""/>
-                                        <div>
-                                            <p className={Styles.doctor_info}>
-                                                <span className={Styles.doctor_name}>{item.name}</span>
-                                                <span className={Styles.doctor_rank}>{item.title}</span>
-                                                <span>{item.dept}</span>
-                                            </p>
-                                            <div className={Styles.doctor_introducer}>
-                                                擅长：{item.skill}
+                        {/*{*/}
+                        {/*officeData.length > 0 ? officeData.map((item,index)=>{*/}
+                        {/*return(*/}
+                        {/*<div className={Styles.office_item} key={item.uid} data-id={item.uid} data-type="1" data-name={item.name} onClick={(e) => { this.clickOffice(e) }}>*/}
+                        {/*<img className={Styles.item_img} src={ staticURL + item.icon} alt=""/>*/}
+                        {/*<p className={Styles.item_title}>{item.name}</p>*/}
+                        {/*</div>*/}
+                        {/*)*/}
+                        {/*}) : ''*/}
+                        {/*}*/}
+                    </div>
+
+                    {/*{*/}
+                    {/*illnessData.length > 0 ?<div className={Styles.title}>常见疾病</div>:''*/}
+                    {/*}*/}
+                    {/*<div className={Styles.illness} >*/}
+                    {/*{*/}
+                    {/*illnessData.length > 0 ? illnessData.map((item,index)=>{*/}
+                    {/*return(*/}
+                    {/*<div className={Styles.illness_title} key={item.uid} data-id={item.uid} data-type="2" data-name={item.name} onClick={(e) => {this.clickOffice(e)}}>*/}
+                    {/*<span>{item.name}</span>*/}
+                    {/*</div>*/}
+                    {/*)*/}
+                    {/*}) : ''*/}
+                    {/*}*/}
+                    {/*</div>*/}
+                    <div className={Styles.title}>今日出诊医生</div>
+                    {
+                        doctorData.length > 0 ?
+                            <div className={Styles.doctor} >
+                                {
+                                    doctorData.map((item,index) => {
+                                        return(
+                                            <div className={Styles.doctor_item} key={item.uid} data-id={item.uid} onClick={(e) => { this.clickDoctor(e) }}>
+                                                <img className={Styles.doctor_img} src={ staticURL + item.icon } alt=""/>
+                                                <div>
+                                                    <p className={Styles.doctor_info}>
+                                                        <span className={Styles.doctor_name}>{item.name}</span>
+                                                        <span className={Styles.doctor_rank}>{item.title}</span>
+                                                        <span>{item.dept}</span>
+                                                    </p>
+                                                    {
+                                                        item.skill ?
+                                                            <div className={Styles.doctor_introducer}>
+                                                                擅长：{item.skill}
+                                                            </div>
+                                                            :
+                                                            <div className={Styles.doctor_introducer}>
+                                                                简介 ：{item.info}
+                                                            </div>
+                                                    }
+
+                                                </div>
+
                                             </div>
-                                        </div>
-                                    </div>
-                                )
-                            }) : ''
-                        }
-                    </div>
-
+                                        )
+                                    })
+                                }
+                            </div>
+                            :
+                            <div>
+                                <div className={Styles.doctor_no}>
+                                    <img src={require('../../assets/no_doctor.png')} alt=""/>
+                                    暂无医生出诊
+                                </div>
+                            </div>
+                    }
                 </div>
             </DocumentTitle>
         )

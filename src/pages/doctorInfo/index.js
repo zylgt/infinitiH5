@@ -8,6 +8,7 @@ import { getQueryString,nonceStr } from '../../utils/tools'
 import { staticURL,pageURL } from '../../utils/baseURL'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
+import LazyLoad from 'react-lazyload';
 import moment from "moment";
 moment.locale('zh-cn');
 
@@ -133,38 +134,54 @@ class DoctorInfo extends Component {
             date = '周' + num + '出诊';
             isOpen = false;
         }
-
+        let title = '医生详情';
+        if(doctorInfo.name){
+            title = doctorInfo.name + '医生详情'
+        }
 
         return (
-            <DocumentTitle title='医生详情'>
+            <DocumentTitle title={ title }>
                 <div className={Styles.doctor_info}>
                     <div className={Styles.info}>
                         {
-                            doctorInfo && doctorInfo.icon ? <img className={Styles.info_img} src={ staticURL + doctorInfo.icon } alt=""/> : ''
+                            doctorInfo.icon ? <img className={Styles.info_img} src={ staticURL + doctorInfo.icon } alt=""/> : ''
                         }
-                        <div className={Styles.info_right}>
-                            <p className={Styles.info_name}>
-                                <span>{doctorInfo.name}</span>
-                                <span className={`${Styles.date} ${isOpen ? '':Styles.date_no}`}>{date}</span>
-                            </p>
-                            <p className={Styles.info_rank}>
-                                <span>{doctorInfo.title}</span>
-                                <span>{doctorInfo.dept}</span>
-                            </p>
-                        </div>
+                        {
+                            doctorInfo.name ? <div className={Styles.info_right}>
+                                <p className={Styles.info_name}>
+                                    <span>{doctorInfo.name}</span>
+                                    <span className={`${Styles.date} ${isOpen ? '':Styles.date_no}`}>{date}</span>
+                                </p>
+                                <p className={Styles.info_rank}>
+                                    <span>{doctorInfo.title}</span>
+                                    <span>{doctorInfo.dept}</span>
+                                </p>
+                            </div> : ''
+                        }
                     </div>
-                    <div className={Styles.introducer}>
-                        <img className={Styles.introducer_img} src={require('../../assets/strong.png')} alt=""/>
-                        <div className={Styles.introducer_word}>
-                            <span className={Styles.introducer_word_key}>擅长：</span>{doctorInfo.skill}
-                        </div>
-                    </div>
-                    <div className={Styles.introducer}>
-                        <img className={Styles.introducer_img} src={require('../../assets/introduce.png')} alt=""/>
-                        <div className={Styles.introducer_word}>
-                            <span className={Styles.introducer_word_key}>简介：</span>{doctorInfo.info}
-                        </div>
-                    </div>
+                    {
+                        doctorInfo.skill
+                            ?
+                            <div className={Styles.introducer}>
+                                <img className={Styles.introducer_img} src={require('../../assets/strong.png')} alt=""/>
+                                <div className={Styles.introducer_word}>
+                                    <span className={Styles.introducer_word_key}>擅长：</span>{doctorInfo.skill}
+                                </div>
+                            </div>
+                            : ''
+                    }
+                    {
+                        doctorInfo.info
+                            ?
+                            <div className={Styles.introducer}>
+                                <img className={Styles.introducer_img} src={require('../../assets/introduce.png')} alt=""/>
+                                <div className={Styles.introducer_word}>
+                                    <span className={Styles.introducer_word_key}>简介：</span>{doctorInfo.info}
+                                </div>
+                            </div>
+                            : ''
+                    }
+
                     <div className={Styles.doctor_info_right} onClick={()=>{this.clickDoctorDetail()}}>
                         医生信息
                         <img className={Styles.info_right_img} src={require('../../assets/right.png')} alt=""/>
@@ -187,6 +204,7 @@ class DoctorInfo extends Component {
                         maskClosable={true}
                         onClose={()=>{this.onClose()}}
                         // title="Title"
+                        className='doctor_info_model'
                         footer={[{ text: '知道了', onPress: () => { this.onClose()} }]}
                     >
                         <div style={{color:'#333'}}>

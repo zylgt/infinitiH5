@@ -66,8 +66,9 @@ export const cookieUtils = {
 
 //获取url参数
 export const getQueryString = (name) => {
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    var r = window.location.search.substr(1).match(reg);
+    let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    let search = decodeURIComponent(window.location.search);
+    let r = search.substr(1).match(reg);
     if (r != null) return unescape(r[2]);
     return null;
 }
@@ -115,6 +116,20 @@ export const isIOS = () => {
     let isIphone = navigator.userAgent.includes('iPhone')
     let isIpad = navigator.userAgent.includes('iPad')
     return isIphone || isIpad
+}
+
+export const isIPhoneX = () => {
+    var u = navigator.userAgent;
+    var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if (isIOS) {
+        if (window.screen.height >= 812 && window.screen.width >= 375){
+            //是iphoneX及以上
+            return true
+        }else{
+            //不是iphoneX及以上
+            return false
+        }
+    }
 }
 
 

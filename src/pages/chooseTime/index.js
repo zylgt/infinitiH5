@@ -8,6 +8,9 @@ import { staticURL, pageURL } from '../../utils/baseURL'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
 
+import moment from "moment";
+moment.locale('zh-cn');
+
 @connect(({ chooseTime, management,doctorInfo }) => ({ chooseTime, management,doctorInfo }))
 class ChooseTime extends Component {
     constructor(props) {
@@ -120,7 +123,7 @@ class ChooseTime extends Component {
         }else if(code == 418){
             Toast.info('只可预约1小时之后的时段',1.2)
         }else if(code == 419){
-            Toast.info('只可预约30分钟之后的时段',1.2)
+            Toast.info('只可预约20分钟之后的时段',1.2)
         }else if(code == 200){
             let set = getQueryString('set') || '';
             if(set == 'reset'){
@@ -132,23 +135,33 @@ class ChooseTime extends Component {
 
 
     }
+    //比较时分的大小
+    compareDate(t1,t2){
+        var date = new Date();
+        var a = t1.split(":");
+        var b = t2.split(":");
+        return date.setHours(a[0],a[1]) > date.setHours(b[0],b[1]);
+    }
 
     render() {
         const { timeData, selectTime } = this.props.chooseTime;
         const { doctorInfo } = this.props.doctorInfo;
-        console.log('doctorInfo',doctorInfo)
+
         return (
             <DocumentTitle title='选择问诊时段'>
                 <div className={Styles.time}>
                     <img className={Styles.time_bgc} src={require('../../assets/time_bgc.png')} alt=""/>
                     <div className={Styles.time_info} >
-                        <img className={Styles.info_img} src={ staticURL + doctorInfo.icon } alt=""/>
+                        {
+                            doctorInfo.icon ? <img className={Styles.info_img} src={ staticURL + doctorInfo.icon } alt=""/> : ''
+                        }
                         <div>
                             <p className={Styles.info_name}>{doctorInfo.name}</p>
                             <p className={Styles.info_office}>{doctorInfo.title}｜{doctorInfo.dept}</p>
                         </div>
                     </div>
                     <div className={Styles.time_content}>
+                        <p className={Styles.choose_now}>今日</p>
                         {
                             timeData.forenoon && timeData.forenoon.length > 0 ?
                                 <div className={Styles.choose_time}>
@@ -156,6 +169,12 @@ class ChooseTime extends Component {
                                     <div className={Styles.choose_contetn}>
                                         {
                                             timeData.forenoon.map((item,index)=>{
+                                                let start_time = item.segment.substr(0,5);
+                                                if(this.compareDate( moment().format('LT'),start_time)){
+                                                    return(
+                                                        <div key={index} className={ `${Styles.choose_dot} ${Styles.choose_dot_full}` }>{item.segment}</div>
+                                                    )
+                                                }
                                                 if(item.number <= 0){
                                                     return(
                                                         <div key={index} className={ `${Styles.choose_dot} ${Styles.choose_dot_full}` }>{item.segment} 约满</div>
@@ -187,6 +206,12 @@ class ChooseTime extends Component {
                                     <div className={Styles.choose_contetn}>
                                         {
                                             timeData.afternoon.map((item,index)=>{
+                                                let start_time = item.segment.substr(0,5);
+                                                if(this.compareDate( moment().format('LT'),start_time)){
+                                                    return(
+                                                        <div key={index} className={ `${Styles.choose_dot} ${Styles.choose_dot_full}` }>{item.segment}</div>
+                                                    )
+                                                }
                                                 if(item.number <= 0){
                                                     return(
                                                         <div key={index} className={ `${Styles.choose_dot} ${Styles.choose_dot_full}` }>{item.segment} 约满</div>

@@ -3,8 +3,6 @@ import { connect } from 'dva';
 import { Popover, Modal, Menu, Toast, ListView, InputItem,Button,TextareaItem} from 'antd-mobile';
 import router from 'umi/router';
 import Styles from './index.less';
-import emojione from '../../utils/emojione.min'
-import CryptoJS from '../../utils/md5'
 import { createForm ,formShape } from 'rc-form';
 import Socket from '../../components/webSocket';
 import DocumentTitle from 'react-document-title'
@@ -13,7 +11,7 @@ import { getQueryString } from '../../utils/tools'
 import {cookieUtils} from '../../utils/tools'
 import moment from "moment";
 import { pageURL,staticURL } from '../../utils/baseURL'
-import { nonceStr,isIOS } from '../../utils/tools'
+import { nonceStr,isIOS,isIPhoneX } from '../../utils/tools'
 import wx from 'weixin-js-sdk';
 
 moment.locale('zh-cn');
@@ -33,9 +31,14 @@ class AskChat extends React.Component {
             isFinished : false,
             isExpired: false,
             token:'',
-            detailInfo:''
+            detailInfo:'',
+            timeIndex:1,
+            isFocus:false,
+            clientHeight:'',
+            isPush:false
         }
         this.taskRemindInterval = null;
+        this.saveRef = ref => {this.refDom = ref};
     }
     componentWillUnmount(){
         if(this.socket){
@@ -51,13 +54,19 @@ class AskChat extends React.Component {
         const { dispatch } = this.props;
         let that = this;
 
-
+        // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODcwMzM0MjksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI1MDczMjg1NTM1NzYwNzkzNiJ9.Ybxm3JTPkp2qSeJxgXwC7lAsmVMC8CAWwrlOPCi7ZOw'
         let token = cookieUtils.get('token') || getQueryString('token') || '';
         console.log('token',token)
         if(token){
             cookieUtils.set('token',token)
             this.setState({
                 token: token
+            })
+        }
+        //判断是否是从推送消息过来
+        if(getQueryString('token')){
+            this.setState({
+                isPush: true
             })
         }
 
@@ -88,7 +97,6 @@ class AskChat extends React.Component {
             //         //     wkwebview: true
             //         // })
             //     }
-
             wx.ready(function(){
                 wx.hideAllNonBaseMenuItem();
                 // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
@@ -123,6 +131,43 @@ class AskChat extends React.Component {
             })
 
         }
+
+        let i = 0;
+        let scrollBottom = setInterval(function () {
+            i++;
+            that.scrollToBottom();
+            console.log('i',i)
+            if(i==3){
+                clearInterval(scrollBottom)
+            }
+        },600)
+
+
+        //判断键盘
+        const { clientHeight } = this.refDom;
+        this.setState({ clientHeight })
+        window.addEventListener('resize', that.resize.bind(this))
+
+        //ios软键盘
+        let isReset = true;
+        if(isIOS()) {
+            document.body.addEventListener('focusin', () => {
+                //软键盘弹出的事件处理
+                isReset = false;
+            });
+            document.body.addEventListener('focusout', () => {
+                //软键盘收起的事件处理
+                isReset = true;
+                setTimeout(() => {
+                    console.log(11)
+                    //当焦点在弹出层的输入框之间切换时先不归位
+                    if (isReset) {
+                        window.scroll(0, 0);//失焦后强制让页面归位
+                    }
+                }, 300);
+            });
+        }
+
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -140,9 +185,26 @@ class AskChat extends React.Component {
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
         });
     }
+    //键盘弹出或收起
+    resize(){
+        this.scrollToBottom()
+        const { clientHeight } = this.refDom;
+        if (this.state.clientHeight > clientHeight) { // 键盘弹出
+            // alert('键盘弹出')
+            this.setState({
+                isFocus:true,
+            });
+        } else { // 键盘收起
+            // alert('键盘收起')
+            this.setState({
+                isFocus:false,
+            });
+        }
+    }
     //订单详情callback
     orderDetailCallback(response){
         console.log('response1----------',response)
+        let that = this;
         this.setState({
             detailInfo:response.data.data
         })
@@ -155,20 +217,34 @@ class AskChat extends React.Component {
             this.setState({
                 isFinished:true
             })
+            setTimeout(function () {
+                if(that.socket){
+                    that.socket.onclose({
+                        msg:'已完成'
+                    })
+                }
+            },5000)
+
         }else if(data.status == 'expired'){
             this.setState({
                 isFinished:true,
                 isExpired:true
             })
+            setTimeout(function () {
+                if(that.socket){
+                    that.socket.onclose({
+                        msg:'已逾期'
+                    })
+                }
+            },5000)
         }
 
     }
-
     //链接socket
     linkSocket = (orderId) => {
         console.log('orderId',orderId)
         let that = this;
-        let socketUrl = 'ws://'+ hostURL + '/m/order/' + orderId + '/chat/conn';
+        let socketUrl = hostURL + '/m/order/' + orderId + '/chat/conn';
         //    判断专家是否登录
         this.socket = new Socket({
             socketUrl: socketUrl,
@@ -185,30 +261,34 @@ class AskChat extends React.Component {
                     that.setState({
                         historyMsg: data
                     })
+
+                    that.isShowTime('history')
+
                 } else if (type === 'message') {
 
+                    that.isShowTime('message')
+
                     if(data.sender_type == "doctor"){
-                        historyMsg.push(data)
+                        data.isSend = true;
+                        sendMsg.push(data)
                         that.setState({
-                            historyMsg: historyMsg
+                            sendMsg: sendMsg
                         })
                         return false;
                     }
 
                     for( let i = 0;i < sendMsg.length ; i++){
-                        if(sendMsg[i].content == data.content){
+
+                        if( sendMsg[i].content == data.content){
                             sendMsg[i].isSend = true;
-                            sendMsg.splice( i ,1);
+                            sendMsg[i].created_at = data.created_at;
                             that.setState({
                                 sendMsg: sendMsg
                             })
-                            historyMsg.push(data)
-                            that.setState({
-                                historyMsg: historyMsg
-                            })
-                            break;
                         }
+
                     }
+
 
                 } else if (type === 'finished') {
                     that.setState({
@@ -250,10 +330,19 @@ class AskChat extends React.Component {
     autoWordFocus(){
         this.setState({
             isShowButtom: true,
+            isFocus:true,
         });
     }
     //输入框内容变化
     changeWord(val){
+        let str = val.replace(/[\r\n]/g,"")
+        if(str == ''){
+            this.setState({
+                word: val,
+                isShowSend: false
+            });
+            return
+        }
         this.setState({
             word: val,
             isShowSend: true
@@ -268,10 +357,13 @@ class AskChat extends React.Component {
     textareaFocus(){
         this.setState({
             isShowButtom: false,
+            isFocus:true,
         });
+        this.scrollToBottom();
     }
     //滑动到聊天底部
     scrollToBottom = () => {
+        // alert(1)
         this.messagesEnd.scrollIntoView({ behavior: "auto" });
     }
     //点击提交聊天
@@ -303,43 +395,132 @@ class AskChat extends React.Component {
             word:'',
             isShowSend: false
         })
+        this.wordFocus.focus();
     }
-    //判断消息右上角时间
+    //判断是否展示时间
+    isShowTime(type){
+
+        const { historyMsg, sendMsg } = this.state;
+
+        let created_time = historyMsg[0].created_at;
+        let newTime = Date.parse(created_time)/1000 ;
+        let showThree = Date.parse(created_time)/1000 ;
+
+        historyMsg[0].showTime = true;
+
+        for(let i = 1 ;i<historyMsg.length;i++){
+
+            if( Date.parse( historyMsg[i].created_at )/1000 - showThree > 720 ){
+                showThree = Date.parse( historyMsg[i].created_at ) ;
+                historyMsg[i].showRemain = true
+                continue
+            }else{
+                historyMsg[i].showRemain = false
+            }
+
+            if( Date.parse( historyMsg[i].created_at )/1000 - newTime > 360 ){
+
+                newTime = Date.parse( historyMsg[i].created_at )/1000 ;
+                historyMsg[i].showTime = true
+
+            }else{
+                historyMsg[i].showTime = false
+            }
+
+        }
+        this.setState({
+            historyMsg:historyMsg
+        })
+        if(type == 'message'){
+            for(let i = 0 ;i<sendMsg.length;i++){
+
+                if( Date.parse( sendMsg[i].created_at )/1000 - showThree > 720 ){
+                    showThree = Date.parse( sendMsg[i].created_at ) ;
+                    sendMsg[i].showRemain = true
+                    continue
+                }else{
+                    sendMsg[i].showRemain = false
+                }
+
+                if( Date.parse( sendMsg[i].created_at )/1000 - newTime > 360 ){
+
+                    newTime = Date.parse( sendMsg[i].created_at )/1000 ;
+                    sendMsg[i].showTime = true
+
+                }else{
+                    sendMsg[i].showTime = false
+                }
+
+            }
+            this.setState({
+                sendMsg:sendMsg
+            })
+        }
+
+    }
+    //判断消息时间
     showTime(item){
-        let time = ''
-        if(item.updated_at){
-            let weeks = new Array("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六");
-            let currentTime = Date.parse(new Date());
-            let d_day = Date.parse(new Date(item.updated_at));
+
+        let time = '';
+        let created_time = item.created_at;
+        if(created_time){
+            let weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+            let currentTime = Date.parse(new Date(moment().format('L')));
+            let d_day = Date.parse(new Date(moment(created_time).format('L')));
             let day = Math.abs(parseInt((d_day - currentTime)/1000/3600/24));//计算日期
-            let dateFormat = moment(item.updated_at).format('L') // 日期
-            let index = new Date(item.updated_at).getDay() // 星期
-            let date = moment(item.updated_at).format('LT'); // 时分
-            let hours = new Date(item.updated_at).getHours(); //小时
-            //当前时间6分钟前
-            let newTime = moment().subtract(6, 'minute');
-            if(moment(item.updated_at) < newTime){
+            let dateFormat = moment(created_time).format('L'); // 日期
+            let index = moment(created_time).format('d'); // 星期
+            let date = moment(created_time).format('LT'); // 时分
+            let hours = moment(created_time).hours(); //小时
+
+            //判断剩余3分钟
+            if(item.showRemain){
+                return (
+                    <div className={Styles.list_start}>
+                        <span>剩余问诊时间：3分钟</span>
+                    </div>
+                );
+            }
+            if(item.showTime){
+
+                // alert(weeks)
+                // alert(currentTime)
+                // alert(d_day)
+                // alert(day)
+                // alert(dateFormat)
+                //
+                // alert(created_time)
+                // alert(index)
+                // alert(weeks)
+                // alert(date)
+                // alert(hours)
+
                 if(day >= 8){
-                    time = dateFormat + date
+                    time = dateFormat +' '+ date
                 }else if(day <8 && day >= 2){
-                    time = weeks[index] + date
+                    time = weeks[index] +' '+ date
                 }else if(day > 0 && day < 2){
-                    time = '昨天' + date
+                    time = '昨天 ' + date
                 }else{
                     if(hours <= 12){
-                        time = '上午' + date
+                        time =  '上午 '+date
                     }else{
-                        time = '下午' + date
+                        time =  '下午 '+date
                     }
                 }
+
+
+                return (
+                    <div className={Styles.list_time}>
+                        { time }
+                    </div>
+                );
             }
         }
-        return (<div className={Styles.list_time}>
-            { time }
-        </div>);
     }
     //发送图片
     addPatient(type) {
+        const { dispatch } = this.props;
         let that = this;
         let sourceType = [];
         if( type == 'album' ){
@@ -347,6 +528,12 @@ class AskChat extends React.Component {
         }else{
             sourceType.push('camera')
         }
+        dispatch({
+            type:'askchat/setData',
+            payload:{
+                patientImg: []
+            }
+        })
         wx.chooseImage({
             count: 9, // 默认9
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -355,113 +542,166 @@ class AskChat extends React.Component {
                 console.log('res',res)
                 let localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
                 that.getPhoneImg(localIds,0,that)
+                dispatch({
+                    type:'askchat/setData',
+                    payload:{
+                        patientImg:[]
+                    }
+                })
             }
         });
     }
     //根据机型获取可展示图片
-    getPhoneImg(localIds,val,that){
-        const { dispatch } = this.props;
-        const { wkwebview } = this.state;
-        const { patientImg } = this.props.askchat;
-        let index = val;
+    getPhoneImg(localIds,index,that){
 
-        let patientObj = {}
-        patientObj.isUpload = false;
-        patientObj.serverId = '';
-        patientObj.localIds = localIds[index];
+        const { dispatch } = this.props;
+        const { wkwebview, sendMsg } = this.state;
+        const { patientImg } = this.props.askchat;
+        let patientObj = {};
+        patientObj.isUpload = false; // 是否开始上传
+        patientObj.serverId = ''; // 上传完成id
+        patientObj.localId = localIds[index]; // 图片本地id
+        patientObj.type = 'photo';
+        patientObj.isSend = false;
+
         if( wkwebview ){
-            patientObj.localUrl = localIds[index];
+            patientObj.localUrl = localIds[index]; // 不同机型预览地址
+
             patientImg.push(patientObj)
+            sendMsg.push(patientObj)
+            that.setState({
+                sendMsg:sendMsg
+            })
             dispatch({
                 type:'askchat/setData',
                 payload:{
                     patientImg:patientImg
                 }
             })
-            this.uploadImg(patientObj)
-            if(index + 1 < localIds.length){
-                index ++;
-                that.getPhoneImg(localIds, index, that)
+            if(index+1 < localIds.length){
+                index++ ;
+                that.getPhoneImg(localIds,index,that)
+
+            }else{
+                that.uploadImg(0,that)
             }
         }else{
             wx.getLocalImgData({
                 localId: localIds[index], // 图片的localID
                 success: function (res) {
                     // var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-                    patientObj.localUrl = res.localData;
+                    patientObj.localUrl = res.localData; // 不同机型预览地址
+
                     patientImg.push(patientObj)
+                    sendMsg.push(patientObj)
+                    that.setState({
+                        sendMsg:sendMsg
+                    })
                     dispatch({
                         type:'askchat/setData',
                         payload:{
                             patientImg:patientImg
                         }
                     })
-                    that.uploadImg(patientObj)
-                    if(index + 1 < localIds.length){
-                        index ++;
-                        that.getPhoneImg(localIds, index, that)
+                    if(index+1 < localIds.length){
+                        index++ ;
+                        that.getPhoneImg(localIds,index,that)
+                    }else{
+                        that.uploadImg(0,that)
+                    }
+                },
+                fail:function(res){
+                    if(index+1 < localIds.length){
+                        index++ ;
+                        that.getPhoneImg(localIds,index,that)
+                    }else{
+                        that.uploadImg(0,that)
                     }
                 }
             });
         }
+
     }
     //上传图片
-    uploadImg(patientObj){
+    uploadImg(index,that){
         const { dispatch } = this.props;
         const { patientImg } = this.props.askchat;
-        let that = this;
-        console.log('patientImg0------',patientImg)
+
+        console.log('patientImg',patientImg)
+
         //上传图片
         wx.uploadImage({
-            localId: patientObj.localIds, // 需要上传的图片的本地ID，由chooseImage接口获得
+            localId: patientImg[index].localId, // 需要上传的图片的本地ID，由chooseImage接口获得
             isShowProgressTips: 0, // 默认为1，显示进度提示
             success: function (res) {
                 let serverId = res.serverId; // 返回图片的服务器端ID
                 console.log('serverId',serverId)
-                console.log('patientObj',patientObj)
-                console.log('patientImg',patientImg)
-                for( let index in patientImg ){
-                    if(patientObj.localIds == patientImg[index].localIds){
-                        patientObj.isUpload = true;
-                        patientObj.serverId = serverId;
-                        dispatch({
-                            type:'askchat/setData',
-                            payload:{
-                                patientImg: patientImg
-                            }
-                        })
 
-                        dispatch({
-                            type:'askchat/uploadImg',
-                            payload:{
-                                cat: 'patient_info',
-                                media:[ serverId ]
-                            },
-                            callback: that.uploadCallback.bind(that)
-                        })
+                patientImg[index].isUpload = true;
+                patientImg[index].serverId = serverId;
 
-
+                dispatch({
+                    type:'askchat/setData',
+                    payload:{
+                        patientImg: patientImg
                     }
+                })
+                dispatch({
+                    type:'askchat/uploadImg',
+                    payload:{
+                        cat: 'patient_info',
+                        media:[ serverId ]
+                    },
+                    callback: that.uploadCallback.bind(that)
+                })
+
+                if(index + 1 < patientImg.length){
+                    index++;
+                    that.uploadImg(index, that)
                 }
+
             },
             fail:function(res){
-                Toast.info('上传失败，请重试',1.5)
+                if(index + 1 < patientImg.length){
+                    index++;
+                    that.uploadImg(index, that)
+                }
             }
         });
+
     }
     //图片上传callback
     uploadCallback(response){
         const { dispatch } = this.props;
         let { sendMsg, orderId } = this.state;
-        let imgUrl = staticURL + response.data.data;
-        sendMsg.push({
-            type: 'photo',
-            content: imgUrl,
-            isSend:false
+        const { patientImg } = this.props.askchat;
+        let imgUrl = response.data.data[0];
+        let serverId = response.data.media[0];
+
+        console.log('uploadCallback-sendMsg',sendMsg)
+
+        for(let i=0;i < patientImg.length;i++){
+            if(patientImg[i].serverId == serverId){
+                patientImg[i].imgUrl = response.data.data[0];
+            }
+            for(let k=0;k<sendMsg.length;k++){
+                if( sendMsg[k].localId && patientImg[i].localId == sendMsg[k].localId){
+                    sendMsg[k].content = response.data.data[0];
+                    sendMsg[k].serverId = patientImg[i].serverId;
+                }
+            }
+
+        }
+        dispatch({
+            type:'askchat/setData',
+            payload:{
+                patientImg: patientImg
+            }
         })
         this.setState({
             sendMsg: sendMsg
         })
+
         dispatch({
             type:"askchat/sendMsg",
             payload:{
@@ -472,6 +712,31 @@ class AskChat extends React.Component {
                 }
             }
         })
+    }
+    //患者信息展示
+    patientInfo(params){
+        let temp = params.split(/[\n,]/g);
+        return(
+            temp && temp.length >0 ? temp.map((item,index)=>{
+                if(item == ''){
+                    return('')
+                }
+                if(index == 0){
+                    return(
+                        <p className={Styles.item_user} key={index}> {item} </p>
+                    )
+                }else if(index == temp.length && item.indexOf('含图片信息，医生可见') >= 0){
+                    return(
+                        <p className={Styles.item_bottom} key={index}> {item} </p>
+                    )
+                }else{
+                    return(
+                        <p key={index}>{item}</p>
+                    )
+                }
+
+            }):''
+        )
     }
 
     render() {
@@ -484,8 +749,12 @@ class AskChat extends React.Component {
             historyMsg,
             isFinished,
             isExpired,
-            detailInfo
+            detailInfo,
+            isFocus,
+            isPush
         } = this.state;
+
+        console.log('detailInfo',detailInfo)
 
         let doctorName = detailInfo.doctor_name ? detailInfo.doctor_name + '医生' : '医生';
 
@@ -493,25 +762,16 @@ class AskChat extends React.Component {
             <DocumentTitle title={doctorName}>
                 <div className={Styles.chat}>
 
-                    <div className={ `${Styles.chat_list} ` }>
+                    <div className={ `${Styles.chat_list} ` } ref={this.saveRef}>
 
-                        <div className={Styles.list_time}>14:39</div>
+                        { historyMsg && historyMsg.length > 0 ? this.showTime( historyMsg[0] ) : '' }
 
                         {
                             historyMsg && historyMsg.length > 0 ? <div>
                                 <div className={Styles.list_item_right}>
                                     <div className={Styles.item_content}>
-                                        <span className={Styles.item_icon}></span>
-                                        <p>
-                                            { historyMsg[0].content }
-                                        </p>
-                                        {/*<p className={Styles.item_user}>用户 男 27岁</p>*/}
-                                        {/*<p>就诊情况：去医院就诊过</p>*/}
-                                        {/*<p>确诊疾病：糖尿病</p>*/}
-                                        {/*<p>糖尿病史：1年</p>*/}
-                                        {/*<p>药物过敏史：无</p>*/}
-                                        {/*<p>病情描述：去年去年八月确诊二型糖尿病，现在对血糖的监测以及胰岛素用药频率和剂量有一些疑问</p>*/}
-                                        {/*<p className={Styles.item_bottom}>(含图片信息，医生可见)</p>*/}
+                                        <img className={Styles.item_icon} src={require('../../assets/chat_right.png')} alt=""/>
+                                        { this.patientInfo(historyMsg[0].content) }
                                     </div>
                                     <img className={Styles.item_img} src={require('../../assets/my_head.png')} />
                                 </div>
@@ -540,9 +800,17 @@ class AskChat extends React.Component {
                                             item.sender_type === "doctor" && item.type === 'text' ?
                                                 <div className={Styles.list_item_left}>
                                                     <img className={Styles.item_img} src={staticURL + detailInfo.doctor_icon } />
-                                                    <div className={Styles.item_content}>
-                                                        <span className={Styles.item_icon}></span>
-                                                        <span>{ item.content }</span>
+                                                    <div>
+                                                        {
+                                                            detailInfo.doctor_name?
+                                                                <div className={Styles.item_name}>
+                                                                    {detailInfo.doctor_name}-{detailInfo.doctor_title}
+                                                                </div>:''
+                                                        }
+                                                        <div className={Styles.item_content}>
+                                                            <img className={Styles.item_icon} src={require('../../assets/chat_left.png')} alt=""/>
+                                                            <span>{ item.content }</span>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 :
@@ -550,11 +818,11 @@ class AskChat extends React.Component {
                                                     {
                                                         item.type === 'photo' ?
                                                             <div className={ `${Styles.item_content} ${Styles.item_content_img}`}>
-                                                                <img className={Styles.content_img} src={ item.content } alt=""/>
+                                                                <img className={Styles.content_img} src={ staticURL + item.content } alt=""/>
                                                             </div>
                                                             :
                                                             <div className={Styles.item_content}>
-                                                                <span className={Styles.item_icon}></span>
+                                                                <img className={Styles.item_icon} src={require('../../assets/chat_right.png')} alt=""/>
                                                                 <span>{ item.content }</span>
                                                             </div>
                                                     }
@@ -569,12 +837,13 @@ class AskChat extends React.Component {
                             sendMsg && sendMsg.length > 0 ?  sendMsg.map((item,index)=>{
                                 return(
                                     <div key={index}>
+                                        { this.showTime(item) }
                                         {
                                             item.sender_type === "doctor" && item.type === 'text' ?
                                                 <div className={Styles.list_item_left}>
                                                     <img className={Styles.item_img} src={staticURL + detailInfo.doctor_icon } />
                                                     <div className={Styles.item_content}>
-                                                        <span className={Styles.item_icon}></span>
+                                                        <img className={Styles.item_icon} src={require('../../assets/chat_left.png')} alt=""/>
                                                         <span>{ item.content }</span>
                                                     </div>
                                                 </div>
@@ -583,14 +852,17 @@ class AskChat extends React.Component {
                                                     {
                                                         item.type === 'photo' ?
                                                             <div className={ `${Styles.item_content} ${Styles.item_content_img}`}>
-                                                                <img className={Styles.content_img} src={ item.content } alt=""/>
+                                                                {
+                                                                    item.isSend ? '' : <img className={Styles.item_loading} src={require('../../assets/loading.gif')} alt=""/>
+                                                                }
+                                                                <img className={Styles.content_img} src={ item.localUrl } alt=""/>
                                                             </div>
                                                             :
                                                             <div className={Styles.item_content}>
                                                                 {
                                                                     item.isSend ? '' : <img className={Styles.item_loading} src={require('../../assets/loading.gif')} alt=""/>
                                                                 }
-                                                                <span className={Styles.item_icon}></span>
+                                                                <img className={Styles.item_icon} src={require('../../assets/chat_right.png')} alt=""/>
                                                                 <span>{ item.content }</span>
                                                             </div>
                                                     }
@@ -627,41 +899,42 @@ class AskChat extends React.Component {
                         </div>
                     </div>
                     {
-                        !isFinished ? <div>
-                            <div className={Styles.chat_input}>
-                                <TextareaItem
-                                    {...getFieldProps('word',{
-                                        initialValue:word
-                                    })}
-                                    autoHeight
-                                    placeholder="请输入咨询内容"
-                                    className={Styles.input}
-                                    ref={el => this.wordFocus = el}
-                                    onChange = {(val)=>{this.changeWord(val)}}
-                                    onFocus={()=>{this.textareaFocus()}}
-                                    // onBlur={()=>{this.textareaFocus()}}
-                                />
+                        !isFinished ?
+                            <div>
+                                <div className={ `${Styles.chat_input}` }>
+                                    <TextareaItem
+                                        {...getFieldProps('word',{
+                                            initialValue:word
+                                        })}
+                                        autoHeight
+                                        placeholder="请输入咨询内容"
+                                        className={Styles.input}
+                                        ref={el => this.wordFocus = el}
+                                        onChange = {(val)=>{this.changeWord(val)}}
+                                        onFocus={()=>{this.textareaFocus()}}
+                                        // onBlur={()=>{this.textareaBlur()}}
+                                    />
+                                    {
+                                        isShowSend ? <Button type="primary" onClick={()=>{this.submit()}} className={Styles.input_btn}>发送</Button>
+                                            :
+                                            <img onClick={()=>{this.autoWordFocus()}} className={Styles.input_img} src={require('../../assets/ask_add.png')} alt=""/>
+
+                                    }
+                                </div>
                                 {
-                                    isShowSend ? <Button type="primary" onClick={()=>{this.submit()}} className={Styles.input_btn}>发送</Button>
-                                        :
-                                        <img onClick={()=>{this.autoWordFocus()}} className={Styles.input_img} src={require('../../assets/ask_add.png')} alt=""/>
+                                    isShowButtom ? <div className={Styles.chat_buttom}>
+                                        <div className={Styles.buttom_item} onClick={()=>{this.addPatient('camera')}}>
+                                            <img src={require('../../assets/chat_camera.png')} alt=""/>
+                                            <p>拍摄</p>
+                                        </div>
+                                        <div className={Styles.buttom_item} onClick={()=>{this.addPatient('album')}}>
+                                            <img src={require('../../assets/chat_picture.png')} alt=""/>
+                                            <p>图片</p>
+                                        </div>
 
+                                    </div> : ''
                                 }
-                            </div>
-                            {
-                                isShowButtom ? <div className={Styles.chat_buttom}>
-                                    <div className={Styles.buttom_item} onClick={()=>{this.addPatient('camera')}}>
-                                        <img src={require('../../assets/chat_camera.png')} alt=""/>
-                                        <p>拍摄</p>
-                                    </div>
-                                    <div className={Styles.buttom_item} onClick={()=>{this.addPatient('album')}}>
-                                        <img src={require('../../assets/chat_picture.png')} alt=""/>
-                                        <p>图片</p>
-                                    </div>
-
-                                </div> : ''
-                            }
-                        </div>:''
+                            </div>:''
                     }
 
                 </div>

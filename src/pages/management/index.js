@@ -22,18 +22,21 @@ class Management extends Component {
             idNumError:false,
             type:'',
             submitButton:'',
-            disabled:false,
             doctor_id:'',
-            idSet:false
+            idSet:false,
+            isSetInput:false,
+            source:''
         }
     }
     componentDidMount() {
         const { dispatch } = this.props;
         let type = getQueryString('type') || '';
         let id = getQueryString('id') || '';
+        let source = getQueryString('source') || '';
         console.log('type',type)
         this.setState({
-            type: type
+            type: type,
+            source:source
         })
         if(type == 'add'){
             this.setState({
@@ -41,10 +44,8 @@ class Management extends Component {
                 doctor_id:id,
             })
         }else{
-
             this.setState({
                 submitButton: '下一步',
-                disabled:true,
                 doctor_id:id,
                 idSet:true
             })
@@ -97,6 +98,22 @@ class Management extends Component {
     //输入姓名
     inputName(val){
         const { dispatch } = this.props;
+        const { old_name } = this.props.management;
+        if(val != old_name){
+            this.setState({
+                type:'add',
+                submitButton: '保存',
+                isSetInput:true,
+                idSet:false
+            })
+        }else{
+            this.setState({
+                type:'set',
+                submitButton: '下一步',
+                isSetInput:false,
+                idSet:true
+            })
+        }
         dispatch({
             type:'management/setData',
             payload:{
@@ -104,9 +121,25 @@ class Management extends Component {
             }
         })
     }
-    //输入姓名
+    //输入身份证号码
     inputIdNum(val){
         const { dispatch } = this.props;
+        const { old_card_id } = this.props.management;
+        if(val != old_card_id){
+            this.setState({
+                type:'add',
+                submitButton: '保存',
+                isSetInput:true,
+                idSet:false
+            })
+        }else{
+            this.setState({
+                type:'set',
+                submitButton: '下一步',
+                isSetInput:false,
+                idSet:true
+            })
+        }
         dispatch({
             type:'management/setData',
             payload:{
@@ -153,7 +186,6 @@ class Management extends Component {
             return false;
         }
 
-        console.log(111)
         if(type == 'add'){
             dispatch({
                 type:'management/savePatient',
@@ -171,14 +203,15 @@ class Management extends Component {
     }
     //submitCallback
     submitCallback = (response) => {
-        let doctor_id = this.state.doctor_id
+        const { doctor_id, isSetInput,source } = this.state
         if(response && response.data.code == 200){
             Toast.info('保存成功',1.5)
-            let source = getQueryString('source') || '';
-            if(!source){
-                setTimeout(function () {
-                    router.push('./chooseTime?id=' + doctor_id)
-                },500)
+            if(!source && isSetInput){
+                this.setState({
+                    type:'set',
+                    submitButton: '下一步',
+                    idSet:true
+                })
             }
         }else if(response && response.data.code == 412){
             Toast.info('就诊人已存在',1.5)
@@ -196,10 +229,10 @@ class Management extends Component {
 
     render() {
         const { getFieldProps } = this.props.form;
-        const { nameError, idNumError,submitButton,disabled,idSet } = this.state;
+        const { nameError, idNumError,submitButton,idSet,source } = this.state;
         const { name,card_id } = this.props.management;
         let title = '就诊人管理'
-        if(idSet){
+        if(!source && idSet){
             title='确认就诊人'
         }
         return (
@@ -213,7 +246,7 @@ class Management extends Component {
                             value={name}
                             onChange={(val)=>{this.inputName(val)}}
                             onFocus={()=>{this.inputFocus('name')}}
-                            disabled={disabled}
+                            className={ nameError ? `${Styles.name_error}` : ''}
                         >姓名</InputItem>
                     </div>
                     {
@@ -228,18 +261,19 @@ class Management extends Component {
                             maxLength={18}
                             onChange={(val)=>{this.inputIdNum(val)}}
                             onFocus={()=>{this.inputFocus('card_id')}}
-                            disabled={disabled}
+                            className={ idNumError ? `${Styles.card_error}` : ''}
                         >身份证号</InputItem>
                     </div>
                     {
                         idNumError ? <div className={Styles.error}>身份证号码有误，请核对后重新输入</div> : ''
                     }
                     {
-                        name != '' && card_id != ''
+                        name == '' || card_id == '' || nameError || idNumError
                             ?
-                            <Button className={Styles.management_btn}  onClick={ ()=>{this.submit()} } >{submitButton}</Button>
-                            :
                             <Button className={Styles.management_btn_disabled} >{submitButton}</Button>
+                            :
+                            <Button className={Styles.management_btn}  onClick={ ()=>{this.submit()} } >{submitButton}</Button>
+
                     }
 
                 </div>

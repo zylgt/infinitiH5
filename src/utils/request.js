@@ -3,6 +3,7 @@ import {cookieUtils} from './tools'
 import { baseURL } from './baseURL'
 import 'babel-polyfill'
 import router from 'umi/router';
+import { Toast } from 'antd-mobile';
 
 axios.defaults.timeout = 2000000;
 axios.defaults.baseURL = baseURL;
@@ -29,6 +30,7 @@ const codeMessage = {
 //验证状态
 function checkStatus(response) {
     // console.log('response---------',response)
+    Toast.hide()
     if (response.data.code === 407) {
         router.replace('./login')
         return;
@@ -46,8 +48,13 @@ function checkStatus(response) {
 }
 
 export default function request(url, options) {
+
+    if(!navigator.onLine){
+        Toast.fail('请检查网络', 1.5);
+        return
+    }
     const token = cookieUtils.get('token') || '';
-    // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODU3OTU0MzQsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI0NTU0MjQ0Mzg4MTg2MTEyMCJ9.JphTS3B3W5y_r5Str6XAiiA5N-yzTRxE1J19S3KG54E'
+    // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODcwMzM0MjksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI1MDczMjg1NTM1NzYwNzkzNiJ9.Ybxm3JTPkp2qSeJxgXwC7lAsmVMC8CAWwrlOPCi7ZOw'
     // console.log('token',token)
     let obj = {
         baseURL: baseURL
@@ -67,7 +74,10 @@ export default function request(url, options) {
         // console.log('response',response)
         return response
     }, (error) => {
-        return Promise.reject(error)
+        return Promise.reject(new Error(
+            error.response ? error.response.data : '网络错误'
+    ))
+        // return Promise.reject(error)
     })
 
     return httpProvider({

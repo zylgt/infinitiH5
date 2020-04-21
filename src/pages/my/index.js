@@ -69,7 +69,6 @@ class MyIndex extends Component {
     render() {
         const { isCall } = this.state;
         const { userInfo } = this.props.my;
-        console.log('userInfo',userInfo)
         let reg = /^(\d{3})\d{7}(\d{1})$/;
         let phone;
         if(userInfo && userInfo.phone){
@@ -100,14 +99,14 @@ class MyIndex extends Component {
                         visible={ isCall }
                         transparent
                         maskClosable={true}
-                        closable={true}
                         onClose={()=>{this.onClose()}}
                         title=""
                         className='my_model'
                     >
-                        <p className='model_title'>客服电话</p>
-                        <p className='model_title model_phone'>400-0000-000</p>
-                        <a className='model_btn' key='phone' href="tel:400-0000-000">拨打电话</a>
+                        <img onClick={()=>{this.onClose()}} className='model_close' src={require('../../assets/my_close.png')} alt=""/>
+                        <p className='model_title'>联系客服</p>
+                        <p className='model_title model_phone'>请于工作日09:00-17:00，拨打电话022-59560623</p>
+                        <a className='model_btn' key='phone' href="tel:022-59560623">拨打电话</a>
                     </Modal>
 
                 </div>

@@ -306,6 +306,7 @@ class Login extends Component {
                             onFocus={()=>{this.inputFocus('phone')}}
                             onBlur={()=>{this.phoneBlur()}}
                             onChange={(val)=>{this.inputPhone(val)}}
+                            className={ phoneError ? `${Styles.phone_error}` : ''}
                         />
                     </div>
                     {
@@ -323,6 +324,7 @@ class Login extends Component {
                                 clear
                                 onFocus={()=>{this.inputFocus('imgCode')}}
                                 onChange={(val)=>{this.changeImgCode(val)}}
+                                className={ imgCodeError ? `${Styles.code_error}` : ''}
                             />
                         </div>
                         {
@@ -347,6 +349,7 @@ class Login extends Component {
                                 maxLength={4}
                                 onFocus={()=>{this.inputFocus('phoneCode')}}
                                 onChange={(val)=>{this.inputPhoneCode(val)}}
+                                className={ phoneCodeError ? `${Styles.phoneCode_error}` : ''}
                             />
                         </div>
                         {

@@ -2,7 +2,9 @@
   "private": true,
   "scripts": {
     "start": "umi dev --port=3001",
+    "start:prod": "cross-env UMI_ENV=prod umi dev --port=3001",
     "build": "umi build",
+    "build:prod": "cross-env UMI_ENV=prod umi build",
     "test": "umi test",
     "lint": "",
     "precommit": "lint-staged"
@@ -35,9 +37,11 @@
     "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
+    "cross-env": "^7.0.2",
     "moment": "^2.24.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-document-title": "^2.0.3",
+    "react-lazyload": "^2.6.7",
     "react-motion": "^0.5.2",
     "react-transition-group": "^2.5.0",
     "weixin-js-sdk": "^1.4.0-test"

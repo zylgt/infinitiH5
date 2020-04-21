@@ -8,6 +8,7 @@ import { getQueryString, nonceStr } from '../../utils/tools'
 import { staticURL, pageURL } from '../../utils/baseURL'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
+import LazyLoad from 'react-lazyload';
 import moment from "moment";
 moment.locale('zh-cn');
 
@@ -16,7 +17,8 @@ class ChooseDoctor extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            timestamp:''
+            timestamp:'',
+            name:''
         }
         this._onScrollEvent = this._onScrollEvent.bind(this);  //保证被组件调用时，对象的唯一性
 
@@ -26,9 +28,12 @@ class ChooseDoctor extends Component {
         const { offset } = this.props.chooseDoctor;
         let type = getQueryString('type') || '';
         let id = getQueryString('id') || '';
+        let name = getQueryString('name') || '';
 
-        console.log('type',type)
-        console.log('id',id)
+        this.setState({
+            name:name
+        })
+
         dispatch({
             type: 'chooseDoctor/getDoctor',
             payload:{
@@ -116,38 +121,46 @@ class ChooseDoctor extends Component {
 
     render() {
         const { doctorData } = this.props.chooseDoctor;
+        const { name } = this.state;
 
         return (
-            <DocumentTitle title='选择医生'>
+            <DocumentTitle title={ name }>
                 <div className={Styles.choose_doctor} ref={e => this._container = e} onScrollCapture={() => this._onScrollEvent()} >
 
                     {
                         doctorData.length > 0 ? doctorData.map((item,index)=>{
-                                let date = '今日出诊';
-                                let isOpen = true;
-                                if(moment().format('d') != item.week){
-                                    let weeks = new Array("日", "一", "二", "三", "四", "五", "六");
-                                    date = '周' + weeks[ item.week ] + '出诊';
-                                    isOpen = false;
-                                }
+                            let date = '今日出诊';
+                            let isOpen = true;
+                            if(moment().format('d') != item.week){
+                                let weeks = new Array("日", "一", "二", "三", "四", "五", "六");
+                                date = '周' + weeks[ item.week ] + '出诊';
+                                isOpen = false;
+                            }
 
-                                return(
-                                    <div className={Styles.doctor_item} key={item.uid} data-id={item.uid} onClick={(e) => { this.clickDoctor(e)}}>
-                                        <img className={Styles.doctor_img} src={ staticURL + item.icon } alt=""/>
-                                        <div>
-                                            <p className={Styles.doctor_info}>
-                                                <span className={Styles.doctor_name}>{item.name}</span>
-                                                <span className={Styles.doctor_rank}>{item.title}</span>
-                                                <span>{item.dept}</span>
-                                                <span className={`${Styles.date} ${isOpen ? '':Styles.date_no}`}>{date}</span>
-                                            </p>
-                                            <div className={Styles.doctor_introducer}>
-                                                擅长：{item.skill}
-                                            </div>
-                                        </div>
+                            return(
+                                <div className={Styles.doctor_item} key={item.uid} data-id={item.uid} onClick={(e) => { this.clickDoctor(e)}}>
+                                    <img className={Styles.doctor_img} src={ staticURL + item.icon } alt=""/>
+                                    <div>
+                                        <p className={Styles.doctor_info}>
+                                            <span className={Styles.doctor_name}>{item.name}</span>
+                                            <span className={Styles.doctor_rank}>{item.title}</span>
+                                            <span>{item.dept}</span>
+                                            <span className={`${Styles.date} ${isOpen ? '':Styles.date_no}`}>{date}</span>
+                                        </p>
+                                        {
+                                            item.skill ?
+                                                <div className={Styles.doctor_introducer}>
+                                                    擅长：{item.skill}
+                                                </div>
+                                                :
+                                                <div className={Styles.doctor_introducer}>
+                                                    简介 ：{item.info}
+                                                </div>
+                                        }
                                     </div>
-                                )
-                            }) :''
+                                </div>
+                            )
+                        }) :''
                     }
                 </div>
             </DocumentTitle>

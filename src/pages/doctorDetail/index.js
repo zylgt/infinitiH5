@@ -66,12 +66,18 @@ class DoctorInfo extends Component {
         const { doctorInfo } = this.props.doctorInfo;
 
         let date = '今日出诊';
-
+        let isOpen = true;
         if(moment().format('d') != doctorInfo.week){
             let weeks = new Array("日", "一", "二", "三", "四", "五", "六");
-            date = '周' + weeks[ doctorInfo.week ] + '出诊';
+            let num = weeks[ doctorInfo.week ] || '';
+            date = '周' + num + '出诊';
+            isOpen = false;
         }
-        let doctorName = doctorInfo.name + '医生简介'
+
+        let doctorName = '医生简介'
+        if(doctorInfo.name){
+            doctorName = doctorInfo.name + '医生简介'
+        }
         return (
             <DocumentTitle title={doctorName}>
                 <div className={Styles.doctor_info}>
@@ -80,7 +86,7 @@ class DoctorInfo extends Component {
                         <div className={Styles.info_right}>
                             <p className={Styles.info_name}>
                                 <span>{doctorInfo.name}</span>
-                                <span className={Styles.date}>{date}</span>
+                                <span className={`${Styles.date} ${isOpen ? '':Styles.date_no}`}>{date}</span>
                             </p>
                             <p className={Styles.info_rank}>
                                 <span>{doctorInfo.title}</span>
@@ -88,18 +94,28 @@ class DoctorInfo extends Component {
                             </p>
                         </div>
                     </div>
-                    <div className={Styles.introducer}>
-                        <img className={Styles.introducer_img} src={require('../../assets/strong.png')} alt=""/>
-                        <div className={Styles.introducer_word}>
-                            <span className={Styles.introducer_word_key}>擅长：</span>{doctorInfo.skill}
-                        </div>
-                    </div>
-                    <div className={Styles.introducer}>
-                        <img className={Styles.introducer_img} src={require('../../assets/introduce.png')} alt=""/>
-                        <div className={Styles.introducer_word}>
-                            <span className={Styles.introducer_word_key}>简介：</span>{doctorInfo.info}
-                        </div>
-                    </div>
+                    {
+                        doctorInfo.skill
+                            ?
+                            <div className={Styles.introducer}>
+                                <img className={Styles.introducer_img} src={require('../../assets/strong.png')} alt=""/>
+                                <div className={Styles.introducer_word}>
+                                    <span className={Styles.introducer_word_key}>擅长：</span>{doctorInfo.skill}
+                                </div>
+                            </div>
+                            : ''
+                    }
+                    {
+                        doctorInfo.info
+                            ?
+                            <div className={Styles.introducer}>
+                                <img className={Styles.introducer_img} src={require('../../assets/introduce.png')} alt=""/>
+                                <div className={Styles.introducer_word}>
+                                    <span className={Styles.introducer_word_key}>简介：</span>{doctorInfo.info}
+                                </div>
+                            </div>
+                            : ''
+                    }
 
 
                 </div>
