@@ -121,9 +121,9 @@ class ChooseTime extends Component {
         }else if(code == 411){
             Toast.info('操作失败',1.2)
         }else if(code == 418){
-            Toast.info('只可预约1小时之后的时段',1.2)
+            Toast.info('只可预约30分钟之后的时段',1.2)
         }else if(code == 419){
-            Toast.info('只可预约20分钟之后的时段',1.2)
+            Toast.info('只可预约30分钟之后的时段',1.2)
         }else if(code == 200){
             let set = getQueryString('set') || '';
             if(set == 'reset'){

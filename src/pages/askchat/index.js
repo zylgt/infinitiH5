@@ -34,11 +34,10 @@ class AskChat extends React.Component {
             detailInfo:'',
             timeIndex:1,
             isFocus:false,
-            clientHeight:'',
-            isPush:false
+            isPush: false
+
         }
-        this.taskRemindInterval = null;
-        this.saveRef = ref => {this.refDom = ref};
+        this.taskRemindInterval = null
     }
     componentWillUnmount(){
         if(this.socket){
@@ -143,9 +142,7 @@ class AskChat extends React.Component {
         },600)
 
 
-        //判断键盘
-        const { clientHeight } = this.refDom;
-        this.setState({ clientHeight })
+        //监听页面大小变化
         window.addEventListener('resize', that.resize.bind(this))
 
         //ios软键盘
@@ -153,19 +150,18 @@ class AskChat extends React.Component {
         if(isIOS()) {
             document.body.addEventListener('focusin', () => {
                 //软键盘弹出的事件处理
-                isReset = false;
-            });
+                that.setState({
+                    isFocus:true,
+                });
+
+            })
             document.body.addEventListener('focusout', () => {
                 //软键盘收起的事件处理
-                isReset = true;
-                setTimeout(() => {
-                    console.log(11)
-                    //当焦点在弹出层的输入框之间切换时先不归位
-                    if (isReset) {
-                        window.scroll(0, 0);//失焦后强制让页面归位
-                    }
-                }, 300);
-            });
+                that.setState({
+                    isFocus:false,
+                });
+
+            })
         }
 
     }
@@ -185,21 +181,9 @@ class AskChat extends React.Component {
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
         });
     }
-    //键盘弹出或收起
+    //监听页面大小变化
     resize(){
         this.scrollToBottom()
-        const { clientHeight } = this.refDom;
-        if (this.state.clientHeight > clientHeight) { // 键盘弹出
-            // alert('键盘弹出')
-            this.setState({
-                isFocus:true,
-            });
-        } else { // 键盘收起
-            // alert('键盘收起')
-            this.setState({
-                isFocus:false,
-            });
-        }
     }
     //订单详情callback
     orderDetailCallback(response){
@@ -355,19 +339,32 @@ class AskChat extends React.Component {
     }
     //输入框聚焦
     textareaFocus(){
+        console.log('textareaFocus---')
         this.setState({
             isShowButtom: false,
             isFocus:true,
         });
         this.scrollToBottom();
     }
+    // textareaBlur(){
+    //     if(1){
+    //
+    //     }
+    //     this.setState({
+    //         isFocus:false,
+    //     });
+    // }
     //滑动到聊天底部
     scrollToBottom = () => {
         // alert(1)
-        this.messagesEnd.scrollIntoView({ behavior: "auto" });
+        let that = this;
+        setTimeout(function () {
+            that.messagesEnd.scrollIntoView({ behavior: "auto" });
+        },300)
     }
     //点击提交聊天
     submit = () => {
+        console.log('1111--------')
         const { dispatch } = this.props;
         let { word, orderId, sendMsg } = this.state;
         if(word == '' || word.length < 1 ){
@@ -762,7 +759,7 @@ class AskChat extends React.Component {
             <DocumentTitle title={doctorName}>
                 <div className={Styles.chat}>
 
-                    <div className={ `${Styles.chat_list} ` } ref={this.saveRef}>
+                    <div className={ `${Styles.chat_list} ` } >
 
                         { historyMsg && historyMsg.length > 0 ? this.showTime( historyMsg[0] ) : '' }
 
@@ -899,9 +896,10 @@ class AskChat extends React.Component {
                         </div>
                     </div>
                     {
+
                         !isFinished ?
                             <div>
-                                <div className={ `${Styles.chat_input}` }>
+                                <div className={ Styles.chat_input }>
                                     <TextareaItem
                                         {...getFieldProps('word',{
                                             initialValue:word
@@ -920,6 +918,11 @@ class AskChat extends React.Component {
                                             <img onClick={()=>{this.autoWordFocus()}} className={Styles.input_img} src={require('../../assets/ask_add.png')} alt=""/>
 
                                     }
+                                    {
+                                        !isFocus && isIPhoneX() && isPush ? <div className={Styles.chat_input_bottom}></div> : ''
+                                    }
+
+
                                 </div>
                                 {
                                     isShowButtom ? <div className={Styles.chat_buttom}>
