@@ -155,15 +155,12 @@ class AskChat extends React.Component {
             })
             document.body.addEventListener('focusout', () => {
                 //软键盘收起的事件处理
+                if(window.innerHeight < 500){
+                    this.setState({
+                        isFocus:true,
+                    });
 
-                if(this.state.word.length < 1){
-                    if(window.innerHeight > 500){
-                        this.setState({
-                            isFocus:false,
-                        });
-                    }
                 }
-
             })
         }
     }
