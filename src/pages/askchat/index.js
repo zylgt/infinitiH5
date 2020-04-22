@@ -34,7 +34,7 @@ class AskChat extends React.Component {
             detailInfo:'',
             timeIndex:1,
             isPush: false,
-            isFocus:false
+            isFocus:true
         }
         this.taskRemindInterval = null
     }
@@ -62,7 +62,7 @@ class AskChat extends React.Component {
             })
         }
         //判断是否是从推送消息过来
-        if(getQueryString('token')){
+        if(getQueryString('source') != 'list'){
             this.setState({
                 isPush: true
             })
@@ -143,23 +143,29 @@ class AskChat extends React.Component {
 
         //监听页面大小变化
         window.addEventListener('resize', that.resize.bind(this))
-
         //ios软键盘
         if(isIOS()) {
             document.body.addEventListener('focusin', () => {
                 //软键盘弹出的事件处理
-                that.setState({
-                    isFocus:true,
-                });
+                if(window.innerHeight > 500){
+                    this.setState({
+                        isFocus:false,
+                    });
+                }
             })
             document.body.addEventListener('focusout', () => {
                 //软键盘收起的事件处理
-                that.setState({
-                    isFocus:false,
-                });
+
+                if(this.state.word.length < 1){
+                    if(window.innerHeight > 500){
+                        this.setState({
+                            isFocus:false,
+                        });
+                    }
+                }
+
             })
         }
-
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -312,11 +318,12 @@ class AskChat extends React.Component {
             this.wordFocus.focus();
             this.setState({
                 isShowButtom: false,
+                isFocus:false
             });
         }else{
             this.setState({
                 isShowButtom: true,
-                isFocus:true,
+                isFocus:false
             });
         }
     }
@@ -343,8 +350,7 @@ class AskChat extends React.Component {
     //输入框聚焦
     textareaFocus(){
         this.setState({
-            isShowButtom: false,
-            isFocus:true,
+            isShowButtom: false
         });
         this.scrollToBottom();
     }
@@ -358,7 +364,6 @@ class AskChat extends React.Component {
     }
     //点击提交聊天
     submit = () => {
-        console.log('1111--------')
         const { dispatch } = this.props;
         let { word, orderId, sendMsg } = this.state;
         if(word == '' || word.length < 1 ){
@@ -370,7 +375,7 @@ class AskChat extends React.Component {
             isSend:false
         })
         this.setState({
-            sendMsg: sendMsg
+            sendMsg: sendMsg,
         })
         dispatch({
             type:"askchat/sendMsg",
@@ -734,9 +739,11 @@ class AskChat extends React.Component {
         if(this.state.isShowButtom){
             this.setState({
                 isShowButtom: false,
-                isFocus:false,
             });
         }
+        this.setState({
+            isFocus:true
+        });
     }
     render() {
         const { getFieldProps } = this.props.form;
@@ -753,7 +760,7 @@ class AskChat extends React.Component {
             isPush
         } = this.state;
 
-        console.log('detailInfo',detailInfo)
+        // console.log('detailInfo',detailInfo)
 
         let doctorName = detailInfo.doctor_name ? detailInfo.doctor_name + '医生' : '医生';
 
@@ -921,7 +928,7 @@ class AskChat extends React.Component {
 
                                     }
                                     {
-                                        !isFocus && isIOS() && isIPhoneX() && isPush ? <div className={Styles.chat_input_bottom}></div> : ''
+                                        isFocus && isIOS() && isIPhoneX() && isPush ? <div className={Styles.chat_input_bottom}></div> : ''
                                     }
 
                                 </div>

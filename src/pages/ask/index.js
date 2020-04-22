@@ -110,7 +110,7 @@ class Ask extends React.Component {
             return;
         }
         console.log('orderId',orderId);
-        router.push('./askchat?order_id=' + orderId)
+        router.push('./askchat?source=list&order_id=' + orderId)
     }
     //判断消息右上角时间
     rigthTime(item){
