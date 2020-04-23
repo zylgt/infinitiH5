@@ -4,6 +4,8 @@ import { baseURL } from './baseURL'
 import 'babel-polyfill'
 import router from 'umi/router';
 import { Toast } from 'antd-mobile';
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
 axios.defaults.timeout = 2000000;
 axios.defaults.baseURL = baseURL;
@@ -71,9 +73,17 @@ export default function request(url, options) {
 
     //request拦截器
     httpProvider.interceptors.response.use((response) => {
+
+        //顶部进度条关闭
+        NProgress.done()
+
         // console.log('response',response)
         return response
     }, (error) => {
+
+        //顶部进度条关闭
+        NProgress.done()
+
         return Promise.reject(new Error(
             error.response ? error.response.data : '网络错误'
     ))

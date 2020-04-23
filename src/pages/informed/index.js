@@ -6,6 +6,8 @@ import { nonceStr } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
 import { pageURL } from '../../utils/baseURL'
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
 @connect(({ login }) => ({ login }))
 class Informed extends Component {
@@ -32,6 +34,12 @@ class Informed extends Component {
         //     },
         //     callback: this.getAppidCallback.bind(this)
         // })
+        //顶部进度条关闭
+        NProgress.done()
+    }
+    componentWillUnmount(){
+        //顶部进度条开启
+        NProgress.start()
     }
     //获取appidcallback
     getAppidCallback(response){

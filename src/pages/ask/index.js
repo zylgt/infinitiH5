@@ -6,6 +6,8 @@ import Styles from './index.less';
 import { staticURL, pageURL } from '../../utils/baseURL'
 import { nonceStr } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import wx from 'weixin-js-sdk';
 import { getQueryString } from '../../utils/tools'
 import {cookieUtils} from '../../utils/tools'
@@ -51,6 +53,10 @@ class Ask extends React.Component {
         //     },
         //     callback: this.getAppidCallback.bind(this)
         // })
+    }
+    componentWillUnmount(){
+        //顶部进度条开启
+        NProgress.start()
     }
     //获取appidcallback
     getAppidCallback(response){

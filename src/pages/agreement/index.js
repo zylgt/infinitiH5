@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import { connect } from 'dva';
 import { createForm } from 'rc-form';
@@ -7,6 +6,8 @@ import { nonceStr } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
 import { pageURL } from '../../utils/baseURL'
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
 @connect(({ login }) => ({ login }))
 class Agreememt extends Component {
@@ -33,6 +34,12 @@ class Agreememt extends Component {
         //     },
         //     callback: this.getAppidCallback.bind(this)
         // })
+        //顶部进度条关闭
+        NProgress.done()
+    }
+    componentWillUnmount(){
+        //顶部进度条开启
+        NProgress.start()
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -577,7 +584,7 @@ class Agreememt extends Component {
                         为向您提供便捷、优质的服务，我们可能会调用您设备的一些权限，以下是我们可能调用的设备权限列表及对应的使用目的说明，您有权随时选择关闭下列权限的授权，但可能会影响您正常使用我们服务或产品的部分或全部功能。
                     </div>
                     <div className={Styles.agree_table_div} >
-                        <table className={Styles.agree_table} border="0">
+                        <table className={Styles.agree_table} border="0" cellPadding="0" cellSpacing="0">
                             <thead>
                             <tr>
                                 <th>

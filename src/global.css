@@ -537,3 +537,13 @@ body {-webkit-overflow-scrolling: touch;}
 * {
     -webkit-overflow-scrolling: touch;
 }
+#nprogress .spinner{
+    display: none;
+}
+#nprogress .bar{
+    height:.04rem;
+    background: #00BF12;
+}
+#nprogress .peg{
+    box-shadow: none;
+}

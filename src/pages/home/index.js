@@ -11,6 +11,8 @@ import { pageURL } from '../../utils/baseURL'
 
 import { getQueryString } from '../../utils/tools'
 import {cookieUtils} from '../../utils/tools'
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
 @connect(({ home }) => ({ home }))
 class Home extends Component {
@@ -60,6 +62,11 @@ class Home extends Component {
             })
         }
 
+    }
+
+    componentWillUnmount(){
+        //顶部进度条开启
+        NProgress.start()
     }
     //获取appidcallback
     getAppidCallback(response){

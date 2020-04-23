@@ -11,6 +11,8 @@ import { nonceStr } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
 import { pageURL } from '../../utils/baseURL'
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
 
 @connect(({ applyList,management }) => ({ applyList,management }))
@@ -21,6 +23,10 @@ class ApplyList extends Component {
             step:1,
             timestamp:''
         }
+    }
+    componentWillUnmount(){
+        //顶部进度条开启
+        NProgress.start()
     }
     componentDidMount() {
         const { dispatch } = this.props;
@@ -72,6 +78,8 @@ class ApplyList extends Component {
         //     },
         //     callback: this.getAppidCallback.bind(this)
         // })
+        //顶部进度条关闭
+        NProgress.done()
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -174,6 +182,8 @@ class ApplyList extends Component {
         }
 
         step++;
+        //顶部进度条开启
+        NProgress.start()
 
         if(step > illData.length ){
             let payload= {}
@@ -215,6 +225,9 @@ class ApplyList extends Component {
                 step: step
             }
         })
+
+        //顶部进度条关闭
+        NProgress.done()
 
     }
 

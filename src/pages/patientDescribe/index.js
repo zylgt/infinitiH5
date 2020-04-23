@@ -8,6 +8,8 @@ import wx from 'weixin-js-sdk';
 import DocumentTitle from 'react-document-title'
 import { pageURL } from '../../utils/baseURL'
 import { nonceStr,isIOS } from '../../utils/tools'
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
 @connect(({ patientDescribe,doctorInfo,chooseTime,applyList }) => ({ patientDescribe,doctorInfo,chooseTime,applyList }))
 class PatientDescribe extends Component {
@@ -20,6 +22,10 @@ class PatientDescribe extends Component {
             timestamp:'',
             retryNum:1
         }
+    }
+    componentWillUnmount(){
+        //顶部进度条开启
+        NProgress.start()
     }
     componentDidMount() {
         const { dispatch } = this.props;

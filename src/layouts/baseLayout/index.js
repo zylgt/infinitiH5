@@ -3,6 +3,8 @@ import { TabBar } from 'antd-mobile';
 import router from 'umi/router';
 import 'antd-mobile/dist/antd-mobile.css';
 import styles from './index.less';
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
 const TabBarData = [
     {
@@ -38,10 +40,14 @@ class BaseLayout extends React.Component {
             return pathname === url;
         }
     }
+    componentWillReceiveProps(){
+        if(window.location.pathname == '/home' || window.location.pathname == '/my'){
+            //顶部进度条开启
+            NProgress.start()
+        }
+    }
     render() {
         const { askList } = this.props.ask;
-
-        console.log('askList',askList)
 
         return (
             <div className={styles.baseLayout}>

@@ -13,6 +13,8 @@ import moment from "moment";
 import { pageURL,staticURL } from '../../utils/baseURL'
 import { nonceStr,isIOS,isIPhoneX } from '../../utils/tools'
 import wx from 'weixin-js-sdk';
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
 moment.locale('zh-cn');
 
@@ -33,10 +35,13 @@ class AskChat extends React.Component {
             token:'',
             detailInfo:'',
             timeIndex:1,
-            isPush: false,
-            isFocus:true
+            isPush: false, //是否是从推送消息进入
+            isFocus:true,
+            isSubmit:false, //是点击发送
+            isAdd:false, //是点击加号
         }
         this.taskRemindInterval = null
+        this.scrollBottom = null
     }
     componentWillUnmount(){
         if(this.socket){
@@ -44,6 +49,10 @@ class AskChat extends React.Component {
                 msg:'关闭页面'
             })
         }
+        //顶部进度条开启
+        NProgress.start()
+
+        clearInterval(this.scrollBottom)
     }
     componentDidUpdate(){
         this.scrollToBottom();
@@ -131,12 +140,12 @@ class AskChat extends React.Component {
         }
 
         let i = 0;
-        let scrollBottom = setInterval(function () {
+        this.scrollBottom = setInterval(function () {
             i++;
             that.scrollToBottom();
             console.log('i',i)
             if(i==3){
-                clearInterval(scrollBottom)
+                clearInterval(that.scrollBottom)
             }
         },600)
 
@@ -148,20 +157,36 @@ class AskChat extends React.Component {
             document.body.addEventListener('focusin', () => {
                 //软键盘弹出的事件处理
                 if(window.innerHeight > 500){
-                    this.setState({
-                        isFocus:false,
+                    that.setState({
+                        isFocus:false
                     });
                 }
+                this.setState({
+                    isSubmit:false, //是点击发送
+                    isAdd:false, //是点击加号
+                });
+
             })
             document.body.addEventListener('focusout', () => {
                 //软键盘收起的事件处理
-                if(window.innerHeight < 500){
-                    this.setState({
-                        isFocus:true,
-                    });
-
+                if(window.innerHeight > 500){
+                    that.wordFocus.focus();
                 }
+                if( that.state.isSubmit ){
+                    that.wordFocus.focus();
+                    return
+                }
+                if( that.state.isAdd ){
+                    return
+                }
+                if(window.innerHeight < 500){
+                    that.setState({
+                        isFocus:true
+                    });
+                }
+
             })
+
         }
     }
     //获取appidcallback
@@ -307,15 +332,17 @@ class AskChat extends React.Component {
             // 捕获异常，防止js error
             // donothing
         }
-        // this.scrollToBottom();
+        this.scrollToBottom();
     }
     //点击加号
     autoWordFocus(){
+        this.setState({
+            isAdd:true, //是点击加号
+        });
         if(this.state.isShowButtom){
-            this.wordFocus.focus();
             this.setState({
                 isShowButtom: false,
-                isFocus:false
+                isFocus:true
             });
         }else{
             this.setState({
@@ -347,20 +374,28 @@ class AskChat extends React.Component {
     //输入框聚焦
     textareaFocus(){
         this.setState({
+            isSubmit:false, //是点击发送
+            isAdd:false, //是点击加号
+        });
+        this.setState({
             isShowButtom: false
         });
         this.scrollToBottom();
     }
     //滑动到聊天底部
     scrollToBottom = () => {
-        // alert(1)
         let that = this;
         setTimeout(function () {
-            that.messagesEnd.scrollIntoView({ behavior: "auto" });
+            if(that.messagesEnd){
+                that.messagesEnd.scrollIntoView({ behavior: "auto" });
+            }
         },300)
     }
     //点击提交聊天
     submit = () => {
+        this.setState({
+            isSubmit:true, //是点击发送
+        });
         const { dispatch } = this.props;
         let { word, orderId, sendMsg } = this.state;
         if(word == '' || word.length < 1 ){
@@ -403,7 +438,7 @@ class AskChat extends React.Component {
 
         for(let i = 1 ;i<historyMsg.length;i++){
 
-            if( Date.parse( historyMsg[i].created_at )/1000 - showThree > 720 ){
+            if( Date.parse( historyMsg[i].created_at )/1000 - showThree >= 720 ){
                 showThree = Date.parse( historyMsg[i].created_at ) ;
                 historyMsg[i].showRemain = true
                 continue
@@ -411,7 +446,7 @@ class AskChat extends React.Component {
                 historyMsg[i].showRemain = false
             }
 
-            if( Date.parse( historyMsg[i].created_at )/1000 - newTime > 360 ){
+            if( Date.parse( historyMsg[i].created_at )/1000 - newTime >= 360 ){
 
                 newTime = Date.parse( historyMsg[i].created_at )/1000 ;
                 historyMsg[i].showTime = true
@@ -427,7 +462,7 @@ class AskChat extends React.Component {
         if(type == 'message'){
             for(let i = 0 ;i<sendMsg.length;i++){
 
-                if( Date.parse( sendMsg[i].created_at )/1000 - showThree > 720 ){
+                if( Date.parse( sendMsg[i].created_at )/1000 - showThree >= 720 ){
                     showThree = Date.parse( sendMsg[i].created_at ) ;
                     sendMsg[i].showRemain = true
                     continue
@@ -435,7 +470,7 @@ class AskChat extends React.Component {
                     sendMsg[i].showRemain = false
                 }
 
-                if( Date.parse( sendMsg[i].created_at )/1000 - newTime > 360 ){
+                if( Date.parse( sendMsg[i].created_at )/1000 - newTime >= 360 ){
 
                     newTime = Date.parse( sendMsg[i].created_at )/1000 ;
                     sendMsg[i].showTime = true
@@ -475,18 +510,6 @@ class AskChat extends React.Component {
                 );
             }
             if(item.showTime){
-
-                // alert(weeks)
-                // alert(currentTime)
-                // alert(d_day)
-                // alert(day)
-                // alert(dateFormat)
-                //
-                // alert(created_time)
-                // alert(index)
-                // alert(weeks)
-                // alert(date)
-                // alert(hours)
 
                 if(day >= 8){
                     time = dateFormat +' '+ date
@@ -733,7 +756,11 @@ class AskChat extends React.Component {
     }
     //点击聊天界面
     clickChat(){
-        if(this.state.isShowButtom){
+        this.setState({
+            isSubmit:false, //是点击发送
+            isAdd:false, //是点击加号
+        });
+       if(this.state.isShowButtom){
             this.setState({
                 isShowButtom: false,
             });
@@ -765,7 +792,7 @@ class AskChat extends React.Component {
             <DocumentTitle title={doctorName}>
                 <div className={Styles.chat}>
 
-                    <div className={Styles.chat_list} onClick={()=>{this.clickChat()}}>
+                    <div  className={ `my_chat_list ${Styles.chat_list}`} onClick={()=>{this.clickChat()}} ref={el => this.chat_list = el}>
 
                         { historyMsg && historyMsg.length > 0 ? this.showTime( historyMsg[0] ) : '' }
 
@@ -919,13 +946,13 @@ class AskChat extends React.Component {
                                         // onBlur={()=>{this.textareaBlur()}}
                                     />
                                     {
-                                        isShowSend ? <Button type="primary" onClick={()=>{this.submit()}} className={Styles.input_btn}>发送</Button>
+                                        isShowSend ? <Button type="primary" onMouseDown={()=>{this.submit()}} className={Styles.input_btn}>发送</Button>
                                             :
-                                            <img onClick={()=>{this.autoWordFocus()}} className={Styles.input_img} src={require('../../assets/ask_add.png')} alt=""/>
+                                            <img onMouseDown={()=>{this.autoWordFocus()}} className={Styles.input_img} src={require('../../assets/ask_add.png')} alt=""/>
 
                                     }
                                     {
-                                        isFocus && isIOS() && isIPhoneX() && isPush ? <div className={Styles.chat_input_bottom}></div> : ''
+                                        isFocus && isIOS() && isIPhoneX()  && isPush ? <div className={Styles.chat_input_bottom}></div> : ''
                                     }
 
                                 </div>
