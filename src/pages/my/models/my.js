@@ -9,7 +9,6 @@ export default {
         setup({ dispatch, history }) {
             return history.listen(({ pathname, search }) => {
                 if (pathname == '/my') {
-                    console.log('models-my')
                     dispatch({
                         type:'getUserInfo'
                     })

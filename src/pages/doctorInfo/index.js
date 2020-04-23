@@ -8,7 +8,8 @@ import { getQueryString,nonceStr } from '../../utils/tools'
 import { staticURL,pageURL } from '../../utils/baseURL'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
-import LazyLoad from 'react-lazyload';
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import moment from "moment";
 moment.locale('zh-cn');
 
@@ -53,6 +54,10 @@ class DoctorInfo extends Component {
         //     },
         //     callback: this.getAppidCallback.bind(this)
         // })
+    }
+    componentWillUnmount(){
+        //顶部进度条开启
+        NProgress.start()
     }
     //获取appidcallback
     getAppidCallback(response){

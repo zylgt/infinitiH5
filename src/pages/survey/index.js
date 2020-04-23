@@ -11,6 +11,8 @@ import { nonceStr } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
 import { pageURL } from '../../utils/baseURL'
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
 
 @connect(({ survey,management }) => ({ survey,management }))
@@ -21,6 +23,10 @@ class Survey extends Component {
             step:1,
             timestamp:''
         }
+    }
+    componentWillUnmount(){
+        //顶部进度条开启
+        NProgress.start()
     }
     componentDidMount() {
         const { dispatch } = this.props;
@@ -72,6 +78,8 @@ class Survey extends Component {
         //     },
         //     callback: this.getAppidCallback.bind(this)
         // })
+        //顶部进度条关闭
+        NProgress.done()
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -219,6 +227,8 @@ class Survey extends Component {
         }else{
             step++;
         }
+        //顶部进度条开启
+        NProgress.start()
 
         if(step > illData.length ){
             let payload= {}
@@ -273,6 +283,9 @@ class Survey extends Component {
                 step: step
             }
         })
+
+        //顶部进度条关闭
+        NProgress.done()
 
     }
 

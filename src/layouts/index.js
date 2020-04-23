@@ -7,6 +7,7 @@ const ULR_NO_LAYOUT = ['/', '/home', '/ask', '/my'];
 @connect(({ ask }) => ({ ask }))
 class Index extends Component {
   componentDidMount() {
+
   }
   renderBody = () => {
     const {location: {pathname}, children, ask } = this.props;

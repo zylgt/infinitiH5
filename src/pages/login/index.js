@@ -9,6 +9,8 @@ import 'babel-polyfill'
 import { baseURL, pageURL } from '../../utils/baseURL'
 import wx from 'weixin-js-sdk';
 import { nonceStr } from '../../utils/tools'
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
 const AgreeItem = Checkbox.AgreeItem;
 
@@ -30,6 +32,10 @@ class Login extends Component {
         // 获取图形验证码
         this.refreshCodeImage();
 
+    }
+    componentWillUnmount(){
+        //顶部进度条开启
+        NProgress.start()
     }
     componentDidMount() {
         const { dispatch } = this.props;

@@ -8,6 +8,8 @@ import { getQueryString,nonceStr } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
 import { pageURL } from '../../utils/baseURL'
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
 import moment from "moment";
 moment.locale('zh-cn');
@@ -65,6 +67,10 @@ class Management extends Component {
         //     },
         //     callback: this.getAppidCallback.bind(this)
         // })
+    }
+    componentWillUnmount(){
+        //顶部进度条开启
+        NProgress.start()
     }
     //获取appidcallback
     getAppidCallback(response){
