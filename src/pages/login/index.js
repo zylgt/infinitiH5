@@ -6,9 +6,9 @@ import { createForm } from 'rc-form';
 import Styles from './index.less';
 import DocumentTitle from 'react-document-title'
 import 'babel-polyfill'
-import { baseURL, pageURL } from '../../utils/baseURL'
+import { baseURL } from '../../utils/baseURL'
 import wx from 'weixin-js-sdk';
-import { nonceStr } from '../../utils/tools'
+import { nonceStr,isIOS } from '../../utils/tools'
 import NProgress from 'nprogress' // 引入nprogress插件
 import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
@@ -44,16 +44,23 @@ class Login extends Component {
         this.setState({
             timestamp:timestamp,
         })
-        //获取appid和签名
-        // dispatch({
-        //     type:'patientDescribe/getAppid',
-        //     payload:{
-        //         noncestr: nonceStr,
-        //         timestamp: timestamp,
-        //         url: pageURL + '/login'
-        //     },
-        //     callback: this.getAppidCallback.bind(this)
-        // })
+        if(isIOS()){
+            wx.ready(function(){
+                wx.hideAllNonBaseMenuItem();
+                // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+            });
+        }else{
+            //获取appid和签名
+            dispatch({
+                type:'patientDescribe/getAppid',
+                payload:{
+                    noncestr: nonceStr,
+                    timestamp: timestamp,
+                    url: window.location.href.split('#')[0]
+                },
+                callback: this.getAppidCallback.bind(this)
+            })
+        }
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -180,7 +187,7 @@ class Login extends Component {
     //图形验证码检验callback
     verifyImgCodeCallback(response){
         const { dispatch } = this.props;
-        console.log('verifyImgCodeCallback',response)
+        // console.log('verifyImgCodeCallback',response)
 
         if(response && response.data.code == 200 ){
             dispatch({

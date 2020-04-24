@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'dva';
-import { Modal,Button,Toast } from 'antd-mobile';
+import { Button, Toast } from 'antd-mobile';
 import router from 'umi/router';
 import Styles from './index.less';
-import { getQueryString, nonceStr } from '../../utils/tools'
-import { staticURL, pageURL } from '../../utils/baseURL'
+import { getQueryString, nonceStr,isIOS } from '../../utils/tools'
+import { staticURL } from '../../utils/baseURL'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
 import NProgress from 'nprogress' // 引入nprogress插件
@@ -24,7 +24,7 @@ class ChooseTime extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
         let id = getQueryString('id') || '';
-        console.log('id',id)
+        // console.log('id',id)
         this.setState({
             doctor_id: id
         })
@@ -35,22 +35,28 @@ class ChooseTime extends Component {
             }
         })
 
-
         //生成签名时间戳
         let timestamp = (Date.parse(new Date()) / 1000).toString();
         this.setState({
             timestamp:timestamp,
         })
-        //获取appid和签名
-        // dispatch({
-        //     type:'patientDescribe/getAppid',
-        //     payload:{
-        //         noncestr: nonceStr,
-        //         timestamp: timestamp,
-        //         url: pageURL + '/chooseTime'
-        //     },
-        //     callback: this.getAppidCallback.bind(this)
-        // })
+        if(isIOS()){
+            wx.ready(function(){
+                wx.hideAllNonBaseMenuItem();
+                // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+            });
+        }else{
+            //获取appid和签名
+            dispatch({
+                type:'patientDescribe/getAppid',
+                payload:{
+                    noncestr: nonceStr,
+                    timestamp: timestamp,
+                    url: window.location.href.split('#')[0]
+                },
+                callback: this.getAppidCallback.bind(this)
+            })
+        }
     }
     componentWillUnmount(){
         //顶部进度条开启
@@ -100,7 +106,7 @@ class ChooseTime extends Component {
             patient_name: name,
             card_id: card_id
         }
-        console.log('params', params)
+        // console.log('params', params)
         dispatch({
             type:'chooseTime/appointment',
             payload:{
@@ -113,7 +119,7 @@ class ChooseTime extends Component {
     }
     //预约回调
     appointmentCallback(response){
-        console.log('response',response)
+        // console.log('response',response)
         const { dispatch } = this.props;
         let code = response.data.code;
         if(code == 417){

@@ -6,7 +6,6 @@ import Styles from './index.less';
 import { createForm } from 'rc-form';
 import wx from 'weixin-js-sdk';
 import DocumentTitle from 'react-document-title'
-import { pageURL } from '../../utils/baseURL'
 import { nonceStr,isIOS } from '../../utils/tools'
 import NProgress from 'nprogress' // 引入nprogress插件
 import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
@@ -44,15 +43,8 @@ class PatientDescribe extends Component {
             //         //     wkwebview: true
             //         // })
             //     }
-
-            // wx.config({
-            //     debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            //     appId: 'wxc6c277ae69cd3a77', // 必填，公众号的唯一标识
-            //     timestamp: '1586336027' , // 必填，生成签名的时间戳
-            //     nonceStr: 'wang', // 必填，生成签名的随机串
-            //     signature: '172f124d1ecdfd44c385f7882fd06d76cbdea518',// 必填，签名
-            //     jsApiList: ['chooseImage','uploadImage','hideAllNonBaseMenuItem'] // 必填，需要使用的JS接口列表
-            // });
+            //顶部进度条关闭
+            NProgress.done()
 
             wx.ready(function(){
                 wx.hideAllNonBaseMenuItem();
@@ -101,7 +93,7 @@ class PatientDescribe extends Component {
             sizeType: [ 'compressed'], // 'original',可以指定是原图还是压缩图，默认二者都有
             sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
-                console.log('res',res)
+                // console.log('res',res)
                 let localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
 
                 that.getPhoneImg(localIds,0,that)
@@ -184,7 +176,7 @@ class PatientDescribe extends Component {
                 }
             })
             if(time_index >= 95){
-                console.log('clearInterval')
+                // console.log('clearInterval')
                 clearInterval(time)
             }
         },30)
@@ -195,7 +187,7 @@ class PatientDescribe extends Component {
             isShowProgressTips: 0, // 默认为1，显示进度提示
             success: function (res) {
                 let serverId = res.serverId; // 返回图片的服务器端ID
-                console.log('serverId',serverId)
+                // console.log('serverId',serverId)
 
                 patientImg[index].isUpload = true;
                 patientImg[index].serverId = serverId;
@@ -272,7 +264,7 @@ class PatientDescribe extends Component {
                 media.push(patientImg[i].serverId)
             }
         }
-        console.log('media',media)
+        // console.log('media',media)
         let imgInfo = {
             cat:'disease',
             media: media
@@ -304,7 +296,7 @@ class PatientDescribe extends Component {
             imgInfo,
             orderInfo
         }
-        console.log('payload',payload)
+        // console.log('payload',payload)
 
         dispatch({
             type:'patientDescribe/askVisit',
@@ -334,7 +326,7 @@ class PatientDescribe extends Component {
     //点击超时弹窗确认
     clickKnow(){
         const { doctorInfo } = this.props.doctorInfo;
-        console.log('doctorInfo',doctorInfo)
+        // console.log('doctorInfo',doctorInfo)
         router.push('./chooseTime?set=reset&id='+doctorInfo.uid)
         this.setState({
             modal:false
@@ -347,7 +339,7 @@ class PatientDescribe extends Component {
         const { wkwebview } = this.state;
         const { patientImg,val } = this.props.patientDescribe;
 
-        console.log('--patientImg--',patientImg)
+        // console.log('--patientImg--',patientImg)
 
         return (
             <DocumentTitle title='问诊申请'>
