@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'dva';
-import { Popover, Modal, Menu, Toast, ListView, InputItem,Button,TextareaItem} from 'antd-mobile';
-import router from 'umi/router';
+import { Button,TextareaItem} from 'antd-mobile';
 import Styles from './index.less';
 import { createForm ,formShape } from 'rc-form';
 import Socket from '../../components/webSocket';
@@ -10,7 +9,7 @@ import { hostURL } from '../../utils/baseURL'
 import { getQueryString } from '../../utils/tools'
 import {cookieUtils} from '../../utils/tools'
 import moment from "moment";
-import { pageURL,staticURL } from '../../utils/baseURL'
+import { staticURL } from '../../utils/baseURL'
 import { nonceStr,isIOS,isIPhoneX } from '../../utils/tools'
 import wx from 'weixin-js-sdk';
 import NProgress from 'nprogress' // 引入nprogress插件
@@ -63,7 +62,7 @@ class AskChat extends React.Component {
 
         // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODcwMzM0MjksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI1MDczMjg1NTM1NzYwNzkzNiJ9.Ybxm3JTPkp2qSeJxgXwC7lAsmVMC8CAWwrlOPCi7ZOw'
         let token = cookieUtils.get('token') || getQueryString('token') || '';
-        console.log('token',token)
+        // console.log('token',token)
         if(token){
             cookieUtils.set('token',token)
             this.setState({
@@ -78,7 +77,7 @@ class AskChat extends React.Component {
         }
 
         let orderId = getQueryString('order_id') || '';
-        console.log('orderId',orderId)
+        // console.log('orderId',orderId)
         this.setState({
             orderId:orderId
         })
@@ -143,7 +142,7 @@ class AskChat extends React.Component {
         this.scrollBottom = setInterval(function () {
             i++;
             that.scrollToBottom();
-            console.log('i',i)
+            // console.log('i',i)
             if(i==3){
                 clearInterval(that.scrollBottom)
             }
@@ -211,7 +210,7 @@ class AskChat extends React.Component {
     }
     //订单详情callback
     orderDetailCallback(response){
-        console.log('response1----------',response)
+        // console.log('response1----------',response)
         let that = this;
         this.setState({
             detailInfo:response.data.data
@@ -250,7 +249,7 @@ class AskChat extends React.Component {
     }
     //链接socket
     linkSocket = (orderId) => {
-        console.log('orderId',orderId)
+        // console.log('orderId',orderId)
         let that = this;
         let socketUrl = hostURL + '/m/order/' + orderId + '/chat/conn';
         //    判断专家是否登录
@@ -555,7 +554,7 @@ class AskChat extends React.Component {
             sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
             sourceType: sourceType, // 可以指定来源是相册还是相机，默认二者都有
             success: function (res) {
-                console.log('res',res)
+                // console.log('res',res)
                 let localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
                 that.getPhoneImg(localIds,0,that)
                 dispatch({
@@ -643,7 +642,7 @@ class AskChat extends React.Component {
         const { dispatch } = this.props;
         const { patientImg } = this.props.askchat;
 
-        console.log('patientImg',patientImg)
+        // console.log('patientImg',patientImg)
 
         //上传图片
         wx.uploadImage({
@@ -651,7 +650,7 @@ class AskChat extends React.Component {
             isShowProgressTips: 0, // 默认为1，显示进度提示
             success: function (res) {
                 let serverId = res.serverId; // 返回图片的服务器端ID
-                console.log('serverId',serverId)
+                // console.log('serverId',serverId)
 
                 patientImg[index].isUpload = true;
                 patientImg[index].serverId = serverId;
@@ -694,7 +693,7 @@ class AskChat extends React.Component {
         let imgUrl = response.data.data[0];
         let serverId = response.data.media[0];
 
-        console.log('uploadCallback-sendMsg',sendMsg)
+        // console.log('uploadCallback-sendMsg',sendMsg)
 
         for(let i=0;i < patientImg.length;i++){
             if(patientImg[i].serverId == serverId){
