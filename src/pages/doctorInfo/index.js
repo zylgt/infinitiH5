@@ -20,7 +20,8 @@ class DoctorInfo extends Component {
             timestamp:'',
             doctor_id:'',
             modal:false,
-            modelTitl:''
+            modelTitl:'',
+            isShowCover:false
         }
     }
 
@@ -82,10 +83,14 @@ class DoctorInfo extends Component {
         });
     }
     //点击进入出诊医生详情
-    clickDoctorDetail(e){
+    clickDoctorDetail(){
         let doctorId = this.state.doctor_id;
+        console.log(1)
+        this.setState({
+            isShowCover:true
+        })
         // console.log('officeId',doctorId)
-        router.push('./doctorDetail?id=' + doctorId )
+        // router.push('./doctorDetail?id=' + doctorId )
     }
     //点击去问诊
     clickAskChat(isOpen){
@@ -131,10 +136,18 @@ class DoctorInfo extends Component {
             modal:false
         })
     }
+    //关闭详情
+    closeDetail(e){
+        // e.stopPropagation();
+        // e.preventDefault();
+        this.setState({
+            isShowCover:false
+        })
+    }
 
 
     render() {
-        const { modelTitl } = this.state;
+        const { modelTitl,isShowCover } = this.state;
         const { doctorInfo } = this.props.doctorInfo;
 
         let date = '今日出诊';
@@ -155,7 +168,7 @@ class DoctorInfo extends Component {
                 <div className={Styles.doctor_info}>
                     <div className={Styles.info}>
                         {
-                            doctorInfo.icon ? <img className={Styles.info_img} src={ staticURL + doctorInfo.icon } alt=""/> : ''
+                            doctorInfo.icon ? <img className={`${Styles.info_img} ${Styles.img}`} src={ staticURL + doctorInfo.icon } alt=""/> : ''
                         }
                         {
                             doctorInfo.name ? <div className={Styles.info_right}>
@@ -174,7 +187,7 @@ class DoctorInfo extends Component {
                         doctorInfo.skill
                             ?
                             <div className={Styles.introducer}>
-                                <img className={Styles.introducer_img} src={require('../../assets/strong.png')} alt=""/>
+                                <img className={`${Styles.introducer_img} ${Styles.img}`} src={require('../../assets/strong.png')} alt=""/>
                                 <div className={Styles.introducer_word}>
                                     <span className={Styles.introducer_word_key}>擅长：</span>{doctorInfo.skill}
                                 </div>
@@ -185,7 +198,7 @@ class DoctorInfo extends Component {
                         doctorInfo.info
                             ?
                             <div className={Styles.introducer}>
-                                <img className={Styles.introducer_img} src={require('../../assets/introduce.png')} alt=""/>
+                                <img className={`${Styles.introducer_img} ${Styles.img}`} src={require('../../assets/introduce.png')} alt=""/>
                                 <div className={Styles.introducer_word}>
                                     <span className={Styles.introducer_word_key}>简介：</span>{doctorInfo.info}
                                 </div>
@@ -195,11 +208,11 @@ class DoctorInfo extends Component {
 
                     <div className={Styles.doctor_info_right} onClick={()=>{this.clickDoctorDetail()}}>
                         医生信息
-                        <img className={Styles.info_right_img} src={require('../../assets/right.png')} alt=""/>
+                        <img className={ `${Styles.info_right_img}`} src={require('../../assets/right.png')} alt=""/>
                     </div>
                     <div className={Styles.line}>
                         <div className={Styles.line_left}>
-                            <img className={Styles.line_img} src={require('../../assets/line.png')} alt=""/>
+                            <img className={`${Styles.line_img} ${Styles.img}`} src={require('../../assets/line.png')} alt=""/>
                             <div  className={Styles.line_word}>
                                 <p>在线问诊</p>
                                 <p>¥0.00/次</p>
@@ -209,6 +222,49 @@ class DoctorInfo extends Component {
                             去问诊<img src={require('../../assets/line_right.png')} alt=""/>
                         </div>
                     </div>
+                    {
+                        isShowCover ?
+                            <div className={ Styles.doctor_info_cover }>
+                                <div onClick={(e)=>{this.closeDetail(e)}} className={Styles.cover} ></div>
+                                <div className={`${Styles.cover_content}`}>
+                                    <div className={Styles.cover_title}>
+                                        {doctorInfo.name}医生简介
+                                        <img onClick={(e)=>{this.closeDetail(e)}} src={require('../../assets/close_cover.png')} alt=""/>
+                                    </div>
+                                    <div className={Styles.cover_info}>
+                                        {
+                                            doctorInfo.skill
+                                                ?
+                                                <div className={`${Styles.introducer} ${Styles.cover_introducer}`}>
+                                                    <img className={`${Styles.introducer_img} ${Styles.cover_introducer_img}`} src={require('../../assets/strong.png')} alt=""/>
+                                                    <div className={`${Styles.introducer_word} ${Styles.cover_introducer_word}`} >
+                                                        <span className={`${Styles.introducer_word_key} ${Styles.cover_introducer_word_key}`}>擅长：</span>{doctorInfo.skill}
+                                                    </div>
+                                                </div>
+                                                : ''
+                                        }
+                                        {
+                                            doctorInfo.info
+                                                ?
+                                                <div className={`${Styles.introducer} ${Styles.cover_introducer}`}>
+                                                    <img className={`${Styles.introducer_img} ${Styles.cover_introducer_img}`} src={require('../../assets/introduce.png')} alt=""/>
+                                                    <div className={`${Styles.introducer_word} ${Styles.cover_introducer_word}`} >
+                                                        <span className={`${Styles.introducer_word_key} ${Styles.cover_introducer_word_key}`}>简介：</span>{doctorInfo.info}
+                                                    </div>
+                                                </div>
+                                                : ''
+                                        }
+                                    </div>
+                                    <div onClick={(e)=>{this.closeDetail(e)}} className={ Styles.cover_bottom }>
+                                        收起
+                                        <img src={require('../../assets/right.png')}  alt=""/>
+                                    </div>
+                                </div>
+                            </div>
+                            :''
+                    }
+
+
                     <Modal
                         visible={this.state.modal}
                         transparent
