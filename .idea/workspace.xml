@@ -2,33 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="175d2814-6ce3-4d6e-8268-5c4da88a3d07" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/linkSocket/index.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/models/layout.model.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/webSocket/index.js" afterPath="$PROJECT_DIR$/src/components/webSocket/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/layouts/baseLayout/index.js" afterPath="$PROJECT_DIR$/src/layouts/baseLayout/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/layouts/index.js" afterPath="$PROJECT_DIR$/src/layouts/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/applyList/models/applyList.js" afterPath="$PROJECT_DIR$/src/pages/applyList/models/applyList.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/ask/index.js" afterPath="$PROJECT_DIR$/src/pages/ask/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/ask/models/ask.js" afterPath="$PROJECT_DIR$/src/pages/ask/models/ask.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/index.js" afterPath="$PROJECT_DIR$/src/pages/askchat/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/index.less" afterPath="$PROJECT_DIR$/src/pages/askchat/index.less" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" afterPath="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/chooseDoctor/models/chooseDoctor.js" afterPath="$PROJECT_DIR$/src/pages/chooseDoctor/models/chooseDoctor.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/chooseTime/models/chooseTime.js" afterPath="$PROJECT_DIR$/src/pages/chooseTime/models/chooseTime.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/doctorInfo/index.js" afterPath="$PROJECT_DIR$/src/pages/doctorInfo/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/doctorInfo/models/doctorinfo.js" afterPath="$PROJECT_DIR$/src/pages/doctorInfo/models/doctorinfo.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/empty/index.js" afterPath="$PROJECT_DIR$/src/pages/empty/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/empty/models/empty.js" afterPath="$PROJECT_DIR$/src/pages/empty/models/empty.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/login/models/login.js" afterPath="$PROJECT_DIR$/src/pages/login/models/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/management/index.js" afterPath="$PROJECT_DIR$/src/pages/management/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/management/models/management.js" afterPath="$PROJECT_DIR$/src/pages/management/models/management.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/my/models/my.js" afterPath="$PROJECT_DIR$/src/pages/my/models/my.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/patientDescribe/models/patientDescribe.js" afterPath="$PROJECT_DIR$/src/pages/patientDescribe/models/patientDescribe.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pages/survey/models/survey.js" afterPath="$PROJECT_DIR$/src/pages/survey/models/survey.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/askChat.js" afterPath="$PROJECT_DIR$/src/services/askChat.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/login.js" afterPath="$PROJECT_DIR$/src/services/login.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/utils/authorized.js" afterPath="$PROJECT_DIR$/src/utils/authorized.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/linkSocket/index.js" afterPath="$PROJECT_DIR$/src/components/linkSocket/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -43,31 +17,25 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/chooseTime/index.js">
+        <entry file="file://$PROJECT_DIR$/src/components/linkSocket/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="807">
-              <caret line="146" column="0" lean-forward="true" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="722">
+              <caret line="88" column="17" lean-forward="true" selection-start-line="88" selection-start-column="17" selection-end-line="88" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chooseDoctor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/chooseDoctor/models/chooseDoctor.js">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="47" column="25" lean-forward="true" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ask.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/ask/models/ask.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="22" lean-forward="false" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="153">
+              <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="87" />
+              <folding>
+                <element signature="e#630#682#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -170,11 +138,11 @@
         <option value="$PROJECT_DIR$/src/pages/ask/index.js" />
         <option value="$PROJECT_DIR$/src/pages/askchat/index.less" />
         <option value="$PROJECT_DIR$/src/pages/askchat/index.js" />
-        <option value="$PROJECT_DIR$/src/components/linkSocket/index.js" />
         <option value="$PROJECT_DIR$/src/layouts/baseLayout/index.js" />
         <option value="$PROJECT_DIR$/src/pages/ask/models/ask.js" />
         <option value="$PROJECT_DIR$/src/pages/chooseDoctor/models/chooseDoctor.js" />
         <option value="$PROJECT_DIR$/src/pages/chooseTime/index.js" />
+        <option value="$PROJECT_DIR$/src/components/linkSocket/index.js" />
       </list>
     </option>
   </component>
@@ -200,11 +168,11 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-1080" />
-    <option name="y" value="-481" />
-    <option name="width" value="1080" />
-    <option name="height" value="1312" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-458" />
+    <option name="y" value="-1094" />
+    <option name="width" value="1952" />
+    <option name="height" value="1094" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -278,6 +246,13 @@
               <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
               <item name="web-patient" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="linkSocket" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web-patient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="layouts" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -313,6 +288,13 @@
               <item name="pages" type="462c0819:PsiDirectoryNode" />
               <item name="ask" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web-patient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+              <item name="askchat" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
@@ -456,26 +438,26 @@
       <workItem from="1587357039919" duration="25262000" />
       <workItem from="1587519151946" duration="36167000" />
       <workItem from="1587691627927" duration="15358000" />
-      <workItem from="1587864815031" duration="42708000" />
+      <workItem from="1587864815031" duration="44174000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="670729000" />
+    <option name="totallyTimeSpent" value="672195000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1080" y="-481" width="1080" height="1312" extended-state="0" />
+    <frame x="-458" y="-1129" width="2048" height="1129" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.203966" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10656142" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27594727" sideWeight="0.50708216" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3270337" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.016433854" sideWeight="0.4948064" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.015473888" sideWeight="0.4948064" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27526706" sideWeight="0.49291784" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2746615" sideWeight="0.49291784" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -860,30 +842,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/linkSocket/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="31" column="9" lean-forward="true" selection-start-line="31" selection-start-column="9" selection-end-line="31" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/utils/request.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="568">
           <caret line="66" column="21" lean-forward="true" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6647">
-          <caret line="406" column="39" lean-forward="true" selection-start-line="406" selection-start-column="39" selection-end-line="406" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-            <element signature="e#630#682#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -911,14 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="117" column="0" lean-forward="true" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1066">
@@ -929,6 +884,14 @@
             <element signature="n#!!block;n#onClose#0;n#PatientDescribe#0" expanded="false" />
             <element signature="n#!!block;n#clickKnow#0;n#PatientDescribe#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/chooseTime/models/chooseTime.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="43" column="27" lean-forward="true" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -948,19 +911,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/chooseTime/models/chooseTime.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/chooseTime/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="731">
-          <caret line="43" column="27" lean-forward="true" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
+        <state relative-caret-position="484">
+          <caret line="127" column="25" lean-forward="true" selection-start-line="127" selection-start-column="25" selection-end-line="127" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/chooseTime/index.js">
+    <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="807">
-          <caret line="146" column="0" lean-forward="true" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
+        <state relative-caret-position="828">
+          <caret line="117" column="0" lean-forward="true" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="87" />
+          <folding>
+            <element signature="e#630#682#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/linkSocket/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="722">
+          <caret line="88" column="17" lean-forward="true" selection-start-line="88" selection-start-column="17" selection-end-line="88" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
