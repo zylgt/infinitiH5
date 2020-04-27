@@ -34,7 +34,7 @@ class Management extends Component {
         let type = getQueryString('type') || '';
         let id = getQueryString('id') || '';
         let source = getQueryString('source') || '';
-        console.log('type',type)
+        // console.log('type',type)
         this.setState({
             type: type,
             source:source

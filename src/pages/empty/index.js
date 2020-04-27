@@ -15,7 +15,7 @@ class Empty extends Component {
     componentDidMount() {
 
         let code = getQueryString('code') || ''
-        console.log('code',code)
+
         const { dispatch } = this.props;
         dispatch({
             type: 'empty/isBind',

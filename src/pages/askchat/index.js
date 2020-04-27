@@ -3,21 +3,20 @@ import { connect } from 'dva';
 import { Button,TextareaItem} from 'antd-mobile';
 import Styles from './index.less';
 import { createForm ,formShape } from 'rc-form';
-import Socket from '../../components/webSocket';
+import Socket from '../../components/webSocket/index';
 import DocumentTitle from 'react-document-title'
 import { hostURL } from '../../utils/baseURL'
-import { getQueryString } from '../../utils/tools'
-import {cookieUtils} from '../../utils/tools'
-import moment from "moment";
 import { staticURL } from '../../utils/baseURL'
-import { nonceStr,isIOS,isIPhoneX } from '../../utils/tools'
+import { nonceStr,isIOS,isIPhoneX,getQueryString,cookieUtils } from '../../utils/tools'
 import wx from 'weixin-js-sdk';
 import NProgress from 'nprogress' // 引入nprogress插件
 import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
+import linkSocket from '../../components/linkSocket'
+import moment from "moment";
 
 moment.locale('zh-cn');
 
-@connect(({ askchat }) => ({ askchat }))
+@connect(({ askchat, layout, ask }) => ({ askchat, layout, ask }))
 class AskChat extends React.Component {
     constructor(props) {
         super(props)
@@ -27,8 +26,8 @@ class AskChat extends React.Component {
             isShowSend:false,
             isShowButtom:false,
             word:'',
-            sendMsg:[],
-            historyMsg:[],
+            // sendMsg:[],
+            // historyMsg:[],
             isFinished : false,
             isExpired: false,
             token:'',
@@ -58,6 +57,7 @@ class AskChat extends React.Component {
     }
     componentDidMount(){
         const { dispatch } = this.props;
+        const { orderNo } = this.props.layout;
         let that = this;
 
         // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODcwMzM0MjksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI1MDczMjg1NTM1NzYwNzkzNiJ9.Ybxm3JTPkp2qSeJxgXwC7lAsmVMC8CAWwrlOPCi7ZOw'
@@ -82,12 +82,29 @@ class AskChat extends React.Component {
             orderId:orderId
         })
 
+        //是否置空数据
+        dispatch({
+            type:'layout/setData',
+            payload:{
+                sendMsg:[],
+                historyMsg:[]
+            }
+        })
+
+        //订单详情
         dispatch({
             type:'askchat/orderDetail',
             payload:{
                 orderId:orderId
             },
             callback: this.orderDetailCallback.bind(this)
+        })
+        //患者进入聊天室
+        dispatch({
+            type:"askchat/patientJoin",
+            payload:{
+                order_id:orderId,
+            }
         })
 
         //生成签名时间戳
@@ -210,16 +227,30 @@ class AskChat extends React.Component {
     }
     //订单详情callback
     orderDetailCallback(response){
+
         // console.log('response1----------',response)
-        let that = this;
+        const { dispatch } = this.props;
+        const { isSocket, orderNo } = this.props.layout;
+        const that = this;
         this.setState({
             detailInfo:response.data.data
         })
         let data = response.data.data;
         let { orderId } = this.state;
-        this.linkSocket(orderId)
+
+        linkSocket(that, orderId)
+        // if(!isSocket){
+        //     linkSocket(that, orderId)
+        // }else{
+        //     if(orderNo != orderId){
+        //         linkSocket(that, orderId)
+        //     }
+        // }
+
         if(data.status == 'inquiring'){
+
             // this.linkSocket(orderId)
+
         }else if(data.status == 'finished'){
             this.setState({
                 isFinished:true
@@ -246,92 +277,6 @@ class AskChat extends React.Component {
             },5000)
         }
 
-    }
-    //链接socket
-    linkSocket = (orderId) => {
-        // console.log('orderId',orderId)
-        let that = this;
-        let socketUrl = hostURL + '/m/order/' + orderId + '/chat/conn';
-        //    判断专家是否登录
-        this.socket = new Socket({
-            socketUrl: socketUrl,
-            timeout: 5000,
-            socketMessage: (receive) => {
-                console.log('socketMessage',JSON.parse(receive.data));  //后端返回的数据，渲染页面
-                const { type, data } = JSON.parse(receive.data)
-                const { dispatch } = this.props;
-                let { sendMsg, historyMsg } = this.state;
-
-                if (type === 'ping') {
-                    this.socket.sendMessage({ type: 'pong', 'data': data })
-                } else if (type === 'history') {
-                    that.setState({
-                        historyMsg: data
-                    })
-
-                    that.isShowTime('history')
-
-                } else if (type === 'message') {
-
-                    that.isShowTime('message')
-
-                    if(data.sender_type == "doctor"){
-                        data.isSend = true;
-                        sendMsg.push(data)
-                        that.setState({
-                            sendMsg: sendMsg
-                        })
-                        return false;
-                    }
-
-                    for( let i = 0;i < sendMsg.length ; i++){
-
-                        if( sendMsg[i].content == data.content){
-                            sendMsg[i].isSend = true;
-                            sendMsg[i].created_at = data.created_at;
-                            that.setState({
-                                sendMsg: sendMsg
-                            })
-                        }
-
-                    }
-
-
-                } else if (type === 'finished') {
-                    that.setState({
-                        isFinished: true
-                    })
-                    this.socket.onclose({
-                        msg:'结束问诊'
-                    })
-                }
-            },
-            socketClose: (msg) => {
-                console.log('socketClose',msg);//关闭连接
-            },
-            socketError: () => {
-                console.log('连接建立失败');
-            },
-            socketOpen: () => {
-                console.log('连接建立成功');
-                const data = { type: 'auth', 'data': that.state.token }
-                console.log('data', data)
-                this.socket.sendMessage(data)
-                // 心跳机制 定时向后端发数据
-                this.taskRemindInterval = setInterval(() => {
-                    // this.socket.sendMessage({ "msgType": 0 })
-                }, 30000)
-            }
-        });
-        // 重试创建socket连接
-        try {
-            this.socket.connection();
-        } catch (e) {
-            console.log('socket异常')
-            // 捕获异常，防止js error
-            // donothing
-        }
-        this.scrollToBottom();
     }
     //点击加号
     autoWordFocus(){
@@ -396,7 +341,9 @@ class AskChat extends React.Component {
             isSubmit:true, //是点击发送
         });
         const { dispatch } = this.props;
-        let { word, orderId, sendMsg } = this.state;
+        let { word, orderId } = this.state;
+        let { sendMsg } = this.props.layout;
+
         if(word == '' || word.length < 1 ){
             return false
         }
@@ -405,8 +352,11 @@ class AskChat extends React.Component {
             content: word,
             isSend:false
         })
-        this.setState({
-            sendMsg: sendMsg,
+        dispatch({
+            type:'layout/setData',
+            payload:{
+                sendMsg: sendMsg,
+            }
         })
         dispatch({
             type:"askchat/sendMsg",
@@ -423,67 +373,6 @@ class AskChat extends React.Component {
             isShowSend: false
         })
         this.wordFocus.focus();
-    }
-    //判断是否展示时间
-    isShowTime(type){
-
-        const { historyMsg, sendMsg } = this.state;
-
-        let created_time = historyMsg[0].created_at;
-        let newTime = Date.parse(created_time)/1000 ;
-        let showThree = Date.parse(created_time)/1000 ;
-
-        historyMsg[0].showTime = true;
-
-        for(let i = 1 ;i<historyMsg.length;i++){
-
-            if( Date.parse( historyMsg[i].created_at )/1000 - showThree >= 720 ){
-                showThree = Date.parse( historyMsg[i].created_at ) ;
-                historyMsg[i].showRemain = true
-                continue
-            }else{
-                historyMsg[i].showRemain = false
-            }
-
-            if( Date.parse( historyMsg[i].created_at )/1000 - newTime >= 360 ){
-
-                newTime = Date.parse( historyMsg[i].created_at )/1000 ;
-                historyMsg[i].showTime = true
-
-            }else{
-                historyMsg[i].showTime = false
-            }
-
-        }
-        this.setState({
-            historyMsg:historyMsg
-        })
-        if(type == 'message'){
-            for(let i = 0 ;i<sendMsg.length;i++){
-
-                if( Date.parse( sendMsg[i].created_at )/1000 - showThree >= 720 ){
-                    showThree = Date.parse( sendMsg[i].created_at ) ;
-                    sendMsg[i].showRemain = true
-                    continue
-                }else{
-                    sendMsg[i].showRemain = false
-                }
-
-                if( Date.parse( sendMsg[i].created_at )/1000 - newTime >= 360 ){
-
-                    newTime = Date.parse( sendMsg[i].created_at )/1000 ;
-                    sendMsg[i].showTime = true
-
-                }else{
-                    sendMsg[i].showTime = false
-                }
-
-            }
-            this.setState({
-                sendMsg:sendMsg
-            })
-        }
-
     }
     //判断消息时间
     showTime(item){
@@ -523,8 +412,6 @@ class AskChat extends React.Component {
                         time =  '下午 '+date
                     }
                 }
-
-
                 return (
                     <div className={Styles.list_time}>
                         { time }
@@ -570,8 +457,10 @@ class AskChat extends React.Component {
     getPhoneImg(localIds,index,that){
 
         const { dispatch } = this.props;
-        const { wkwebview, sendMsg } = this.state;
+        const { wkwebview } = this.state;
         const { patientImg } = this.props.askchat;
+        let { sendMsg } = this.props.layout;
+
         let patientObj = {};
         patientObj.isUpload = false; // 是否开始上传
         patientObj.serverId = ''; // 上传完成id
@@ -584,9 +473,14 @@ class AskChat extends React.Component {
 
             patientImg.push(patientObj)
             sendMsg.push(patientObj)
-            that.setState({
-                sendMsg:sendMsg
+
+            dispatch({
+                type:'layout/setData',
+                payload:{
+                    sendMsg: sendMsg,
+                }
             })
+
             dispatch({
                 type:'askchat/setData',
                 payload:{
@@ -609,9 +503,14 @@ class AskChat extends React.Component {
 
                     patientImg.push(patientObj)
                     sendMsg.push(patientObj)
-                    that.setState({
-                        sendMsg:sendMsg
+
+                    dispatch({
+                        type:'layout/setData',
+                        payload:{
+                            sendMsg: sendMsg,
+                        }
                     })
+
                     dispatch({
                         type:'askchat/setData',
                         payload:{
@@ -688,8 +587,9 @@ class AskChat extends React.Component {
     //图片上传callback
     uploadCallback(response){
         const { dispatch } = this.props;
-        let { sendMsg, orderId } = this.state;
         const { patientImg } = this.props.askchat;
+        let { sendMsg } = this.props.layout;
+        let { orderId } = this.state;
         let imgUrl = response.data.data[0];
         let serverId = response.data.media[0];
 
@@ -699,7 +599,7 @@ class AskChat extends React.Component {
             if(patientImg[i].serverId == serverId){
                 patientImg[i].imgUrl = response.data.data[0];
             }
-            for(let k=0;k<sendMsg.length;k++){
+            for(let k=0;k < sendMsg.length;k++){
                 if( sendMsg[k].localId && patientImg[i].localId == sendMsg[k].localId){
                     sendMsg[k].content = response.data.data[0];
                     sendMsg[k].serverId = patientImg[i].serverId;
@@ -713,8 +613,12 @@ class AskChat extends React.Component {
                 patientImg: patientImg
             }
         })
-        this.setState({
-            sendMsg: sendMsg
+
+        dispatch({
+            type:'layout/setData',
+            payload:{
+                sendMsg: sendMsg,
+            }
         })
 
         dispatch({
@@ -759,7 +663,7 @@ class AskChat extends React.Component {
             isSubmit:false, //是点击发送
             isAdd:false, //是点击加号
         });
-       if(this.state.isShowButtom){
+        if(this.state.isShowButtom){
             this.setState({
                 isShowButtom: false,
             });
@@ -774,8 +678,6 @@ class AskChat extends React.Component {
             isShowSend,
             word,
             isShowButtom,
-            sendMsg,
-            historyMsg,
             isFinished,
             isExpired,
             detailInfo,
@@ -783,6 +685,7 @@ class AskChat extends React.Component {
             isPush
         } = this.state;
 
+        let { sendMsg, historyMsg } = this.props.layout;
         // console.log('detailInfo',detailInfo)
 
         let doctorName = detailInfo.doctor_name ? detailInfo.doctor_name + '医生' : '医生';
@@ -827,36 +730,51 @@ class AskChat extends React.Component {
 
                                         {
                                             item.sender_type === "doctor" && item.type === 'text' ?
-                                                <div className={Styles.list_item_left}>
-                                                    <img className={Styles.item_img} src={staticURL + detailInfo.doctor_icon } />
-                                                    <div>
-                                                        {
-                                                            detailInfo.doctor_name?
-                                                                <div className={Styles.item_name}>
-                                                                    {detailInfo.doctor_name}-{detailInfo.doctor_title}
-                                                                </div>:''
-                                                        }
-                                                        <div className={Styles.item_content}>
-                                                            <img className={Styles.item_icon} src={require('../../assets/chat_left.png')} alt=""/>
-                                                            <span>{ item.content }</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                :
-                                                <div className={Styles.list_item_right}>
+                                                <div>
                                                     {
-                                                        item.type === 'photo' ?
-                                                            <div className={ `${Styles.item_content} ${Styles.item_content_img}`}>
-                                                                <img className={Styles.content_img} src={ staticURL + item.content } alt=""/>
-                                                            </div>
-                                                            :
-                                                            <div className={Styles.item_content}>
-                                                                <img className={Styles.item_icon} src={require('../../assets/chat_right.png')} alt=""/>
-                                                                <span>{ item.content }</span>
+                                                        item.content == '' ? '' :
+                                                            <div className={Styles.list_item_left}>
+                                                                {
+                                                                    detailInfo.doctor_icon ? <img className={Styles.item_img} src={staticURL + detailInfo.doctor_icon } /> : ''
+                                                                }
+                                                                <div>
+                                                                    {
+                                                                        detailInfo.doctor_name?
+                                                                            <div className={Styles.item_name}>
+                                                                                {detailInfo.doctor_name}-{detailInfo.doctor_title}
+                                                                            </div>:''
+                                                                    }
+                                                                    <div className={Styles.item_content}>
+                                                                        <img className={Styles.item_icon} src={require('../../assets/chat_left.png')} alt=""/>
+                                                                        <span>{ item.content }</span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                     }
-                                                    <img className={Styles.item_img} src={require('../../assets/my_head.png')} />
                                                 </div>
+                                                :
+                                                <div>
+                                                    {
+                                                        item.content == '' ? '' :
+                                                            <div className={Styles.list_item_right}>
+                                                                {
+                                                                    item.type === 'photo' ?
+                                                                        <div className={ `${Styles.item_content} ${Styles.item_content_img}`}>
+                                                                            {
+                                                                                item.content ? <img className={Styles.content_img} src={ staticURL + item.content } alt=""/> : ''
+                                                                            }
+                                                                        </div>
+                                                                        :
+                                                                        <div className={Styles.item_content}>
+                                                                            <img className={Styles.item_icon} src={require('../../assets/chat_right.png')} alt=""/>
+                                                                            <span>{ item.content }</span>
+                                                                        </div>
+                                                                }
+                                                                <img className={Styles.item_img} src={require('../../assets/my_head.png')} />
+                                                            </div>
+                                                    }
+                                                </div>
+
                                         }
                                     </div>
                                 )
@@ -869,34 +787,55 @@ class AskChat extends React.Component {
                                         { this.showTime(item) }
                                         {
                                             item.sender_type === "doctor" && item.type === 'text' ?
-                                                <div className={Styles.list_item_left}>
-                                                    <img className={Styles.item_img} src={staticURL + detailInfo.doctor_icon } />
-                                                    <div className={Styles.item_content}>
-                                                        <img className={Styles.item_icon} src={require('../../assets/chat_left.png')} alt=""/>
-                                                        <span>{ item.content }</span>
-                                                    </div>
-                                                </div>
-                                                :
-                                                <div className={Styles.list_item_right}>
+                                                <div>
                                                     {
-                                                        item.type === 'photo' ?
-                                                            <div className={ `${Styles.item_content} ${Styles.item_content_img}`}>
+                                                        item.content == '' ? '' :
+                                                            <div className={Styles.list_item_left}>
                                                                 {
-                                                                    item.isSend ? '' : <img className={Styles.item_loading} src={require('../../assets/loading.gif')} alt=""/>
+                                                                    detailInfo.doctor_icon ? <img className={Styles.item_img} src={staticURL + detailInfo.doctor_icon } /> : ''
                                                                 }
-                                                                <img className={Styles.content_img} src={ item.localUrl } alt=""/>
-                                                            </div>
-                                                            :
-                                                            <div className={Styles.item_content}>
-                                                                {
-                                                                    item.isSend ? '' : <img className={Styles.item_loading} src={require('../../assets/loading.gif')} alt=""/>
-                                                                }
-                                                                <img className={Styles.item_icon} src={require('../../assets/chat_right.png')} alt=""/>
-                                                                <span>{ item.content }</span>
+                                                                <div>
+                                                                    {
+                                                                        detailInfo.doctor_name?
+                                                                            <div className={Styles.item_name}>
+                                                                                {detailInfo.doctor_name}-{detailInfo.doctor_title}
+                                                                            </div>:''
+                                                                    }
+                                                                    <div className={Styles.item_content}>
+                                                                        <img className={Styles.item_icon} src={require('../../assets/chat_left.png')} alt=""/>
+                                                                        <span>{ item.content }</span>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                     }
-                                                    <img className={Styles.item_img} src={require('../../assets/my_head.png')} />
                                                 </div>
+                                                :
+                                                <div>
+                                                    {
+                                                        item.content == '' ? '' :
+                                                            <div className={Styles.list_item_right}>
+                                                                {
+                                                                    item.type === 'photo' ?
+                                                                        <div className={ `${Styles.item_content} ${Styles.item_content_img}`}>
+                                                                            {
+                                                                                item.isSend ? '' : <img className={Styles.item_loading} src={require('../../assets/loading.gif')} alt=""/>
+                                                                            }
+                                                                            <img className={Styles.content_img} src={ item.localUrl } alt=""/>
+                                                                        </div>
+                                                                        :
+                                                                        <div className={Styles.item_content}>
+                                                                            {
+                                                                                item.isSend ? '' : <img className={Styles.item_loading} src={require('../../assets/loading.gif')} alt=""/>
+                                                                            }
+                                                                            <img className={Styles.item_icon} src={require('../../assets/chat_right.png')} alt=""/>
+                                                                            <span>{ item.content }</span>
+                                                                        </div>
+                                                                }
+                                                                <img className={Styles.item_img} src={require('../../assets/my_head.png')} />
+                                                            </div>
+                                                    }
+                                                </div>
+
                                         }
                                     </div>
                                 )

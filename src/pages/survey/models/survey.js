@@ -25,7 +25,7 @@ export default {
                 console.log('正在保存...');
             },true);
             const response = yield call(setPatientSurvey, payload);
-            console.log('response',response)
+            // console.log('response',response)
 
             if(response && response.data.code == 200 ){
                 Toast.hide()

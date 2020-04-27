@@ -40,7 +40,7 @@ export default {
         *getAskVerify({ payload, callback }, { call,select, put }){
 
             const response = yield call(getAskVerify, payload);
-            console.log('response',response)
+            // console.log('response',response)
 
             if(response){
                 callback && callback(response)

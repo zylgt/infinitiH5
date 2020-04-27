@@ -5,6 +5,8 @@ import 'antd-mobile/dist/antd-mobile.css';
 import styles from './index.less';
 import NProgress from 'nprogress' // 引入nprogress插件
 import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
+import { hostURL } from '../../utils/baseURL';
+import linkSocket from '../../components/linkSocket'
 
 const TabBarData = [
     {
@@ -32,6 +34,50 @@ const TabBarData = [
 
 class BaseLayout extends React.Component {
 
+    componentWillUnmount(){
+        if(this.socket){
+            this.socket.onclose({
+                msg:'关闭页面'
+            })
+        }
+    }
+
+    componentDidMount() {
+        const { dispatch } = this.props;
+        dispatch({
+            type:'layout/setData',
+            payload:{
+                sendMsg:[],
+                historyMsg:[]
+            }
+        })
+        dispatch({
+            type:'ask/getAskList',
+            callback: this.getAskListCallback.bind(this)
+        })
+    }
+    //获取订单列表回调
+    getAskListCallback(response){
+        // console.log('-getAskListCallback-',response)
+        const { dispatch } = this.props;
+        let data = response.data.data;
+        if(data && data.length > 0){
+            for(let i=0;i < data.length; i++){
+                if(data[i].status == 'pending' || data[i].status == 'inquiring'){
+                    linkSocket(this, data[i].uid)
+                    dispatch({
+                        type:'layout/setData',
+                        payload:{
+                            isSocket: true,
+                            orderNo: data[i].uid
+                        }
+                    })
+                    break;
+                }
+            }
+        }
+    }
+
     isTabBarSelect = (url) => {
         const {location: {pathname}} = this.props;
         if (pathname == '/' && url == '/home') {
@@ -44,10 +90,15 @@ class BaseLayout extends React.Component {
         if(window.location.pathname == '/home' || window.location.pathname == '/my'){
             //顶部进度条开启
             NProgress.start()
+
+            setTimeout(function () {
+                //顶部进度条关闭
+                NProgress.done()
+            },350)
         }
     }
     render() {
-        const { askList } = this.props.ask;
+        const { sendMsg, historyMsg } = this.props.layout;
 
         return (
             <div className={styles.baseLayout}>
@@ -61,8 +112,16 @@ class BaseLayout extends React.Component {
                         TabBarData.map(t => {
                             const isSelect = this.isTabBarSelect(t.url);
                             let badge = false;
-                            if(t.url == '/ask' && askList.length > 0 && askList[0].un_read > 0){
-                                badge = askList[0].un_read
+
+                            if(t.url == '/ask'){
+                                let array = historyMsg.concat(sendMsg);
+                                let index = 0;
+                                for(let i = 0;i< array.length ;i++){
+                                    if(!array[i].readed_at && array[i].type != "notification" && array[i].sender_type == "doctor"){
+                                        index++;
+                                    }
+                                }
+                                badge = index
                             }
                             return  (<TabBar.Item
                                     title={t.name}
