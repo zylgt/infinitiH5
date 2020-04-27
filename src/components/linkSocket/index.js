@@ -1,5 +1,6 @@
 import Socket from '../webSocket';
 import { hostURL } from '../../utils/baseURL'
+import { getQueryString,cookieUtils } from '../../utils/tools'
 import NProgress from 'nprogress' // 引入nprogress插件
 import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import moment from "moment";
@@ -7,10 +8,9 @@ moment.locale('zh-cn');
 
 export default function linkSocket(that , orderId) {
 
-    let remain_time='';
+    let remain_time='', created_time='';
 //判断是否展示时间
     const isShowTime = (type) => {
-        let created_time='';
 
         const { dispatch } = that.props;
         const { historyMsg, sendMsg } = that.props.layout;
@@ -49,8 +49,6 @@ export default function linkSocket(that , orderId) {
                     created_time =  sendMsg[i].created_at  ;
                     sendMsg[i].showTime = true;
 
-                }else{
-                    sendMsg[i].showTime = false
                 }
             }
             dispatch({
@@ -80,8 +78,6 @@ export default function linkSocket(that , orderId) {
                     created_time = historyMsg[i].created_at  ;
                     historyMsg[i].showTime = true
 
-                }else{
-                    historyMsg[i].showTime = false
                 }
 
             }
@@ -262,10 +258,12 @@ export default function linkSocket(that , orderId) {
         },
         socketOpen: () => {
             console.log('连接建立成功');
-            let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODcwMzM0MjksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI1MDczMjg1NTM1NzYwNzkzNiJ9.Ybxm3JTPkp2qSeJxgXwC7lAsmVMC8CAWwrlOPCi7ZOw'
+            let token = cookieUtils.get('token') || getQueryString('token') || '';
 
-            // const data = { type: 'auth', 'data': that.state.token }
             const data = { type: 'auth', 'data': token }
+
+            // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODcwMzM0MjksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI1MDczMjg1NTM1NzYwNzkzNiJ9.Ybxm3JTPkp2qSeJxgXwC7lAsmVMC8CAWwrlOPCi7ZOw'
+            // const data = { type: 'auth', 'data': token }
             that.socket.sendMessage(data)
             // 心跳机制 定时向后端发数据
             that.taskRemindInterval = setInterval(() => {
