@@ -6,7 +6,6 @@ export default connect(props => {
   return logging_status;
 })(function Authority (props) {
   const {logging_status, route} = props;
-  console.log(router.path,'path')
   if (logging_status) {
     console.log(11111)
   } else {

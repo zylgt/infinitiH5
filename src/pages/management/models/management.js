@@ -28,7 +28,7 @@ export default {
         *getPatient({ payload, callback }, { call,select, put }){
 
             const response = yield call(getPatient, payload);
-            console.log('response',response)
+            // console.log('response',response)
 
             if( response && response.data.code == 200 ){
                 yield put({
@@ -49,7 +49,7 @@ export default {
         *savePatient({ payload, callback }, { call,select, put }){
 
             const response = yield call(savePatient, payload);
-            console.log('response',response)
+            // console.log('response',response)
 
             if( response && response.data.code == 200 ){
                 yield put({

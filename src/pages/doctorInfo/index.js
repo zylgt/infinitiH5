@@ -28,7 +28,7 @@ class DoctorInfo extends Component {
     componentDidMount(){
         const { dispatch } = this.props;
         let id = getQueryString('id') || '';
-        console.log('id',id)
+        // console.log('id',id)
         this.setState({
             doctor_id: id
         })
@@ -85,7 +85,6 @@ class DoctorInfo extends Component {
     //点击进入出诊医生详情
     clickDoctorDetail(){
         let doctorId = this.state.doctor_id;
-        console.log(1)
         this.setState({
             isShowCover:true
         })
@@ -110,7 +109,7 @@ class DoctorInfo extends Component {
     }
     //callback
     clickAskChatCallback(response){
-        console.log('response-----',response)
+        // console.log('response-----',response)
 
         if(response.data.code == 421){
             router.push('./management?type=add&id='+this.state.doctor_id  )

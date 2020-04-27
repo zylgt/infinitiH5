@@ -18,7 +18,6 @@ export default class webSocket {
         if ('WebSocket' in window) {
             console.log('WebSocket');
             this.socket = new WebSocket(socketUrl);
-            console.log(this.socket)
         } else if ('MozWebSocket' in window) {
             console.log('MozWebSocket');
             this.socket = new window.MozWebSocket(socketUrl);

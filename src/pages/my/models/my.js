@@ -19,7 +19,7 @@ export default {
     effects: {
         *getUserInfo({ payload, callback }, { call, put }) {
             const response = yield call(getUserInfo, payload);
-            console.log('response',response)
+            // console.log('response',response)
             if( response && response.data.code == 200){
                 yield put({
                     type: 'setData',

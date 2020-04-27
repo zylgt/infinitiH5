@@ -23,7 +23,7 @@ export default {
             const stateChooseDoctor = yield select(state => state.chooseDoctor)
 
             const response = yield call(getDoctorTime, payload);
-            console.log('response',response)
+            // console.log('response',response)
 
             if(response && response.data.code == 200 ){
                 yield put({
@@ -36,7 +36,6 @@ export default {
         },
         //预约排号
         *appointment({ payload, callback }, { call,select, put }){
-            console.log('payload',payload)
 
             const response = yield call(appointment, payload);
             console.log('response',response)

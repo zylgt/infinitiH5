@@ -19,7 +19,6 @@ export default {
         setup({ dispatch, history }) {
             return history.listen(({ pathname, search }) => {
                 if (pathname == '/login') {
-                    console.log('models-login')
                     dispatch({
                         type: 'setData',
                         payload: {
