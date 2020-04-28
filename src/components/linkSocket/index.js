@@ -107,25 +107,27 @@ export default function linkSocket(that , orderId) {
             let { sendMsg, historyMsg, orderNo } = that.props.layout;
             const { askList } = that.props.ask;
 
+            if(window.location.pathname == '/askchat') {
+                let array = historyMsg.concat(sendMsg);
+                let readArray = [];
+                for (let i = 0; i < array.length; i++) {
+                    if (!array[i].readed_at && array[i].type != "notification" && array[i].sender_type == "doctor") {
+                        readArray.push(array[i].uid)
+                        array[i].readed_at = moment().format('YYYY-MM-DD HH:mm:ss');
+                    }
+                }
+                if (readArray.length > 0) {
+                    that.socket.sendMessage({type: 'read_message', 'data': readArray})
+                }
+            }
+
             if (type === 'ping') {
                 that.socket.sendMessage({ type: 'pong', 'data': data })
 
                 if(window.location.pathname == '/askchat'){
-                    let array = historyMsg.concat(sendMsg);
-                    let readArray = [];
-                    for(let i = 0;i< array.length ;i++){
-                        if(!array[i].readed_at && array[i].type != "notification" && array[i].sender_type == "doctor" ){
-                            readArray.push(array[i].uid)
-                            array[i].readed_at = moment().format('YYYY-MM-DD HH:mm:ss');
-                        }
-                    }
-                    if(readArray.length > 0){
-                        that.socket.sendMessage({ type: 'read_message', 'data': readArray })
-                    }
 
                     let newTime = Date.parse(remain_time) ;
                     if(data - newTime > 730000){
-
                         sendMsg.push({
                             uid: "",
                             sender_type: "user",
