@@ -871,6 +871,7 @@ class AskChat extends React.Component {
                         !isFinished ?
                             <div>
                                 <div className={ Styles.chat_input }>
+
                                     <TextareaItem
                                         {...getFieldProps('word',{
                                             initialValue:word
