@@ -35,8 +35,6 @@ class AskChat extends React.Component {
             timeIndex:1,
             isPush: false, //是否是从推送消息进入
             isFocus:true,
-            isSubmit:false, //是点击发送
-            isAdd:false, //是点击加号
         }
         this.taskRemindInterval = null
         this.scrollBottom = null
@@ -168,42 +166,7 @@ class AskChat extends React.Component {
 
         //监听页面大小变化
         window.addEventListener('resize', that.resize.bind(this))
-        //ios软键盘
-        if(isIOS()) {
-            document.body.addEventListener('focusin', () => {
-                //软键盘弹出的事件处理
-                if(window.innerHeight > 500){
-                    that.setState({
-                        isFocus:false
-                    });
-                }
-                this.setState({
-                    isSubmit:false, //是点击发送
-                    isAdd:false, //是点击加号
-                });
 
-            })
-            document.body.addEventListener('focusout', () => {
-                //软键盘收起的事件处理
-                if(window.innerHeight > 500){
-                    that.wordFocus.focus();
-                }
-                if( that.state.isSubmit ){
-                    that.wordFocus.focus();
-                    return
-                }
-                if( that.state.isAdd ){
-                    return
-                }
-                if(window.innerHeight < 500){
-                    that.setState({
-                        isFocus:true
-                    });
-                }
-
-            })
-
-        }
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -223,6 +186,7 @@ class AskChat extends React.Component {
     }
     //监听页面大小变化
     resize(){
+        console.log(1)
         this.scrollToBottom()
     }
     //订单详情callback
@@ -280,18 +244,14 @@ class AskChat extends React.Component {
     }
     //点击加号
     autoWordFocus(){
-        this.setState({
-            isAdd:true, //是点击加号
-        });
         if(this.state.isShowButtom){
             this.setState({
                 isShowButtom: false,
-                isFocus:true
             });
+            this.customFocusInst.focus()
         }else{
             this.setState({
                 isShowButtom: true,
-                isFocus:false
             });
         }
     }
@@ -318,10 +278,6 @@ class AskChat extends React.Component {
     //输入框聚焦
     textareaFocus(){
         this.setState({
-            isSubmit:false, //是点击发送
-            isAdd:false, //是点击加号
-        });
-        this.setState({
             isShowButtom: false
         });
         this.scrollToBottom();
@@ -337,9 +293,6 @@ class AskChat extends React.Component {
     }
     //点击提交聊天
     submit = () => {
-        this.setState({
-            isSubmit:true, //是点击发送
-        });
         const { dispatch } = this.props;
         let { word, orderId } = this.state;
         let { sendMsg } = this.props.layout;
@@ -372,7 +325,7 @@ class AskChat extends React.Component {
             word:'',
             isShowSend: false
         })
-        this.wordFocus.focus();
+        this.customFocusInst.focus()
     }
     //判断消息时间
     showTime(item){
@@ -659,18 +612,11 @@ class AskChat extends React.Component {
     }
     //点击聊天界面
     clickChat(){
-        this.setState({
-            isSubmit:false, //是点击发送
-            isAdd:false, //是点击加号
-        });
         if(this.state.isShowButtom){
             this.setState({
                 isShowButtom: false,
             });
         }
-        this.setState({
-            isFocus:true
-        });
     }
     render() {
         const { getFieldProps } = this.props.form;
@@ -870,7 +816,7 @@ class AskChat extends React.Component {
 
                         !isFinished ?
                             <div>
-                                <div className={ Styles.chat_input }>
+                                <div className={ `${Styles.chat_input} ${isFocus && isIOS() && isIPhoneX()  && isPush ? Styles.chat_input_push : ''}` }>
 
                                     <TextareaItem
                                         {...getFieldProps('word',{
@@ -879,19 +825,16 @@ class AskChat extends React.Component {
                                         autoHeight
                                         placeholder="请输入咨询内容"
                                         className={Styles.input}
-                                        ref={el => this.wordFocus = el}
+                                        ref={el => this.customFocusInst = el}
                                         onChange = {(val)=>{this.changeWord(val)}}
                                         onFocus={()=>{this.textareaFocus()}}
                                         // onBlur={()=>{this.textareaBlur()}}
                                     />
                                     {
-                                        isShowSend ? <Button type="primary" onMouseDown={()=>{this.submit()}} className={Styles.input_btn}>发送</Button>
+                                        isShowSend ? <Button type="primary" onClick={()=>{this.submit()}} className={Styles.input_btn}>发送</Button>
                                             :
-                                            <img onMouseDown={()=>{this.autoWordFocus()}} className={Styles.input_img} src={require('../../assets/ask_add.png')} alt=""/>
+                                            <img onClick={() => this.autoWordFocus()} className={Styles.input_img} src={require('../../assets/ask_add.png')} alt=""/>
 
-                                    }
-                                    {
-                                        isFocus && isIOS() && isIPhoneX()  && isPush ? <div className={Styles.chat_input_bottom}></div> : ''
                                     }
 
                                 </div>
