@@ -31,20 +31,21 @@ export default function linkSocket(that , orderId) {
             }
         }
 
+
         if(type == 'message' && sendMsg.length > 0){
 
             for(let i = 0 ;i< sendMsg.length;i++){
 
-                let newTime = Date.parse(created_time)/1000 ;
-                let showThree = Date.parse(remain_time)/1000 ;
+                let newTime = (moment(created_time).valueOf())/1000 ;
+                let showThree = (moment(remain_time).valueOf())/1000 ;
 
-                if( Date.parse( sendMsg[i].created_at )/1000 - showThree >= 720 ){
+                if( (moment(sendMsg[i].created_at).valueOf())/1000 - showThree >= 720 ){
                     remain_time = moment(sendMsg[i].created_at).add(1,'year').format('YYYY-MM-DD HH:mm:ss');
                     sendMsg[i].showRemain = true;
                     continue
                 }
 
-                if( Date.parse( sendMsg[i].created_at )/1000 - newTime >= 360 ){
+                if( (moment(sendMsg[i].created_at).valueOf())/1000 - newTime >= 360 ){
 
                     created_time =  sendMsg[i].created_at  ;
                     sendMsg[i].showTime = true;
@@ -64,16 +65,16 @@ export default function linkSocket(that , orderId) {
 
             for(let i = 1 ;i<historyMsg.length;i++){
 
-                let newTime = Date.parse(created_time)/1000 ;
-                let showThree = Date.parse(remain_time)/1000 ;
+                let newTime = (moment(created_time).valueOf())/1000 ;
+                let showThree = (moment(remain_time).valueOf())/1000 ;
 
-                if( Date.parse( historyMsg[i].created_at )/1000 - showThree >= 720 ){
+                if( (moment(historyMsg[i].created_at).valueOf())/1000 - showThree >= 720 ){
                     remain_time = moment(historyMsg[i].created_at).add(1,'year').format('YYYY-MM-DD HH:mm:ss');
                     historyMsg[i].showRemain = true;
                     continue
                 }
 
-                if( Date.parse( historyMsg[i].created_at )/1000 - newTime >= 360 ){
+                if( (moment(historyMsg[i].created_at).valueOf())/1000 - newTime >= 360 ){
 
                     created_time = historyMsg[i].created_at  ;
                     historyMsg[i].showTime = true
@@ -150,7 +151,6 @@ export default function linkSocket(that , orderId) {
                         },300)
                     }
 
-
                 }
 
             } else if (type === 'history') {
@@ -189,7 +189,6 @@ export default function linkSocket(that , orderId) {
                         }
                     }
                 }
-
 
                 if(data.sender_type == "doctor"){
                     if(window.location.pathname == '/askchat'){
