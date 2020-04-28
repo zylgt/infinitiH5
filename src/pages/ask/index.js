@@ -81,15 +81,20 @@ class Ask extends React.Component {
     }
     //判断消息内容显示
     infoContent(item){
-        if(item.status == 'pending' && item.waited_at){
-            const { sendMsg, historyMsg } = this.props.layout;
-            let array = historyMsg.concat(sendMsg);
-            let index = 0;
-            for(let i = 0;i< array.length ;i++){
-                if(!array[i].readed_at && array[i].type != "notification" && array[i].sender_type == "doctor"){
-                    index++;
-                }
+        const { sendMsg, historyMsg } = this.props.layout;
+        let array = historyMsg.concat(sendMsg);
+        let index = 0;
+        for(let k = 0;k< array.length ;k++){
+            if(array[k].type == "notification"){
+                array.splice(k,1)
             }
+        }
+        for(let i = 0;i< array.length ;i++){
+            if(!array[i].readed_at && array[i].type != "notification" && array[i].sender_type == "doctor"){
+                index++;
+            }
+        }
+        if(item.status == 'pending' && item.waited_at){
             return (
                 <div className={Styles.info_content}>
                     {
@@ -102,14 +107,6 @@ class Ask extends React.Component {
                 </div>
             )
         }else if(item.status == 'inquiring'){
-            const { sendMsg, historyMsg } = this.props.layout;
-            let array = historyMsg.concat(sendMsg);
-            let index = 0;
-            for(let i = 0;i< array.length ;i++){
-                if(!array[i].readed_at && array[i].type != "notification" && array[i].sender_type == "doctor"){
-                    index++;
-                }
-            }
             return (
                 <div className={Styles.info_content}>
                     {
@@ -121,14 +118,6 @@ class Ask extends React.Component {
                     }
                 </div>
             )
-            // return (
-            //     <div className={Styles.info_content}>
-            //         <p className={Styles.content_word}> {item.last_msg} </p>
-            //         {
-            //             item.un_read > 0 ? <p className={Styles.content_number}>{ item.un_read }</p> : ''
-            //         }
-            //     </div>
-            // )
         }else if(item.status == 'finished'){
             return (
                 <div className={Styles.info_content}>

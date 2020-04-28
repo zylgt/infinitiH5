@@ -27,7 +27,7 @@ export default function linkSocket(that , orderId) {
                 created_time = sendMsg[0].created_at;
             }
             if(remain_time == ''){
-                remain_time = historyMsg[0].created_at;
+                remain_time = sendMsg[0].created_at;
             }
         }
 
@@ -101,7 +101,7 @@ export default function linkSocket(that , orderId) {
         socketUrl: socketUrl,
         timeout: 5000,
         socketMessage: (receive) => {
-            // console.log('socketMessage',JSON.parse(receive.data));  //后端返回的数据，渲染页面
+            console.log('socketMessage',JSON.parse(receive.data));  //后端返回的数据，渲染页面
             const { type, data } = JSON.parse(receive.data)
             const { dispatch } = that.props;
             let { sendMsg, historyMsg, orderNo } = that.props.layout;
