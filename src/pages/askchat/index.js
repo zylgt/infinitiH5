@@ -167,6 +167,18 @@ class AskChat extends React.Component {
         //监听页面大小变化
         window.addEventListener('resize', that.resize.bind(this))
 
+        if(isIOS()) {
+            document.body.addEventListener('focusin', () => {
+                //软键盘弹出的事件处理
+                this.scrollToBottom()
+
+            })
+            document.body.addEventListener('focusout', () => {
+                //软键盘收起的事件处理
+                this.scrollToBottom()
+            })
+        }
+
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -186,7 +198,6 @@ class AskChat extends React.Component {
     }
     //监听页面大小变化
     resize(){
-        console.log(1)
         this.scrollToBottom()
     }
     //订单详情callback
