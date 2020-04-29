@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'dva';
-import { SearchBar, Modal, Menu, Toast, List, InputItem,Button,WhiteSpace} from 'antd-mobile';
+import { Toast } from 'antd-mobile';
 import router from 'umi/router';
 import Styles from './index.less';
-import { staticURL, pageURL } from '../../utils/baseURL'
-import { nonceStr } from '../../utils/tools'
+import { staticURL } from '../../utils/baseURL'
+import { cookieUtils, nonceStr,isIOS, getQueryString  } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
-import { getQueryString } from '../../utils/tools'
-import {cookieUtils} from '../../utils/tools'
-
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import moment from "moment";
 moment.locale('zh-cn');
 
 
-@connect(({ ask }) => ({ ask }))
+@connect(({ ask,layout }) => ({ ask,layout }))
 class Ask extends React.Component {
     constructor(props) {
         super(props)
@@ -24,6 +23,7 @@ class Ask extends React.Component {
         }
     }
     componentDidMount() {
+
         const { dispatch } = this.props;
         //生成签名时间戳
         let timestamp = (Date.parse(new Date()) / 1000).toString();
@@ -41,16 +41,27 @@ class Ask extends React.Component {
             type:'ask/getAskList'
         })
 
-        //获取appid和签名
-        // dispatch({
-        //     type:'patientDescribe/getAppid',
-        //     payload:{
-        //         noncestr: nonceStr,
-        //         timestamp: timestamp,
-        //         url: pageURL + '/ask'
-        //     },
-        //     callback: this.getAppidCallback.bind(this)
-        // })
+        if(isIOS()){
+            wx.ready(function(){
+                wx.hideAllNonBaseMenuItem();
+                // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+            });
+        }else{
+            //获取appid和签名
+            dispatch({
+                type:'patientDescribe/getAppid',
+                payload:{
+                    noncestr: nonceStr,
+                    timestamp: timestamp,
+                    url: window.location.href.split('#')[0]
+                },
+                callback: this.getAppidCallback.bind(this)
+            })
+        }
+    }
+    componentWillUnmount(){
+        //顶部进度条开启
+        NProgress.start()
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -70,12 +81,40 @@ class Ask extends React.Component {
     }
     //判断消息内容显示
     infoContent(item){
-        if(item.status == 'inquiring'){
+        const { sendMsg, historyMsg } = this.props.layout;
+        let array = historyMsg.concat(sendMsg);
+        let index = 0;
+        for(let k = 0;k< array.length ;k++){
+            if(array[k].type == "notification"){
+                array.splice(k,1)
+            }
+        }
+        for(let i = 0;i< array.length ;i++){
+            if(!array[i].readed_at && array[i].type != "notification" && array[i].sender_type == "doctor"){
+                index++;
+            }
+        }
+        if(item.status == 'pending' && item.waited_at){
             return (
                 <div className={Styles.info_content}>
-                    <p className={Styles.content_word}> {item.last_msg} </p>
                     {
-                        item.un_read > 0 ? <p className={Styles.content_number}>{ item.un_read }</p> : ''
+                        array.length > 0 ?  <p className={Styles.content_word}> { array[array.length-1].content } </p> :''
+                    }
+
+                    {
+                        index > 0 ? <p className={Styles.content_number}>{ index }</p> : ''
+                    }
+                </div>
+            )
+        }else if(item.status == 'inquiring'){
+            return (
+                <div className={Styles.info_content}>
+                    {
+                        array.length > 0 ?  <p className={Styles.content_word}> { array[array.length-1].content } </p> :''
+                    }
+
+                    {
+                        index > 0 ? <p className={Styles.content_number}>{ index }</p> : ''
                     }
                 </div>
             )
@@ -109,8 +148,8 @@ class Ask extends React.Component {
             Toast.info('待医生接诊后可进入',1.5)
             return;
         }
-        console.log('orderId',orderId);
-        router.push('./askchat?order_id=' + orderId)
+        // console.log('orderId',orderId);
+        router.push('./askchat?source=list&order_id=' + orderId)
     }
     //判断消息右上角时间
     rigthTime(item){
@@ -142,7 +181,11 @@ class Ask extends React.Component {
             }
         }
 
-        if(item.status == 'inquiring'){
+        if(item.status == 'pending' && item.waited_at){
+            return (
+                <span className={Styles.info_right}>{time}</span>
+            )
+        }else if(item.status == 'inquiring'){
             return (
                 <span className={Styles.info_right}>{time}</span>
             )

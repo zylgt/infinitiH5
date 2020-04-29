@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'dva';
 import Styles from './index.less';
 import wx from 'weixin-js-sdk';
-import router from 'umi/router';
-import { pageURL } from '../../utils/baseURL'
 import { nonceStr, isIOS,getQueryString } from '../../utils/tools'
 
 @connect(({ empty }) => ({ empty }))
@@ -17,7 +15,7 @@ class Empty extends Component {
     componentDidMount() {
 
         let code = getQueryString('code') || ''
-        console.log('code',code)
+
         const { dispatch } = this.props;
         dispatch({
             type: 'empty/isBind',

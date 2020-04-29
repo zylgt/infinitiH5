@@ -28,7 +28,7 @@ export default {
             const stateChooseDoctor = yield select(state => state.chooseDoctor)
 
             const response = yield call(getDoctor, payload);
-            console.log('response',response)
+            // console.log('response',response)
 
             if(response && response.data.code == 200 ){
                 let list = response.data.data.list;

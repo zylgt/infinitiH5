@@ -20,6 +20,13 @@ export async function orderDetail (params) {
     return request(url,getOptions())
 }
 
+//患者进入聊天室
+export async function patientJoin (params) {
+    const url = `/m/order/`+ params.order_id +`/chat/join`;
+    return request(url,postOptions(params.msg))
+}
+
+
 
 
 

@@ -119,16 +119,12 @@ export const isIOS = () => {
 }
 
 export const isIPhoneX = () => {
-    var u = navigator.userAgent;
-    var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-    if (isIOS) {
-        if (window.screen.height >= 812 && window.screen.width >= 375){
-            //是iphoneX及以上
-            return true
-        }else{
-            //不是iphoneX及以上
-            return false
-        }
+    if (window.screen.height >= 812 && window.screen.width >= 375){
+        //是iphoneX及以上
+        return true
+    }else{
+        //不是iphoneX及以上
+        return false
     }
 }
 

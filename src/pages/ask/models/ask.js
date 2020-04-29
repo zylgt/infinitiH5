@@ -20,7 +20,7 @@ export default {
         *getAskList({ payload, callback }, { call,select, put }){
 
             const response = yield call(getAskList, payload);
-            console.log('response',response)
+            // console.log('response',response)
 
             if(response && response.data.code == 200 ){
                 yield put({
@@ -29,6 +29,9 @@ export default {
                         askList: response.data.data
                     }
                 });
+                if(callback){
+                    callback(response)
+                }
             }
         },
 

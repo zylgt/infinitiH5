@@ -15,7 +15,6 @@ export async function verifyImgCode (params) {
 
 //获取手机验证码
 export async function getPhoneCode (params) {
-    console.log('params',params)
     const url = `/m/common/verification/${params.phone}`;
     return request(url,getOptions())
 }

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { SearchBar, Modal, Flex,Carousel, WingBlank,Toast  } from 'antd-mobile';
-import Link from 'umi/link';
+import { Modal, Toast  } from 'antd-mobile';
 import router from 'umi/router';
 import Styles from './index.less';
-import { getQueryString,nonceStr } from '../../utils/tools'
-import { staticURL,pageURL } from '../../utils/baseURL'
+import { getQueryString,nonceStr,isIOS } from '../../utils/tools'
+import { staticURL } from '../../utils/baseURL'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
-import LazyLoad from 'react-lazyload';
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import moment from "moment";
 moment.locale('zh-cn');
 
@@ -20,14 +20,15 @@ class DoctorInfo extends Component {
             timestamp:'',
             doctor_id:'',
             modal:false,
-            modelTitl:''
+            modelTitl:'',
+            isShowCover:false
         }
     }
 
     componentDidMount(){
         const { dispatch } = this.props;
         let id = getQueryString('id') || '';
-        console.log('id',id)
+        // console.log('id',id)
         this.setState({
             doctor_id: id
         })
@@ -43,16 +44,27 @@ class DoctorInfo extends Component {
         this.setState({
             timestamp:timestamp,
         })
-        //获取appid和签名
-        // dispatch({
-        //     type:'patientDescribe/getAppid',
-        //     payload:{
-        //         noncestr: nonceStr,
-        //         timestamp: timestamp,
-        //         url: pageURL + '/doctorInfo'
-        //     },
-        //     callback: this.getAppidCallback.bind(this)
-        // })
+        if(isIOS()){
+            wx.ready(function(){
+                wx.hideAllNonBaseMenuItem();
+                // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+            });
+        }else{
+            //获取appid和签名
+            dispatch({
+                type:'patientDescribe/getAppid',
+                payload:{
+                    noncestr: nonceStr,
+                    timestamp: timestamp,
+                    url: window.location.href.split('#')[0]
+                },
+                callback: this.getAppidCallback.bind(this)
+            })
+        }
+    }
+    componentWillUnmount(){
+        //顶部进度条开启
+        NProgress.start()
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -71,10 +83,13 @@ class DoctorInfo extends Component {
         });
     }
     //点击进入出诊医生详情
-    clickDoctorDetail(e){
+    clickDoctorDetail(){
         let doctorId = this.state.doctor_id;
+        this.setState({
+            isShowCover:true
+        })
         // console.log('officeId',doctorId)
-        router.push('./doctorDetail?id=' + doctorId )
+        // router.push('./doctorDetail?id=' + doctorId )
     }
     //点击去问诊
     clickAskChat(isOpen){
@@ -94,7 +109,7 @@ class DoctorInfo extends Component {
     }
     //callback
     clickAskChatCallback(response){
-        console.log('response-----',response)
+        // console.log('response-----',response)
 
         if(response.data.code == 421){
             router.push('./management?type=add&id='+this.state.doctor_id  )
@@ -120,10 +135,18 @@ class DoctorInfo extends Component {
             modal:false
         })
     }
+    //关闭详情
+    closeDetail(e){
+        // e.stopPropagation();
+        // e.preventDefault();
+        this.setState({
+            isShowCover:false
+        })
+    }
 
 
     render() {
-        const { modelTitl } = this.state;
+        const { modelTitl,isShowCover } = this.state;
         const { doctorInfo } = this.props.doctorInfo;
 
         let date = '今日出诊';
@@ -144,7 +167,7 @@ class DoctorInfo extends Component {
                 <div className={Styles.doctor_info}>
                     <div className={Styles.info}>
                         {
-                            doctorInfo.icon ? <img className={Styles.info_img} src={ staticURL + doctorInfo.icon } alt=""/> : ''
+                            doctorInfo.icon ? <img className={`${Styles.info_img} ${Styles.img}`} src={ staticURL + doctorInfo.icon } alt=""/> : ''
                         }
                         {
                             doctorInfo.name ? <div className={Styles.info_right}>
@@ -163,7 +186,7 @@ class DoctorInfo extends Component {
                         doctorInfo.skill
                             ?
                             <div className={Styles.introducer}>
-                                <img className={Styles.introducer_img} src={require('../../assets/strong.png')} alt=""/>
+                                <img className={`${Styles.introducer_img} ${Styles.img}`} src={require('../../assets/strong.png')} alt=""/>
                                 <div className={Styles.introducer_word}>
                                     <span className={Styles.introducer_word_key}>擅长：</span>{doctorInfo.skill}
                                 </div>
@@ -174,7 +197,7 @@ class DoctorInfo extends Component {
                         doctorInfo.info
                             ?
                             <div className={Styles.introducer}>
-                                <img className={Styles.introducer_img} src={require('../../assets/introduce.png')} alt=""/>
+                                <img className={`${Styles.introducer_img} ${Styles.img}`} src={require('../../assets/introduce.png')} alt=""/>
                                 <div className={Styles.introducer_word}>
                                     <span className={Styles.introducer_word_key}>简介：</span>{doctorInfo.info}
                                 </div>
@@ -184,11 +207,11 @@ class DoctorInfo extends Component {
 
                     <div className={Styles.doctor_info_right} onClick={()=>{this.clickDoctorDetail()}}>
                         医生信息
-                        <img className={Styles.info_right_img} src={require('../../assets/right.png')} alt=""/>
+                        <img className={ `${Styles.info_right_img}`} src={require('../../assets/right.png')} alt=""/>
                     </div>
                     <div className={Styles.line}>
                         <div className={Styles.line_left}>
-                            <img className={Styles.line_img} src={require('../../assets/line.png')} alt=""/>
+                            <img className={`${Styles.line_img} ${Styles.img}`} src={require('../../assets/line.png')} alt=""/>
                             <div  className={Styles.line_word}>
                                 <p>在线问诊</p>
                                 <p>¥0.00/次</p>
@@ -198,6 +221,49 @@ class DoctorInfo extends Component {
                             去问诊<img src={require('../../assets/line_right.png')} alt=""/>
                         </div>
                     </div>
+                    {
+                        isShowCover ?
+                            <div className={ Styles.doctor_info_cover }>
+                                <div onClick={(e)=>{this.closeDetail(e)}} className={Styles.cover} ></div>
+                                <div className={`${Styles.cover_content}`}>
+                                    <div className={Styles.cover_title}>
+                                        {doctorInfo.name}医生简介
+                                        <img onClick={(e)=>{this.closeDetail(e)}} src={require('../../assets/close_cover.png')} alt=""/>
+                                    </div>
+                                    <div className={Styles.cover_info}>
+                                        {
+                                            doctorInfo.skill
+                                                ?
+                                                <div className={`${Styles.introducer} ${Styles.cover_introducer}`}>
+                                                    <img className={`${Styles.introducer_img} ${Styles.cover_introducer_img}`} src={require('../../assets/strong.png')} alt=""/>
+                                                    <div className={`${Styles.introducer_word} ${Styles.cover_introducer_word}`} >
+                                                        <span className={`${Styles.introducer_word_key} ${Styles.cover_introducer_word_key}`}>擅长：</span>{doctorInfo.skill}
+                                                    </div>
+                                                </div>
+                                                : ''
+                                        }
+                                        {
+                                            doctorInfo.info
+                                                ?
+                                                <div className={`${Styles.introducer} ${Styles.cover_introducer}`}>
+                                                    <img className={`${Styles.introducer_img} ${Styles.cover_introducer_img}`} src={require('../../assets/introduce.png')} alt=""/>
+                                                    <div className={`${Styles.introducer_word} ${Styles.cover_introducer_word}`} >
+                                                        <span className={`${Styles.introducer_word_key} ${Styles.cover_introducer_word_key}`}>简介：</span>{doctorInfo.info}
+                                                    </div>
+                                                </div>
+                                                : ''
+                                        }
+                                    </div>
+                                    <div onClick={(e)=>{this.closeDetail(e)}} className={ Styles.cover_bottom }>
+                                        收起
+                                        <img src={require('../../assets/right.png')}  alt=""/>
+                                    </div>
+                                </div>
+                            </div>
+                            :''
+                    }
+
+
                     <Modal
                         visible={this.state.modal}
                         transparent

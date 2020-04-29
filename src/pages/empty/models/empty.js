@@ -14,7 +14,7 @@ export default {
         setup({ dispatch, history }) {
             return history.listen(({ pathname, search }) => {
                 if (pathname == '/empty') {
-                    console.log('models-empty')
+                    // console.log('models-empty')
                 }
             });
         },

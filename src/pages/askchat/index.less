@@ -7,6 +7,7 @@
     background: #F2F3F5;
     flex: 1;
     overflow: auto;
+    padding-bottom:.1rem;
     :global(.am-list-body::after){
       display: none;
     }
@@ -196,15 +197,14 @@
       }
     }
   }
-  .chat_input_bottom{
-    padding-bottom: .68rem;
-  }
   .chat_input {
     width: 100%;
     background: #fff;
-    //height: 0.98rem;
+    height: 0.98rem;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
     .input {
       flex: 1;
       width:6.24rem;
@@ -226,12 +226,12 @@
       font-family:PingFangSC-Regular,PingFang SC;
       font-weight:400;
       color:rgba(255,255,255,1);
-      margin: 0 .24rem .18rem 0 ;
+      margin: 0 .24rem 0 0 ;
     }
     .input_img{
       height: .54rem;
       width:.54rem;
-      margin:0 .24rem .22rem 0;
+      margin:.2rem .24rem .26rem 0;
     }
     :global(.am-list-item){
       min-height:.66rem;
@@ -257,6 +257,9 @@
       color:rgba(153,153,153,1);
       line-height:.44rem;
     }
+  }
+  .chat_input_push{
+    height:1.3rem;
   }
   .chat_buttom{
     height:4.68rem;
