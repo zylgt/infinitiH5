@@ -123,13 +123,13 @@
     .info_right_img{
       width:.24rem;
       height:.24rem;
-      margin: 0 .24rem 0 .04rem;
+      margin: -.02rem .24rem 0 .04rem;
       transform: rotate(90deg);
     }
   }
   .line{
     width:6.9rem;
-    margin:2.06rem auto 0 auto;
+    margin:1.54rem auto 0 auto;
     height:1.6rem;
     background:rgba(255,255,255,1);
     box-shadow:0px 2px 20px 0px rgba(0,26,64,0.1);
@@ -175,17 +175,28 @@
       border-radius:.36rem;
       display: flex;
       justify-content: center;
-      align-items: center;
       color: #fff;
       margin-right:.24rem;
       font-weight:500;
+      font-size: .26rem;
+      font-family:PingFangSC-Medium,PingFang SC;
       img{
         height:.24rem;
         width: .24rem;
         vertical-align: top;
         display: block;
+        margin-top:.16rem;
       }
     }
+    .line_right_and{
+      line-height: .62rem;
+    }
+    .line_right_no{
+      background: #C6C6C6;
+    }
+  }
+  .line_video{
+    margin:.3rem auto 0 auto;
   }
   .doctor_info_cover{
     position: absolute;
@@ -237,6 +248,7 @@
         //height:6.94rem;
         width:100%;
         overflow: scroll;
+        padding-bottom: .2rem;
         .cover_introducer{
           overflow: auto;
           text-overflow: clip;
@@ -250,26 +262,6 @@
             display: inline-block;
             height: auto;
           }
-        }
-
-      }
-      .cover_bottom{
-        width:1.5rem;
-        height:.4rem;
-        font-size:.28rem;
-        font-family:PingFangSC-Regular,PingFang SC;
-        font-weight:400;
-        color:rgba(32,137,235,1);
-        line-height:.4rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: .2rem auto .62rem auto;
-        img{
-          width:.24rem;
-          height:.24rem;
-          margin: 0 0 0 .1rem;
-          transform: rotate(-90deg);
         }
       }
     }

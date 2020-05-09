@@ -450,7 +450,7 @@ export const illDate = {
             key:'family',
             content:[
                 {
-                    title:'是否有家族史？',
+                    title:'是否有疾病史？（指父母，祖父母，外祖父母等直系亲属）',
                     answer:[
                         {
                             title:'无',
