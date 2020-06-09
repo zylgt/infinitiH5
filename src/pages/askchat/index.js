@@ -163,7 +163,6 @@ class AskChat extends React.Component {
             }
         },600)
 
-
         //监听页面大小变化
         window.addEventListener('resize', that.resize.bind(this))
 
@@ -178,7 +177,6 @@ class AskChat extends React.Component {
                 this.scrollToBottom()
             })
         }
-
     }
     //获取appidcallback
     getAppidCallback(response){
@@ -222,7 +220,6 @@ class AskChat extends React.Component {
         }
 
         if(data.status == 'pending' || data.status == 'inquiring'){
-
             // 开启计时
             this.setIntervalTime = setInterval(function () {
                 const { sendMsg, historyMsg } = that.props.layout;
@@ -245,7 +242,6 @@ class AskChat extends React.Component {
                     })
                 }
             },1000)
-
         }else if(data.status == 'finished'){
             this.setState({
                 isFinished:true,
@@ -279,7 +275,6 @@ class AskChat extends React.Component {
             clearInterval(this.setIntervalTime)
             this.scrollToBottom();
         }
-
     }
     //点击加号
     autoWordFocus(){
@@ -369,7 +364,6 @@ class AskChat extends React.Component {
     }
     //判断消息时间
     showTime(item){
-
         let time = '';
         let created_time = item.created_at;
         if(created_time){
@@ -449,7 +443,6 @@ class AskChat extends React.Component {
     }
     //根据机型获取可展示图片
     getPhoneImg(localIds,index,that){
-
         const { dispatch } = this.props;
         const { wkwebview } = this.state;
         const { patientImg } = this.props.askchat;
@@ -464,17 +457,14 @@ class AskChat extends React.Component {
 
         if( wkwebview ){
             patientObj.localUrl = localIds[index]; // 不同机型预览地址
-
             patientImg.push(patientObj)
             sendMsg.push(patientObj)
-
             dispatch({
                 type:'layout/setData',
                 payload:{
                     sendMsg: sendMsg,
                 }
             })
-
             dispatch({
                 type:'askchat/setData',
                 payload:{
@@ -504,7 +494,6 @@ class AskChat extends React.Component {
                             sendMsg: sendMsg,
                         }
                     })
-
                     dispatch({
                         type:'askchat/setData',
                         payload:{
@@ -528,15 +517,12 @@ class AskChat extends React.Component {
                 }
             });
         }
-
     }
     //上传图片
     uploadImg(index,that){
         const { dispatch } = this.props;
         const { patientImg } = this.props.askchat;
-
         // console.log('patientImg',patientImg)
-
         //上传图片
         wx.uploadImage({
             localId: patientImg[index].localId, // 需要上传的图片的本地ID，由chooseImage接口获得
@@ -544,7 +530,6 @@ class AskChat extends React.Component {
             success: function (res) {
                 let serverId = res.serverId; // 返回图片的服务器端ID
                 // console.log('serverId',serverId)
-
                 patientImg[index].isUpload = true;
                 patientImg[index].serverId = serverId;
 
@@ -567,7 +552,6 @@ class AskChat extends React.Component {
                     index++;
                     that.uploadImg(index, that)
                 }
-
             },
             fail:function(res){
                 if(index + 1 < patientImg.length){
@@ -600,7 +584,6 @@ class AskChat extends React.Component {
                     this.scrollToBottom();
                 }
             }
-
         }
         dispatch({
             type:'askchat/setData',
@@ -677,7 +660,6 @@ class AskChat extends React.Component {
 
         let { sendMsg, historyMsg } = this.props.layout;
         // console.log('detailInfo',detailInfo)
-
         let doctorName = detailInfo.doctor_name ? detailInfo.doctor_name + '医生' : '医生';
 
         return (
@@ -778,7 +760,6 @@ class AskChat extends React.Component {
                                                             </div>
                                                     }
                                                 </div>
-
                                         }
                                     </div>
                                 )
@@ -839,13 +820,11 @@ class AskChat extends React.Component {
                                                             </div>
                                                     }
                                                 </div>
-
                                         }
                                     </div>
                                 )
                             }):''
                         }
-
                         {
                             isFinished ? <div>
                                 {
@@ -857,25 +836,20 @@ class AskChat extends React.Component {
                                             <span>医生的回复仅为建议，具体诊疗需要前往医院进行</span>
                                         </div>
                                 }
-
                                 <div className={Styles.list_hint}>
                                     <span className={Styles.hint_words}>本次问诊已结束</span>
                                     <p className={Styles.hint_line}></p>
                                 </div>
                             </div> : ''
                         }
-
-
                         <div style={{ float:"left", clear: "both" }}
                              ref={(el) => { this.messagesEnd = el; }}>
                         </div>
                     </div>
                     {
-
                         !isFinished && askType ?
                             <div>
                                 <div className={ `${Styles.chat_input} ${isFocus && isIOS() && isIPhoneX()  && isPush ? Styles.chat_input_push : ''}` }>
-
                                     <TextareaItem
                                         {...getFieldProps('word',{
                                             initialValue:word
@@ -892,9 +866,7 @@ class AskChat extends React.Component {
                                         isShowSend ? <Button type="primary" onClick={()=>{this.submit()}} className={Styles.input_btn}>发送</Button>
                                             :
                                             <img onClick={() => this.autoWordFocus()} className={Styles.input_img} src={require('../../assets/ask_add.png')} alt=""/>
-
                                     }
-
                                 </div>
                                 {
                                     isShowButtom ? <div className={Styles.chat_buttom}>
@@ -906,18 +878,14 @@ class AskChat extends React.Component {
                                             <img src={require('../../assets/chat_picture.png')} alt=""/>
                                             <p>图片</p>
                                         </div>
-
                                     </div> : ''
                                 }
                             </div>:''
                     }
-
                 </div>
             </DocumentTitle>
-
         )
     }
 }
-
 
 export default createForm()(AskChat);

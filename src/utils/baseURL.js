@@ -1,11 +1,11 @@
 
 
 //请求url
-let defaultBaseURL = 'http://api.nethospital.yutanglabs.com';
+let defaultBaseURL = 'http://apitest.nethospital.yutanglabs.com';
 //静态资源
-let defaultStaticURL = 'http://static.nethospital.yutanglabs.com';
+let defaultStaticURL = 'http://statictest.nethospital.yutanglabs.com';
 //socket
-let defaultHostURL = 'ws://api.nethospital.yutanglabs.com';
+let defaultHostURL = 'ws://apitest.nethospital.yutanglabs.com';
 
 console.log('apiType', process.env.apiType)
 

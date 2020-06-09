@@ -20,34 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="175d2814-6ce3-4d6e-8268-5c4da88a3d07" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/set/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/set/index.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/ask_lose.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/ask_lose.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/ask_success.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/ask_success.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/linkSocket/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/linkSocket/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/apply/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/apply/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/applySubmit/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/applySubmit/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ask/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ask/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ask/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ask/index.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/askchat/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/askchat/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/askchat/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/askchat/index.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/chooseTime/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/chooseTime/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/doctorInfo/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/doctorInfo/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/doctorInfo/models/doctorinfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/doctorInfo/models/doctorinfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/home/models/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/home/models/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/management/models/management.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/management/models/management.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/my/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/my/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/my/models/my.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/my/models/my.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/patientDescribe/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/patientDescribe/index.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/patientDescribe/models/patientDescribe.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/patientDescribe/models/patientDescribe.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/my.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/my.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/illDate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/illDate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/baseURL.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/baseURL.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -60,11 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-272">
-              <caret line="61" column="27" lean-forward="true" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
+            <state relative-caret-position="598">
+              <caret line="62" column="36" lean-forward="true" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -75,8 +50,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/utils/request.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="620">
-              <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
+            <state relative-caret-position="1482">
+              <caret line="57" column="19" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="19" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -84,14 +59,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/utils/baseURL.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="65" column="27" lean-forward="true" selection-start-line="65" selection-start-column="27" selection-end-line="65" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#40#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="390">
+              <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -113,6 +85,8 @@
       <find>orderDetailCallback</find>
       <find>last_time</find>
       <find>token</find>
+      <find>defaultStaticURL</find>
+      <find>staticURL</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -127,6 +101,7 @@
         <option value="$PROJECT_DIR$/src/utils/illDate.js" />
         <option value="$PROJECT_DIR$/src/pages/ask/index.js" />
         <option value="$PROJECT_DIR$/src/utils/request.js" />
+        <option value="$PROJECT_DIR$/src/utils/baseURL.js" />
         <option value="$PROJECT_DIR$/src/pages/askchat/index.js" />
       </list>
     </option>
@@ -190,7 +165,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -208,6 +182,13 @@
               <item name="web-patient" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="web-patient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="linkSocket" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="web-patient" type="b2602c69:ProjectViewProjectNode" />
@@ -246,6 +227,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -343,12 +325,13 @@
       <workItem from="1590746324643" duration="476000" />
       <workItem from="1590976778947" duration="8129000" />
       <workItem from="1591321458101" duration="7082000" />
-      <workItem from="1591581216149" duration="2009000" />
+      <workItem from="1591581216149" duration="2349000" />
+      <workItem from="1591691785134" duration="4544000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19083000" />
+    <option name="totallyTimeSpent" value="23967000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1080" y="-464" width="1080" height="1298" extended-state="0" />
@@ -471,29 +454,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/baseURL.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="676">
-          <caret line="26" column="38" lean-forward="true" selection-start-line="26" selection-start-column="38" selection-end-line="26" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/home/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="86">
           <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/linkSocket/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="23" column="13" lean-forward="true" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -596,30 +562,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/request.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="56" column="5" lean-forward="true" selection-start-line="56" selection-start-column="5" selection-end-line="56" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/ask/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-272">
-          <caret line="61" column="27" lean-forward="true" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
+        <state relative-caret-position="344">
+          <caret line="89" column="13" lean-forward="true" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/linkSocket/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4339">
+          <caret line="193" column="21" lean-forward="true" selection-start-line="193" selection-start-column="21" selection-end-line="193" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/request.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1482">
+          <caret line="57" column="19" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/baseURL.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="65" column="27" lean-forward="true" selection-start-line="65" selection-start-column="27" selection-end-line="65" selection-end-column="27" />
+        <state relative-caret-position="598">
+          <caret line="62" column="36" lean-forward="true" selection-start-line="62" selection-start-column="36" selection-end-line="62" selection-end-column="36" />
           <folding>
             <element signature="e#0#40#0" expanded="true" />
           </folding>
