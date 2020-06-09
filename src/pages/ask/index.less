@@ -78,13 +78,13 @@
           width:6rem;
           height:.42rem;
           line-height:.42rem;
-          font-size:.3rem;
+          font-size:.28rem;
           font-family:PingFangSC-Regular,PingFang SC;
           font-weight:400;
           color:rgba(153,153,153,1);
           margin:.12rem 0 .1rem 0;
           display: flex;
-          justify-content: space-between;
+          justify-content: flex-start;
           align-items: center;
           position: relative;
           .content_word{
@@ -105,13 +105,20 @@
             background:rgba(246,96,116,1);
             border-radius:.16rem;
             padding:0 .08rem;
-            margin-right:.24rem;
+            position: absolute;
+            right:.24rem;
+
           }
-          img{
+          .content_img{
             height:.36rem;
             width:.92rem;
             position: absolute;
             right:0.24rem;
+          }
+          .content_list_img{
+            height: .34rem;
+            width: .34rem;
+            margin-right: .04rem;
           }
         }
         .info_ill{
@@ -131,6 +138,28 @@
             SC-Regular,PingFang SC;
             font-weight:400;
             margin: 0 .12rem .12rem 0;
+          }
+          .ill_img{
+            border:1px solid #F5A623;
+            color:#F5A623;
+          }
+          .ill_video{
+            border: 1px solid #26B6AC;
+            color: #26B6AC;
+          }
+        }
+        .info_ill_expire{
+          .ill{
+            border:1px solid #999999;
+            color:#999999;
+          }
+          .ill_img{
+            border:1px solid #999999;
+            color:#999999;
+          }
+          .ill_video{
+            border: 1px solid #999999;
+            color: #999999;
           }
         }
       }

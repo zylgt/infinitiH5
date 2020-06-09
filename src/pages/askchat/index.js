@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'dva';
 import { Button,TextareaItem} from 'antd-mobile';
 import Styles from './index.less';
-import { createForm ,formShape } from 'rc-form';
-import Socket from '../../components/webSocket/index';
+import { createForm } from 'rc-form';
 import DocumentTitle from 'react-document-title'
-import { hostURL } from '../../utils/baseURL'
 import { staticURL } from '../../utils/baseURL'
 import { nonceStr,isIOS,isIPhoneX,getQueryString,cookieUtils } from '../../utils/tools'
 import wx from 'weixin-js-sdk';
@@ -26,8 +24,6 @@ class AskChat extends React.Component {
             isShowSend:false,
             isShowButtom:false,
             word:'',
-            // sendMsg:[],
-            // historyMsg:[],
             isFinished : false,
             isExpired: false,
             token:'',
@@ -35,9 +31,12 @@ class AskChat extends React.Component {
             timeIndex:1,
             isPush: false, //是否是从推送消息进入
             isFocus:true,
+            time:0,
+            askType:true,
         }
         this.taskRemindInterval = null
         this.scrollBottom = null
+        this.setIntervalTime = null
     }
     componentWillUnmount(){
         if(this.socket){
@@ -49,9 +48,10 @@ class AskChat extends React.Component {
         NProgress.start()
 
         clearInterval(this.scrollBottom)
+        clearInterval(this.setIntervalTime)
     }
     componentDidUpdate(){
-        this.scrollToBottom();
+        // this.scrollToBottom();
     }
     componentDidMount(){
         const { dispatch } = this.props;
@@ -202,7 +202,6 @@ class AskChat extends React.Component {
     }
     //订单详情callback
     orderDetailCallback(response){
-
         // console.log('response1----------',response)
         const { dispatch } = this.props;
         const { isSocket, orderNo } = this.props.layout;
@@ -213,22 +212,44 @@ class AskChat extends React.Component {
         let data = response.data.data;
         let { orderId } = this.state;
 
-        linkSocket(that, orderId)
-        // if(!isSocket){
-        //     linkSocket(that, orderId)
-        // }else{
-        //     if(orderNo != orderId){
-        //         linkSocket(that, orderId)
-        //     }
-        // }
+        linkSocket(that, orderId,this.scrollToBottom)
 
-        if(data.status == 'inquiring'){
+        //判断图文、视频
+        if(data.type == 1){
+            this.setState({
+                askType:false
+            })
+        }
 
-            // this.linkSocket(orderId)
+        if(data.status == 'pending' || data.status == 'inquiring'){
+
+            // 开启计时
+            this.setIntervalTime = setInterval(function () {
+                const { sendMsg, historyMsg } = that.props.layout;
+                const { time } = that.state;
+                let newMsg = historyMsg.concat(sendMsg);
+                if(time == 0){
+                    for(let i = 0;i < newMsg.length; i++){
+                        if(newMsg[i].sender_type == 'user' && newMsg[i].type == 'notification'){
+                            let nowTime = parseInt( moment().valueOf() / 1000 ) - parseInt( moment(newMsg[i].created_at).valueOf() / 1000 )
+
+                            that.setState({
+                                time: nowTime
+                            })
+                            break;
+                        }
+                    }
+                }else{
+                    that.setState({
+                        time: time + 1
+                    })
+                }
+            },1000)
 
         }else if(data.status == 'finished'){
             this.setState({
-                isFinished:true
+                isFinished:true,
+                time: 0
             })
             setTimeout(function () {
                 if(that.socket){
@@ -238,10 +259,14 @@ class AskChat extends React.Component {
                 }
             },5000)
 
+            clearInterval(this.setIntervalTime)
+            this.scrollToBottom();
+
         }else if(data.status == 'expired'){
             this.setState({
                 isFinished:true,
-                isExpired:true
+                isExpired:true,
+                time: 0
             })
             setTimeout(function () {
                 if(that.socket){
@@ -250,6 +275,9 @@ class AskChat extends React.Component {
                     })
                 }
             },5000)
+
+            clearInterval(this.setIntervalTime)
+            this.scrollToBottom();
         }
 
     }
@@ -337,6 +365,7 @@ class AskChat extends React.Component {
             isShowSend: false
         })
         this.customFocusInst.focus()
+        this.scrollToBottom();
     }
     //判断消息时间
     showTime(item){
@@ -376,6 +405,7 @@ class AskChat extends React.Component {
                         time =  '下午 '+date
                     }
                 }
+
                 return (
                     <div className={Styles.list_time}>
                         { time }
@@ -567,6 +597,7 @@ class AskChat extends React.Component {
                 if( sendMsg[k].localId && patientImg[i].localId == sendMsg[k].localId){
                     sendMsg[k].content = response.data.data[0];
                     sendMsg[k].serverId = patientImg[i].serverId;
+                    this.scrollToBottom();
                 }
             }
 
@@ -639,7 +670,9 @@ class AskChat extends React.Component {
             isExpired,
             detailInfo,
             isFocus,
-            isPush
+            isPush,
+            time,
+            askType
         } = this.state;
 
         let { sendMsg, historyMsg } = this.props.layout;
@@ -650,6 +683,20 @@ class AskChat extends React.Component {
         return (
             <DocumentTitle title={doctorName}>
                 <div className={Styles.chat}>
+                    {
+                        time != 0 && !isFinished ?
+                            <div className={ `${Styles.chat_time} ${parseInt(time/60) >= 12 ? '' : Styles.chat_time_default }` }>
+                                已就诊时间
+                                {
+                                    parseInt(time/60) < 10 ?
+                                        '0' + parseInt(time/60) : parseInt(time/60)
+                                }分
+                                {
+                                    parseInt(time%60) < 10 ?
+                                        '0' + parseInt(time%60) : parseInt(time%60)
+                                }秒
+                            </div> : ''
+                    }
 
                     <div  className={ `my_chat_list ${Styles.chat_list}`} onClick={()=>{this.clickChat()}} ref={el => this.chat_list = el}>
 
@@ -825,7 +872,7 @@ class AskChat extends React.Component {
                     </div>
                     {
 
-                        !isFinished ?
+                        !isFinished && askType ?
                             <div>
                                 <div className={ `${Styles.chat_input} ${isFocus && isIOS() && isIPhoneX()  && isPush ? Styles.chat_input_push : ''}` }>
 

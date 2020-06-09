@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'dva';
-import { Button } from 'antd-mobile';
-import router from 'umi/router';
 import Styles from './index.less';
 import { nonceStr, isIOS } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
 import wx from 'weixin-js-sdk';
 import NProgress from 'nprogress' // 引入nprogress插件
 import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
+import { List, Switch } from 'antd-mobile';
 
-@connect(({ login,management }) => ({ login,management }))
-class Apply extends Component {
+@connect(({ my }) => ({ my }))
+class Agreememt extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -65,42 +64,35 @@ class Apply extends Component {
             // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
         });
     }
-    //开始问诊
-    startApply(){
-        const { past, epidemic } = this.props.management;
-        if(!past){
-            router.push('./applyList?step=1')
-            return;
-        }
-        if(!epidemic){
-            router.push('./survey?step=1')
-            return
-        }
-
-        router.push('patientDescribe')
-
+    //切换声音
+    chooseVoice(){
+        const { dispatch } = this.props;
+        const { userInfo } = this.props.my;
+        dispatch({
+            type:'my/setVoice',
+            payload: {
+                voice: !userInfo.voice_switch
+            }
+        })
     }
 
     render() {
-
+        const { userInfo } = this.props.my;
         return (
-            <DocumentTitle title='问诊申请'>
-                <div className={Styles.apply}>
-                    <p className={Styles.apply_title} >就诊说明</p>
-                    <img className={Styles.apply_img} src={require('../../assets/apply_flow.png')} alt=""/>
-                    <p className={Styles.apply_content}>1.申请问诊后需等候就诊通知，请在您预约时段内实时关注微信公众号或短信的就诊提醒。</p>
-                    <p className={ `${Styles.apply_content} ${Styles.apply_content_strong}`}>2.通知后5分钟未响应，预约视为作废，需重新申请。</p>
-                    <p className={Styles.apply_content}>3.就诊时间为15分钟，以进入问诊对话开始计时。</p>
-                    <p className={Styles.apply_content}>4.危重病患者请立即到医院进行治疗。</p>
-                    <p className={Styles.apply_content}>5.医生的咨询服务仅提供相关就诊建议，不作为医嘱。</p>
-                    <p className={Styles.apply_fill}></p>
-                    <div className={Styles.apply_bottom}>
-                        <p className={Styles.apply_word}>开始问诊即代表您已阅读并同意<span onClick={()=>{router.push('./informed')}}>《知情同意书》</span></p>
-                        <Button className={Styles.apply_btn} onClick={()=>{this.startApply()}} >开始问诊</Button>
+            <DocumentTitle title='设置'>
+                <div className={Styles.set}>
+                    <div className={Styles.set_item}>
+                        <span>声音</span>
+                        <Switch
+                            checked={ userInfo.voice_switch }
+                            color='#07C05F'
+                            onChange={() => { this.chooseVoice() }}
+                        />
                     </div>
                 </div>
             </DocumentTitle>
+
         )
     }
 }
-export default Apply;
+export default Agreememt;

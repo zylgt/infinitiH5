@@ -9,7 +9,8 @@ export default {
         past:false, //是否完善信息
         epidemic:false, //是否完善信息
         old_name:'', // 用来判断是否有变化
-        old_card_id:''// 用来判断是否有变化
+        old_card_id:'', // 用来判断是否有变化
+        patientInfo:{}
     },
     subscriptions: {
         setup({ dispatch, history }) {
@@ -37,10 +38,11 @@ export default {
                         uid: response.data.data.uid, //就诊人ID
                         name: response.data.data.name, //姓名
                         card_id: response.data.data.card_id, //身份证号
-                        old_name:response.data.data.name,
-                        old_card_id:response.data.data.card_id,
-                        past:response.data.data.past,
-                        epidemic:response.data.data.epidemic,
+                        old_name: response.data.data.name,
+                        old_card_id: response.data.data.card_id,
+                        past: response.data.data.past,
+                        epidemic: response.data.data.epidemic,
+                        patientInfo: response.data.data
                     }
                 })
             }
@@ -58,10 +60,11 @@ export default {
                         uid: response.data.data.uid, //就诊人ID
                         name: response.data.data.name, //姓名
                         card_id: response.data.data.card_id, //身份证号
-                        old_name:response.data.data.name,
-                        old_card_id:response.data.data.card_id,
-                        past:response.data.data.past,
-                        epidemic:response.data.data.epidemic,
+                        old_name: response.data.data.name,
+                        old_card_id: response.data.data.card_id,
+                        past: response.data.data.past,
+                        epidemic: response.data.data.epidemic,
+                        patientInfo: response.data.data
                     }
                 })
             }

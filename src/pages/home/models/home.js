@@ -39,6 +39,10 @@ export default {
                             limit:20
                         }
                     });
+                    //获取用户信息，判断声音用
+                    dispatch({
+                        type:'my/getUserInfo'
+                    })
 
                 }
             });

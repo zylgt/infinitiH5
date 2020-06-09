@@ -1,5 +1,6 @@
-import { getUserInfo } from '../../../services/my';
-import router from 'umi/router';
+import { getUserInfo, setVoice } from '../../../services/my';
+import { Toast } from 'antd-mobile';
+
 export default {
     namespace: 'my',
     state: {
@@ -27,6 +28,21 @@ export default {
                         userInfo:response.data.data
                     }
                 });
+            }
+        },
+        *setVoice({ payload, callback }, { call, put }) {
+            const response = yield call(setVoice, payload);
+            // console.log('response',response)
+            if( response && response.data.code == 200){
+                yield put({
+                    type: 'getUserInfo'
+                });
+            }else{
+                if( payload.voice ){
+                    Toast.info('开启声音失败！')
+                }else{
+                    Toast.info('关闭声音失败！')
+                }
             }
         },
     },

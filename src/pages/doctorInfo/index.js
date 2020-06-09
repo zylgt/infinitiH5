@@ -92,12 +92,19 @@ class DoctorInfo extends Component {
         // router.push('./doctorDetail?id=' + doctorId )
     }
     //点击去问诊
-    clickAskChat(isOpen){
+    clickAskChat(isOpen,type){
         const { dispatch } = this.props;
-        console.log('isOpen',isOpen)
+        // console.log('isOpen',isOpen)
         if(!isOpen){
             return;
         }
+        dispatch({
+            type: 'doctorInfo/setData',
+            payload:{
+                chooseType: type
+            },
+        });
+
         let doctorId = this.state.doctor_id;
         //问诊验证
         dispatch({
@@ -219,7 +226,7 @@ class DoctorInfo extends Component {
                                 <p>¥0.00/次</p>
                             </div>
                         </div>
-                        <div className={`${Styles.line_right} ${ isOpen ? '' : Styles.line_right_no } ${isIOS() ? '' : Styles.line_right_and}`} onClick={()=>{this.clickAskChat(isOpen)}}>
+                        <div className={`${Styles.line_right} ${ isOpen ? '' : Styles.line_right_no } ${isIOS() ? '' : Styles.line_right_and}`} onClick={()=>{this.clickAskChat(isOpen,'video')}}>
                             去问诊<img src={require('../../assets/line_right.png')} alt=""/>
                         </div>
                     </div>
@@ -231,7 +238,7 @@ class DoctorInfo extends Component {
                                 <p>¥0.00/次</p>
                             </div>
                         </div>
-                        <div className={`${Styles.line_right} ${ isOpen ? '' : Styles.line_right_no } ${isIOS() ? '' : Styles.line_right_and}`} onClick={()=>{this.clickAskChat(isOpen)}}>
+                        <div className={`${Styles.line_right} ${ isOpen ? '' : Styles.line_right_no } ${isIOS() ? '' : Styles.line_right_and}`} onClick={()=>{this.clickAskChat(isOpen,'img')}}>
                             去问诊<img src={require('../../assets/line_right.png')} alt=""/>
                         </div>
                     </div>
@@ -273,8 +280,6 @@ class DoctorInfo extends Component {
                             </div>
                             :''
                     }
-
-
                     <Modal
                         visible={this.state.modal}
                         transparent

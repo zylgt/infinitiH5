@@ -181,7 +181,7 @@ export const illDate = {
             key:'disease',
             content:[
                 {
-                    title:'是否有疾病史？',
+                    title:'是否有疾病史？（指父母，祖父母，外祖父母等直系亲属）',
                     answer:[
                         {
                             title:'无',

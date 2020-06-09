@@ -5,7 +5,9 @@ import { Toast } from 'antd-mobile';
 export default {
     namespace: 'patientDescribe',
     state: {
-        val:'',
+        info:'',
+        medicine:'',
+        question:'',
         patientImg:[]
     },
     subscriptions: {

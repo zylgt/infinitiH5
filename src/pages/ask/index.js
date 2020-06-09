@@ -98,7 +98,10 @@ class Ask extends React.Component {
             return (
                 <div className={Styles.info_content}>
                     {
-                        array.length > 0 ?  <p className={Styles.content_word}> { array[array.length-1].content } </p> :''
+                        array.length > 0 ?
+                            <p className={Styles.content_word}>
+                                { array[array.length-1].content }
+                            </p> :''
                     }
 
                     {
@@ -110,7 +113,10 @@ class Ask extends React.Component {
             return (
                 <div className={Styles.info_content}>
                     {
-                        array.length > 0 ?  <p className={Styles.content_word}> { array[array.length-1].content } </p> :''
+                        array.length > 0 ?
+                            <p className={Styles.content_word}>
+                                { array[array.length-1].content }
+                            </p> :''
                     }
 
                     {
@@ -122,19 +128,31 @@ class Ask extends React.Component {
             return (
                 <div className={Styles.info_content}>
                     <p className={Styles.content_word}>[本次问诊已结束]</p>
-                    <img src={require('../../assets/ask_success.png')} alt=""/>
+                    <img className={Styles.content_img} src={require('../../assets/ask_success.png')} alt=""/>
                 </div>
             )
         }else if(item.status == 'expired'){
             return (
                 <div className={Styles.info_content}>
                     <p className={Styles.content_word}>[本次问诊已失效]</p>
-                    <img src={require('../../assets/ask_lose.png')} alt=""/>
+                    <img className={Styles.content_img} src={require('../../assets/ask_lose.png')} alt=""/>
                 </div>
             )
         }else {
             return (
-                <div className={Styles.info_content}>在线问诊{item.segment}，请等待就诊通知。</div>
+                <div className={Styles.info_content}>
+                    {
+                        item.type == 1 ?
+                            <img className={Styles.content_list_img} src={require('../../assets/list_video.png')} alt=""/>
+                            : ''
+                    }
+                    {
+                        item.type == 0 ?
+                            <img className={Styles.content_list_img} src={require('../../assets/list_img.png')} alt=""/>
+                            : ''
+                    }
+                    {moment(item.created_at).format('MM月DD日')}{item.segment}，请等待就诊通知。
+                </div>
             )
         }
     }
@@ -156,6 +174,9 @@ class Ask extends React.Component {
 
         let time = ''
         let created_time = item.last_time;
+        if(!created_time){
+            created_time = item.created_at;
+        }
         if(created_time){
             let weeks = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
             let currentTime = Date.parse(new Date(moment().format('L')));
@@ -228,10 +249,14 @@ class Ask extends React.Component {
                                                     {this.rigthTime(item)}
                                                 </div>
                                                 {this.infoContent(item)}
-                                                <div className={Styles.info_ill}>
-
+                                                <div className={` ${ Styles.info_ill }  ${ item.status == 'pending' || item.status == 'inquiring' ? '' : Styles.info_ill_expire }`}>
+                                                    {
+                                                        item.type == 0 ?
+                                                            <div className={ `${ Styles.ill } ${ Styles.ill_img }`}>图文轻问诊</div>
+                                                            :
+                                                            <div className={ `${ Styles.ill } ${ Styles.ill_video }`}>视频轻问诊</div>
+                                                    }
                                                     <div className={Styles.ill}>就诊人：{item.patient_name}</div>
-
                                                 </div>
                                             </div>
                                         </div>
