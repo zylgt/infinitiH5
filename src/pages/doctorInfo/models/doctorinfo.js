@@ -3,7 +3,8 @@ import { getDoctorInfo, getAskVerify } from '../../../services/doctorinfo';
 export default {
     namespace: 'doctorInfo',
     state: {
-        doctorInfo:{}
+        doctorInfo:{},
+        chooseType:''
     },
     subscriptions: {
         setup({ dispatch, history }) {

@@ -6,7 +6,7 @@ import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import moment from "moment";
 moment.locale('zh-cn');
 
-export default function linkSocket(that , orderId) {
+export default function linkSocket(that ,orderId, callback) {
 
     let remain_time='', created_time='';
 //判断是否展示时间
@@ -50,6 +50,7 @@ export default function linkSocket(that , orderId) {
                     created_time =  sendMsg[i].created_at  ;
                     sendMsg[i].showTime = true;
 
+                    callback && callback()
                 }
             }
             dispatch({
@@ -163,6 +164,8 @@ export default function linkSocket(that , orderId) {
 
                 isShowTime('history')
 
+                callback && callback()
+
             } else if (type === 'message') {
 
                 if(window.location.pathname != '/askchat'){
@@ -175,6 +178,7 @@ export default function linkSocket(that , orderId) {
                                 sendMsg: sendMsg
                             }
                         })
+                        callback && callback()
                     }
                     for(let i = 0;i< askList.length; i++){
                         if(orderNo == askList[i].uid){
@@ -207,6 +211,8 @@ export default function linkSocket(that , orderId) {
                         isShowTime('message')
                     },300)
 
+                    callback && callback()
+
                     return false;
                 }
 
@@ -228,6 +234,8 @@ export default function linkSocket(that , orderId) {
                     isShowTime('message')
                 },300)
 
+
+
             } else if (type === 'finished') {
                 that.setState({
                     isFinished: true
@@ -238,6 +246,9 @@ export default function linkSocket(that , orderId) {
                 dispatch({
                     type:'ask/getAskList'
                 })
+
+                callback && callback()
+
             }else if(type == 'expired'){
                 dispatch({
                     type:'ask/getAskList'

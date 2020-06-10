@@ -106,6 +106,11 @@ class MyIndex extends Component {
                         <span>服务协议</span>
                         <img src={require('../../assets/my_right.png')} alt=""/>
                     </div>
+                    <div className={Styles.my_item} onClick={()=>{router.push('./set')}}>
+                        <div className={Styles.my_item_border}></div>
+                        <span>设置</span>
+                        <img src={require('../../assets/my_right.png')} alt=""/>
+                    </div>
 
                     <Modal
                         visible={ isCall }

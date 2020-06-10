@@ -97,14 +97,24 @@ class ChooseTime extends Component {
     appointment(){
         const { dispatch } = this.props;
         const { selectTime } = this.props.chooseTime;
+        const { chooseType } = this.props.doctorInfo;
         const { name, card_id } = this.props.management;
         const { doctor_id } = this.state;
+        let type = ''
+        if(chooseType  == ''){
+            return;
+        }else if(chooseType == 'img'){
+            type = 0
+        }else if(chooseType == 'video'){
+            type = 1
+        }
         let params = {
             doctor_id: doctor_id,
             price: 0,
             segment: selectTime.segment,
             patient_name: name,
-            card_id: card_id
+            card_id: card_id,
+            type: type
         }
         // console.log('params', params)
         dispatch({
@@ -114,8 +124,6 @@ class ChooseTime extends Component {
             },
             callback:this.appointmentCallback.bind(this)
         })
-
-
     }
     //预约回调
     appointmentCallback(response){
@@ -143,8 +151,6 @@ class ChooseTime extends Component {
                 router.push('./apply')
             }
         }
-
-
     }
     //比较时分的大小
     compareDate(t1,t2){

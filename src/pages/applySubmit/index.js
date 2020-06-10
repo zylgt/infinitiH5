@@ -87,7 +87,7 @@ class ApplySubmit extends Component {
                             就诊时间：{key}
                             {selectTime && selectTime.segment ? selectTime.segment : ''}
                         </p>
-                        <p className={Styles.content} >具体时间请以就诊通知为准，<span>通知后5分钟未响应，预约视为作废，需重新申请。</span>请实时关注「天津医大代谢病」微信公众号提醒</p>
+                        <p className={Styles.content} >具体时间请以就诊通知为准，请实时关注<span>天津医大代谢病微信公众号或短信</span>就诊提醒。</p>
                     </div>
                     <Button className={Styles.submit_btn} onClick={()=>{router.push('./ask')}}>知道了</Button>
                 </div>

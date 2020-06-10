@@ -92,11 +92,19 @@ class DoctorInfo extends Component {
         // router.push('./doctorDetail?id=' + doctorId )
     }
     //点击去问诊
-    clickAskChat(isOpen){
+    clickAskChat(isOpen,type){
         const { dispatch } = this.props;
-        // if(!isOpen){
-        //     Toast.info('今日无出诊', 1.5);
-        // }
+        // console.log('isOpen',isOpen)
+        if(!isOpen){
+            return;
+        }
+        dispatch({
+            type: 'doctorInfo/setData',
+            payload:{
+                chooseType: type
+            },
+        });
+
         let doctorId = this.state.doctor_id;
         //问诊验证
         dispatch({
@@ -209,18 +217,32 @@ class DoctorInfo extends Component {
                         医生信息
                         <img className={ `${Styles.info_right_img}`} src={require('../../assets/right.png')} alt=""/>
                     </div>
+
                     <div className={Styles.line}>
                         <div className={Styles.line_left}>
-                            <img className={`${Styles.line_img} ${Styles.img}`} src={require('../../assets/line.png')} alt=""/>
-                            <div  className={Styles.line_word}>
-                                <p>在线问诊</p>
+                            <img className={`${Styles.line_img} ${Styles.img}`} src={require('../../assets/line_video.png')} alt=""/>
+                            <div className={Styles.line_word}>
+                                <p>视频轻问诊</p>
                                 <p>¥0.00/次</p>
                             </div>
                         </div>
-                        <div className={Styles.line_right} onClick={()=>{this.clickAskChat(isOpen)}}>
+                        <div className={`${Styles.line_right} ${ isOpen ? '' : Styles.line_right_no } ${isIOS() ? '' : Styles.line_right_and}`} onClick={()=>{this.clickAskChat(isOpen,'video')}}>
                             去问诊<img src={require('../../assets/line_right.png')} alt=""/>
                         </div>
                     </div>
+                    <div className={`${Styles.line} ${Styles.line_video}`}>
+                        <div className={Styles.line_left}>
+                            <img className={`${Styles.line_img} ${Styles.img}`} src={require('../../assets/line.png')} alt=""/>
+                            <div className={Styles.line_word}>
+                                <p>图文轻问诊</p>
+                                <p>¥0.00/次</p>
+                            </div>
+                        </div>
+                        <div className={`${Styles.line_right} ${ isOpen ? '' : Styles.line_right_no } ${isIOS() ? '' : Styles.line_right_and}`} onClick={()=>{this.clickAskChat(isOpen,'img')}}>
+                            去问诊<img src={require('../../assets/line_right.png')} alt=""/>
+                        </div>
+                    </div>
+
                     {
                         isShowCover ?
                             <div className={ Styles.doctor_info_cover }>
@@ -254,16 +276,10 @@ class DoctorInfo extends Component {
                                                 : ''
                                         }
                                     </div>
-                                    <div onClick={(e)=>{this.closeDetail(e)}} className={ Styles.cover_bottom }>
-                                        收起
-                                        <img src={require('../../assets/right.png')}  alt=""/>
-                                    </div>
                                 </div>
                             </div>
                             :''
                     }
-
-
                     <Modal
                         visible={this.state.modal}
                         transparent

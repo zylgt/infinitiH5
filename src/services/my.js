@@ -8,3 +8,9 @@ export async function getUserInfo (params) {
     return request(url,getOptions())
 }
 
+//设置用户声音
+export async function setVoice (params) {
+    const url = `/m/user/config`;
+    return request(url,postOptions(params))
+}
+
