@@ -14,7 +14,7 @@ import moment from "moment";
 moment.locale('zh-cn');
 
 
-@connect(({ask, layout}) => ({ask, layout}))
+@connect(({ask, layout, my}) => ({ask, layout, my}))
 class Ask extends React.Component {
     constructor(props) {
         super(props)
@@ -229,7 +229,6 @@ class Ask extends React.Component {
 
     render() {
         const {askList} = this.props.ask;
-
         // console.log('askList',askList)
 
         return (

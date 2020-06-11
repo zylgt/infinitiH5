@@ -7,6 +7,7 @@ import NProgress from 'nprogress' // 引入nprogress插件
 import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import { hostURL } from '../../utils/baseURL';
 import linkSocket from '../../components/linkSocket'
+import Sound from 'react-sound';
 
 const TabBarData = [
     {
@@ -97,11 +98,31 @@ class BaseLayout extends React.Component {
             },350)
         }
     }
+    //声音播放完毕
+    onFinished(){
+        const {dispatch} = this.props;
+        dispatch({
+            type:'layout/setData',
+            payload:{
+                playStatus:'STOPPED',
+            }
+        })
+    }
     render() {
         const { sendMsg, historyMsg } = this.props.layout;
-
+        const {playStatus} = this.props.layout;
+        let { userInfo } = this.props.my;
+        let SoundProps = {
+            url:require('../../assets/bgm.mp3'),
+            playStatus: playStatus,
+            loop:false,
+            onFinishedPlaying: this.onFinished.bind(this),
+            volume: userInfo.voice_switch ? 100 : 0
+        }
+        console.log('voice_switch--------',userInfo.voice_switch)
         return (
             <div className={styles.baseLayout}>
+                <Sound {...SoundProps} />
                 <TabBar
                     unselectedTintColor="#999"
                     tintColor="#2089EB"

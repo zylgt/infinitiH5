@@ -204,14 +204,24 @@ export default function linkSocket(that ,orderId, callback) {
                     dispatch({
                         type:'layout/setData',
                         payload:{
-                            sendMsg: sendMsg
+                            sendMsg: sendMsg,
+                            playStatus:'PLAYING',
                         }
                     })
+                    if (window.navigator.vibrate) {
+                        //vibrate 1 second
+                        window.navigator.vibrate([300]);
+                    } else if (window.navigator.webkitVibrate) {
+                        window.navigator.webkitVibrate([300]);
+                    }
+
                     setTimeout(function () {
                         isShowTime('message')
                     },300)
 
                     callback && callback()
+
+
 
                     return false;
                 }
@@ -271,10 +281,9 @@ export default function linkSocket(that ,orderId, callback) {
         socketOpen: () => {
             console.log('连接建立成功');
             let token = cookieUtils.get('token') || getQueryString('token') || '';
-
             const data = { type: 'auth', 'data': token }
 
-            // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODcwMzM0MjksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI1MDczMjg1NTM1NzYwNzkzNiJ9.Ybxm3JTPkp2qSeJxgXwC7lAsmVMC8CAWwrlOPCi7ZOw'
+            // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1OTE4NjA2ODAsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI3MDk4MTkyOTkyNzE4NDM4NCJ9.9Z7647_Aqq3FGRsWqV91Ep7NeKohH-cW8mF7lJ7URlo'
             // const data = { type: 'auth', 'data': token }
             that.socket.sendMessage(data)
             // 心跳机制 定时向后端发数据

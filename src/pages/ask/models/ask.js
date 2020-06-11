@@ -9,7 +9,10 @@ export default {
         setup({ dispatch, history }) {
             return history.listen(({ pathname, search }) => {
                 if ( pathname == '/ask' ) {
-
+                    //获取用户信息，判断声音用
+                    dispatch({
+                        type:'my/getUserInfo'
+                    })
                 }
             });
         },

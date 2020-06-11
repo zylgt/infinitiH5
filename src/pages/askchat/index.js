@@ -11,10 +11,11 @@ import NProgress from 'nprogress' // 引入nprogress插件
 import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import linkSocket from '../../components/linkSocket'
 import moment from "moment";
+import Sound from 'react-sound';
 
 moment.locale('zh-cn');
 
-@connect(({askchat, layout, ask}) => ({askchat, layout, ask}))
+@connect(({askchat, layout, ask, my}) => ({askchat, layout, ask, my}))
 class AskChat extends React.Component {
     constructor(props) {
         super(props)
@@ -61,9 +62,9 @@ class AskChat extends React.Component {
         const {orderNo} = this.props.layout;
         let that = this;
 
-        // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1ODcwMzM0MjksInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI1MDczMjg1NTM1NzYwNzkzNiJ9.Ybxm3JTPkp2qSeJxgXwC7lAsmVMC8CAWwrlOPCi7ZOw'
+        // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1OTE4NjA2ODAsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI3MDk4MTkyOTkyNzE4NDM4NCJ9.9Z7647_Aqq3FGRsWqV91Ep7NeKohH-cW8mF7lJ7URlo'
         let token = cookieUtils.get('token') || getQueryString('token') || '';
-        console.log('token',token)
+        console.log('token', token)
         if (token) {
             cookieUtils.set('token', token)
             this.setState({
@@ -659,28 +660,47 @@ class AskChat extends React.Component {
             });
         }
     }
+    //声音播放完毕
+    onFinished(){
+        const {dispatch} = this.props;
+        dispatch({
+            type:'layout/setData',
+            payload:{
+                playStatus:'STOPPED',
+            }
+        })
+    }
+
     //计算通话时长
-    countCallTime(startTime,endTime){
-        const { time } = this.state;
-        console.log('time',time)
-        let start = moment(startTime).valueOf()/1000;
-        let end = moment(endTime).valueOf()/1000;
-        let result = Math.floor(end) - Math.floor(start) ;
-        if(!result){
-            if(time > 0){
+    countCallTime(startTime, endTime, status) {
+        const {time} = this.state;
+        console.log('time', time)
+        let start = moment(startTime).valueOf() / 1000;
+        let end = moment(endTime).valueOf() / 1000;
+        let result = Math.floor(end) - Math.floor(start);
+        if (status == 'expired') {
+            return (
+                <div className={Styles.item_content_video}>
+                    <img src={require('../../assets/video.png')} alt=""/>
+                    已取消
+                </div>
+            )
+        }
+        if (!result) {
+            if (time > 0) {
                 result = time;
                 let m = Math.floor((result / 60 % 60)) < 10 ? '0' + Math.floor((result / 60 % 60)) : Math.floor((result / 60 % 60));
                 let s = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
-                let countTime =  m + ":" + s;
+                let countTime = m + ":" + s;
                 clearInterval(this.setIntervalTime)
-                return countTime
-            }else{
-                return '15:00'
+                return '通话时长' + countTime
+            } else {
+                return '通话时长 15:00'
             }
         }
         let m = Math.floor((result / 60 % 60)) < 10 ? '0' + Math.floor((result / 60 % 60)) : Math.floor((result / 60 % 60));
         let s = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
-        let countTime =  m + ":" + s;
+        let countTime = '通话时长' + m + ":" + s;
         return countTime
     }
 
@@ -698,14 +718,25 @@ class AskChat extends React.Component {
             time,
             askType
         } = this.state;
-        console.log('time',time)
-        let {sendMsg, historyMsg} = this.props.layout;
+
+        let {sendMsg, historyMsg, playStatus} = this.props.layout;
+        let { userInfo } = this.props.my;
         // console.log('detailInfo',detailInfo)
         let doctorName = detailInfo.doctor_name ? detailInfo.doctor_name + '医生' : '医生';
-
+        let SoundProps = {
+            url:require('../../assets/bgm.mp3'),
+            playStatus: playStatus,
+            loop:false,
+            onFinishedPlaying: this.onFinished.bind(this),
+            volume: userInfo.voice_switch ? 100 : 0
+        }
+        console.log('SoundProps',SoundProps)
         return (
             <DocumentTitle title={doctorName}>
                 <div className={Styles.chat}>
+                    {
+                        Sound ? <Sound {...SoundProps} /> : ''
+                    }
                     {
                         time != 0 && !isFinished && askType ?
                             <div
@@ -933,27 +964,27 @@ class AskChat extends React.Component {
                         }
                         {
                             !askType && isFinished ?
-                            <div className={Styles.list_item_left}>
-                                {
-                                    detailInfo.doctor_icon ?
-                                        <img className={Styles.item_img}
-                                             src={staticURL + detailInfo.doctor_icon}/> : ''
-                                }
-                                <div>
+                                <div className={Styles.list_item_left}>
                                     {
-                                        detailInfo.doctor_name ?
-                                            <div className={Styles.item_name}>
-                                                {detailInfo.doctor_name}-{detailInfo.doctor_title}
-                                            </div> : ''
+                                        detailInfo.doctor_icon ?
+                                            <img className={Styles.item_img}
+                                                 src={staticURL + detailInfo.doctor_icon}/> : ''
                                     }
-                                    <div className={Styles.item_content}>
-                                        <img className={Styles.item_icon}
-                                             src={require('../../assets/chat_left.png')}
-                                             alt=""/>
-                                        <span>通话时长 {this.countCallTime(detailInfo.inquired_at,detailInfo.finished_at)}</span>
+                                    <div>
+                                        {
+                                            detailInfo.doctor_name ?
+                                                <div className={Styles.item_name}>
+                                                    {detailInfo.doctor_name}-{detailInfo.doctor_title}
+                                                </div> : ''
+                                        }
+                                        <div className={Styles.item_content}>
+                                            <img className={Styles.item_icon}
+                                                 src={require('../../assets/chat_left.png')}
+                                                 alt=""/>
+                                            {this.countCallTime(detailInfo.inquired_at, detailInfo.finished_at, detailInfo.status)}
+                                        </div>
                                     </div>
-                                </div>
-                            </div>:''
+                                </div> : ''
                         }
                         {
                             isFinished ? <div>

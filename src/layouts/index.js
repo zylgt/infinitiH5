@@ -5,7 +5,7 @@ import { connect } from 'dva';
 const ULR_NO_LAYOUT = ['/', '/home', '/ask', '/my'];
 
 
-@connect(({ layout,ask }) => ({ layout,ask }))
+@connect(({ layout,ask, my }) => ({ layout,ask, my }))
 class Index extends Component {
 
     renderBody = () => {
