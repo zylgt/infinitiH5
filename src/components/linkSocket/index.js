@@ -6,7 +6,7 @@ import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import moment from "moment";
 moment.locale('zh-cn');
 
-export default function linkSocket(that ,orderId, callback) {
+export default function linkSocket(that, status, orderId, callback) {
 
     let remain_time='', created_time='';
 //判断是否展示时间
@@ -204,10 +204,17 @@ export default function linkSocket(that ,orderId, callback) {
                     dispatch({
                         type:'layout/setData',
                         payload:{
-                            sendMsg: sendMsg,
-                            playStatus:'PLAYING',
+                            sendMsg: sendMsg
                         }
                     })
+                    if(status){
+                        dispatch({
+                            type:'layout/setData',
+                            payload:{
+                                playStatus:'PLAYING',
+                            }
+                        })
+                    }
                     if (window.navigator.vibrate) {
                         //vibrate 1 second
                         window.navigator.vibrate([300]);

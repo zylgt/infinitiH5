@@ -62,10 +62,11 @@ class BaseLayout extends React.Component {
         // console.log('-getAskListCallback-',response)
         const { dispatch } = this.props;
         let data = response.data.data;
+        let { userInfo } = this.props.my;
         if(data && data.length > 0){
             for(let i=0;i < data.length; i++){
                 if(data[i].status == 'pending' || data[i].status == 'inquiring'){
-                    linkSocket(this, data[i].uid)
+                    linkSocket(this, userInfo.voice_switch, data[i].uid)
                     dispatch({
                         type:'layout/setData',
                         payload:{
@@ -111,15 +112,14 @@ class BaseLayout extends React.Component {
     render() {
         const { sendMsg, historyMsg } = this.props.layout;
         const {playStatus} = this.props.layout;
-        let { userInfo } = this.props.my;
+
         let SoundProps = {
             url:require('../../assets/bgm.mp3'),
             playStatus: playStatus,
             loop:false,
             onFinishedPlaying: this.onFinished.bind(this),
-            volume: userInfo.voice_switch ? 100 : 0
         }
-        console.log('voice_switch--------',userInfo.voice_switch)
+
         return (
             <div className={styles.baseLayout}>
                 <Sound {...SoundProps} />

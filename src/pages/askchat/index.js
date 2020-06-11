@@ -210,6 +210,7 @@ class AskChat extends React.Component {
         // console.log('response1----------',response)
         const {dispatch} = this.props;
         const {isSocket, orderNo} = this.props.layout;
+        let { userInfo } = this.props.my;
         const that = this;
         this.setState({
             detailInfo: response.data.data
@@ -217,7 +218,7 @@ class AskChat extends React.Component {
         let data = response.data.data;
         let {orderId} = this.state;
 
-        linkSocket(that, orderId, this.scrollToBottom)
+        linkSocket(that, userInfo.voice_switch, orderId, this.scrollToBottom)
 
         //判断图文、视频
         if (data.type == 1) {
@@ -720,7 +721,6 @@ class AskChat extends React.Component {
         } = this.state;
 
         let {sendMsg, historyMsg, playStatus} = this.props.layout;
-        let { userInfo } = this.props.my;
         // console.log('detailInfo',detailInfo)
         let doctorName = detailInfo.doctor_name ? detailInfo.doctor_name + '医生' : '医生';
         let SoundProps = {
@@ -728,9 +728,8 @@ class AskChat extends React.Component {
             playStatus: playStatus,
             loop:false,
             onFinishedPlaying: this.onFinished.bind(this),
-            volume: userInfo.voice_switch ? 100 : 0
         }
-        console.log('SoundProps',SoundProps)
+
         return (
             <DocumentTitle title={doctorName}>
                 <div className={Styles.chat}>
