@@ -12,6 +12,7 @@ import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import linkSocket from '../../components/linkSocket'
 import moment from "moment";
 import Sound from 'react-sound';
+import router from "umi/router";
 
 moment.locale('zh-cn');
 
@@ -210,7 +211,7 @@ class AskChat extends React.Component {
         // console.log('response1----------',response)
         const {dispatch} = this.props;
         const {isSocket, orderNo} = this.props.layout;
-        let { userInfo } = this.props.my;
+        let {userInfo} = this.props.my;
         const that = this;
         this.setState({
             detailInfo: response.data.data
@@ -661,15 +662,22 @@ class AskChat extends React.Component {
             });
         }
     }
+
     //声音播放完毕
-    onFinished(){
+    onFinished() {
         const {dispatch} = this.props;
         dispatch({
-            type:'layout/setData',
-            payload:{
-                playStatus:'STOPPED',
+            type: 'layout/setData',
+            payload: {
+                playStatus: 'STOPPED',
             }
         })
+    }
+
+    //点击医生头像跳转医生详情
+    doctorInfo() {
+        const { detailInfo } = this.state;
+        router.push('./doctorinfo?id=' + detailInfo.doctor_id )
     }
 
     //计算通话时长
@@ -724,9 +732,9 @@ class AskChat extends React.Component {
         // console.log('detailInfo',detailInfo)
         let doctorName = detailInfo.doctor_name ? detailInfo.doctor_name + '医生' : '医生';
         let SoundProps = {
-            url:require('../../assets/bgm.mp3'),
+            url: require('../../assets/bgm.mp3'),
             playStatus: playStatus,
-            loop:false,
+            loop: false,
             onFinishedPlaying: this.onFinished.bind(this),
         }
 
@@ -800,6 +808,9 @@ class AskChat extends React.Component {
                                                                 {
                                                                     detailInfo.doctor_icon ?
                                                                         <img className={Styles.item_img}
+                                                                             onClick={() => {
+                                                                                 this.doctorInfo()
+                                                                             }}
                                                                              src={staticURL + detailInfo.doctor_icon}/> : ''
                                                                 }
                                                                 <div>
@@ -867,6 +878,9 @@ class AskChat extends React.Component {
                                                                 {
                                                                     detailInfo.doctor_icon ?
                                                                         <img className={Styles.item_img}
+                                                                             onClick={() => {
+                                                                                 this.doctorInfo()
+                                                                             }}
                                                                              src={staticURL + detailInfo.doctor_icon}/> : ''
                                                                 }
                                                                 <div>
@@ -933,6 +947,9 @@ class AskChat extends React.Component {
                                 <div className={Styles.list_item_left}>
                                     {
                                         detailInfo.doctor_icon ? <img className={Styles.item_img}
+                                                                      onClick={() => {
+                                                                          this.doctorInfo()
+                                                                      }}
                                                                       src={staticURL + detailInfo.doctor_icon}/> : ''
                                     }
                                     <div>
@@ -967,6 +984,9 @@ class AskChat extends React.Component {
                                     {
                                         detailInfo.doctor_icon ?
                                             <img className={Styles.item_img}
+                                                 onClick={() => {
+                                                     this.doctorInfo()
+                                                 }}
                                                  src={staticURL + detailInfo.doctor_icon}/> : ''
                                     }
                                     <div>
