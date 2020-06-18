@@ -181,7 +181,7 @@ export const illDate = {
             key:'disease',
             content:[
                 {
-                    title:'是否有疾病史？（指父母，祖父母，外祖父母等直系亲属）',
+                    title:'是否有疾病史？',
                     answer:[
                         {
                             title:'无',
@@ -450,7 +450,7 @@ export const illDate = {
             key:'family',
             content:[
                 {
-                    title:'是否有疾病史？（指父母，祖父母，外祖父母等直系亲属）',
+                    title:'是否有家族史？（指父母，祖父母，外祖父母等直系亲属）',
                     answer:[
                         {
                             title:'无',
@@ -576,7 +576,7 @@ export const illDate = {
                     isMust:true // 是否必填
                 },
                 {
-                    title:'请选择疾病名称（可多选）',
+                    title:'请选择过敏源（可多选）',
                     answer:[
                         {
                             title:'青霉素',

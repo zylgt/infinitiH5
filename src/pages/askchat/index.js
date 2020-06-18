@@ -683,7 +683,7 @@ class AskChat extends React.Component {
     //计算通话时长
     countCallTime(startTime, endTime, status) {
         const {time} = this.state;
-        console.log('time', time)
+        // console.log('time', time)
         let start = moment(startTime).valueOf() / 1000;
         let end = moment(endTime).valueOf() / 1000;
         let result = Math.floor(end) - Math.floor(start);

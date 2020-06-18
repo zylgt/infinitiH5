@@ -457,8 +457,6 @@ class PatientDescribe extends Component {
                     {
                         isShowCase ?
                             <div className={Styles.patient_example}>
-                                <span className={Styles.patient_sign}></span>
-                                <span className={`${Styles.patient_sign} ${Styles.patient_sign1}`}></span>
                                 <p className={Styles.example_title}>病情</p>
                                 <p className={Styles.example_content}>本人，男，53岁，2018年体检时发现血糖偏高，当时空腹血糖7.0mmol/l，餐后血糖11.5mmol/l。</p>
                                 <p className={Styles.example_title}>用药情况</p>
@@ -480,7 +478,7 @@ class PatientDescribe extends Component {
                         rows={5}
                         count={200}
                         value={info}
-                        placeholder="请详细描述您的病情症状、曾做过的检查"
+                        placeholder="请详细描述您的病情症状、曾做过的检查，目前病情是加重还是缓解"
                         className={Styles.patient_textarea}
                         onChange={(val) => {
                             this.textareaChange(val,'info')
@@ -496,7 +494,7 @@ class PatientDescribe extends Component {
                         rows={5}
                         count={200}
                         value={medicine}
-                        placeholder="请描述用药情况，目前病情是加重还是缓解"
+                        placeholder="请描述用药情况"
                         className={Styles.patient_textarea}
                         onChange={(val) => {
                             this.textareaChange(val,'medicine')
