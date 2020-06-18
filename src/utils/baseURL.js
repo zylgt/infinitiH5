@@ -12,11 +12,11 @@ console.log('apiType', process.env.apiType)
 //代谢线上
 if(process.env.apiType === 'prod'){
 //请求url
-    defaultBaseURL = 'https://api.nethospital.tjdxb.com';
+    defaultBaseURL = 'https://api.nethospital.yutanglabs.com';
 //静态资源
-    defaultStaticURL = 'https://static.nethospital.tjdxb.com';
+    defaultStaticURL = 'https://static.nethospital.yutanglabs.com';
 //socket
-    defaultHostURL = 'wss://api.nethospital.tjdxb.com';
+    defaultHostURL = 'wss://api.nethospital.yutanglabs.com';
 }
 
 
