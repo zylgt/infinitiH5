@@ -7,6 +7,7 @@ import NProgress from 'nprogress' // 引入nprogress插件
 import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import { hostURL } from '../../utils/baseURL';
 import linkSocket from '../../components/linkSocket'
+import Sound from 'react-sound';
 
 const TabBarData = [
     {
@@ -61,10 +62,11 @@ class BaseLayout extends React.Component {
         // console.log('-getAskListCallback-',response)
         const { dispatch } = this.props;
         let data = response.data.data;
+        let { userInfo } = this.props.my;
         if(data && data.length > 0){
             for(let i=0;i < data.length; i++){
                 if(data[i].status == 'pending' || data[i].status == 'inquiring'){
-                    linkSocket(this, data[i].uid)
+                    linkSocket(this, userInfo.voice_switch, data[i].uid)
                     dispatch({
                         type:'layout/setData',
                         payload:{
@@ -97,11 +99,30 @@ class BaseLayout extends React.Component {
             },350)
         }
     }
+    //声音播放完毕
+    onFinished(){
+        const {dispatch} = this.props;
+        dispatch({
+            type:'layout/setData',
+            payload:{
+                playStatus:'STOPPED',
+            }
+        })
+    }
     render() {
         const { sendMsg, historyMsg } = this.props.layout;
+        const {playStatus} = this.props.layout;
+
+        let SoundProps = {
+            url:require('../../assets/bgm.mp3'),
+            playStatus: playStatus,
+            loop:false,
+            onFinishedPlaying: this.onFinished.bind(this),
+        }
 
         return (
             <div className={styles.baseLayout}>
+                <Sound {...SoundProps} />
                 <TabBar
                     unselectedTintColor="#999"
                     tintColor="#2089EB"

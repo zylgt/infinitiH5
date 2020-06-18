@@ -5,7 +5,8 @@ export default {
         sendMsg:[],
         historyMsg:[],
         isSocket:false,
-        orderNo:''
+        orderNo:'',
+        playStatus:'STOPPED'
     },
     subscriptions: {
         setup({ dispatch, history }) {
