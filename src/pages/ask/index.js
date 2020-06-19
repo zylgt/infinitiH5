@@ -94,6 +94,7 @@ class Ask extends React.Component {
                 array.splice(k, 1)
             }
         }
+        // console.log('array',array)
         for (let i = 0; i < array.length; i++) {
             if (!array[i].readed_at && array[i].type != "notification" && array[i].sender_type == "doctor") {
                 index++;
@@ -114,7 +115,12 @@ class Ask extends React.Component {
                                 {
                                     array.length > 0 ?
                                         <p className={Styles.content_word}>
-                                            {array[array.length - 1].content}
+                                            {
+                                              array[array.length - 1].type == 'photo' 
+                                              ?
+                                              <span>[图片]</span> :
+                                              <span>{array[array.length - 1].content}</span>
+                                            }
                                         </p> : ''
                                 }
                                 {
