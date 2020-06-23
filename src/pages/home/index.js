@@ -154,7 +154,7 @@ class Home extends Component {
                             </div>
                             <div className={Styles.office_item_info}>
                                 <p className={Styles.item_title}>糖尿病特色咨询门诊</p>
-                                <p>图文轻问诊</p>
+                                {/*<p>图文轻问诊</p>*/}
                             </div>
                             <img  className={Styles.office_item_right} src={require('../../assets/right.png')} alt=""/>
                         </div>

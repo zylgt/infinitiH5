@@ -39,6 +39,7 @@ class PatientDescribe extends Component {
     componentDidMount() {
         const {dispatch} = this.props;
         const {inject} = this.props.patientDescribe;
+        const that = this;
         //生成签名时间戳
         let timestamp = (Date.parse(new Date()) / 1000).toString();
         this.setState({
@@ -76,7 +77,6 @@ class PatientDescribe extends Component {
                 callback: this.getAppidCallback.bind(this)
             })
         }
-
     }
     //获取appidcallback
     getAppidCallback(response) {
@@ -415,24 +415,52 @@ class PatientDescribe extends Component {
 
     //focus时使输入框滑动到页面中间位置
     textareaFocus(type){
+        const {dispatch} = this.props;
         const { isShowCase } = this.state;
-        if(isShowCase){
-            if( type=='info' ){
-                this.patient.scrollTop = 70
-            }else if( type=='medicine' ){
-                this.patient.scrollTop = 360
-            }else if( type=='question' ){
-                this.patient.scrollTop = 700
+        dispatch({
+            type: 'setData',
+            payload: {
+                type: type,
+            }
+        })
+        if(isIOS()){
+            if(isShowCase){
+                if( type=='info' ){
+                    this.patient.scrollTop = 60
+                }else if( type=='medicine' ){
+                    this.patient.scrollTop = 200
+                }else if( type=='question' ){
+                    this.patient.scrollTop = 400
+                }
+            }else{
+                if( type=='info' ){
+                    this.patient.scrollTop = 0
+                }else if( type=='medicine' ){
+                    this.patient.scrollTop = 50
+                }else if( type=='question' ){
+                    this.patient.scrollTop = 100
+                }
             }
         }else{
-            if( type=='info' ){
-                this.patient.scrollTop = 0
-            }else if( type=='medicine' ){
-                this.patient.scrollTop = 100
-            }else if( type=='question' ){
-                this.patient.scrollTop = 400
+            if(isShowCase){
+                if( type=='info' ){
+                    this.patient.scrollTop = 70
+                }else if( type=='medicine' ){
+                    this.patient.scrollTop = 360
+                }else if( type=='question' ){
+                    this.patient.scrollTop = 700
+                }
+            }else{
+                if( type=='info' ){
+                    this.patient.scrollTop = 0
+                }else if( type=='medicine' ){
+                    this.patient.scrollTop = 100
+                }else if( type=='question' ){
+                    this.patient.scrollTop = 400
+                }
             }
         }
+
     }
 
     render() {
