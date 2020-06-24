@@ -6,7 +6,7 @@ import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import moment from "moment";
 moment.locale('zh-cn');
 
-export default function linkSocket(that, status, orderId, callback) {
+export default function linkSocket(that, status, orderId, callback, orderType) {
 
     let remain_time='', created_time='';
 //判断是否展示时间
@@ -123,7 +123,13 @@ export default function linkSocket(that, status, orderId, callback) {
                 }
             }
 
-            if (type === 'ping') {
+            if(type === 'auth'){
+                if(orderType == 1){
+                    that.socket.onclose({
+                        msg:'视频问诊，结束socket'
+                    })
+                }
+            }else if (type === 'ping') {
                 that.socket.sendMessage({ type: 'pong', 'data': data })
 
                 if(window.location.pathname == '/askchat'){

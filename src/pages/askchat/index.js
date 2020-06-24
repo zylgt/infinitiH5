@@ -63,6 +63,26 @@ class AskChat extends React.Component {
         const {orderNo} = this.props.layout;
         let that = this;
 
+
+        // if (isIOS()) {
+        //     var isPageHide = false;
+        //     window.addEventListener('pageshow', function () {
+        //         if (isPageHide) {
+        //             window.location.reload();
+        //         }
+        //     });
+        //     window.addEventListener('pagehide', function () {
+        //         isPageHide = true;
+        //     });
+        // } else {
+        //     var needRefresh = sessionStorage.getItem("need-refresh");
+        //     if (needRefresh) {
+        //         sessionStorage.removeItem("need-refresh");
+        //         window.location.reload();
+        //     }
+        // }
+
+
         // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1OTE4NjA2ODAsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI3MDk4MTkyOTkyNzE4NDM4NCJ9.9Z7647_Aqq3FGRsWqV91Ep7NeKohH-cW8mF7lJ7URlo'
         let token = cookieUtils.get('token') || getQueryString('token') || '';
         console.log('token', token)
@@ -166,7 +186,7 @@ class AskChat extends React.Component {
             if (i == 3) {
                 clearInterval(that.scrollBottom)
             }
-        }, 600)
+        }, 500)
 
         //监听页面大小变化
         window.addEventListener('resize', that.resize.bind(this))
@@ -208,7 +228,7 @@ class AskChat extends React.Component {
 
     //订单详情callback
     orderDetailCallback(response) {
-        // console.log('response1----------',response)
+        console.log('response1----------',response)
         const {dispatch} = this.props;
         const {isSocket, orderNo} = this.props.layout;
         let {userInfo} = this.props.my;
@@ -218,8 +238,9 @@ class AskChat extends React.Component {
         })
         let data = response.data.data;
         let {orderId} = this.state;
+        let orderType = response.data.data.type;
 
-        linkSocket(that, userInfo.voice_switch, orderId, this.scrollToBottom)
+        linkSocket(that, userInfo.voice_switch, orderId, this.scrollToBottom, orderType)
 
         //判断图文、视频
         if (data.type == 1) {

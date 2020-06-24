@@ -65,7 +65,10 @@ export default function request(url, options) {
     if (token) {
         obj = {
             baseURL: baseURL,
-            headers: { 'x-access-token': token }
+            headers: {
+                'x-access-token': token,
+                'Cache-Control': 'no-cache'
+            }
         }
     }
 
