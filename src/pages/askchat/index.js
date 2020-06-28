@@ -63,26 +63,6 @@ class AskChat extends React.Component {
         const {orderNo} = this.props.layout;
         let that = this;
 
-
-        // if (isIOS()) {
-        //     var isPageHide = false;
-        //     window.addEventListener('pageshow', function () {
-        //         if (isPageHide) {
-        //             window.location.reload();
-        //         }
-        //     });
-        //     window.addEventListener('pagehide', function () {
-        //         isPageHide = true;
-        //     });
-        // } else {
-        //     var needRefresh = sessionStorage.getItem("need-refresh");
-        //     if (needRefresh) {
-        //         sessionStorage.removeItem("need-refresh");
-        //         window.location.reload();
-        //     }
-        // }
-
-
         // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1OTE4NjA2ODAsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI3MDk4MTkyOTkyNzE4NDM4NCJ9.9Z7647_Aqq3FGRsWqV91Ep7NeKohH-cW8mF7lJ7URlo'
         let token = cookieUtils.get('token') || getQueryString('token') || '';
         console.log('token', token)

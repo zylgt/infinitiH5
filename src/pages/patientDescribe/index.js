@@ -212,9 +212,17 @@ class PatientDescribe extends Component {
     uploadImg(index, that) {
         const {dispatch} = this.props;
         const {patientImg} = this.props.patientDescribe;
+
+        if (patientImg[index].isUpload) {
+            index++;
+            that.uploadImg(index, that)
+            return
+        }
+
         let time_index = 0;
         let time = setInterval(function () {
             if (patientImg[index].isUpload) {
+                clearInterval(time)
                 return
             }
             time_index = time_index + 4;
