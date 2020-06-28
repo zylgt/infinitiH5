@@ -214,8 +214,10 @@ class PatientDescribe extends Component {
         const {patientImg} = this.props.patientDescribe;
 
         if (patientImg[index].isUpload) {
-            index++;
-            that.uploadImg(index, that)
+            if (index + 1 < patientImg.length) {
+                index++;
+                that.uploadImg(index, that)
+            }
             return
         }
 
