@@ -78,6 +78,7 @@ class PatientDescribe extends Component {
             })
         }
     }
+
     //获取appidcallback
     getAppidCallback(response) {
         const {timestamp} = this.state;
@@ -116,7 +117,7 @@ class PatientDescribe extends Component {
             _position = window.getComputedStyle(node)['position'];
 
             // position=static: 继续递归父节点
-            if (typeof(init) === 'undefined' && _position === 'static') {
+            if (typeof (init) === 'undefined' && _position === 'static') {
                 getOffset(node.parentNode);
                 return;
             }
@@ -213,20 +214,14 @@ class PatientDescribe extends Component {
         const {dispatch} = this.props;
         const {patientImg} = this.props.patientDescribe;
 
-        if (patientImg[index].isUpload) {
-            if (index + 1 < patientImg.length) {
-                index++;
-                that.uploadImg(index, that)
-            }
+        if (patientImg[index].isUpload && index + 1 < patientImg.length) {
+            index++;
+            that.uploadImg(index, that)
             return
         }
 
         let time_index = 0;
         let time = setInterval(function () {
-            if (patientImg[index].isUpload) {
-                clearInterval(time)
-                return
-            }
             time_index = time_index + 4;
             patientImg[index].hint = time_index + '%';
             dispatch({
@@ -289,7 +284,7 @@ class PatientDescribe extends Component {
     }
 
     //输入框变化
-    textareaChange(val,type) {
+    textareaChange(val, type) {
         const {dispatch} = this.props;
         let payload = {}
         payload[type] = val
@@ -301,7 +296,7 @@ class PatientDescribe extends Component {
 
     //点击下一步
     next() {
-        const {patientImg, info, medicine, question } = this.props.patientDescribe;
+        const {patientImg, info, medicine, question} = this.props.patientDescribe;
         const {dispatch} = this.props;
         const {uid} = this.props.chooseTime;
 
@@ -358,7 +353,7 @@ class PatientDescribe extends Component {
             imgInfo,
             orderInfo
         }
-        console.log('payload',payload)
+        console.log('payload', payload)
 
         dispatch({
             type: 'patientDescribe/askVisit',
@@ -368,6 +363,7 @@ class PatientDescribe extends Component {
             callback: this.nextCallback.bind(this)
         })
     }
+
     nextCallback(response) {
         //判断是否大于30分钟
         if (response.data.code == 424) {
@@ -405,11 +401,11 @@ class PatientDescribe extends Component {
     //导入上次病情描述
     importInfo() {
         const {dispatch} = this.props;
-        const { patientInfo } = this.props.management;
-        if( patientInfo.last_ill_desc == '' && patientInfo.last_ill_medicine == '' && patientInfo.last_ill_question == '' ){
+        const {patientInfo} = this.props.management;
+        if (patientInfo.last_ill_desc == '' && patientInfo.last_ill_medicine == '' && patientInfo.last_ill_question == '') {
             Toast.info('格式不对，无法导入', 1.5)
         }
-        if( patientInfo.last_ill_desc == '' || patientInfo.last_ill_medicine == '' || patientInfo.last_ill_question == '' ){
+        if (patientInfo.last_ill_desc == '' || patientInfo.last_ill_medicine == '' || patientInfo.last_ill_question == '') {
             Toast.info('您还没有添加过描述信息', 1.5)
         }
         dispatch({
@@ -424,48 +420,48 @@ class PatientDescribe extends Component {
     }
 
     //focus时使输入框滑动到页面中间位置
-    textareaFocus(type){
+    textareaFocus(type) {
         const {dispatch} = this.props;
-        const { isShowCase } = this.state;
+        const {isShowCase} = this.state;
         dispatch({
             type: 'setData',
             payload: {
                 type: type,
             }
         })
-        if(isIOS()){
-            if(isShowCase){
-                if( type=='info' ){
+        if (isIOS()) {
+            if (isShowCase) {
+                if (type == 'info') {
                     this.patient.scrollTop = 60
-                }else if( type=='medicine' ){
+                } else if (type == 'medicine') {
                     this.patient.scrollTop = 200
-                }else if( type=='question' ){
+                } else if (type == 'question') {
                     this.patient.scrollTop = 400
                 }
-            }else{
-                if( type=='info' ){
+            } else {
+                if (type == 'info') {
                     this.patient.scrollTop = 0
-                }else if( type=='medicine' ){
+                } else if (type == 'medicine') {
                     this.patient.scrollTop = 50
-                }else if( type=='question' ){
+                } else if (type == 'question') {
                     this.patient.scrollTop = 100
                 }
             }
-        }else{
-            if(isShowCase){
-                if( type=='info' ){
+        } else {
+            if (isShowCase) {
+                if (type == 'info') {
                     this.patient.scrollTop = 70
-                }else if( type=='medicine' ){
+                } else if (type == 'medicine') {
                     this.patient.scrollTop = 360
-                }else if( type=='question' ){
+                } else if (type == 'question') {
                     this.patient.scrollTop = 700
                 }
-            }else{
-                if( type=='info' ){
+            } else {
+                if (type == 'info') {
                     this.patient.scrollTop = 0
-                }else if( type=='medicine' ){
+                } else if (type == 'medicine') {
                     this.patient.scrollTop = 100
-                }else if( type=='question' ){
+                } else if (type == 'question') {
                     this.patient.scrollTop = 400
                 }
             }
@@ -476,7 +472,7 @@ class PatientDescribe extends Component {
     render() {
         const {getFieldProps} = this.props.form;
         const {wkwebview, isShowCase} = this.state;
-        const {patientImg, info, medicine, question } = this.props.patientDescribe;
+        const {patientImg, info, medicine, question} = this.props.patientDescribe;
 
         // console.log('--patientImg--',patientImg)
 
@@ -507,7 +503,9 @@ class PatientDescribe extends Component {
 
                     <div className={Styles.patient_title}>
                         <span>病情<span className={Styles.title_imp}>*</span></span>
-                        <div className={Styles.title_right} onClick={()=>{ this.importInfo() }}>
+                        <div className={Styles.title_right} onClick={() => {
+                            this.importInfo()
+                        }}>
                             <img className={Styles.title_cloud} src={require('../../assets/cloud.png')} alt=""/>
                             <span>导入上次病情描述</span>
                         </div>
@@ -519,9 +517,9 @@ class PatientDescribe extends Component {
                         placeholder="请详细描述您的病情症状、曾做过的检查，目前病情是加重还是缓解"
                         className={Styles.patient_textarea}
                         onChange={(val) => {
-                            this.textareaChange(val,'info')
+                            this.textareaChange(val, 'info')
                         }}
-                        onFocus={()=>{
+                        onFocus={() => {
                             this.textareaFocus('info')
                         }}
                     />
@@ -535,9 +533,9 @@ class PatientDescribe extends Component {
                         placeholder="请描述用药情况"
                         className={Styles.patient_textarea}
                         onChange={(val) => {
-                            this.textareaChange(val,'medicine')
+                            this.textareaChange(val, 'medicine')
                         }}
-                        onFocus={()=>{
+                        onFocus={() => {
                             this.textareaFocus('medicine')
                         }}
                     />
@@ -551,9 +549,9 @@ class PatientDescribe extends Component {
                         placeholder="请描述想获得医生什么帮助"
                         className={Styles.patient_textarea}
                         onChange={(val) => {
-                            this.textareaChange(val,'question')
+                            this.textareaChange(val, 'question')
                         }}
-                        onFocus={()=>{
+                        onFocus={() => {
                             this.textareaFocus('question')
                         }}
                     />
