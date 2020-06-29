@@ -167,6 +167,12 @@ export default function linkSocket(that, status, orderId, callback, orderType) {
                         historyMsg: data
                     }
                 })
+                dispatch({
+                    type:'askchat/setData',
+                    payload:{
+                        showLoading: false
+                    }
+                })
 
                 isShowTime('history')
 

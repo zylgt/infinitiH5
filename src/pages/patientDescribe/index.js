@@ -27,7 +27,7 @@ class PatientDescribe extends Component {
             timestamp: '',
             retryNum: 1,
             isShowCase: false,
-
+            placeholder:'请详细描述您的病情症状、曾做过的检查，目前病情是加重还是缓解'
         }
     }
 
@@ -75,6 +75,20 @@ class PatientDescribe extends Component {
                     url: window.location.href.split('#')[0]
                 },
                 callback: this.getAppidCallback.bind(this)
+            })
+        }
+        if (isIOS()) {
+            document.body.addEventListener('focusin', () => {
+                const { type } = this.state;
+                // window.scrollTo(0,0);
+                //软键盘弹出的事件处理
+                this.textareaFocus(type)
+
+            })
+            document.body.addEventListener('focusout', () => {
+                const { type } = this.state;
+                //软键盘收起的事件处理
+                this.textareaFocus(type)
             })
         }
     }
@@ -292,6 +306,18 @@ class PatientDescribe extends Component {
             type: 'patientDescribe/setData',
             payload: {...payload}
         })
+
+        if(type == 'info'){
+            if(val == ''){
+                this.setState({
+                    placeholder:'请详细描述您的病情症状、曾做过的检查，目前病情是加重还是缓解'
+                })
+            }else{
+                this.setState({
+                    placeholder:'详情'
+                })
+            }
+        }
     }
 
     //点击下一步
@@ -423,55 +449,21 @@ class PatientDescribe extends Component {
     textareaFocus(type) {
         const {dispatch} = this.props;
         const {isShowCase} = this.state;
-        dispatch({
-            type: 'setData',
-            payload: {
-                type: type,
-            }
+        this.setState({
+            type:type
         })
-        if (isIOS()) {
-            if (isShowCase) {
-                if (type == 'info') {
-                    this.patient.scrollTop = 60
-                } else if (type == 'medicine') {
-                    this.patient.scrollTop = 200
-                } else if (type == 'question') {
-                    this.patient.scrollTop = 400
-                }
-            } else {
-                if (type == 'info') {
-                    this.patient.scrollTop = 0
-                } else if (type == 'medicine') {
-                    this.patient.scrollTop = 50
-                } else if (type == 'question') {
-                    this.patient.scrollTop = 100
-                }
-            }
-        } else {
-            if (isShowCase) {
-                if (type == 'info') {
-                    this.patient.scrollTop = 70
-                } else if (type == 'medicine') {
-                    this.patient.scrollTop = 360
-                } else if (type == 'question') {
-                    this.patient.scrollTop = 700
-                }
-            } else {
-                if (type == 'info') {
-                    this.patient.scrollTop = 0
-                } else if (type == 'medicine') {
-                    this.patient.scrollTop = 100
-                } else if (type == 'question') {
-                    this.patient.scrollTop = 400
-                }
-            }
-        }
+        if (type) {
+            setTimeout(function () {
+                let anchorElement = document.getElementById(type);
+                if(anchorElement) { anchorElement.scrollIntoView(); }
+            },100)
 
+        }
     }
 
     render() {
         const {getFieldProps} = this.props.form;
-        const {wkwebview, isShowCase} = this.state;
+        const {wkwebview, isShowCase,placeholder} = this.state;
         const {patientImg, info, medicine, question} = this.props.patientDescribe;
 
         // console.log('--patientImg--',patientImg)
@@ -488,6 +480,7 @@ class PatientDescribe extends Component {
                             <img className={Styles.title_img} src={require('../../assets/right.png')} alt=""/>
                         </div>
                     </div>
+                    <a id="info"></a>
                     {
                         isShowCase ?
                             <div className={Styles.patient_example}>
@@ -500,7 +493,6 @@ class PatientDescribe extends Component {
                             </div>
                             : ''
                     }
-
                     <div className={Styles.patient_title}>
                         <span>病情<span className={Styles.title_imp}>*</span></span>
                         <div className={Styles.title_right} onClick={() => {
@@ -514,8 +506,9 @@ class PatientDescribe extends Component {
                         rows={5}
                         count={200}
                         value={info}
-                        placeholder="请详细描述您的病情症状、曾做过的检查，目前病情是加重还是缓解"
+                        placeholder={placeholder}
                         className={Styles.patient_textarea}
+                        ref={this.describeRef}
                         onChange={(val) => {
                             this.textareaChange(val, 'info')
                         }}
@@ -523,6 +516,7 @@ class PatientDescribe extends Component {
                             this.textareaFocus('info')
                         }}
                     />
+                    <a id="medicine"></a>
                     <div className={Styles.patient_title}>
                         <span>用药情况<span className={Styles.title_imp}>*</span></span>
                     </div>
@@ -539,6 +533,7 @@ class PatientDescribe extends Component {
                             this.textareaFocus('medicine')
                         }}
                     />
+                    <a id="question"></a>
                     <div className={Styles.patient_title}>
                         <span>想解决的问题<span className={Styles.title_imp}>*</span></span>
                     </div>

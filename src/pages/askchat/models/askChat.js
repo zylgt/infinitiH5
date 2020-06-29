@@ -4,7 +4,8 @@ export default {
     namespace: 'askchat',
     state: {
         sendMsg:[],
-        patientImg:[]
+        patientImg:[],
+        showLoading:true
     },
     subscriptions: {
         setup({ dispatch, history }) {
