@@ -21,13 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="175d2814-6ce3-4d6e-8268-5c4da88a3d07" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/video.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/video.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/linkSocket/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/linkSocket/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/ask/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/ask/index.less" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/askchat/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/askchat/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/askchat/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/askchat/index.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/patientDescribe/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,59 +37,34 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="426" column="14" lean-forward="true" selection-start-line="426" selection-start-column="14" selection-end-line="426" selection-end-column="14" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-                <element signature="n#!!block;n#getAppidCallback#0;n#PatientDescribe#0" />
-                <element signature="n#!!block;n#offset#0;n#PatientDescribe#0" />
-                <element signature="n#!!block;n#addPatient#0;n#PatientDescribe#0" />
-                <element signature="n#!!block;n#getPhoneImg#0;n#PatientDescribe#0" />
-                <element signature="n#!!block;n#uploadImg#0;n#PatientDescribe#0" />
-                <element signature="n#!!block;n#deleteImg#0;n#PatientDescribe#0" />
-                <element signature="n#!!block;n#textareaChange#0;n#PatientDescribe#0" />
-                <element signature="n#!!block;n#next#0;n#PatientDescribe#0" />
-                <element signature="n#!!block;n#nextCallback#0;n#PatientDescribe#0" />
-                <element signature="n#!!block;n#onClose#0;n#PatientDescribe#0" />
-                <element signature="n#!!block;n#clickKnow#0;n#PatientDescribe#0" />
-                <element signature="n#!!block;n#openCase#0;n#PatientDescribe#0" />
-                <element signature="n#!!block;n#importInfo#0;n#PatientDescribe#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/models/patientDescribe.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-              <folding>
-                <element signature="e#0#82#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.less">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="105" column="3" selection-start-line="105" selection-start-column="3" selection-end-line="105" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="182" selection-start-line="182" selection-end-line="192" selection-end-column="9" />
+            <state relative-caret-position="346">
+              <caret line="45" column="38" lean-forward="true" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
                 <element signature="e#512#564#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/linkSocket/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="801">
+              <caret line="163" column="26" lean-forward="true" selection-start-line="163" selection-start-column="26" selection-end-line="163" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#34#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -110,8 +81,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>医生正在邀请您视频通话</find>
-      <find>orderDetailCallback</find>
       <find>scrollBottom</find>
       <find>setIntervalTime</find>
       <find>swipeData</find>
@@ -140,6 +109,8 @@
       <find>resize</find>
       <find>token</find>
       <find>dispatch</find>
+      <find>showLoading</find>
+      <find>chat_loading</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -166,12 +137,12 @@
         <option value="$PROJECT_DIR$/.umirc.js" />
         <option value="$PROJECT_DIR$/src/pages/ask/index.less" />
         <option value="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" />
-        <option value="$PROJECT_DIR$/src/pages/askchat/index.less" />
         <option value="$PROJECT_DIR$/src/pages/patientDescribe/index.less" />
         <option value="$PROJECT_DIR$/src/pages/patientDescribe/index.js" />
-        <option value="$PROJECT_DIR$/src/pages/askchat/index.js" />
         <option value="$PROJECT_DIR$/src/utils/request.js" />
+        <option value="$PROJECT_DIR$/src/pages/askchat/index.less" />
         <option value="$PROJECT_DIR$/src/components/linkSocket/index.js" />
+        <option value="$PROJECT_DIR$/src/pages/askchat/index.js" />
       </list>
     </option>
   </component>
@@ -188,9 +159,9 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-1080" />
-    <option name="y" value="-509" />
+    <option name="y" value="-458" />
     <option name="width" value="1080" />
-    <option name="height" value="1349" />
+    <option name="height" value="1298" />
   </component>
   <component name="ProjectId" id="1bk68mhmsVsFNudRKAHeDtvfBFq" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -203,6 +174,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -292,7 +264,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -399,18 +370,19 @@
       <workItem from="1592531193603" duration="1000" />
       <workItem from="1592791547296" duration="4238000" />
       <workItem from="1592876715801" duration="12461000" />
-      <workItem from="1593308292996" duration="24136000" />
+      <workItem from="1593308292996" duration="24568000" />
+      <workItem from="1593481173984" duration="3756000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="114081000" />
+    <option name="totallyTimeSpent" value="118269000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1080" y="-509" width="1080" height="1349" extended-state="0" />
+    <frame x="-1080" y="-458" width="1080" height="1298" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" x="-672" y="-370" width="264" height="1164" id="Project" order="0" visible="true" weight="0.1898017" />
+      <window_info content_ui="combo" x="-672" y="-370" width="264" height="1164" id="Project" order="0" visible="true" weight="0.1898017" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -423,8 +395,8 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.21479714" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.3291874" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.21475953" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -854,55 +826,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/linkSocket/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="174" column="18" selection-start-line="174" selection-start-column="18" selection-end-line="174" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/askchat/models/askChat.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="7" column="24" lean-forward="true" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="21" column="20" lean-forward="true" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.less">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="105" column="3" selection-start-line="105" selection-start-column="3" selection-end-line="105" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/models/patientDescribe.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#0#82#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="182" selection-start-line="182" selection-end-line="192" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-            <element signature="e#512#564#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -915,8 +842,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="426" column="14" lean-forward="true" selection-start-line="426" selection-start-column="14" selection-end-line="426" selection-end-column="14" />
+        <state relative-caret-position="296">
+          <caret line="446" lean-forward="true" selection-start-line="446" selection-end-line="446" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
             <element signature="n#!!block;n#getAppidCallback#0;n#PatientDescribe#0" />
@@ -932,6 +859,51 @@
             <element signature="n#!!block;n#clickKnow#0;n#PatientDescribe#0" />
             <element signature="n#!!block;n#openCase#0;n#PatientDescribe#0" />
             <element signature="n#!!block;n#importInfo#0;n#PatientDescribe#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/models/patientDescribe.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+          <folding>
+            <element signature="e#0#82#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/patientDescribe/index.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="105" column="3" selection-start-line="105" selection-start-column="3" selection-end-line="105" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="9" column="19" lean-forward="true" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/linkSocket/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="801">
+          <caret line="163" column="26" lean-forward="true" selection-start-line="163" selection-start-column="26" selection-end-line="163" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="45" column="38" lean-forward="true" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+            <element signature="e#512#564#0" expanded="true" />
           </folding>
         </state>
       </provider>
