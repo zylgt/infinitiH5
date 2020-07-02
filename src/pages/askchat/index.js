@@ -13,6 +13,7 @@ import linkSocket from '../../components/linkSocket'
 import moment from "moment";
 import Sound from 'react-sound';
 import router from "umi/router";
+import { Toast } from 'antd-mobile';
 
 moment.locale('zh-cn');
 
@@ -175,7 +176,7 @@ class AskChat extends React.Component {
             if (i == 3) {
                 clearInterval(that.scrollBottom)
             }
-        }, 500)
+        }, 600)
 
         //监听页面大小变化
         window.addEventListener('resize', that.resize.bind(this))
@@ -228,8 +229,8 @@ class AskChat extends React.Component {
         let data = response.data.data;
         let {orderId} = this.state;
         let orderType = response.data.data.type;
-
-        linkSocket(that, userInfo.voice_switch, orderId, this.scrollToBottom, orderType)
+        let orderStatus =  response.data.data.status;
+        linkSocket(that, userInfo.voice_switch, orderId, this.scrollToBottom, orderType, orderStatus)
 
         //判断图文、视频
         if (data.type == 1) {
@@ -356,6 +357,11 @@ class AskChat extends React.Component {
 
         if (word == '' || word.length < 1) {
             return false
+        }
+        console.log('navigator',navigator)
+        if(!navigator.onLine){
+            Toast.fail('请检查网络', 1.5);
+            return
         }
         sendMsg.push({
             type: 'text',
@@ -712,14 +718,14 @@ class AskChat extends React.Component {
                 let s = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
                 let countTime = m + ":" + s;
                 clearInterval(this.setIntervalTime)
-                return '通话时长' + countTime
+                return '通话时长 ' + countTime
             } else {
                 return '通话时长 15:00'
             }
         }
         let m = Math.floor((result / 60 % 60)) < 10 ? '0' + Math.floor((result / 60 % 60)) : Math.floor((result / 60 % 60));
         let s = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
-        let countTime = '通话时长' + m + ":" + s;
+        let countTime = '通话时长 ' + m + ":" + s;
         return countTime
     }
 
@@ -765,8 +771,7 @@ class AskChat extends React.Component {
                             }
                             {
                                 time != 0 && !isFinished && askType ?
-                                    <div
-                                        className={`${Styles.chat_time} ${parseInt(time / 60) >= 12 ? '' : Styles.chat_time_default}`}>
+                                    <div className={ `${Styles.chat_time} ${parseInt(time / 60) >= 12 ? '' : Styles.chat_time_default}` } >
                                         已就诊时间
                                         {
                                             parseInt(time / 60) < 10 ?

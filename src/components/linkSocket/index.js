@@ -6,8 +6,10 @@ import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import moment from "moment";
 moment.locale('zh-cn');
 
-export default function linkSocket(that, status, orderId, callback, orderType) {
+let timeFun = null;
+export default function linkSocket(that, status, orderId, callback, orderType, orderStatus) {
 
+    // clearInterval(timeFun)
     let remain_time='', created_time='';
 //判断是否展示时间
     const isShowTime = (type) => {
@@ -131,6 +133,30 @@ export default function linkSocket(that, status, orderId, callback, orderType) {
                 }
             }else if (type === 'ping') {
                 that.socket.sendMessage({ type: 'pong', 'data': data })
+                sessionStorage.setItem("timeMark", data);
+                sessionStorage.setItem("timeMark1", data);
+                clearInterval(timeFun)
+
+                timeFun = setInterval(function () {
+                    let timeMark = parseInt( sessionStorage.getItem("timeMark") );
+                    let timeMark1 = parseInt( sessionStorage.getItem("timeMark1") );
+
+                    if(timeMark - timeMark1 >= 15000){
+                        console.log('重新连接socket')
+                        linkSocket(that, status, orderId, callback, orderType)
+                    }
+
+                    if (orderStatus === 'finished' || orderStatus == 'expired') {
+                        that.socket.onclose({
+                            msg: '结束问诊'
+                        })
+                        clearInterval(timeFun)
+                    }
+
+                    timeMark += 5000
+                    sessionStorage.setItem("timeMark", timeMark);
+
+                },5000)
 
                 if(window.location.pathname == '/askchat'){
 
@@ -179,6 +205,22 @@ export default function linkSocket(that, status, orderId, callback, orderType) {
                 isShowTime('history')
 
                 callback && callback()
+
+                for( let i = 0;i < sendMsg.length ; i++){
+                    for(let k = 0;k < data.length ; k++){
+                        if( sendMsg[i].content == data[k].content){
+                            sendMsg.splice(i,1)
+                            dispatch({
+                                type:'layout/setData',
+                                payload:{
+                                    sendMsg: sendMsg
+                                }
+                            })
+                            return false;
+                        }
+                    }
+                }
+
 
             } else if (type === 'message') {
 
@@ -248,7 +290,6 @@ export default function linkSocket(that, status, orderId, callback, orderType) {
                 }
 
                 for( let i = 0;i < sendMsg.length ; i++){
-
                     if( sendMsg[i].content == data.content){
                         sendMsg[i].isSend = true;
                         sendMsg[i].created_at = data.created_at;

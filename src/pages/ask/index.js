@@ -109,6 +109,9 @@ class Ask extends React.Component {
                                 <img className={Styles.content_list_img} src={require('../../assets/list_video.png')}
                                      alt=""/>
                                 [正在发起视频]
+                                {
+                                    index > 0 ? <p className={Styles.content_number}>{index}</p> : ''
+                                }
                             </div>
                             :
                             <div>

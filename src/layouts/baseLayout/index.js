@@ -110,8 +110,7 @@ class BaseLayout extends React.Component {
         })
     }
     render() {
-        const { sendMsg, historyMsg } = this.props.layout;
-        const {playStatus} = this.props.layout;
+        const { sendMsg, historyMsg, playStatus } = this.props.layout;
 
         let SoundProps = {
             url:require('../../assets/bgm.mp3'),

@@ -14,7 +14,7 @@
 }
 .chat {
   height: 100%;
-  width: 100%;
+  width: 7.5rem;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -22,10 +22,12 @@
   .chat_time{
     width: 100%;
     height: .64rem;
+    line-height: .64rem;
+    text-align: center;
     background: #F66074;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
     color: #fff;
     font-size:.26rem;
     font-family:PingFangSC-Medium,PingFang SC;
@@ -84,9 +86,16 @@
         color:#333;
         width:fit-content;
         .item_content_video {
-          height: .66rem;
-          line-height: .66rem;
+          height: .44rem;
+          line-height: .44rem;
+          margin-left: .7rem;
+          position: relative;
+          color: #333;
+          font-size: 0.32rem;
           img{
+            position: absolute;
+            top: -.1rem;
+            left: -.78rem;
             height: .66rem;
             width: .66rem;
             vertical-align: top;
@@ -191,7 +200,7 @@
         .item_loading{
           position: absolute;
           left: -0.6rem;
-          top:50%-0.4rem;
+          //top:50%-0.4rem;
           height:.4rem;
           width:.4rem;
         }
