@@ -13,7 +13,7 @@ import linkSocket from '../../components/linkSocket'
 import moment from "moment";
 import Sound from 'react-sound';
 import router from "umi/router";
-import { Toast } from 'antd-mobile';
+import {Toast} from 'antd-mobile';
 
 moment.locale('zh-cn');
 
@@ -36,6 +36,7 @@ class AskChat extends React.Component {
             isFocus: true,
             time: 0,
             askType: true,
+            isPageHide: false
         }
         this.taskRemindInterval = null
         this.scrollBottom = null
@@ -71,6 +72,7 @@ class AskChat extends React.Component {
     componentDidMount() {
         const {dispatch} = this.props;
         const {orderNo} = this.props.layout;
+        const {isPageHide} = this.state;
         let that = this;
 
         // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1OTE4NjA2ODAsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI3MDk4MTkyOTkyNzE4NDM4NCJ9.9Z7647_Aqq3FGRsWqV91Ep7NeKohH-cW8mF7lJ7URlo'
@@ -192,6 +194,20 @@ class AskChat extends React.Component {
                 this.scrollToBottom()
             })
         }
+        //解决IOS返回页面不刷新的问题
+        window.addEventListener('pageshow', function () {
+            console.log(isPageHide)
+            if (isPageHide) {
+                window.location.reload();
+            }
+        });
+        window.addEventListener('pagehide', function () {
+            console.log(isPageHide)
+            that.setState({
+                isPageHide: true
+            })
+        })
+
     }
 
     //获取appidcallback
@@ -229,7 +245,7 @@ class AskChat extends React.Component {
         let data = response.data.data;
         let {orderId} = this.state;
         let orderType = response.data.data.type;
-        let orderStatus =  response.data.data.status;
+        let orderStatus = response.data.data.status;
         linkSocket(that, userInfo.voice_switch, orderId, this.scrollToBottom, orderType, orderStatus)
 
         //判断图文、视频
@@ -358,8 +374,8 @@ class AskChat extends React.Component {
         if (word == '' || word.length < 1) {
             return false
         }
-        console.log('navigator',navigator)
-        if(!navigator.onLine){
+        console.log('navigator', navigator)
+        if (!navigator.onLine) {
             Toast.fail('请检查网络', 1.5);
             return
         }
@@ -771,7 +787,7 @@ class AskChat extends React.Component {
                             }
                             {
                                 time != 0 && !isFinished && askType ?
-                                    <div className={ `${Styles.chat_time} ${parseInt(time / 60) >= 12 ? '' : Styles.chat_time_default}` } >
+                                    <div className={`${Styles.chat_time} ${parseInt(time / 60) >= 12 ? '' : Styles.chat_time_default}`}>
                                         已就诊时间
                                         {
                                             parseInt(time / 60) < 10 ?
@@ -792,15 +808,20 @@ class AskChat extends React.Component {
 
                                 {
                                     historyMsg && historyMsg.length > 0 ? <div>
-                                        <div className={Styles.list_item_right}>
-                                            <div className={Styles.item_content}>
-                                                <img className={Styles.item_icon}
-                                                     src={require('../../assets/chat_right.png')}
-                                                     alt=""/>
-                                                {this.patientInfo(historyMsg[0].content)}
-                                            </div>
-                                            <img className={Styles.item_img} src={require('../../assets/my_head.png')}/>
-                                        </div>
+                                        {
+                                            historyMsg[0].type == 'notification' ?
+                                                '' :
+                                                <div className={Styles.list_item_right}>
+                                                    <div className={Styles.item_content}>
+                                                        <img className={Styles.item_icon}
+                                                             src={require('../../assets/chat_right.png')}
+                                                             alt=""/>
+                                                        {this.patientInfo(historyMsg[0].content)}
+                                                    </div>
+                                                    <img className={Styles.item_img}
+                                                         src={require('../../assets/my_head.png')}/>
+                                                </div>
+                                        }
 
                                         <div className={Styles.list_hint}>
                                             <span className={Styles.hint_words}>问诊已开始，本次问诊时间为15分钟</span>
@@ -949,8 +970,7 @@ class AskChat extends React.Component {
                                                                                 <div className={Styles.item_content}>
                                                                                     {
                                                                                         item.isSend ? '' :
-                                                                                            <img
-                                                                                                className={Styles.item_loading}
+                                                                                            <img className={Styles.item_loading}
                                                                                                 src={require('../../assets/loading.gif')}
                                                                                                 alt=""/>
                                                                                     }
@@ -993,10 +1013,8 @@ class AskChat extends React.Component {
                                                     <p className={Styles.btn_hint}>医生正在邀请您视频通话</p>
                                                     {
                                                         isFinished ?
-                                                            <span
-                                                                className={`${Styles.btn_link} ${Styles.btn_link_disabled}`}>
-                                                        接听
-                                                    </span> :
+                                                            <span className={`${Styles.btn_link} ${Styles.btn_link_disabled}`}>接听</span>
+                                                            :
                                                             <a className={Styles.btn_link}
                                                                href="http://mp.weixin.qq.com/s?__biz=MzI1NTQxNDc0NQ==&mid=100002449&idx=1&sn=0376c27c235e040526b65b064fbc4199&chksm=6a3712275d409b3174669e1f7e74ec461841a2f7b201a573de3e8264da01abbf24f5d1b08167#rd">
                                                                 接听

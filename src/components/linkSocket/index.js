@@ -134,29 +134,33 @@ export default function linkSocket(that, status, orderId, callback, orderType, o
             }else if (type === 'ping') {
                 that.socket.sendMessage({ type: 'pong', 'data': data })
                 sessionStorage.setItem("timeMark", data);
-                sessionStorage.setItem("timeMark1", data);
+                sessionStorage.setItem("timeMarkOver", data);
                 clearInterval(timeFun)
 
-                timeFun = setInterval(function () {
-                    let timeMark = parseInt( sessionStorage.getItem("timeMark") );
-                    let timeMark1 = parseInt( sessionStorage.getItem("timeMark1") );
 
-                    if(timeMark - timeMark1 >= 15000){
-                        console.log('重新连接socket')
-                        linkSocket(that, status, orderId, callback, orderType)
-                    }
+                    timeFun = setInterval(function () {
+                        let timeMark = parseInt( sessionStorage.getItem("timeMark") );
+                        let timeMarkOver = parseInt( sessionStorage.getItem("timeMarkOver") );
 
-                    if (orderStatus === 'finished' || orderStatus == 'expired') {
-                        that.socket.onclose({
-                            msg: '结束问诊'
-                        })
-                        clearInterval(timeFun)
-                    }
+                        if(timeMark - timeMarkOver >= 15000){
+                            console.log('重新连接socket')
+                            linkSocket(that, status, orderId, callback, orderType)
+                        }
 
-                    timeMark += 5000
-                    sessionStorage.setItem("timeMark", timeMark);
+                        console.log('orderStatus',orderStatus)
+                        if (orderStatus === 'finished' || orderStatus == 'expired') {
+                            that.socket.onclose({
+                                msg: '结束问诊'
+                            })
+                            clearInterval(timeFun)
+                        }
 
-                },5000)
+                        timeMark += 5000
+                        sessionStorage.setItem("timeMark", timeMark);
+
+                    },5000)
+
+
 
                 if(window.location.pathname == '/askchat'){
 
