@@ -62,8 +62,11 @@ export default class webSocket {
         console.log('关闭socket收到的数据');
         let {socketClose} = this.param;
         socketClose && socketClose(e);
+        try {
+            this.socket.close();
+        }catch (e) {
 
-        this.socket.close();
+        }
 
         // 根据后端返回的状态码做操作
         // 我的项目是当前页面打开两个或者以上，就把当前以打开的socket关闭

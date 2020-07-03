@@ -19,31 +19,27 @@
 
   .ask_item{
     width: 100%;
-    height: 1.8rem;
     background: #fff;
-    &:last-child{
-      .item{
-        border: none;
-      }
+    &:first-child{
+        border-top:1px solid #EAEAEA;
     }
     .item{
       height: 100%;
-      width: 7.26rem;
-      margin-left:.24rem;
+      width: 6.1rem;
+      margin-left:1.4rem;
       border-bottom:1px solid #EAEAEA;
       box-sizing: border-box;
       display: flex;
       .item_head{
-        height:1rem;
-        width:1rem;
+        height:.92rem;
+        width:.92rem;
         border-radius: 100%;
-        margin:.24rem .24rem 0 0 ;
+        margin:.24rem .24rem 0 -1.14rem;
       }
       .item_info{
         display: flex;
         flex-direction: column;
         width:5.78rem;
-
         .info{
           height:.4rem;
           line-height:.4rem;
@@ -82,7 +78,7 @@
           font-family:PingFangSC-Regular,PingFang SC;
           font-weight:400;
           color:rgba(153,153,153,1);
-          margin:.12rem 0 .1rem 0;
+          margin:.1rem 0 .16rem 0;
           display: flex;
           justify-content: flex-start;
           align-items: center;
@@ -116,7 +112,7 @@
             padding:0 .08rem;
             position: absolute;
             right:.24rem;
-
+             top: .06rem;
           }
           .content_img{
             height:.36rem;
@@ -136,6 +132,7 @@
           display: flex;
           justify-content: flex-start;
           flex-wrap: wrap;
+          margin-bottom: .3rem;
           .ill{
             height:100%;
             padding:0 .08rem;

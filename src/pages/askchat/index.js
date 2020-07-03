@@ -13,6 +13,7 @@ import linkSocket from '../../components/linkSocket'
 import moment from "moment";
 import Sound from 'react-sound';
 import router from "umi/router";
+import {Toast} from 'antd-mobile';
 
 moment.locale('zh-cn');
 
@@ -35,6 +36,7 @@ class AskChat extends React.Component {
             isFocus: true,
             time: 0,
             askType: true,
+            isPageHide: false
         }
         this.taskRemindInterval = null
         this.scrollBottom = null
@@ -42,6 +44,15 @@ class AskChat extends React.Component {
     }
 
     componentWillUnmount() {
+        // console.log('componentWillUnmount')
+        const {dispatch} = this.props;
+        dispatch({
+            type: 'askchat/setData',
+            payload: {
+                showLoading: true
+            }
+        })
+
         if (this.socket) {
             this.socket.onclose({
                 msg: '关闭页面'
@@ -61,6 +72,7 @@ class AskChat extends React.Component {
     componentDidMount() {
         const {dispatch} = this.props;
         const {orderNo} = this.props.layout;
+        const {isPageHide} = this.state;
         let that = this;
 
         // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1OTE4NjA2ODAsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI3MDk4MTkyOTkyNzE4NDM4NCJ9.9Z7647_Aqq3FGRsWqV91Ep7NeKohH-cW8mF7lJ7URlo'
@@ -182,6 +194,20 @@ class AskChat extends React.Component {
                 this.scrollToBottom()
             })
         }
+        //解决IOS返回页面不刷新的问题
+        window.addEventListener('pageshow', function () {
+            console.log(isPageHide)
+            if (isPageHide) {
+                window.location.reload();
+            }
+        });
+        window.addEventListener('pagehide', function () {
+            console.log(isPageHide)
+            that.setState({
+                isPageHide: true
+            })
+        })
+
     }
 
     //获取appidcallback
@@ -208,7 +234,7 @@ class AskChat extends React.Component {
 
     //订单详情callback
     orderDetailCallback(response) {
-        // console.log('response1----------',response)
+        console.log('response1----------', response)
         const {dispatch} = this.props;
         const {isSocket, orderNo} = this.props.layout;
         let {userInfo} = this.props.my;
@@ -218,8 +244,9 @@ class AskChat extends React.Component {
         })
         let data = response.data.data;
         let {orderId} = this.state;
-
-        linkSocket(that, userInfo.voice_switch, orderId, this.scrollToBottom)
+        let orderType = response.data.data.type;
+        let orderStatus = response.data.data.status;
+        linkSocket(that, userInfo.voice_switch, orderId, this.scrollToBottom, orderType, orderStatus)
 
         //判断图文、视频
         if (data.type == 1) {
@@ -346,6 +373,11 @@ class AskChat extends React.Component {
 
         if (word == '' || word.length < 1) {
             return false
+        }
+        console.log('navigator', navigator)
+        if (!navigator.onLine) {
+            Toast.fail('请检查网络', 1.5);
+            return
         }
         sendMsg.push({
             type: 'text',
@@ -676,8 +708,8 @@ class AskChat extends React.Component {
 
     //点击医生头像跳转医生详情
     doctorInfo() {
-        const { detailInfo } = this.state;
-        router.push('./doctorinfo?id=' + detailInfo.doctor_id )
+        const {detailInfo} = this.state;
+        router.push('./doctorinfo?id=' + detailInfo.doctor_id)
     }
 
     //计算通话时长
@@ -702,14 +734,14 @@ class AskChat extends React.Component {
                 let s = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
                 let countTime = m + ":" + s;
                 clearInterval(this.setIntervalTime)
-                return '通话时长' + countTime
+                return '通话时长 ' + countTime
             } else {
                 return '通话时长 15:00'
             }
         }
         let m = Math.floor((result / 60 % 60)) < 10 ? '0' + Math.floor((result / 60 % 60)) : Math.floor((result / 60 % 60));
         let s = Math.floor((result % 60)) < 10 ? '0' + Math.floor((result % 60)) : Math.floor((result % 60));
-        let countTime = '通话时长' + m + ":" + s;
+        let countTime = '通话时长 ' + m + ":" + s;
         return countTime
     }
 
@@ -727,6 +759,7 @@ class AskChat extends React.Component {
             time,
             askType
         } = this.state;
+        const {showLoading} = this.props.askchat;
 
         let {sendMsg, historyMsg, playStatus} = this.props.layout;
         // console.log('detailInfo',detailInfo)
@@ -740,343 +773,361 @@ class AskChat extends React.Component {
 
         return (
             <DocumentTitle title={doctorName}>
-                <div className={Styles.chat}>
-                    {
-                        Sound ? <Sound {...SoundProps} /> : ''
-                    }
-                    {
-                        time != 0 && !isFinished && askType ?
-                            <div
-                                className={`${Styles.chat_time} ${parseInt(time / 60) >= 12 ? '' : Styles.chat_time_default}`}>
-                                已就诊时间
+                {
+                    showLoading ?
+                        <div className={Styles.chat_loading}>
+                            <img src={require('../../assets/loading.gif')} alt=""/>
+                            正在加载...
+                        </div>
+                        :
+                        <div className={Styles.chat}>
+
+                            {
+                                Sound ? <Sound {...SoundProps} /> : ''
+                            }
+                            {
+                                time != 0 && !isFinished && askType ?
+                                    <div className={`${Styles.chat_time} ${parseInt(time / 60) >= 12 ? '' : Styles.chat_time_default}`}>
+                                        已就诊时间
+                                        {
+                                            parseInt(time / 60) < 10 ?
+                                                '0' + parseInt(time / 60) : parseInt(time / 60)
+                                        }分
+                                        {
+                                            parseInt(time % 60) < 10 ?
+                                                '0' + parseInt(time % 60) : parseInt(time % 60)
+                                        }秒
+                                    </div> : ''
+                            }
+
+                            <div className={`my_chat_list ${Styles.chat_list}`} onClick={() => {
+                                this.clickChat()
+                            }} ref={el => this.chat_list = el}>
+
+                                {historyMsg && historyMsg.length > 0 ? this.showTime(historyMsg[0]) : ''}
+
                                 {
-                                    parseInt(time / 60) < 10 ?
-                                        '0' + parseInt(time / 60) : parseInt(time / 60)
-                                }分
+                                    historyMsg && historyMsg.length > 0 ? <div>
+                                        {
+                                            historyMsg[0].type == 'notification' ?
+                                                '' :
+                                                <div className={Styles.list_item_right}>
+                                                    <div className={Styles.item_content}>
+                                                        <img className={Styles.item_icon}
+                                                             src={require('../../assets/chat_right.png')}
+                                                             alt=""/>
+                                                        {this.patientInfo(historyMsg[0].content)}
+                                                    </div>
+                                                    <img className={Styles.item_img}
+                                                         src={require('../../assets/my_head.png')}/>
+                                                </div>
+                                        }
+
+                                        <div className={Styles.list_hint}>
+                                            <span className={Styles.hint_words}>问诊已开始，本次问诊时间为15分钟</span>
+                                            <p className={Styles.hint_line}></p>
+                                        </div>
+                                        {
+                                            askType ?
+                                                <div className={Styles.list_start}>
+                                                    <span>问诊已开始，医生将在这15分钟内只为您一人解答问题，建议不要离开对话框，保持实时沟通。医生的回复仅为建议，具体诊疗需要前往医院进行</span>
+                                                </div> : ''
+                                        }
+                                    </div> : ''
+                                }
                                 {
-                                    parseInt(time % 60) < 10 ?
-                                        '0' + parseInt(time % 60) : parseInt(time % 60)
-                                }秒
-                            </div> : ''
-                    }
+                                    historyMsg && historyMsg.length > 0 ? historyMsg.map((item, index) => {
+                                        if (item.type == "notification" || index == 0) {
+                                            return
+                                        }
+                                        return (
+                                            <div key={index}>
 
-                    <div className={`my_chat_list ${Styles.chat_list}`} onClick={() => {
-                        this.clickChat()
-                    }} ref={el => this.chat_list = el}>
+                                                {this.showTime(item)}
 
-                        {historyMsg && historyMsg.length > 0 ? this.showTime(historyMsg[0]) : ''}
-
-                        {
-                            historyMsg && historyMsg.length > 0 ? <div>
-                                <div className={Styles.list_item_right}>
-                                    <div className={Styles.item_content}>
-                                        <img className={Styles.item_icon} src={require('../../assets/chat_right.png')}
-                                             alt=""/>
-                                        {this.patientInfo(historyMsg[0].content)}
-                                    </div>
-                                    <img className={Styles.item_img} src={require('../../assets/my_head.png')}/>
-                                </div>
-
-                                <div className={Styles.list_hint}>
-                                    <span className={Styles.hint_words}>问诊已开始，本次问诊时间为15分钟</span>
-                                    <p className={Styles.hint_line}></p>
-                                </div>
+                                                {
+                                                    item.sender_type === "doctor" && item.type === 'text' ?
+                                                        <div>
+                                                            {
+                                                                item.content == '' ? '' :
+                                                                    <div className={Styles.list_item_left}>
+                                                                        {
+                                                                            detailInfo.doctor_icon ?
+                                                                                <img className={Styles.item_img}
+                                                                                     onClick={() => {
+                                                                                         this.doctorInfo()
+                                                                                     }}
+                                                                                     src={staticURL + detailInfo.doctor_icon}/> : ''
+                                                                        }
+                                                                        <div>
+                                                                            {
+                                                                                detailInfo.doctor_name ?
+                                                                                    <div className={Styles.item_name}>
+                                                                                        {detailInfo.doctor_name}-{detailInfo.doctor_title}
+                                                                                    </div> : ''
+                                                                            }
+                                                                            <div className={Styles.item_content}>
+                                                                                <img className={Styles.item_icon}
+                                                                                     src={require('../../assets/chat_left.png')}
+                                                                                     alt=""/>
+                                                                                <span>{item.content}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                            }
+                                                        </div>
+                                                        :
+                                                        <div>
+                                                            {
+                                                                item.content == '' ? '' :
+                                                                    <div className={Styles.list_item_right}>
+                                                                        {
+                                                                            item.type === 'photo' ?
+                                                                                <div
+                                                                                    className={`${Styles.item_content} ${Styles.item_content_img}`}>
+                                                                                    {
+                                                                                        item.content ?
+                                                                                            <img
+                                                                                                className={Styles.content_img}
+                                                                                                src={staticURL + item.content}
+                                                                                                alt=""/> : ''
+                                                                                    }
+                                                                                </div>
+                                                                                :
+                                                                                <div className={Styles.item_content}>
+                                                                                    <img className={Styles.item_icon}
+                                                                                         src={require('../../assets/chat_right.png')}
+                                                                                         alt=""/>
+                                                                                    <span>{item.content}</span>
+                                                                                </div>
+                                                                        }
+                                                                        <img className={Styles.item_img}
+                                                                             src={require('../../assets/my_head.png')}/>
+                                                                    </div>
+                                                            }
+                                                        </div>
+                                                }
+                                            </div>
+                                        )
+                                    }) : ''
+                                }
                                 {
-                                    askType ?
-                                        <div className={Styles.list_start}>
-                                            <span>问诊已开始，医生将在这15分钟内只为您一人解答问题，建议不要离开对话框，保持实时沟通。医生的回复仅为建议，具体诊疗需要前往医院进行</span>
+                                    sendMsg && sendMsg.length > 0 && askType ? sendMsg.map((item, index) => {
+                                        return (
+                                            <div key={index}>
+                                                {this.showTime(item)}
+                                                {
+                                                    item.sender_type === "doctor" && item.type === 'text' ?
+                                                        <div>
+                                                            {
+                                                                item.content == '' ? '' :
+                                                                    <div className={Styles.list_item_left}>
+                                                                        {
+                                                                            detailInfo.doctor_icon ?
+                                                                                <img className={Styles.item_img}
+                                                                                     onClick={() => {
+                                                                                         this.doctorInfo()
+                                                                                     }}
+                                                                                     src={staticURL + detailInfo.doctor_icon}/> : ''
+                                                                        }
+                                                                        <div>
+                                                                            {
+                                                                                detailInfo.doctor_name ?
+                                                                                    <div className={Styles.item_name}>
+                                                                                        {detailInfo.doctor_name}-{detailInfo.doctor_title}
+                                                                                    </div> : ''
+                                                                            }
+                                                                            <div className={Styles.item_content}>
+                                                                                <img className={Styles.item_icon}
+                                                                                     src={require('../../assets/chat_left.png')}
+                                                                                     alt=""/>
+                                                                                <span>{item.content}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                            }
+                                                        </div>
+                                                        :
+                                                        <div>
+                                                            {
+                                                                item.content == '' ? '' :
+                                                                    <div className={Styles.list_item_right}>
+                                                                        {
+                                                                            item.type === 'photo' ?
+                                                                                <div
+                                                                                    className={`${Styles.item_content} ${Styles.item_content_img}`}>
+                                                                                    {
+                                                                                        item.isSend ? '' :
+                                                                                            <img
+                                                                                                className={Styles.item_loading}
+                                                                                                src={require('../../assets/loading.gif')}
+                                                                                                alt=""/>
+                                                                                    }
+                                                                                    <img className={Styles.content_img}
+                                                                                         src={item.localUrl} alt=""/>
+                                                                                </div>
+                                                                                :
+                                                                                <div className={Styles.item_content}>
+                                                                                    {
+                                                                                        item.isSend ? '' :
+                                                                                            <img className={Styles.item_loading}
+                                                                                                src={require('../../assets/loading.gif')}
+                                                                                                alt=""/>
+                                                                                    }
+                                                                                    <img className={Styles.item_icon}
+                                                                                         src={require('../../assets/chat_right.png')}
+                                                                                         alt=""/>
+                                                                                    <span>{item.content}</span>
+                                                                                </div>
+                                                                        }
+                                                                        <img className={Styles.item_img}
+                                                                             src={require('../../assets/my_head.png')}/>
+                                                                    </div>
+                                                            }
+                                                        </div>
+                                                }
+                                            </div>
+                                        )
+                                    }) : ''
+                                }
+                                {
+                                    !askType ?
+                                        <div className={Styles.list_item_left}>
+                                            {
+                                                detailInfo.doctor_icon ? <img className={Styles.item_img}
+                                                                              onClick={() => {
+                                                                                  this.doctorInfo()
+                                                                              }}
+                                                                              src={staticURL + detailInfo.doctor_icon}/> : ''
+                                            }
+                                            <div>
+                                                {
+                                                    detailInfo.doctor_name ?
+                                                        <div className={Styles.item_name}>
+                                                            {detailInfo.doctor_name}-{detailInfo.doctor_title}
+                                                        </div> : ''
+                                                }
+                                                <div className={`${Styles.item_content} ${Styles.item_content_btn}`}>
+                                                    <img className={Styles.item_icon}
+                                                         src={require('../../assets/chat_left.png')} alt=""/>
+                                                    <p className={Styles.btn_hint}>医生正在邀请您视频通话</p>
+                                                    {
+                                                        isFinished ?
+                                                            <span className={`${Styles.btn_link} ${Styles.btn_link_disabled}`}>接听</span>
+                                                            :
+                                                            <a className={Styles.btn_link}
+                                                               href="http://mp.weixin.qq.com/s?__biz=MzI1NTQxNDc0NQ==&mid=100002449&idx=1&sn=0376c27c235e040526b65b064fbc4199&chksm=6a3712275d409b3174669e1f7e74ec461841a2f7b201a573de3e8264da01abbf24f5d1b08167#rd">
+                                                                接听
+                                                            </a>
+                                                    }
+
+                                                </div>
+                                            </div>
                                         </div> : ''
                                 }
-                            </div> : ''
-                        }
-                        {
-                            historyMsg && historyMsg.length > 0 ? historyMsg.map((item, index) => {
-                                if (item.type == "notification" || index == 0) {
-                                    return
-                                }
-                                return (
-                                    <div key={index}>
-
-                                        {this.showTime(item)}
-
-                                        {
-                                            item.sender_type === "doctor" && item.type === 'text' ?
-                                                <div>
-                                                    {
-                                                        item.content == '' ? '' :
-                                                            <div className={Styles.list_item_left}>
-                                                                {
-                                                                    detailInfo.doctor_icon ?
-                                                                        <img className={Styles.item_img}
-                                                                             onClick={() => {
-                                                                                 this.doctorInfo()
-                                                                             }}
-                                                                             src={staticURL + detailInfo.doctor_icon}/> : ''
-                                                                }
-                                                                <div>
-                                                                    {
-                                                                        detailInfo.doctor_name ?
-                                                                            <div className={Styles.item_name}>
-                                                                                {detailInfo.doctor_name}-{detailInfo.doctor_title}
-                                                                            </div> : ''
-                                                                    }
-                                                                    <div className={Styles.item_content}>
-                                                                        <img className={Styles.item_icon}
-                                                                             src={require('../../assets/chat_left.png')}
-                                                                             alt=""/>
-                                                                        <span>{item.content}</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                    }
-                                                </div>
-                                                :
-                                                <div>
-                                                    {
-                                                        item.content == '' ? '' :
-                                                            <div className={Styles.list_item_right}>
-                                                                {
-                                                                    item.type === 'photo' ?
-                                                                        <div
-                                                                            className={`${Styles.item_content} ${Styles.item_content_img}`}>
-                                                                            {
-                                                                                item.content ?
-                                                                                    <img className={Styles.content_img}
-                                                                                         src={staticURL + item.content}
-                                                                                         alt=""/> : ''
-                                                                            }
-                                                                        </div>
-                                                                        :
-                                                                        <div className={Styles.item_content}>
-                                                                            <img className={Styles.item_icon}
-                                                                                 src={require('../../assets/chat_right.png')}
-                                                                                 alt=""/>
-                                                                            <span>{item.content}</span>
-                                                                        </div>
-                                                                }
-                                                                <img className={Styles.item_img}
-                                                                     src={require('../../assets/my_head.png')}/>
-                                                            </div>
-                                                    }
-                                                </div>
-                                        }
-                                    </div>
-                                )
-                            }) : ''
-                        }
-                        {
-                            sendMsg && sendMsg.length > 0 && askType ? sendMsg.map((item, index) => {
-                                return (
-                                    <div key={index}>
-                                        {this.showTime(item)}
-                                        {
-                                            item.sender_type === "doctor" && item.type === 'text' ?
-                                                <div>
-                                                    {
-                                                        item.content == '' ? '' :
-                                                            <div className={Styles.list_item_left}>
-                                                                {
-                                                                    detailInfo.doctor_icon ?
-                                                                        <img className={Styles.item_img}
-                                                                             onClick={() => {
-                                                                                 this.doctorInfo()
-                                                                             }}
-                                                                             src={staticURL + detailInfo.doctor_icon}/> : ''
-                                                                }
-                                                                <div>
-                                                                    {
-                                                                        detailInfo.doctor_name ?
-                                                                            <div className={Styles.item_name}>
-                                                                                {detailInfo.doctor_name}-{detailInfo.doctor_title}
-                                                                            </div> : ''
-                                                                    }
-                                                                    <div className={Styles.item_content}>
-                                                                        <img className={Styles.item_icon}
-                                                                             src={require('../../assets/chat_left.png')}
-                                                                             alt=""/>
-                                                                        <span>{item.content}</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                    }
-                                                </div>
-                                                :
-                                                <div>
-                                                    {
-                                                        item.content == '' ? '' :
-                                                            <div className={Styles.list_item_right}>
-                                                                {
-                                                                    item.type === 'photo' ?
-                                                                        <div
-                                                                            className={`${Styles.item_content} ${Styles.item_content_img}`}>
-                                                                            {
-                                                                                item.isSend ? '' :
-                                                                                    <img className={Styles.item_loading}
-                                                                                         src={require('../../assets/loading.gif')}
-                                                                                         alt=""/>
-                                                                            }
-                                                                            <img className={Styles.content_img}
-                                                                                 src={item.localUrl} alt=""/>
-                                                                        </div>
-                                                                        :
-                                                                        <div className={Styles.item_content}>
-                                                                            {
-                                                                                item.isSend ? '' :
-                                                                                    <img className={Styles.item_loading}
-                                                                                         src={require('../../assets/loading.gif')}
-                                                                                         alt=""/>
-                                                                            }
-                                                                            <img className={Styles.item_icon}
-                                                                                 src={require('../../assets/chat_right.png')}
-                                                                                 alt=""/>
-                                                                            <span>{item.content}</span>
-                                                                        </div>
-                                                                }
-                                                                <img className={Styles.item_img}
-                                                                     src={require('../../assets/my_head.png')}/>
-                                                            </div>
-                                                    }
-                                                </div>
-                                        }
-                                    </div>
-                                )
-                            }) : ''
-                        }
-                        {
-                            !askType ?
-                                <div className={Styles.list_item_left}>
-                                    {
-                                        detailInfo.doctor_icon ? <img className={Styles.item_img}
-                                                                      onClick={() => {
-                                                                          this.doctorInfo()
-                                                                      }}
-                                                                      src={staticURL + detailInfo.doctor_icon}/> : ''
-                                    }
-                                    <div>
-                                        {
-                                            detailInfo.doctor_name ?
-                                                <div className={Styles.item_name}>
-                                                    {detailInfo.doctor_name}-{detailInfo.doctor_title}
-                                                </div> : ''
-                                        }
-                                        <div className={`${Styles.item_content} ${Styles.item_content_btn}`}>
-                                            <img className={Styles.item_icon}
-                                                 src={require('../../assets/chat_left.png')} alt=""/>
-                                            <p className={Styles.btn_hint}>医生正在邀请您视频通话</p>
+                                {
+                                    !askType && isFinished ?
+                                        <div className={Styles.list_item_left}>
                                             {
-                                                isFinished ?
-                                                    <span className={`${Styles.btn_link} ${Styles.btn_link_disabled}`}>
-                                                        接听
-                                                    </span> :
-                                                    <a className={Styles.btn_link}
-                                                       href="http://mp.weixin.qq.com/s?__biz=MzI1NTQxNDc0NQ==&mid=100002449&idx=1&sn=0376c27c235e040526b65b064fbc4199&chksm=6a3712275d409b3174669e1f7e74ec461841a2f7b201a573de3e8264da01abbf24f5d1b08167#rd">
-                                                        接听
-                                                    </a>
+                                                detailInfo.doctor_icon ?
+                                                    <img className={Styles.item_img}
+                                                         onClick={() => {
+                                                             this.doctorInfo()
+                                                         }}
+                                                         src={staticURL + detailInfo.doctor_icon}/> : ''
                                             }
-
-                                        </div>
-                                    </div>
-                                </div> : ''
-                        }
-                        {
-                            !askType && isFinished ?
-                                <div className={Styles.list_item_left}>
-                                    {
-                                        detailInfo.doctor_icon ?
-                                            <img className={Styles.item_img}
-                                                 onClick={() => {
-                                                     this.doctorInfo()
-                                                 }}
-                                                 src={staticURL + detailInfo.doctor_icon}/> : ''
-                                    }
-                                    <div>
-                                        {
-                                            detailInfo.doctor_name ?
-                                                <div className={Styles.item_name}>
-                                                    {detailInfo.doctor_name}-{detailInfo.doctor_title}
-                                                </div> : ''
-                                        }
-                                        <div className={Styles.item_content}>
-                                            <img className={Styles.item_icon}
-                                                 src={require('../../assets/chat_left.png')}
-                                                 alt=""/>
-                                            {this.countCallTime(detailInfo.inquired_at, detailInfo.finished_at, detailInfo.status)}
-                                        </div>
-                                    </div>
-                                </div> : ''
-                        }
-                        {
-                            isFinished ? <div>
-                                {
-                                    isExpired ? <div className={Styles.list_start}>
-                                            <span>由于就诊通知后5分钟内您未响应，导致此次就诊作废，请你重新进行预约</span>
-                                        </div>
-                                        :
-                                        <div className={Styles.list_start}>
-                                            <span>医生的回复仅为建议，具体诊疗需要前往医院进行</span>
-                                        </div>
+                                            <div>
+                                                {
+                                                    detailInfo.doctor_name ?
+                                                        <div className={Styles.item_name}>
+                                                            {detailInfo.doctor_name}-{detailInfo.doctor_title}
+                                                        </div> : ''
+                                                }
+                                                <div className={Styles.item_content}>
+                                                    <img className={Styles.item_icon}
+                                                         src={require('../../assets/chat_left.png')}
+                                                         alt=""/>
+                                                    {this.countCallTime(detailInfo.inquired_at, detailInfo.finished_at, detailInfo.status)}
+                                                </div>
+                                            </div>
+                                        </div> : ''
                                 }
-                                <div className={Styles.list_hint}>
-                                    <span className={Styles.hint_words}>本次问诊已结束</span>
-                                    <p className={Styles.hint_line}></p>
-                                </div>
-                            </div> : ''
-                        }
-                        <div style={{float: "left", clear: "both"}}
-                             ref={(el) => {
-                                 this.messagesEnd = el;
-                             }}>
-                        </div>
-                    </div>
-                    {
-                        !isFinished && askType ?
-                            <div>
-                                <div
-                                    className={`${Styles.chat_input} ${isFocus && isIOS() && isIPhoneX() && isPush ? Styles.chat_input_push : ''}`}>
-                                    <TextareaItem
-                                        {...getFieldProps('word', {
-                                            initialValue: word
-                                        })}
-                                        autoHeight
-                                        placeholder="请输入咨询内容"
-                                        className={Styles.input}
-                                        ref={el => this.customFocusInst = el}
-                                        onChange={(val) => {
-                                            this.changeWord(val)
-                                        }}
-                                        onFocus={() => {
-                                            this.textareaFocus()
-                                        }}
-                                        // onBlur={()=>{this.textareaBlur()}}
-                                    />
-                                    {
-                                        isShowSend ? <Button type="primary" onClick={() => {
-                                                this.submit()
-                                            }} className={Styles.input_btn}>发送</Button>
-                                            :
-                                            <img onClick={() => this.autoWordFocus()} className={Styles.input_img}
-                                                 src={require('../../assets/ask_add.png')} alt=""/>
-                                    }
-                                </div>
                                 {
-                                    isShowButtom ? <div className={Styles.chat_buttom}>
-                                        <div className={Styles.buttom_item} onClick={() => {
-                                            this.addPatient('camera')
-                                        }}>
-                                            <img src={require('../../assets/chat_camera.png')} alt=""/>
-                                            <p>拍摄</p>
-                                        </div>
-                                        <div className={Styles.buttom_item} onClick={() => {
-                                            this.addPatient('album')
-                                        }}>
-                                            <img src={require('../../assets/chat_picture.png')} alt=""/>
-                                            <p>图片</p>
+                                    isFinished ? <div>
+                                        {
+                                            isExpired ? <div className={Styles.list_start}>
+                                                    <span>由于就诊通知后5分钟内您未响应，导致此次就诊作废，请你重新进行预约</span>
+                                                </div>
+                                                :
+                                                <div className={Styles.list_start}>
+                                                    <span>医生的回复仅为建议，具体诊疗需要前往医院进行</span>
+                                                </div>
+                                        }
+                                        <div className={Styles.list_hint}>
+                                            <span className={Styles.hint_words}>本次问诊已结束</span>
+                                            <p className={Styles.hint_line}></p>
                                         </div>
                                     </div> : ''
                                 }
-                            </div> : ''
-                    }
-                </div>
+                                <div style={{float: "left", clear: "both"}}
+                                     ref={(el) => {
+                                         this.messagesEnd = el;
+                                     }}>
+                                </div>
+                            </div>
+                            {
+                                !isFinished && askType ?
+                                    <div>
+                                        <div
+                                            className={`${Styles.chat_input} ${isFocus && isIOS() && isIPhoneX() && isPush ? Styles.chat_input_push : ''}`}>
+                                            <TextareaItem
+                                                {...getFieldProps('word', {
+                                                    initialValue: word
+                                                })}
+                                                autoHeight
+                                                placeholder="请输入咨询内容"
+                                                className={Styles.input}
+                                                ref={el => this.customFocusInst = el}
+                                                onChange={(val) => {
+                                                    this.changeWord(val)
+                                                }}
+                                                onFocus={() => {
+                                                    this.textareaFocus()
+                                                }}
+                                                // onBlur={()=>{this.textareaBlur()}}
+                                            />
+                                            {
+                                                isShowSend ? <Button type="primary" onClick={() => {
+                                                        this.submit()
+                                                    }} className={Styles.input_btn}>发送</Button>
+                                                    :
+                                                    <img onClick={() => this.autoWordFocus()}
+                                                         className={Styles.input_img}
+                                                         src={require('../../assets/ask_add.png')} alt=""/>
+                                            }
+                                        </div>
+                                        {
+                                            isShowButtom ? <div className={Styles.chat_buttom}>
+                                                <div className={Styles.buttom_item} onClick={() => {
+                                                    this.addPatient('camera')
+                                                }}>
+                                                    <img src={require('../../assets/chat_camera.png')} alt=""/>
+                                                    <p>拍摄</p>
+                                                </div>
+                                                <div className={Styles.buttom_item} onClick={() => {
+                                                    this.addPatient('album')
+                                                }}>
+                                                    <img src={require('../../assets/chat_picture.png')} alt=""/>
+                                                    <p>图片</p>
+                                                </div>
+                                            </div> : ''
+                                        }
+                                    </div> : ''
+                            }
+                        </div>
+
+                }
+
             </DocumentTitle>
         )
     }

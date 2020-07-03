@@ -6,8 +6,10 @@ import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 import moment from "moment";
 moment.locale('zh-cn');
 
-export default function linkSocket(that, status, orderId, callback) {
+let timeFun = null;
+export default function linkSocket(that, status, orderId, callback, orderType, orderStatus) {
 
+    // clearInterval(timeFun)
     let remain_time='', created_time='';
 //判断是否展示时间
     const isShowTime = (type) => {
@@ -123,8 +125,42 @@ export default function linkSocket(that, status, orderId, callback) {
                 }
             }
 
-            if (type === 'ping') {
+            if(type === 'auth'){
+                if(orderType == 1){
+                    that.socket.onclose({
+                        msg:'视频问诊，结束socket'
+                    })
+                }
+            }else if (type === 'ping') {
                 that.socket.sendMessage({ type: 'pong', 'data': data })
+                sessionStorage.setItem("timeMark", data);
+                sessionStorage.setItem("timeMarkOver", data);
+                clearInterval(timeFun)
+
+
+                    timeFun = setInterval(function () {
+                        let timeMark = parseInt( sessionStorage.getItem("timeMark") );
+                        let timeMarkOver = parseInt( sessionStorage.getItem("timeMarkOver") );
+
+                        if(timeMark - timeMarkOver >= 15000){
+                            console.log('重新连接socket')
+                            linkSocket(that, status, orderId, callback, orderType)
+                        }
+
+                        console.log('orderStatus',orderStatus)
+                        if (orderStatus === 'finished' || orderStatus == 'expired') {
+                            that.socket.onclose({
+                                msg: '结束问诊'
+                            })
+                            clearInterval(timeFun)
+                        }
+
+                        timeMark += 5000
+                        sessionStorage.setItem("timeMark", timeMark);
+
+                    },5000)
+
+
 
                 if(window.location.pathname == '/askchat'){
 
@@ -161,10 +197,34 @@ export default function linkSocket(that, status, orderId, callback) {
                         historyMsg: data
                     }
                 })
+                if(window.location.pathname == '/askchat') {
+                    dispatch({
+                        type: 'askchat/setData',
+                        payload: {
+                            showLoading: false
+                        }
+                    })
+                }
 
                 isShowTime('history')
 
                 callback && callback()
+
+                for( let i = 0;i < sendMsg.length ; i++){
+                    for(let k = 0;k < data.length ; k++){
+                        if( sendMsg[i].content == data[k].content){
+                            sendMsg.splice(i,1)
+                            dispatch({
+                                type:'layout/setData',
+                                payload:{
+                                    sendMsg: sendMsg
+                                }
+                            })
+                            return false;
+                        }
+                    }
+                }
+
 
             } else if (type === 'message') {
 
@@ -234,7 +294,6 @@ export default function linkSocket(that, status, orderId, callback) {
                 }
 
                 for( let i = 0;i < sendMsg.length ; i++){
-
                     if( sendMsg[i].content == data.content){
                         sendMsg[i].isSend = true;
                         sendMsg[i].created_at = data.created_at;
