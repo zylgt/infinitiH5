@@ -20,8 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="175d2814-6ce3-4d6e-8268-5c4da88a3d07" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/components/linkSocket/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/linkSocket/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/askchat/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/askchat/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/baseURL.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/baseURL.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,19 +33,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/utils/baseURL.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="546">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="468">
+              <caret line="18" column="61" selection-start-line="18" selection-start-column="61" selection-end-line="18" selection-end-column="61" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/linkSocket/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
+            <state relative-caret-position="232">
               <caret line="137" column="38" lean-forward="true" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="38" />
               <folding>
                 <element signature="e#0#34#0" expanded="true" />
@@ -68,7 +67,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="751">
+            <state relative-caret-position="22989">
               <caret line="1007" column="67" lean-forward="true" selection-start-line="1007" selection-start-column="67" selection-end-line="1007" selection-end-column="67" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
@@ -108,7 +107,6 @@
       <find>Toast</find>
       <find>scrollBottom</find>
       <find>scrollToBottom</find>
-      <find>token</find>
       <find>chat_time</find>
       <find>ask_item</find>
       <find>UMI_ENV</find>
@@ -118,6 +116,7 @@
       <find>orderDetailCallback</find>
       <find>dis</find>
       <find>isPageHide</find>
+      <find>token</find>
       <find>接听</find>
     </findStrings>
   </component>
@@ -137,7 +136,6 @@
         <option value="$PROJECT_DIR$/src/utils/illDate.js" />
         <option value="$PROJECT_DIR$/src/pages/home/index.js" />
         <option value="$PROJECT_DIR$/src/pages/home/index.less" />
-        <option value="$PROJECT_DIR$/src/utils/baseURL.js" />
         <option value="$PROJECT_DIR$/src/pages/document.ejs" />
         <option value="$PROJECT_DIR$/.umirc.js" />
         <option value="$PROJECT_DIR$/src/pages/patientDescribe/index.less" />
@@ -152,6 +150,7 @@
         <option value="$PROJECT_DIR$/src/pages/askchat/models/askChat.js" />
         <option value="$PROJECT_DIR$/src/pages/askchat/index.js" />
         <option value="$PROJECT_DIR$/src/components/linkSocket/index.js" />
+        <option value="$PROJECT_DIR$/src/utils/baseURL.js" />
       </list>
     </option>
   </component>
@@ -360,12 +359,12 @@
       <workItem from="1592791547296" duration="4238000" />
       <workItem from="1592876715801" duration="12461000" />
       <workItem from="1593308292996" duration="24568000" />
-      <workItem from="1593481173984" duration="31298000" />
+      <workItem from="1593481173984" duration="32084000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="145811000" />
+    <option name="totallyTimeSpent" value="146597000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1080" y="-458" width="1080" height="1298" extended-state="0" />
@@ -385,7 +384,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.3291874" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.18573798" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.18573798" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -863,28 +862,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/baseURL.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pages/askchat/models/askChat.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-854">
           <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="751">
-          <caret line="1007" column="67" lean-forward="true" selection-start-line="1007" selection-start-column="67" selection-end-line="1007" selection-end-column="67" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-            <element signature="e#512#564#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -897,12 +878,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/linkSocket/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
+        <state relative-caret-position="232">
           <caret line="137" column="38" lean-forward="true" selection-start-line="137" selection-start-column="38" selection-end-line="137" selection-end-column="38" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
             <element signature="e#534#3123#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pages/askchat/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22989">
+          <caret line="1007" column="67" lean-forward="true" selection-start-line="1007" selection-start-column="67" selection-end-line="1007" selection-end-column="67" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+            <element signature="e#512#564#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/baseURL.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="18" column="61" selection-start-line="18" selection-start-column="61" selection-end-line="18" selection-end-column="61" />
         </state>
       </provider>
     </entry>
