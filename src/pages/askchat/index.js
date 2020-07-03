@@ -4,7 +4,7 @@ import {Button, TextareaItem} from 'antd-mobile';
 import Styles from './index.less';
 import {createForm} from 'rc-form';
 import DocumentTitle from 'react-document-title'
-import {staticURL} from '../../utils/baseURL'
+import {staticURL, phoneURL} from '../../utils/baseURL'
 import {nonceStr, isIOS, isIPhoneX, getQueryString, cookieUtils} from '../../utils/tools'
 import wx from 'weixin-js-sdk';
 import NProgress from 'nprogress' // 引入nprogress插件
@@ -1012,11 +1012,11 @@ class AskChat extends React.Component {
                                                          src={require('../../assets/chat_left.png')} alt=""/>
                                                     <p className={Styles.btn_hint}>医生正在邀请您视频通话</p>
                                                     {
-                                                        isFinished ?
-                                                            <span className={`${Styles.btn_link} ${Styles.btn_link_disabled}`}>接听</span>
-                                                            :
+                                                        // isFinished ?
+                                                        //     <span className={`${Styles.btn_link} ${Styles.btn_link_disabled}`}>接听</span>
+                                                        //     :
                                                             <a className={Styles.btn_link}
-                                                               href="http://mp.weixin.qq.com/s?__biz=MzI1NTQxNDc0NQ==&mid=100002449&idx=1&sn=0376c27c235e040526b65b064fbc4199&chksm=6a3712275d409b3174669e1f7e74ec461841a2f7b201a573de3e8264da01abbf24f5d1b08167#rd">
+                                                               href={ phoneURL }>
                                                                 接听
                                                             </a>
                                                     }
