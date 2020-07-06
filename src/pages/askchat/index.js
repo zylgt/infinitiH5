@@ -74,7 +74,7 @@ class AskChat extends React.Component {
         const {orderNo} = this.props.layout;
         const {isPageHide} = this.state;
         let that = this;
-
+        // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1OTM3NTc3OTUsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI1MDk2OTA2OTYyOTIxNDcyMCJ9.3d4vCY3fSTeyQlUy3DBDKWoBXsvn4bERplBfV3QCteU'
         // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1OTE4NjA2ODAsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI3MDk4MTkyOTkyNzE4NDM4NCJ9.9Z7647_Aqq3FGRsWqV91Ep7NeKohH-cW8mF7lJ7URlo'
         let token = cookieUtils.get('token') || getQueryString('token') || '';
         console.log('token', token)
