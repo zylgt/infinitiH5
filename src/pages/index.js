@@ -1,8 +1,8 @@
-import Home from './home';
+import Welcome from './welcome';
 import 'babel-polyfill'
 
 export default function() {
   return (
-    <Home />
+    <Welcome />
   );
 }

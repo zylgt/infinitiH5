@@ -2,230 +2,248 @@ import React, {Component} from 'react';
 import {connect} from 'dva';
 import router from 'umi/router';
 import Styles from './index.less';
-import Swiper from '../../components/swiper'
-import {staticURL} from '../../utils/baseURL'
-import wx from 'weixin-js-sdk';
-import { nonceStr, isIOS } from '../../utils/tools'
 import DocumentTitle from 'react-document-title'
-import NProgress from 'nprogress' // 引入nprogress插件
-import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
+import Player from '../../components/Player'
+import ImgCrop from 'antd-img-crop';
+import { Upload } from 'antd';
+import HomeButton from '../../components/HomeButtom'
+import WelcomeButton from '../../components/WelcomeButton'
+import HomeVideo from '../../components/HomeVideo'
+import Back from '../../components/Back'
+import HomePrize from '../../components/HomePrize'
+import {cookieUtils, isIOS, wechatShare, isWchat} from '../../utils/tools'
+import wx from "weixin-js-sdk";
+import { Button } from 'antd-mobile';
 
-@connect(({ home }) => ({ home }))
+@connect(({ home, layout }) => ({ home, layout }))
 class Home extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            timestamp:'',
-            isScroll:true
+            bgImgTop: 0,
+            conTop: '2rem',
+            showHomePrize: false,
+            homePrize:1,
         }
-        this._onScrollEvent = this._onScrollEvent.bind(this);  //保证被组件调用时，对象的唯一性
-
+        this.dp = null
     }
     componentDidMount() {
+        console.log('isWchat',isWchat())
+        if(isWchat()){
+            if (window.innerHeight <= 672) {
+                this.setState({
+                    bgImgTop: '-1.74rem',
+                    conTop: '.32rem',
+                })
+            }
+        }else{
+            if (window.innerHeight <= 667) {
+                this.setState({
+                    bgImgTop: '-0.8rem',
+                    conTop: '1.2rem',
+                })
+            }
+        }
 
         const { dispatch } = this.props;
-
-        //生成签名时间戳
-        let timestamp = (Date.parse(new Date()) / 1000).toString();
-        this.setState({
-            timestamp:timestamp,
+        const { isFrist } = this.props.home;
+        dispatch({
+            type:'home/setData',
+            payload: {
+                isShowVideo: true
+            }
         })
-        if(isIOS()){
-            wx.ready(function(){
-                wx.hideAllNonBaseMenuItem();
-                // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-            });
-        }else{
+        if(isFrist){
+            this.setState({
+                showHomePrize: true,
+            })
+            dispatch({
+                type:'home/setData',
+                payload: {
+                    isShowVideo: false
+                }
+            })
+        }
+        //设置热门可更新
+        dispatch({
+            type:'hot/setData',
+            payload: {
+                isRefresh: true
+            }
+        })
+        dispatch({
+            type:'upload/setData',
+            payload:{
+                url:''
+            }
+        })
+    //    播放视频，关闭音乐
+        setTimeout(function(){
+            // dispatch({
+            //     type:'layout/setData',
+            //     payload:{
+            //         playStatus:'STOPPED',
+            //     }
+            // })
+            // dispatch({
+            //     type:'home/setData',
+            //     payload:{
+            //         isPlay: true,
+            //     }
+            // })
+        },1000)
+        if (isIOS()) {
+            wechatShare(dispatch)
+        } else
+        {
             //获取appid和签名
             dispatch({
-                type:'patientDescribe/getAppid',
-                payload:{
-                    noncestr: nonceStr,
-                    timestamp: timestamp,
+                type: 'layout/getAppid',
+                payload: {
                     url: window.location.href.split('#')[0]
+                    // url:'https://power.infiniti-story.com/infiniti/q4/welcome'
                 },
                 callback: this.getAppidCallback.bind(this)
             })
         }
+
     }
-    componentWillUnmount(){
-        //顶部进度条开启
-        NProgress.start()
-    }
-    //获取appidcallback
+    // 获取appidcallback
     getAppidCallback(response){
-        const { timestamp } = this.state;
+        const { dispatch } = this.props;
         wx.config({
-            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            appId: response.data.data.app_id, // 必填，公众号的唯一标识
-            timestamp: timestamp , // 必填，生成签名的时间戳
-            nonceStr: nonceStr, // 必填，生成签名的随机串
-            signature: response.data.data.signature,// 必填，签名
-            jsApiList: ['chooseImage','uploadImage','hideAllNonBaseMenuItem'] // 必填，需要使用的JS接口列表
+            debug: response.debug, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: response.appId, // 必填，公众号的唯一标识
+            timestamp: parseInt(response.timestamp) , // 必填，生成签名的时间戳
+            nonceStr: response.nonceStr, // 必填，生成签名的随机串
+            signature: response.signature,// 必填，签名
+            jsApiList: response.jsApiList // 必填，需要使用的JS接口列表
         });
-        wx.ready(function(){
-            wx.hideAllNonBaseMenuItem();
-            // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-        });
+        wechatShare(dispatch)
     }
 
-    //滚动事件
-    _onScrollEvent() {
+    componentWillUnmount (){
+        console.log('卸载')
+    }
+    //跳转写下故事
+    jumpUpload(){
+        //验证登陆
+        const { token } = this.props.layout;
         const { dispatch } = this.props;
-        const { offset } = this.props.home;
-        let scrollTop = this._container.scrollTop;
-        let scrollHeight = this._container.scrollHeight;
-        let clientHeight = this._container.clientHeight;
-        if( scrollTop == 0 || scrollTop % 2 != 0 ){
-            return
-        }
-        if ( scrollHeight - scrollTop - clientHeight < 100 && this.state.isScroll ) {
-            console.log('home滑到底了')
-            this.setState({
-                isScroll:false
+        const cookieToken = cookieUtils.get('token') || '';
+        if(token || cookieToken){
+            router.push('./upload')
+        }else{
+            dispatch({
+                type:'layout/setData',
+                payload:{
+                    showLogin: true
+                }
             })
             dispatch({
-                type: 'home/getDoctorData',
-                payload:{
-                    offset: offset,
-                    limit:20
+                type:'home/setData',
+                payload: {
+                    isShowVideo: false
                 }
-            });
-        }else{
-            if(scrollHeight - scrollTop - clientHeight > 100){
-                this.setState({
-                    isScroll:true
-                })
-            }
+            })
         }
     }
-
-    //点击科室 / 点击疾病
-    clickOffice(e){
-        let officeId = e.currentTarget.getAttribute('data-id');
-        let type = e.currentTarget.getAttribute('data-type');
-        let name = e.currentTarget.getAttribute('data-name');
-        // console.log('officeId',officeId)
-        let params = params = 'id=' + officeId + '&type=' + type + '&name=' + name ;
-
-        router.push('./chooseDoctor?' + encodeURIComponent(params) )
-
+    //跳转看看故事
+    jumpHot(){
+        router.push('./hot')
     }
-    //点击进入出诊医生
-    clickDoctor(e){
-        let doctorId = e.currentTarget.getAttribute('data-id');
-        // console.log('officeId',doctorId)
-        router.push('./doctorinfo?id=' + doctorId )
+    //关闭合伙人礼遇/获奖名单
+    closeHomePrize(num){
+        const { dispatch } = this.props;
+        const { showHomePrize } = this.state;
+        const { isFrist,isShowVideo } = this.props.home;
+        this.setState({
+            showHomePrize : !showHomePrize,
+            homePrize: num,
+        })
+        dispatch({
+            type:'home/setData',
+            payload: {
+                isShowVideo: showHomePrize
+            }
+        })
+        console.log('num',num)
+        if(isFrist){
+            dispatch({
+                type:'layout/setData',
+                payload:{
+                    playStatus:'STOPPED',
+                }
+            })
+            dispatch({
+                type:'home/setData',
+                payload:{
+                    isPlay: true,
+                    isFrist: false
+                }
+            })
+        }
     }
 
     render() {
-        const { home } = this.props;
-        const { swipeData, officeData, illnessData, doctorData } = this.props.home;
-        const swiperProps={
-            dots:true,
-            autoplay:true,
-            autoplayInterval:5000,
-            infinite:true,
-            dotStyle:{width:'.12rem',height:'.12rem',borderRadius:'.12rem',margin:'0 .06rem',background:'rgba(255,255,255,0.5)'},
-            dotActiveStyle:{height:'.12rem',width:'.12rem',borderRadius:'.12rem',margin:'0 .06rem',background:'rgba(255,255,255,1)'},
-            itemStyle:{width:'100%',height:'2.7rem'},
-            itemData:swipeData
+        const { bgImgTop, conTop, showHomePrize, homePrize } = this.state;
+        const { isPlay, isShowVideo } = this.props.home;
+        const VideoProps ={
+            url : 'https://infiniti-1302663429.cos.ap-beijing.myqcloud.com/ty3.mp4',
+            height: '3.3rem',
+            width:'5.92rem',
+            poster:'https://infiniti-1302663429.cos.ap-beijing.myqcloud.com/ty3.png',
+            isPlay: isPlay
+        }
+        const HomePrizeProps = {
+            closeWindow : this.closeHomePrize.bind(this),
+            homePrize: homePrize
         }
 
-        // console.log('doctorData',doctorData)
         return (
-            <DocumentTitle title='天医大朱宪彝纪念医院互联网医院'>
-                <div className={`${Styles.home} ${Styles.home_one}`} ref={e => this._container = e} onScrollCapture={() => this._onScrollEvent()} >
-
-                    <div className={Styles.swiper}>
-                        {
-                            swipeData.length > 0 ? <Swiper {...swiperProps} ></Swiper> : ''
-                        }
-                    </div>
-                    {/*{*/}
-                    {/*officeData.length > 0 ? <div className={Styles.title}>选择科室</div>:''*/}
-                    {/*}*/}
-
-                    <div className={Styles.office} >
-
-                        <div className={Styles.office_item_one} data-id={0} data-type="" data-name='糖尿病特色咨询门诊' onClick={(e) => { this.clickOffice(e) }}>
-                            <div className={Styles.office_item_img}>
-                                <img className={Styles.item_img} src={ require('../../assets/office01.png')} alt=""/>
-                            </div>
-                            <div className={Styles.office_item_info}>
-                                <p className={Styles.item_title}>糖尿病特色咨询门诊</p>
-                                {/*<p>图文轻问诊</p>*/}
-                            </div>
-                            <img  className={Styles.office_item_right} src={require('../../assets/right.png')} alt=""/>
+            <DocumentTitle title='英菲尼迪『背后的力量』故事无限公司'>
+                <div className={Styles.home} >
+                    <img style={{top: bgImgTop}} className={Styles.home_bg} src={require('../../assets/home_bg.jpg')}
+                         alt=""/>
+                    <div style={{top: conTop}} className={Styles.home_con}>
+                        <div className={Styles.home_left_gift} onClick={()=>{this.closeHomePrize(1)}} >
+                            <HomeButton title='合伙人礼遇' />
                         </div>
+                        <div className={Styles.home_left_list} onClick={()=>{this.closeHomePrize(2)}} >
+                            <HomeButton title='获奖名单'/>
+                        </div>
+                        <Back/>
+                        <Player/>
+                        <div className={Styles.con_video}>
+                            <img className={`${isIOS() ? Styles.con_video_tv : Styles.con_video_tv_and }`} src={require('../../assets/home_tv.png')} alt=""/>
 
-                        {/*{*/}
-                        {/*officeData.length > 0 ? officeData.map((item,index)=>{*/}
-                        {/*return(*/}
-                        {/*<div className={Styles.office_item} key={item.uid} data-id={item.uid} data-type="1" data-name={item.name} onClick={(e) => { this.clickOffice(e) }}>*/}
-                        {/*<img className={Styles.item_img} src={ staticURL + item.icon} alt=""/>*/}
-                        {/*<p className={Styles.item_title}>{item.name}</p>*/}
-                        {/*</div>*/}
-                        {/*)*/}
-                        {/*}) : ''*/}
-                        {/*}*/}
+                            {/*{*/}
+                            {/*    showHomePrize ?  '':<HomeVideo {...VideoProps} />*/}
+                            {/*}*/}
+                            <div style={ isShowVideo ? {} : {display:'none'}} >
+                                <HomeVideo {...VideoProps} />
+                            </div>
+
+                        </div>
+                        <div className={Styles.con_hint}>
+                            <p><span>「故事无限公司」</span>营业中</p>
+                            <p>我们愿收集你与<span>“背后的力量”</span>之间的故事</p>
+                            <p>带着你的故事来应聘合伙人吧</p>
+                            <p>还有丰厚大奖等你拿</p>
+                        </div>
+                        <div className={Styles.con_btn}>
+                            <div onClick={()=>{this.jumpUpload()}}>
+                                <WelcomeButton title='写下故事' />
+                            </div>
+                            <div onClick={()=>{this.jumpHot()}}>
+                                <WelcomeButton title='看看故事' />
+                            </div>
+                        </div>
                     </div>
-
-                    {/*{*/}
-                    {/*illnessData.length > 0 ?<div className={Styles.title}>常见疾病</div>:''*/}
-                    {/*}*/}
-                    {/*<div className={Styles.illness} >*/}
-                    {/*{*/}
-                    {/*illnessData.length > 0 ? illnessData.map((item,index)=>{*/}
-                    {/*return(*/}
-                    {/*<div className={Styles.illness_title} key={item.uid} data-id={item.uid} data-type="2" data-name={item.name} onClick={(e) => {this.clickOffice(e)}}>*/}
-                    {/*<span>{item.name}</span>*/}
-                    {/*</div>*/}
-                    {/*)*/}
-                    {/*}) : ''*/}
-                    {/*}*/}
-                    {/*</div>*/}
-                    <div className={Styles.title}>今日出诊医生</div>
                     {
-                        doctorData.length > 0 ?
-                            <div className={Styles.doctor} >
-                                {
-                                    doctorData.map((item,index) => {
-                                        return(
-                                            <div className={Styles.doctor_item} key={item.uid} data-id={item.uid} onClick={(e) => { this.clickDoctor(e) }}>
-                                                <img className={Styles.doctor_img} src={ staticURL + item.icon } alt=""/>
-                                                <div>
-                                                    <p className={Styles.doctor_info}>
-                                                        <span className={Styles.doctor_name}>{item.name}</span>
-                                                        <span className={Styles.doctor_rank}>{item.title}</span>
-                                                        <span>{item.dept}</span>
-                                                    </p>
-                                                    {
-                                                        item.skill ?
-                                                            <div className={Styles.doctor_introducer}>
-                                                                擅长：{item.skill}
-                                                            </div>
-                                                            :
-                                                            <div className={Styles.doctor_introducer}>
-                                                                简介 ：{item.info}
-                                                            </div>
-                                                    }
-
-                                                </div>
-
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
-                            :
-                            <div>
-                                <div className={Styles.doctor_no}>
-                                    <img src={require('../../assets/no_doctor.png')} alt=""/>
-                                    暂无医生出诊
-                                </div>
-                            </div>
+                        showHomePrize ? <HomePrize {...HomePrizeProps} /> : ''
                     }
+
                 </div>
             </DocumentTitle>
         )

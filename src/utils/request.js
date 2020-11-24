@@ -4,8 +4,6 @@ import { baseURL } from './baseURL'
 import 'babel-polyfill'
 import router from 'umi/router';
 import { Toast } from 'antd-mobile';
-import NProgress from 'nprogress' // 引入nprogress插件
-import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
 
 axios.defaults.timeout = 2000000;
 axios.defaults.baseURL = baseURL;
@@ -29,10 +27,11 @@ const codeMessage = {
     500: '网络不稳定，请稍后重试',
 
 }
+
 //验证状态
 function checkStatus(response) {
     // console.log('response---------',response)
-    Toast.hide()
+    // Toast.hide()
     if (response.data.code === 407) {
         router.replace('./login')
         return;
@@ -56,7 +55,6 @@ export default function request(url, options) {
         return
     }
     const token = cookieUtils.get('token') || '';
-    // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1OTM3NTc3OTUsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI1MDk2OTA2OTYyOTIxNDcyMCJ9.3d4vCY3fSTeyQlUy3DBDKWoBXsvn4bERplBfV3QCteU'
     // let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lc3RhbXAiOjE1OTE4NjA2ODAsInR5cGUiOiJ1c2VyIiwidWlkIjoiMTI3MDk4MTkyOTkyNzE4NDM4NCJ9.9Z7647_Aqq3FGRsWqV91Ep7NeKohH-cW8mF7lJ7URlo'
     // console.log('token',token)
     let obj = {
@@ -78,15 +76,9 @@ export default function request(url, options) {
     //request拦截器
     httpProvider.interceptors.response.use((response) => {
 
-        //顶部进度条关闭
-        NProgress.done()
-
         // console.log('response',response)
         return response
     }, (error) => {
-
-        //顶部进度条关闭
-        NProgress.done()
 
         return Promise.reject(new Error(
             error.response ? error.response.data : '网络错误'

@@ -1,4 +1,6 @@
 import { getBanneImg, getOfficeData, getIllnessData, getDoctorData } from '../../../services/home';
+import {getWinList} from "../../../services/home";
+import { Toast } from 'antd-mobile';
 
 export default {
     namespace: 'home',
@@ -8,113 +10,37 @@ export default {
         illnessData:[],
         doctorData:[],
         offset:1,
-
+        isPlay:false,
+        winList:'',
+        isFrist:true,
+        isShowVideo: true
     },
     subscriptions: {
         setup({ dispatch, history }) {
             return history.listen(({ pathname, search }) => {
-                if ( pathname == '/' || pathname == '/home' ) {
-
+                if ( pathname == '/' || pathname == '/home' || pathname == 'q4/home' || pathname == '/hot' || pathname == 'q4/hot') {
                     dispatch({
-                        type: 'setData',
-                        payload:{
-                            doctorData:[],
-                            offset:1
-                        }
-                    });
-
-                    dispatch({
-                        type: 'getBanneImg',
-                    });
-                    dispatch({
-                        type: 'getOfficeData',
-                    });
-                    dispatch({
-                        type: 'getIllnessData',
-                    });
-                    dispatch({
-                        type: 'getDoctorData',
-                        payload:{
-                            offset:1,
-                            limit:20
-                        }
-                    });
-                    //获取用户信息，判断声音用
-                    dispatch({
-                        type:'my/getUserInfo'
+                        type:'getWinList'
                     })
-
                 }
             });
         },
     },
     effects: {
-        //获取banne轮播图
-        *getBanneImg({ payload, callback }, { call, put }) {
-            const response = yield call(getBanneImg, payload);
-            // console.log('response',response)
-            if(response && response.data.code == 200 ){
+        //获取中奖列表
+        *getWinList({ payload, callback }, { call, select, put }) {
+            const getWinListInfo = yield call(getWinList, payload);
+            console.log('getWinListInfo',getWinListInfo)
+            if( getWinListInfo && getWinListInfo.data.code === '1'){
+                Toast.hide()
                 yield put({
-                    type: 'setData',
-                    payload: {
-                        swipeData:response.data.data
+                    type:'setData',
+                    payload:{
+                        winList: getWinListInfo.data.msg.img_url
                     }
-                });
+                })
             }
         },
-        //获取科室信息
-        *getOfficeData({ payload, callback }, { call, put }){
-            const response = yield call(getOfficeData, payload);
-            // console.log('response',response)
-            if(response && response.data.code == 200 ){
-                yield put({
-                    type: 'setData',
-                    payload: {
-                        officeData:response.data.data
-                    }
-                });
-            }
-        },
-        //获取常见疾病信息
-        *getIllnessData({ payload, callback }, { call, put }){
-            const response = yield call(getIllnessData, payload);
-            // console.log('response',response)
-            if(response && response.data.code == 200 ){
-                yield put({
-                    type: 'setData',
-                    payload: {
-                        illnessData:response.data.data
-                    }
-                });
-            }
-        },
-        //获取今日出诊医生
-        *getDoctorData({ payload, callback }, { call,select, put }){
-            const stateHome = yield select(state => state.home)
-
-            const response = yield call(getDoctorData, payload);
-            // console.log('response',response)
-
-            if(response && response.data.code == 200 ){
-                let list = response.data.data.list;
-                let doctorData = stateHome.doctorData;
-                let newDoctorData = [...doctorData,...list]
-                yield put({
-                    type: 'setData',
-                    payload: {
-                        doctorData: newDoctorData
-                    }
-                });
-                if(list.length > 0){
-                    yield put({
-                        type: 'setData',
-                        payload: {
-                            offset: stateHome.offset + 1
-                        }
-                    });
-                }
-            }
-        }
     },
     reducers: {
         setData(state, { payload }) {

@@ -3,30 +3,25 @@ import qs from 'qs';
 import { getOptions, postOptions } from '../utils/tools';
 
 
-//获取banne轮播图
-export async function getBanneImg (params) {
-    const url = `/m/common/banner?${qs.stringify(params)}`;
-    return request(url,getOptions())
+//获取验证码
+export async function getCode (params) {
+    const url = `/login/getSmsCode`;
+    return request(url,postOptions(params))
 }
-
-//获取科室信息
-export async function getOfficeData (params) {
-    const url = `/m/depts?${qs.stringify(params)}`;
-    return request(url,getOptions())
+//登录
+export async function login (params) {
+    const url = `/login/verifySmsCode`;
+    return request(url,postOptions(params))
 }
-
-//获取常见疾病
-export async function getIllnessData (params) {
-    const url = `/m/diseases?${qs.stringify(params)}`;
-    return request(url,getOptions())
+//获取中奖名单
+export async function getWinList (params) {
+    const url = `/poster/getCurrentRewarder`;
+    return request(url,postOptions(params))
 }
-
-//获取今日出诊医生
-export async function getDoctorData (params) {
-    const url = `/m/doctors/today?${qs.stringify(params)}`;
-    return request(url,getOptions())
+//获取appid
+export async function getAppid (params) {
+    const url = `/login/getJsConfig`;
+    return request(url,postOptions(params))
 }
-
-
 
 

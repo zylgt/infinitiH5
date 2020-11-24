@@ -1,0 +1,120 @@
+.mask{
+    //height: 100%;
+    //width: 100%;
+    //position: fixed;
+    //top: 0;
+    //left: 0;
+    //background: rgba(0,0,0,0.8);
+    //z-index: 999;
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
+    //flex-direction: column;
+
+}
+:global(.am-modal){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6.2rem;
+    :global(.am-modal-content){
+        padding: 0;
+        background: transparent;
+        width:100%;
+        border-radius:0;
+        :global(.am-modal-body){
+            padding: 0;
+            width:100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    }
+    .point_title{
+        position: absolute;
+        top: 1rem;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: .26rem;
+        color: #3a1b00;
+        span{
+            display: inline-block;
+        }
+    }
+    .mask_title{
+        position: absolute;
+        top: 1rem;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: .28rem;
+        color: #3a1b00;
+        span{
+            display: inline-block;
+            width: 80%;
+            margin: 0 auto;
+        }
+    }
+    .first_title{
+        position: absolute;
+        top: 1rem;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-size: .28rem;
+        color: #3a1b00;
+        span{
+            display: inline-block;
+            width: 76%;
+            margin: 0 auto;
+        }
+    }
+    .window{
+        width: 4rem;
+        background: #e5deda;
+        position: relative;
+        padding-top: .5rem;
+        .window_close{
+            height: .3rem;
+            width: .3rem;
+            position: absolute;
+            top: .28rem;
+            right: .32rem;
+        }
+        .window_rule{
+            width: 100%;
+            padding: 0 .36rem ;
+            overflow: auto;
+        }
+    }
+    .window_bottom{
+        width: 4rem;
+        height: 2.2rem;
+        margin-bottom: 1rem;
+        position: relative;
+        img{
+            height: 100%;
+            width: 100%;
+        }
+        .window_bottom_bg{
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+        }
+    }
+
+}

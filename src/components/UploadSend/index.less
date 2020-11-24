@@ -1,0 +1,157 @@
+.upload_send{
+    //position: fixed;
+    //height: 100%;
+    //width: 100%;
+    //top: 0;
+    //left: 0;
+    //background: rgba(0,0,0,0.7);
+    //z-index: 999;
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
+    //flex-direction: column;
+
+}
+:global(.am-modal){
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
+    width: 6.2rem;
+    :global(.am-modal-content){
+        padding: 0;
+        background: transparent;
+        width:100%;
+        border-radius:0;
+        :global(.am-modal-body){
+            padding: 0;
+            width:100%;
+        }
+    }
+    .upload_send_con{
+        height: 10rem;
+        .send_con{
+            height: 7.4rem;
+            width: 6.2rem ;
+            background: #e5deda;
+            position: relative;
+            padding-top: .54rem;
+            .login_close{
+                position: absolute;
+                height: .3rem;
+                width: .3rem;
+                top: .28rem;
+                right: .32rem;
+            }
+            .con_title{
+                color: #391900;
+                width: 100%;
+                text-align: center;
+                font-size: .24rem;
+                margin: 0 0 .1rem 0;
+                display: flex;
+                flex-direction: column;
+            }
+            .con_img{
+                height: 1.22rem;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: .2rem;
+                .con_img_send{
+                    width: 3.9rem;
+                }
+                .con_img_left{
+                    width: 1.94rem;
+                    height: 1.22rem;
+                    object-fit: cover;
+                    margin-right: .16rem;
+                }
+                .con_img_right{
+                    width: 1.82rem;
+                    height: 1.14rem;
+                    position: relative;
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    .img_right_bg{
+                        position: absolute;
+                        object-fit: cover;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                    }
+                    .img_right{
+                        height: .6rem;
+                        width: .9rem;
+                        object-fit: cover;
+                        margin-right: .2rem;
+                        position: relative;
+                        z-index: 9;
+                    }
+                    .img_right_side{
+                        object-fit: cover;
+                        height: 1rem;
+                        width: .75rem;
+                        margin-right: .2rem;
+                        position: relative;
+                        z-index: 9;
+                    }
+                }
+
+            }
+            .con_title_sec{
+                font-size: .24rem;
+                color: #391900;
+                line-height: .36rem;
+                text-indent: .7rem;
+                text-align: left;
+            }
+            .con_from_box{
+                position: relative;
+                .con_input{
+                    width: 4.76rem;
+                    height: .5rem;
+                    margin: 0 0 .32rem 0;
+                    font-size: .24rem;
+                    color: #3c1a01;
+                    border: 1px solid #6c5a56;
+                    &:hover{
+                        box-shadow: none;
+                    }
+                    &::-webkit-input-placeholder {
+                        color: #3c1a01;
+                        font-size: .24rem;
+                    }
+                }
+                .con_input_error{
+                    position: absolute;
+                    color: red;
+                    font-size: .24rem;
+                    left: .7rem;
+                    top: .5rem;
+                }
+            }
+
+
+            .con_btn{
+                width: 100%;
+                text-align: center;
+                margin-top: .3rem;
+            }
+
+
+        }
+        .send_bottom{
+            width: 6.2rem;
+            height: 2.6rem;
+            //margin-bottom: 1rem;
+            img{
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+
+}

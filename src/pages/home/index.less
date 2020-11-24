@@ -1,208 +1,75 @@
-.home_one{
-  background: #F2F3F5;
-}
 .home{
-  width: 100%;
-  height:100%;
-  overflow: scroll;
-  .swiper{
-    height:2.7rem;
-    width:7rem;
-    border-radius: 8px;
-    margin:.2rem auto .8rem auto;
-  }
-  .title{
-    width:7rem;
-    margin:.8rem auto .3rem auto;
-    height:.5rem;
-    line-height:.5rem;
-    font-size:.36rem;
-    font-family:PingFangSC-Medium,PingFang SC;
-    font-weight:500;
-    color:rgba(51,51,51,1);
-  }
-  .office{
-    width:7.2rem;
-    margin-left: .25rem;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    .office_item_one{
-      width:7rem;
-      height:2.16rem;
-      border-radius: .16rem;
-      background: #fff;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      .office_item_img{
-        width:1.28rem;
-        height:1.28rem;
-        background:rgba(32,137,235,0.1);
-        border-radius:.64rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin:0 .26rem 0 .44rem;
-        .item_img{
-          height:.8rem;
-          width: .8rem;
+    height: 100%;
+    width: 7.5rem;
+    overflow: hidden;
+    position: relative;
+    .home_bg{
+        width: 100%;
+        position: absolute;
+        z-index: 2;
+    }
+    .home_con{
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: 9;
+        .home_left_gift{
+            position: absolute;
+            top: 1.2rem;
+            left: 0;
+            font-weight: bold;
         }
-      }
-      .office_item_info{
-        width: 4.26rem;
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        flex-direction: column;
-        font-size: .26rem;
-        color: #888;
-        line-height: .36rem;
-        .item_title{
-          //height:.48rem;
-          font-size:.34rem;
-          font-family:PingFangSC-Medium,PingFang SC;
-          font-weight:500;
-          color:rgba(51,51,51,1);
-          //line-height:.48rem;
-          //margin-bottom:.08rem;
+        .home_left_list{
+            position: absolute;
+            top: 2.7rem;
+            left: 0;
+            font-weight: bold;
         }
-      }
-      .office_item_right{
-        height: .34rem;
-        width: .34rem;
-      }
-    }
-    .office_item{
-      width:1.64rem;
-      height:1.52rem;
-      background:rgba(32,137,235,0.07);
-      border-radius:.16rem;
-      margin-right:.16rem;
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom:.16rem;
-      .item_img{
-        height: .8rem;
-        width: .8rem;
-        display: block;
-        margin-bottom: .06rem;
-      }
-      .item_title{
-        width:90%;
-        margin:0 auto;
-        text-align: center;
-        height:.34rem;
-        line-height:.34rem;
-        font-size:.24rem;
-        font-family:PingFangSC-Regular,PingFang SC;
-        font-weight:400;
-        color:rgba(51,51,51,1);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
-  }
-  .illness{
-    width:7.2rem;
-    margin-left: .25rem;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    align-items: center;
-    .illness_title{
-      width:1.64rem;
-      height:.64rem;
-      line-height:.64rem;
-      background:rgba(239,247,253,1);
-      border-radius:.36rem;
-      margin: 0 .16rem .16rem 0;
-      text-align: center;
-      font-size:.28rem;
-      font-family:PingFangSC-Regular,PingFang SC;
-      font-weight:400;
-      color:rgba(51,51,51,1);
-
-    }
-  }
-  .doctor{
-    width:7rem;
-    margin: 0 auto;
-    padding-bottom:.24rem;
-    .doctor_item{
-      width:100%;
-      height:2.16rem;
-      background:rgba(255,255,255,1);
-      box-shadow:0px 2px 10px 0px rgba(0,26,64,0.08);
-      border-radius:.16rem;
-      margin-bottom:.24rem;
-      display: flex;
-      justify-content: flex-start;
-      .doctor_img{
-        height:.96rem;
-        width: .96rem;
-        vertical-align: top;
-        margin:.3rem .2rem 0 .24rem;
-        border-radius: 100%;
-      }
-      .doctor_info{
-        width:5.4rem;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        height:.44rem;
-        color:rgba(153,153,153,1);
-        margin:.36rem 0 .24rem 0;
-        font-size: .24rem;
-        .doctor_name{
-          font-size:.32rem;
-          font-family:PingFangSC-Medium,PingFang SC;
-          font-weight:500;
-          color:rgba(51,51,51,1);
+        .con_video{
+            position: absolute;
+            top: 1rem;
+            left: .8rem;
+            height: 3.3rem;
+            width: 5.94rem;
+            background: #000;
+            .con_video_tv{
+                position: absolute;
+                height: 5rem;
+                width: 7.42rem;
+                top: -0.74rem;
+                left: -0.8rem;
+                z-index: -1;
+            }
+            .con_video_tv_and{
+                position: absolute;
+                height: 4.98rem;
+                width: 7.44rem;
+                top: -0.74rem;
+                left: -0.8rem;
+                z-index: -1;
+            }
         }
-        .doctor_rank{
-          margin:0 0.24rem;
+        .con_hint{
+            margin: 5.2rem 0 0 0;
+            p{
+                width: 100%;
+                display: inline-block;
+                font-size: .30rem;
+                height:.36rem;
+                margin-bottom:.22rem;
+                letter-spacing: 2px;
+                color: #361c04;
+                text-align: center;
+                span{
+                    font-weight: bold;
+                }
+            }
         }
-      }
-      .doctor_introducer{
-        width:5.4rem;
-        height:.8rem;
-        line-height:.4rem;
-        font-size:.28rem;
-        font-family:PingFangSC-Regular,PingFang SC;
-        font-weight:400;
-        color:rgba(102,102,102,1);
-        overflow:hidden;
-        text-overflow:ellipsis;
-        display:-webkit-box;
-        /* autoprefixer: off */
-        -webkit-box-orient:vertical;
-        /* autoprefixer: on */
-        -webkit-line-clamp:2;
-      }
+        .con_btn{
+            margin-top: 1.56rem;
+            display: flex;
+            justify-content: space-around;
+        }
     }
-  }
-  .doctor_no{
-    width:100%;
-    height:4.2rem;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    font-size:.28rem;
-    font-family:PingFangSC-Regular,PingFang SC;
-    font-weight:500;
-    color:rgba(153,153,153,1);
-    line-height:.4rem;
-    img{
-      width: 100%;
-      height:3.1rem;
-    }
-  }
-
-
-
 
 }

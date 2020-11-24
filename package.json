@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "start": "umi dev --port=3001",
-    "start:prod": "cross-env UMI_ENV=prod umi dev --port=3001",
+    "start": "umi dev --port=3006",
+    "start:prod": "cross-env UMI_ENV=prod umi dev --port=3006",
     "build": "umi build",
     "build:prod": "cross-env UMI_ENV=prod umi build",
     "test": "umi test",
@@ -34,18 +34,23 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
+    "antd-img-crop": "^3.13.1",
     "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
     "classnames": "^2.2.6",
+    "cropperjs": "^1.5.9",
     "cross-env": "^7.0.2",
+    "jquery": "^3.5.1",
     "moment": "^2.24.0",
-    "nprogress": "^0.2.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-document-title": "^2.0.3",
     "react-lazyload": "^2.6.7",
     "react-motion": "^0.5.2",
+    "react-player": "^2.6.2",
     "react-sound": "^1.2.0",
+    "react-swipe": "^6.0.4",
     "react-transition-group": "^2.5.0",
-    "weixin-js-sdk": "^1.4.0-test"
+    "weixin-js-sdk": "^1.4.0-test",
+    "xcrop": "^1.1.16"
   }
 }

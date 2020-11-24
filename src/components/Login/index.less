@@ -1,0 +1,179 @@
+.login {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .login_con {
+        height: 3rem;
+        width: 5.62rem;
+        background: #e5deda;
+        position: relative;
+
+        .login_close {
+            position: absolute;
+            height: .3rem;
+            width: .3rem;
+            top: .28rem;
+            right: .32rem;
+        }
+
+        .con_title {
+            color: #391900;
+            width: 100%;
+            text-align: center;
+            font-size: .28rem;
+            font-weight: bold;
+            margin: .46rem 0 .3rem 0;
+        }
+
+        .con_phone {
+            width: 4.4rem;
+            margin: 0 auto .4rem auto;
+            position: relative;
+            height: .66rem;
+            .con_phone_error {
+                position: absolute;
+                left: 0;
+                bottom: -.38rem;
+                font-size: .24rem;
+                color: red;
+            }
+
+            :global(.ant-input-group-wrapper) {
+                border: 1px solid #010101;
+                border-radius: 4px;
+
+                :global(.ant-input-group) {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    :global(.ant-input-group-addon) {
+                        width: .8rem;
+                        height: .66rem;
+                        padding: 0;
+                        background: #bfbfbf;
+                        font-size: .24rem;
+                        font-weight: bold;
+                        border: none;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+
+                    :global(.ant-input) {
+                        border: none;
+                        height: .66rem;
+                        font-size: .24rem;
+                        //                         font-weight:bold;
+                        &:hover {
+                            border: none;
+                            box-shadow: none;
+                        }
+
+                        &::-webkit-input-placeholder {
+                            color: #685349;
+                            font-size: .24rem;
+                        }
+
+                    }
+                }
+
+            }
+
+        }
+
+        .con_code {
+            width: 4.4rem;
+            height: .68rem;
+            margin: 0 auto .4rem auto;
+            border: 1px solid #010101;
+            position: relative;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            .con_code_error {
+                position: absolute;
+                left: 0;
+                bottom: -.38rem;
+                font-size: .24rem;
+                color: red;
+            }
+            .con_code_btn{
+                width: 1.4rem;
+                height: .64rem;
+                background: #bfbfbf;
+                font-size: .24rem;
+                font-weight: bold;
+                color: #391a00;
+                border: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 4px;
+            }
+            :global(.am-input-item) {
+                border: none;
+                font-size: .24rem;
+                height: .64rem;
+                padding: 0 11px;
+                width: 3rem;
+                min-height:.64rem;
+                margin-left: 2px;
+                &:hover {
+                    border: none;
+                    box-shadow: none;
+                }
+                input{
+                    font-size: .24rem;
+                    &::-webkit-input-placeholder {
+                        color: #685349;
+                        font-size: .24rem;
+                    }
+                }
+
+            }
+        }
+
+        .con_btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        .con_hint {
+            margin: 0.3rem auto 0 auto;
+            width: 4.4rem;
+            text-align: center;
+            font-size: .24rem;
+            color: #391900;
+            line-height: .36rem;
+
+            span {
+                display: inline-block;
+            }
+
+        }
+
+    }
+
+    .login_bottom {
+        width: 5.62rem;
+        height: 2.6rem;
+        margin-bottom: 1rem;
+
+        img {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+
+}

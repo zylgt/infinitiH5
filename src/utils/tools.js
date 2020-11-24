@@ -1,6 +1,8 @@
 'use strict';
 
 //微信获取签名随机串
+import wx from "weixin-js-sdk";
+
 export const nonceStr = 'wx_hlwyy';
 // cookie 工具
 export const cookieUtils = {
@@ -126,6 +128,51 @@ export const isIPhoneX = () => {
         //不是iphoneX及以上
         return false
     }
+}
+export const isWchat = () => {
+    let ua = navigator.userAgent.toLowerCase();
+    let isWeixin = ua.indexOf('micromessenger') != -1;
+    if (isWeixin) {
+        return true;
+    }else{
+        return false;
+    }
+}
+export const wechatShare = (dispatch,a) =>{
+    wx.ready(function(){
+        // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        wx.updateAppMessageShareData({
+            title: '『背后的力量』故事无限公司', // 分享标题
+            desc: '英菲尼迪倾情创立，更有超多福利等你拿', // 分享描述
+            link: 'https://power.vermao.com/q4', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: 'https://infiniti-1302663429.cos.ap-beijing.myqcloud.com/share2.png', // 分享图标
+            success: function () {
+                // 设置成功
+            }
+        })
+        wx.updateTimelineShareData({
+            title: '『背后的力量』故事无限公司', // 分享标题
+            link: 'https://power.vermao.com/q4', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: 'https://infiniti-1302663429.cos.ap-beijing.myqcloud.com/share2.png', // 分享图标
+            success: function () {
+                // 设置成功
+            }
+        })
+        //开启播放
+        if(window.location.pathname === '/q4/welcome' || window.location.pathname === '/q4/storyInfo'){
+            dispatch({
+                type:'layout/setData',
+                payload:{
+                    playStatus:'PLAYING',
+                }
+            })
+        }
+    });
+
+    wx.error(function(res){
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        console.log('error',res)
+    });
 }
 
 

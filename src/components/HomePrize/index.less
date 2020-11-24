@@ -1,0 +1,57 @@
+.home_prize{
+    //position: fixed;
+    //height: 100%;
+    //width: 100%;
+    //background: rgba(0,0,0,0.7);
+    //z-index: 99999999;
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
+    //flex-direction: column;
+}
+:global(.am-modal){
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 6.2rem;
+    :global(.am-modal-content){
+        padding: 0;
+        background: transparent;
+        width:100%;
+        border-radius:0;
+        :global(.am-modal-body){
+            padding: 0;
+            width:100%;
+        }
+    }
+    .hp_con{
+        width: 6.2rem ;
+        background: #e5deda;
+        position: relative;
+        .con_close{
+            position: absolute;
+            height: 0.5rem;
+            width: 0.5rem;
+            top: 0.08rem;
+            right: 0.12rem;
+            z-index: 9;
+            padding: 0.1rem;
+        }
+        .con_img{
+            height: 9rem;
+            width:6.2rem ;
+            overflow: auto;
+            position: relative;
+            img{
+                width: 100%;
+            }
+        }
+        .con_img_down{
+            position: absolute;
+            height: .6rem;
+            width: .6rem;
+            bottom: .1rem;
+            left: 2.8rem;
+        }
+    }
+}

@@ -3,8 +3,8 @@
     tap-highlight-color: transparent;
     -webkit-font-smoothing: antialiased;
     font-smoothing: antialiased;
-    -webkit-touch-callout: none;
-    touch-callout: none;
+    /*-webkit-touch-callout: none;*/
+    /*touch-callout: none;*/
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch;
     -webkit-text-size-adjust: 100%;
@@ -21,6 +21,13 @@ body {
     font-family: "Helvetica Neue", "Helvetica", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", "Arial", "sans-serif";
     width: 100%;
     height: 100vh;
+
+    -webkit-user-select: none;
+    /*/ 文本不能被选择/*/
+    user-select: none;
+    /*-webkit-touch-callout: none;*/
+
+
 }
 
 li {
@@ -539,14 +546,4 @@ body {
 
 * {
     -webkit-overflow-scrolling: touch;
-}
-#nprogress .spinner{
-    display: none;
-}
-#nprogress .bar{
-    height:.04rem;
-    background: #00BF12;
-}
-#nprogress .peg{
-    box-shadow: none;
 }

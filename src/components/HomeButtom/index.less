@@ -1,0 +1,28 @@
+.button{
+    width: .48rem;
+    height: 1.44rem;
+    display: inline-block;
+    position: relative;
+    &:active{
+        background: rgba(255,255,255,0.1);
+    }
+    .button_img{
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+    font-weight: bold;
+    .button_word{
+        display: flex;
+        height: 100%;
+        width: .4rem;
+        align-items: center;
+        justify-content: center;
+        font-size: .24rem;
+        color: #fff;
+        writing-mode: tb-rl;
+    }
+}

@@ -1,0 +1,37 @@
+.button{
+    width: 2.42rem;
+    height: .48rem;
+    display: inline-block;
+    position: relative;
+    border-radius: .48rem;
+
+    .button_img{
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+    }
+    .button_word{
+        height: 100%;
+        width: 100%;
+        font-size: .26rem;
+        color: #fff;
+        font-weight: bold;
+        background: transparent;
+        position: absolute;
+        z-index: 9;
+        //top: -0.04rem;
+        &:active{
+            background: rgba(255,255,255,0.1);
+        }
+    }
+    :global(.am-button-small){
+        padding: 0;
+        line-height: normal;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

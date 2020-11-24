@@ -1,7 +1,5 @@
 const path = require('path');
 
-const server = 'http://localhost:3000';
-
 // ref: https://umijs.org/config/
 export default {
     plugins: [
@@ -37,7 +35,10 @@ export default {
     },
     define: {
         'process.env.apiType' : 'dev'
-    }
+    },
+    base:'/q4/',
+    outputPath: './dist/q4',
+    publicPath: '/q4/',
     // proxy: {
     //   "/api": {
     //     "target": 'http://192.168.2.120:8081',
